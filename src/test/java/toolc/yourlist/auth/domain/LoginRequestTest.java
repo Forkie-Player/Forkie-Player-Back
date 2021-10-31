@@ -9,9 +9,13 @@ class LoginRequestTest {
 
   @Test
   void 유효한_LoginId가_저장되었는가() {
-    LoginId loginId = new LoginId("loginId");
+    LoginRequest.LoginId loginId1 = new LoginRequest.LoginId("TestLoginId1");
+    LoginRequest.LoginId loginId2 = new LoginRequest.LoginId("TestLoginId2");
 
-    assertThat(loginId.id(), is("loginId"));
+    assertThat(loginId1.id(), is("TestLoginId1"));
+    assertThat(loginId2.id(), is("TestLoginId2"));
   }
+
+
 
 }
