@@ -17,6 +17,7 @@ public class LoginRequest {
     private String id;
 
     public LoginId(String id) {
+      LoginIdValidator.validateId(id);
       this.id = id;
     }
   }
