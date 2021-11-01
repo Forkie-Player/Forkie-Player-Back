@@ -36,4 +36,15 @@ class LoginRequestTest {
     assertThrows(NotValidatedLoginRequestException.class,
       () -> new LoginId("Tes#@!"));
   }
+
+  @Test
+  void Password가_올바른_문자들로만_구성되어있는가() {
+    Password password = new Password("testPassword1!");
+
+    assertThat(password.password(), is("testPassword1!"));
+    assertThrows(NotValidatedLoginRequestException.class, () -> new Password("Test"));
+    assertThrows(NotValidatedLoginRequestException.class, () -> new Password("TestPassword"));
+    assertThrows(NotValidatedLoginRequestException.class, () -> new Password("TestPassword1"));
+    assertThrows(NotValidatedLoginRequestException.class, () -> new Password("TestPassword!"));
+  }
 }
