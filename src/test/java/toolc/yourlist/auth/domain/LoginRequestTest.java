@@ -16,6 +16,15 @@ class LoginRequestTest {
     assertThat(loginId2.id(), is("TestLoginId2"));
   }
 
+  @Test
+  void 유효한_Password가_저장되었는가() {
+    LoginRequest.Password Password1 = new LoginRequest.Password("TestPassword1");
+    LoginRequest.Password Password2 = new LoginRequest.Password("TestPassword2");
+
+    assertThat(Password1.password(), is("TestPassword1"));
+    assertThat(Password1.password(), is("TestPassword2"));
+  }
+
 
 
 }
