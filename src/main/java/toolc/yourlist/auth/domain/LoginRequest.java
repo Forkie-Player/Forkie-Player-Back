@@ -2,32 +2,14 @@ package toolc.yourlist.auth.domain;
 
 import lombok.Getter;
 
-public class LoginRequest {
-  protected final LoginId loginId;
-  protected final Password password;
+@Getter
+class LoginRequest {
+  private final LoginId loginId;
+  private final Password password;
 
-  public LoginRequest(LoginId loginId, Password password) {
-    this.loginId = loginId;
-    this.password = password;
+  public LoginRequest(String loginId, String password) {
+    this.loginId = new LoginId(loginId);
+    this.password = new Password(password);
   }
 
-
-  static class LoginId {
-    @Getter
-    private String id;
-
-    public LoginId(String id) {
-      LoginIdValidator.validateId(id);
-      this.id = id;
-    }
-  }
-
-  static class Password {
-    @Getter
-    private String password;
-
-    public Password(String password) {
-      this.password = password;
-    }
-  }
 }

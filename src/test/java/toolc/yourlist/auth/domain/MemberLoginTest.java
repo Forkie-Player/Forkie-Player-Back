@@ -14,8 +14,7 @@ class MemberLoginTest {
   @Test
   void 로그인으로_토큰이_생성되는가() {
     //given
-    LoginRequest request = new LoginRequest(new LoginRequest.LoginId("TestLoginID"),
-      new LoginRequest.Password("TestPassword"));
+    LoginRequest request = new LoginRequest("testloginid", "TestPassword1!");
 
     //when
     Token loginToken = login.login(request);
