@@ -17,4 +17,9 @@ class LoginId2Test {
   void Raw_Should_Be_Non_Null(){
     assertThrows(IllegalArgumentException.class, () -> new LoginId2(null));
   }
+
+  @Test
+  void Raw_Should_Be_Non_Empty(){
+    assertThrows(IllegalArgumentException.class, () -> new LoginId2(""));
+  }
 }
