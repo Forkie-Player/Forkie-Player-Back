@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'toolc'
+group = 'com.github.yourlist'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -33,7 +33,7 @@ dependencies {
 
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-	testImplementation 'org.hamcrest:hamcrest-all:1.3'
+	testImplementation 'org.hamcrest:hamcrest:2.2'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 }
 
