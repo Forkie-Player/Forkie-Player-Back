@@ -7,6 +7,9 @@ public final class LoginId2 {
   String raw;
 
   public LoginId2(String raw) {
+    if (raw == null) {
+      throw new IllegalArgumentException();
+    }
     this.raw = raw;
   }
 }
