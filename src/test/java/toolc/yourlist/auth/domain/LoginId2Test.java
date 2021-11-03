@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LoginId2Test {
@@ -21,5 +22,10 @@ class LoginId2Test {
   @Test
   void Raw_Should_Be_Non_Empty(){
     assertThrows(IllegalArgumentException.class, () -> new LoginId2(""));
+  }
+
+  @Test
+  void Should_Not_Throws_Exception_When_Raw_Is_Validated() {
+    assertDoesNotThrow(() -> new LoginId2("jisoo98"));
   }
 }
