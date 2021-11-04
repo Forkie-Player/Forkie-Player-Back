@@ -10,13 +10,15 @@ public final class LoginId2 {
   String raw;
 
   public LoginId2(String raw) {
-    if (raw == null || raw.equals("")) {
-      throw new IllegalArgumentException();
-    }
+    validateId(raw);
     this.raw = raw;
   }
 
-  private void validateId(String id) {
+  private void validateId(String raw) {
+    if (raw == null) {
+      throw new IllegalArgumentException();
+    }
+
     Matcher matcher;
     final int min = 6;
     final int max = 20;
@@ -24,7 +26,7 @@ public final class LoginId2 {
     final String regex =
       "^[a-z]+[a-z0-9]{" + Integer.toString(min - 1) + "," + Integer.toString(max - 1) + "}$";
 
-    matcher = Pattern.compile(regex).matcher(id);
+    matcher = Pattern.compile(regex).matcher(raw);
     if (!matcher.find()) {
       throw new IllegalArgumentException("잘못된 LoginId 입니다.");
     }

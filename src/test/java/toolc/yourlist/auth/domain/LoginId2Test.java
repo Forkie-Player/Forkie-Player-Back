@@ -1,12 +1,10 @@
 package toolc.yourlist.auth.domain;
 
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LoginId2Test {
 
@@ -41,5 +39,26 @@ class LoginId2Test {
     3. raw 값을 가져온다고 해서 allOf을 사용할 수 없었음, length() 사용 불가, 자체로만 비교 가능
     4. 처음에 쓰기 싫었던 should validated를 결국 쓰게됨...
      */
+  }
+
+  @Test
+  void Raw_Should_Validated2() {
+    String raw = "jisoo98";
+
+    assertAll(
+      () -> assertThrows(IllegalArgumentException.class, () -> new LoginId2(raw.toUpperCase())),
+      () -> assertThrows(IllegalArgumentException.class, () -> new LoginId2(raw.substring(0, 5))),
+      () -> assertThrows(IllegalArgumentException.class, () ->
+        new LoginId2(raw.replaceAll("[0-9]", "")))
+    );
+    /*
+    1. 무수히 많은 검증이 필요함...너무 많은 assert 문이 생긴다.
+    ex) 한글이 포함되지 않아야한다, 뛰어쓰기가 있으면 안된다, 숫자만 있으면 안된다.
+    -> 통과하는 테스트를 만드는게 좋다
+    (https://stackoverflow.com/questions/155436/unit-test-naming-best-practices)
+    2. 테스트는 구현체가 되면 안된다? - 구현이 아니라 테스트 코드여야한다 -> 너무 raw 한 값을 사용하나?
+    3.
+     */
+
   }
 }
