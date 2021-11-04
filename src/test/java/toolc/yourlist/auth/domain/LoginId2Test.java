@@ -1,5 +1,7 @@
 package toolc.yourlist.auth.domain;
 
+import org.hamcrest.CustomMatcher;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,12 +16,12 @@ class LoginId2Test {
   }
 
   @Test
-  void Raw_Should_Be_Non_Null(){
+  void Raw_Should_Be_Non_Null() {
     assertThrows(IllegalArgumentException.class, () -> new LoginId2(null));
   }
 
   @Test
-  void Raw_Should_Be_Non_Empty(){
+  void Raw_Should_Be_Non_Empty() {
     assertThrows(IllegalArgumentException.class, () -> new LoginId2(""));
   }
 
@@ -59,6 +61,28 @@ class LoginId2Test {
     2. 테스트는 구현체가 되면 안된다? - 구현이 아니라 테스트 코드여야한다 -> 너무 raw 한 값을 사용하나?
     3.
      */
+
+  }
+
+  @Test
+  void Raw_Should_Validated3() {
+    LoginId2 loginId2 = new LoginId2("jisoo98");
+    assertThat(new LoginId2("jisoo98"), is_Validated());
+  }
+
+  private CustomMatcher<LoginId2> is_Validated(){
+    return new CustomMatcher<LoginId2>("Raw_Should_Validated") {
+
+      @Override
+      public boolean matches(Object actual) {
+        LoginId2 loginId2 = (LoginId2) actual;
+        if(loginId2.raw.charAt(0) < 'a' ||  loginId2.raw.charAt(0) > 'z')
+          return false;
+        if(loginId2.raw.length() < 6 || loginId2.raw.length() > 20)
+          return false;
+        return true;
+      }
+    };
 
   }
 }
