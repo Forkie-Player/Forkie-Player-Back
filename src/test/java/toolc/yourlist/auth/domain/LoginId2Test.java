@@ -59,7 +59,6 @@ class LoginId2Test {
     -> 통과하는 테스트를 만드는게 좋다
     (https://stackoverflow.com/questions/155436/unit-test-naming-best-practices)
     2. 테스트는 구현체가 되면 안된다? - 구현이 아니라 테스트 코드여야한다 -> 너무 raw 한 값을 사용하나?
-    3.
      */
 
   }
@@ -84,5 +83,25 @@ class LoginId2Test {
       }
     };
 
+  }
+
+  @Test
+  void Length_Of_Raw_Should_Be_Longer_Than_5() {
+    assertThrows(IllegalArgumentException.class, () -> new LoginId2("ji98"));
+  }
+
+  @Test
+  void Length_Of_Raw_Should_Be_Less_Than_21() {
+    assertThrows(IllegalArgumentException.class, () -> new LoginId2("jisoo98jisoo98jisoo98jisoo"));
+  }
+
+  @Test
+  void Raw_Should_Begin_With_Lower_Case() {
+    assertThrows(IllegalArgumentException.class, () -> new LoginId2("Jisoo98"));
+  }
+
+  @Test
+  void Raw_Should_Not_Contain_Special_Characters() {
+    assertThrows(IllegalArgumentException.class, () -> new LoginId2("Jisoo98!"));
   }
 }
