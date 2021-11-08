@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.domain.request;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,11 +11,11 @@ class LoginRequestTest {
 
   @Test
   void 유효한_LoginId가_저장되었는가() {
-    LoginId loginId1 = new LoginId("testloginid1");
-    LoginId loginId2 = new LoginId("testloginid2");
+    LoginId2 loginId1 = new LoginId2("testloginid1");
+    LoginId2 loginId2 = new LoginId2("testloginid2");
 
-    assertThat(loginId1.id(), is("testloginid1"));
-    assertThat(loginId2.id(), is("testloginid2"));
+    assertThat(loginId1.raw(), is("testloginid1"));
+    assertThat(loginId2.raw(), is("testloginid2"));
   }
 
   @Test
@@ -29,12 +29,12 @@ class LoginRequestTest {
 
   @Test
   void LoginId가_올바른_문자들로만_구성되어있는가() {
-    LoginId loginId1 = new LoginId("testloginid1");
+    LoginId2 loginId1 = new LoginId2("testloginid1");
 
-    assertThat(loginId1.id(), is("testloginid1"));
+    assertThat(loginId1.raw(), is("testloginid1"));
 
     assertThrows(NotValidatedLoginRequestException.class,
-      () -> new LoginId("Tes#@!"));
+                 () -> new LoginId2("Tes#@!"));
   }
 
   @Test

@@ -1,8 +1,8 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.domain.request;
 
 import org.hamcrest.CustomMatcher;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.auth.domain.request.LoginId2;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -33,7 +33,7 @@ class LoginId2Test {
   @Test
   void Raw_Should_Validated() {
     String raw = "jisoo98";
-    assertThat(new LoginId2(raw).raw, allOf(startsWith(raw.toLowerCase().substring(0, 1))));
+    assertThat(new LoginId2(raw).raw(), allOf(startsWith(raw.toLowerCase().substring(0, 1))));
     /*
     1. raw 값을 사용해 비교해 보려고 하였는데 raw 가 private 이라면 직접 비교할 수 가 없다
       테스트를 위해 raw에 접근 제한자를 바꾸는건 올바르지 않은 방법 인 것 같음
@@ -75,9 +75,9 @@ class LoginId2Test {
       @Override
       public boolean matches(Object actual) {
         LoginId2 loginId2 = (LoginId2) actual;
-        if(loginId2.raw.charAt(0) < 'a' ||  loginId2.raw.charAt(0) > 'z')
+        if(loginId2.raw().charAt(0) < 'a' ||  loginId2.raw().charAt(0) > 'z')
           return false;
-        if(loginId2.raw.length() < 6 || loginId2.raw.length() > 20)
+        if(loginId2.raw().length() < 6 || loginId2.raw().length() > 20)
           return false;
         return true;
       }

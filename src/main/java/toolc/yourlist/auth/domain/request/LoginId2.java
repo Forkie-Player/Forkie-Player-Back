@@ -1,13 +1,15 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.domain.request;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @EqualsAndHashCode
 public final class LoginId2 {
-  String raw;
+  @Getter
+  private String raw;
 
   public LoginId2(String raw) {
     validateId(raw);

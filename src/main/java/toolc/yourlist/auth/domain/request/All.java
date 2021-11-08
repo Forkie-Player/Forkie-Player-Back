@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.domain.request;
 
 class All implements LoginIdPolicy {
   private final LoginIdPolicy nonNull = new NonNull();
