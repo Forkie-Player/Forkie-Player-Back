@@ -53,7 +53,8 @@ class ReadThumbnailTest {
   }
 
   private List<PlayEntity> getDuplicateList() {
-    List<PlayEntity> playEntityList = new ArrayList<>(playEntityList());
+    List<PlayEntity> playEntityList = new ArrayList<>();
+    playEntityList.add(playEntity().build());
     playEntityList.add(playEntity().build());
 
     return playEntityList;
