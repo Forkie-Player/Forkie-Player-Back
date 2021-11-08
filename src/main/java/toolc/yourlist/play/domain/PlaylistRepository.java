@@ -1,4 +1,6 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.play.domain;
+
+import toolc.yourlist.play.infra.PlaylistEntity;
 
 import java.util.List;
 
