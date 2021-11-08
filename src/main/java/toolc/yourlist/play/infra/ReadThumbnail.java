@@ -4,13 +4,26 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.play.domain.PlayRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ReadThumbnail {
   private final PlayRepository playRepository;
 
   String read(Long playlistId) {
-    List<PlayEntity> playEntityList = playRepository.findByPlaylistId(playlistId);
-    return null;
+    List<PlayEntity> list = playRepository.findByPlaylistId(playlistId)
+      .stream()
+      .filter(playEntity -> playEntity.sequence() == 1)
+      .collect(Collectors.toList());
+
+    if (list.size() == 0) {
+      return null;
+    }
+
+    if (list.size() != 1) {
+      throw new IllegalArgumentException();
+    }
+
+    return list.get(0).thumbnail();
   }
 }
