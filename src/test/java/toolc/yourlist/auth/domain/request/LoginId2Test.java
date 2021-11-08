@@ -2,7 +2,6 @@ package toolc.yourlist.auth.domain.request;
 
 import org.hamcrest.CustomMatcher;
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.auth.domain.request.LoginId2;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
