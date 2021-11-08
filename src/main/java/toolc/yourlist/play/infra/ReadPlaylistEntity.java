@@ -6,10 +6,10 @@ import toolc.yourlist.play.domain.PlaylistRepository;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ReadPlaylist {
+public class ReadPlaylistEntity {
   private final PlaylistRepository playlistRepository;
 
-  List<PlaylistEntity> read(Long memberId) {
+  List<PlaylistEntity> readList(Long memberId) {
     return playlistRepository.findByMemberId(memberId);
   }
 }
