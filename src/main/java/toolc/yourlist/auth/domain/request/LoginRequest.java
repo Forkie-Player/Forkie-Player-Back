@@ -1,16 +1,18 @@
 package toolc.yourlist.auth.domain.request;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class LoginRequest {
   private final LoginId2 loginId;
-  private final Password password;
+  private final Password2 password;
   private final Device device;
 
-  public LoginRequest(String loginId, String password, Device device) {
-    this.loginId = new LoginId2(loginId);
-    this.password = new Password(password);
+  public LoginRequest(LoginId2 loginId, Password2 password, Device device) {
+    this.loginId = loginId;
+    this.password = password;
     this.device = device;
   }
 
