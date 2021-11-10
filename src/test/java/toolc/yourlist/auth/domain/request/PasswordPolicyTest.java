@@ -14,4 +14,10 @@ class PasswordPolicyTest {
 
     assertThat(nonNull.matches("Password1!") , is(true));
   }
+
+  @Test
+  void should_have_special_character(){
+    PasswordPolicy haveSpecialCharacter = new PasswordHaveSpecialCharacter();
+    assertThat(haveSpecialCharacter.matches("Password1@"), is(true));
+  }
 }
