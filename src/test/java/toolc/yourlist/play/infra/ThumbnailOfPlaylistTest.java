@@ -20,18 +20,18 @@ import static toolc.yourlist.PlayFixture.playEntity;
 import static toolc.yourlist.PlayFixture.playEntityList;
 
 @ExtendWith(MockitoExtension.class)
-class ReadThumbnailTest {
+class ThumbnailOfPlaylistTest {
   @Mock
   PlayRepository playRepository;
 
   @InjectMocks
-  ReadThumbnail readThumbnail;
+  ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   @Test
   void 썸네일_찾기() {
     given(playRepository.findByPlaylistId(any())).willReturn(playEntityList());
 
-    String thumbnail = readThumbnail.read(1L);
+    String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
     assertThat("thumbnail", is(thumbnail));
   }
@@ -40,7 +40,7 @@ class ReadThumbnailTest {
   void 영상이_없음() {
     given(playRepository.findByPlaylistId(any())).willReturn(Collections.emptyList());
 
-    String thumbnail = readThumbnail.read(1L);
+    String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
     assertThat(null, is(thumbnail));
   }
@@ -49,7 +49,7 @@ class ReadThumbnailTest {
   void 첫번째_순서_중복() {
     given(playRepository.findByPlaylistId(any())).willReturn(getDuplicateList());
 
-    assertThrows(IllegalArgumentException.class, () -> readThumbnail.read(1L));
+    assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
   }
 
   private List<PlayEntity> getDuplicateList() {

@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.PlaylistFixture.playlist;
+import static toolc.yourlist.PlaylistFixture.playlistJson;
 import static toolc.yourlist.PlaylistFixture.playlistEntity;
 
-class PlaylistJsonMapperTest {
+class PlaylistMapperTest {
   PlaylistMapper mapper = new PlaylistMapper();
 
   @Test
-  void playlist로_변환() {
-    PlaylistJson playlist = mapper.toPlaylistJson(playlistEntity().build(), "thumbnail");
+  void playlistJson로_변환() {
+    PlaylistJson playlistJson = mapper.toPlaylistJson(playlistEntity().build(), "thumbnail");
 
-    assertThat(playlist, is(playlist().build()));
+    assertThat(playlistJson, is(playlistJson().build()));
   }
 
   @Test

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class ReadThumbnail {
+public class ThumbnailOfPlaylist {
   private final PlayRepository playRepository;
 
-  String read(Long playlistId) {
+  String find(Long playlistId) {
     List<PlayEntity> list = playRepository.findByPlaylistId(playlistId)
       .stream()
       .filter(playEntity -> playEntity.sequence() == 1)
