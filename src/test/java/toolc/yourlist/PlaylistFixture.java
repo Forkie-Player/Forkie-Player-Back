@@ -1,7 +1,6 @@
 package toolc.yourlist;
 
-import toolc.yourlist.play.domain.PlaylistVO;
-import toolc.yourlist.play.infra.PlayEntity;
+import toolc.yourlist.play.domain.PlaylistJson;
 import toolc.yourlist.play.infra.PlaylistEntity;
 
 import java.util.Arrays;
@@ -14,8 +13,8 @@ public class PlaylistFixture {
       .memberId(1L);
   }
 
-  public static PlaylistVO.PlaylistVOBuilder playlist() {
-    return PlaylistVO.builder()
+  public static PlaylistJson.PlaylistJsonBuilder playlist() {
+    return PlaylistJson.builder()
       .id(1L)
       .thumbnail("thumbnail");
   }

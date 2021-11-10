@@ -5,12 +5,12 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
-public class PlaylistVO {
+public class PlaylistJson {
   private Long id;
   private String thumbnail;
 
   @Builder
-  public PlaylistVO(Long id, String thumbnail) {
+  public PlaylistJson(Long id, String thumbnail) {
     this.id = id;
     this.thumbnail = thumbnail;
   }

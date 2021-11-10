@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static toolc.yourlist.PlaylistFixture.playlist;
 import static toolc.yourlist.PlaylistFixture.playlistEntity;
 
-class PlaylistVOMapperTest {
+class PlaylistJsonMapperTest {
   PlaylistMapper mapper = new PlaylistMapper();
 
   @Test
   void playlist로_변환() {
-    PlaylistVO playlist = mapper.toPlaylistWithThumbnail(playlistEntity().build(), "thumbnail");
+    PlaylistJson playlist = mapper.toPlaylistJson(playlistEntity().build(), "thumbnail");
 
     assertThat(playlist, is(playlist().build()));
   }
@@ -21,7 +21,7 @@ class PlaylistVOMapperTest {
   @Test
   void playlistEntitiy가_null() {
     assertThrows(IllegalArgumentException.class, () ->
-      mapper.toPlaylistWithThumbnail(null, "thumbnail")
+      mapper.toPlaylistJson(null, "thumbnail")
     );
   }
 }

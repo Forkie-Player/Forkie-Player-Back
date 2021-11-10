@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import toolc.yourlist.play.domain.PlaylistVO;
+import toolc.yourlist.play.domain.PlaylistJson;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static toolc.yourlist.PlaylistFixture.playlistEntityList;
 
 @ExtendWith(MockitoExtension.class)
-class ReadPlaylistVOTest {
+class ReadPlaylistJsonTest {
   @Mock
   ReadPlaylistEntity readPlaylistEntityList;
   @Mock
@@ -31,16 +31,16 @@ class ReadPlaylistVOTest {
     given(readPlaylistEntityList.readList(any())).willReturn(playlistEntityList());
     given(readThumbnail.read(any())).willReturn("thumbnail");
 
-    List<PlaylistVO> playlistVOList = readPlaylistVO.readList(1L);
+    List<PlaylistJson> playlistVOList = readPlaylistVO.readList(1L);
 
     assertThat(playlistVOList, is(getPlaylistVOList()));
   }
 
-  private List<PlaylistVO> getPlaylistVOList() {
+  private List<PlaylistJson> getPlaylistVOList() {
     return playlistEntityList()
       .stream()
       .map(playlistEntity ->
-        PlaylistVO.builder()
+        PlaylistJson.builder()
           .id(playlistEntity.id())
           .thumbnail("thumbnail")
           .build()).

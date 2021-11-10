@@ -2,7 +2,7 @@ package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.play.domain.PlaylistMapper;
-import toolc.yourlist.play.domain.PlaylistVO;
+import toolc.yourlist.play.domain.PlaylistJson;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,11 +13,11 @@ public class ReadPlaylistVO {
   private final ReadThumbnail readThumbnail;
   private final PlaylistMapper mapper = new PlaylistMapper();
 
-  public List<PlaylistVO> readList(Long memberId) {
+  public List<PlaylistJson> readList(Long memberId) {
     return readPlaylistEntityList.readList(memberId)
       .stream()
       .map(playlistEntity ->
-        mapper.toPlaylistWithThumbnail(
+        mapper.toPlaylistJson(
           playlistEntity,
           readThumbnail.read(playlistEntity.id())
         ))
