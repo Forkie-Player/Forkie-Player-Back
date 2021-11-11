@@ -27,7 +27,6 @@ public class PlaylistController {
 
   @GetMapping("/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
-    List<PlaylistEntity> playlistEntityList = allPlaylists.belongsTo(memberId);
     List<PlaylistJson> playlistJsons = allPlaylists.belongsTo(memberId)
       .stream()
       .map(playlistEntity ->

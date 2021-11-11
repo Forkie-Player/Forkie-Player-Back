@@ -9,16 +9,13 @@ import toolc.yourlist.play.domain.PlaylistRepository;
 @Configuration
 @RequiredArgsConstructor
 public class PlaylistBeanConfig {
-  private final PlaylistRepository playlistRepository;
-  private final PlayRepository playRepository;
-
   @Bean
-  public AllPlaylists allPlaylists() {
+  public AllPlaylists allPlaylists(PlaylistRepository playlistRepository) {
     return new AllPlaylists(playlistRepository);
   }
 
   @Bean
-  public ThumbnailOfPlaylist thumbnailOfPlaylist() {
+  public ThumbnailOfPlaylist thumbnailOfPlaylist(PlayRepository playRepository) {
     return new ThumbnailOfPlaylist(playRepository);
   }
 }
