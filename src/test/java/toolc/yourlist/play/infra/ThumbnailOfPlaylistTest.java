@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import toolc.yourlist.play.domain.MockPlayRepository;
 import toolc.yourlist.play.domain.PlayRepository;
 
 import java.util.ArrayList;
@@ -19,18 +20,14 @@ import static org.mockito.BDDMockito.given;
 import static toolc.yourlist.PlayFixture.playEntity;
 import static toolc.yourlist.PlayFixture.playEntityList;
 
-@ExtendWith(MockitoExtension.class)
 class ThumbnailOfPlaylistTest {
-  @Mock
-  PlayRepository playRepository;
-
-  @InjectMocks
   ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   @Test
   void 썸네일_찾기() {
-    given(playRepository.findByPlaylistId(any())).willReturn(playEntityList());
-
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
+      .findByPlaylistId(playlistId -> playEntityList())
+      .build());
     String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
     assertThat("thumbnail", is(thumbnail));
@@ -38,8 +35,9 @@ class ThumbnailOfPlaylistTest {
 
   @Test
   void 영상이_없음() {
-    given(playRepository.findByPlaylistId(any())).willReturn(Collections.emptyList());
-
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
+      .findByPlaylistId(playlistId -> Collections.emptyList())
+      .build());
     String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
     assertThat(null, is(thumbnail));
@@ -47,8 +45,9 @@ class ThumbnailOfPlaylistTest {
 
   @Test
   void 첫번째_순서_중복() {
-    given(playRepository.findByPlaylistId(any())).willReturn(getDuplicateList());
-
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
+      .findByPlaylistId(playlistId -> getDuplicateList())
+      .build());
     assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
   }
 
