@@ -9,9 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "toolc.yourlist")
 @EntityScan(basePackages = "toolc.yourlist")
 public class SpringBootRunner {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootRunner.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(SpringBootRunner.class, args);
+  }
 }

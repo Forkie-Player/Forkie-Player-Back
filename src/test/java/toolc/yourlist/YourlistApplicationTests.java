@@ -6,9 +6,7 @@ import toolc.yourlist.runner.SpringBootRunner;
 
 @SpringBootTest(classes = SpringBootRunner.class)
 class YourlistApplicationTests {
-
 	@Test
 	void contextLoads() {
 	}
-
 }

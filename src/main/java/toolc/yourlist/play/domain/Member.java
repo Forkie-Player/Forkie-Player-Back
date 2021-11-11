@@ -1,4 +1,4 @@
 package toolc.yourlist.play.domain;
 
-public class PlayEntity {
+public class Member {
 }

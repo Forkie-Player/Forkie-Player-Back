@@ -1,9 +1,7 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
+server:
+  port: 8080
 
-  datasource:
-    url: jdbc:h2:tcp://localhost:9092/~/spring
-    username: sa
-    driver-class-name: org.h2.Driver
+spring:
+  profiles:
+    active: local
+
