@@ -1,7 +1,7 @@
 package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.auth.domain.request.LoginRequest;
+import toolc.yourlist.member.infra.AllMemberMapper;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,11 +10,8 @@ import static org.hamcrest.Matchers.notNullValue;
 
 class MemberLoginTest {
 
-  MemberLogin login = new MemberLogin();
 
   @Test
   void 로그인으로_토큰이_생성되는가() {
-    //given
-
   }
 }
