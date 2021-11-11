@@ -10,4 +10,9 @@ public class LoginRequestBeanConfig {
   LoginIdFactory loginIdFactory() {
     return new LoginIdFactory(new All());
   }
+
+  @Bean
+  PasswordFactory passwordFactory() {
+    return new PasswordFactory(new AllPasswordPolicy());
+  }
 }
