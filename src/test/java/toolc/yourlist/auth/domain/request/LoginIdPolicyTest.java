@@ -35,5 +35,11 @@ class LoginIdPolicyTest {
     assertThat(startLowerCase.matches("jisoo01") , is(true));
   }
 
+  @Test
+  void should_be_satisfied_all_loginId_policy() {
+    LoginIdPolicy allLoginIdPolicy = new All();
+
+    assertThat(allLoginIdPolicy.matches("jisoo01") , is(true));
+  }
 
 }
