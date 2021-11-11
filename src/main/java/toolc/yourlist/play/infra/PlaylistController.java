@@ -26,12 +26,8 @@ public class PlaylistController {
   private final PlaylistMapper mapper = new PlaylistMapper();
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
-    List<PlaylistJson> playlistJsons = allPlaylists.belongsTo(memberId)
-      .stream()
-      .map(playlistEntity ->
-        mapper.toPlaylistJson(playlistEntity, thumbnailOfPlaylist.find(playlistEntity.id())))
-      .collect(Collectors.toList());
+  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) { // TODO: 입력이 Token으로 변경될 것
+    List<PlaylistJson> playlistJsons = toPlaylistJsonList(allPlaylists.belongsTo(memberId));
 
     ResponseBody responseBody = ResponseBody.builder()
       .status(OK.value())
@@ -40,5 +36,12 @@ public class PlaylistController {
       .build();
 
     return ResponseEntity.ok(responseBody);
+  }
+
+  private List<PlaylistJson> toPlaylistJsonList(List<PlaylistEntity> playlistEntityList) {
+    return playlistEntityList.stream()
+      .map(playlistEntity ->
+        mapper.toPlaylistJson(playlistEntity, thumbnailOfPlaylist.find(playlistEntity.id())))
+      .collect(Collectors.toList());
   }
 }
