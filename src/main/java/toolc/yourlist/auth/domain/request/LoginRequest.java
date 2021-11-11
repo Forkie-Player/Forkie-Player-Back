@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class LoginRequest {
-  private final LoginId2 loginId;
-  private final Password2 password;
+  private final LoginId loginId;
+  private final Password password;
   private final Device device;
 
-  public LoginRequest(LoginId2 loginId, Password2 password, Device device) {
+  public LoginRequest(LoginId loginId, Password password, Device device) {
     this.loginId = loginId;
     this.password = password;
     this.device = device;

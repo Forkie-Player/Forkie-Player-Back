@@ -1,33 +1,16 @@
 package toolc.yourlist.auth.domain.request;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-class Password {
+@EqualsAndHashCode
+final class Password {
+
   @Getter
-  private final String password;
+  private String raw;
 
-  Password(String password) {
-    validatePassword(password);
-    this.password = password;
+  public Password(String raw) {
+    this.raw = raw;
   }
-
-  private void validatePassword(String password) {
-    Matcher matcher;
-
-    final int min = 8;
-    final int max = 20;
-
-    final String regex =
-      "((?=.*\\d)(?=.*[a-zA-Z])(?=.*[\\W]).{" + min + "," + max + "})$";
-
-    matcher = Pattern.compile(regex).matcher(password);
-    if (!matcher.find()) {
-      throw new NotValidatedLoginRequestException("잘못된 Password 입니다.");
-    }
-  }
-
-
 }

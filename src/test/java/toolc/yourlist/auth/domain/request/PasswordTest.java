@@ -6,10 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
-class Password2Test {
+class PasswordTest {
 
   @Test
   void equals() {
-    assertThat(new Password2("password1227!"), is(new Password2("password1227!")));
+    assertThat(new Password("password1227!"), is(new Password("password1227!")));
   }
 }
