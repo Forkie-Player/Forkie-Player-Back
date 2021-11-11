@@ -34,4 +34,11 @@ class PasswordPolicyTest {
 
     assertThat(allowOnlyAlphabetOrNumberOrSpecialCharacter.matches("j1!") , is(true));
   }
+
+  @Test
+  void should_be_satisfied_all_password_policy() {
+    PasswordPolicy allPasswordPolicy = new AllPasswordPolicy();
+
+    assertThat(allPasswordPolicy.matches("PasswordTest1!") , is(true));
+  }
 }
