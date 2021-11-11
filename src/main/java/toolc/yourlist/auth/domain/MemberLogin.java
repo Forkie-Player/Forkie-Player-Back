@@ -1,0 +1,18 @@
+package toolc.yourlist.auth.domain;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import toolc.yourlist.auth.domain.request.LoginRequest;
+import toolc.yourlist.member.domain.AllMember;
+
+@RequiredArgsConstructor
+@Component
+public class MemberLogin {
+  private final AllMember allMember;
+
+  public Token login(LoginRequest request) {
+    allMember.findByLoginId("loginId");
+    System.out.println("hello");
+    return new Token();
+  }
+}

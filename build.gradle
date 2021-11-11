@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'toolc'
+group = 'com.github.yourlist'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -19,13 +19,21 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.6'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//spring
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
+
+	//lombok
 	compileOnly 'org.projectlombok:lombok:1.18.22'
-	runtimeOnly 'com.h2database:h2:1.4.200'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
+
+	//db
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+	runtimeOnly 'com.h2database:h2:1.4.200'
+
+	//test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+	testImplementation 'org.hamcrest:hamcrest:2.2'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 }
 
