@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import toolc.yourlist.member.domain.AllMember;
 
-@Component
-@RequiredArgsConstructor
 public class MemberLogin {
 
   private final AllMember allMember;
