@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import toolc.yourlist.common.domain.BaseEntity;
 
 import javax.persistence.*;
 
@@ -11,11 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class PlayEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
+public class PlayEntity extends BaseEntity {
   private int sequence;
 
   private String thumbnail;
