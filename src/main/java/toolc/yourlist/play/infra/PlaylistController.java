@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.ResponseBody;
 import toolc.yourlist.play.domain.PlaylistJson;
-import toolc.yourlist.play.domain.PlaylistMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

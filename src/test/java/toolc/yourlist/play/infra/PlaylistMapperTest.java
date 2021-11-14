@@ -1,6 +1,8 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.play.infra;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.play.domain.PlaylistJson;
+import toolc.yourlist.play.infra.PlaylistMapper;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

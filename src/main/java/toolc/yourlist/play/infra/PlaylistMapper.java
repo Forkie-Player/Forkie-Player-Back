@@ -1,6 +1,6 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.play.infra;
 
-import toolc.yourlist.play.infra.PlaylistEntity;
+import toolc.yourlist.play.domain.PlaylistJson;
 
 public class PlaylistMapper {
   public PlaylistJson toPlaylistJson(PlaylistEntity playlistEntity, String thumbnail) {

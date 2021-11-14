@@ -3,7 +3,7 @@ package toolc.yourlist.common;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
 public class ResponseBody {
   @JsonProperty
   private int status;

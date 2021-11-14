@@ -1,12 +1,13 @@
 package toolc.yourlist.play.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
-public class PlaylistJson {
+public final class PlaylistJson {
   @JsonProperty
   private Long id;
   @JsonProperty
