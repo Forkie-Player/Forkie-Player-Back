@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain.request;
+package toolc.yourlist.auth.domain;
 
 interface LoginIdPolicy {
   boolean matches(String rawId);

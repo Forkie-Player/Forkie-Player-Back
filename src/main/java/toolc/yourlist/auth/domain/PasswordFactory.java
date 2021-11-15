@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain.request;
+package toolc.yourlist.auth.domain;
 
 import lombok.RequiredArgsConstructor;
 
