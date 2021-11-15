@@ -1,4 +1,14 @@
 package toolc.yourlist.auth.domain;
 
-public class Token {
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
+class Token {
+  AccessToken accessToken;
+  RefreshToken refreshToken;
+
+  public Token(AccessToken accessToken, RefreshToken refreshToken) {
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+  }
 }

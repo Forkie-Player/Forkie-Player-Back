@@ -74,7 +74,7 @@ class LoginId2Test {
     return new CustomMatcher<LoginId2>("Raw_Should_Validated") {
 
       @Override
-      public boolean matches(Object actual) {
+      public boolean matches(Object actual)  {
         LoginId2 loginId2 = (LoginId2) actual;
         if(loginId2.raw.charAt(0) < 'a' ||  loginId2.raw.charAt(0) > 'z')
           return false;

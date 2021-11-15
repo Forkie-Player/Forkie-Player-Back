@@ -1,6 +1,9 @@
-package toolc.yourlist.auth.domain.request;
+package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.auth.domain.AllPasswordPolicy;
+import toolc.yourlist.auth.domain.Password;
+import toolc.yourlist.auth.domain.PasswordFactory;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain.request;
+package toolc.yourlist.auth.domain;
 
 import lombok.RequiredArgsConstructor;
 
@@ -7,7 +7,7 @@ public class LoginIdFactory {
 
   private final LoginIdPolicy loginIdPolicy;
 
-  LoginId create(String id){
+  public LoginId create(String id){
     if(loginIdPolicy.matches(id)){
       return new LoginId(id);
     };
