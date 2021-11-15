@@ -9,9 +9,9 @@ import toolc.yourlist.member.domain.AllMember;
 public class MemberLogin {
   private final AllMember allMember;
 
-  public Token login(LoginRequest request) {
-    allMember.findByLoginId("loginId");
-    System.out.println("hello");
-    return new Token();
-  }
+//  public Token login(LoginRequest request) {
+//    allMember.findByLoginId("loginId");
+//    System.out.println("hello");
+//    return new Token();
+//  }
 }
