@@ -22,3 +22,4 @@ public final class PlaylistJson {
     this.title = title;
   }
 }
+

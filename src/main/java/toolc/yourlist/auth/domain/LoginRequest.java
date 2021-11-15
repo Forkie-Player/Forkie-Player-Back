@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain.request;
+package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,7 +16,4 @@ public class LoginRequest {
     this.device = device;
   }
 
-  public enum Device {
-    PC, APP
-  }
 }

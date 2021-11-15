@@ -24,6 +24,6 @@ public class PlayFixture {
         .sequence(3)
         .thumbnail("thumbnail3")
         .build()
-      );
+    );
   }
 }
