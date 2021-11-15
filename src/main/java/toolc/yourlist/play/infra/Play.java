@@ -4,18 +4,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import toolc.yourlist.common.domain.BaseEntity;
 
 import javax.persistence.*;
 
-@Table(name = "play")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class PlayEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
+public class Play extends BaseEntity {
   private int sequence;
 
   private String thumbnail;
@@ -23,7 +19,7 @@ public class PlayEntity {
   private Long playlistId;
 
   @Builder
-  public PlayEntity(int sequence, String thumbnail, Long playlistId) {
+  public Play(int sequence, String thumbnail, Long playlistId) {
     this.sequence = sequence;
     this.thumbnail = thumbnail;
     this.playlistId = playlistId;

@@ -12,11 +12,12 @@ import javax.persistence.Entity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
   private String loginId;
-
+  private boolean isMember;
   private String password;
 
-  public Member(String loginId, String password) {
+  public Member(String loginId, String password, boolean isMember) {
     this.loginId = loginId;
+    this.isMember = isMember;
     this.password = password;
   }
 }

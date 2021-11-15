@@ -11,7 +11,7 @@ public class ThumbnailOfPlaylist {
   private final PlayRepository playRepository;
 
   String find(Long playlistId) {
-    List<PlayEntity> list = playRepository.findByPlaylistId(playlistId)
+    List<Play> list = playRepository.findByPlaylistId(playlistId)
       .stream()
       .filter(playEntity -> playEntity.sequence() == 1)
       .collect(Collectors.toList());
