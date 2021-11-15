@@ -12,7 +12,6 @@ public class PlaylistFixture {
       .memberId(1L);
   }
 
-
   public static List<Playlist> playlists() {
     return List.of(
       playlist().build(),

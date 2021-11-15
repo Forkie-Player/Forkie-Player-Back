@@ -10,6 +10,7 @@ public class PlaylistMapper {
 
     return PlaylistJson.builder()
       .id(playlist.id())
+      .title(playlist.title())
       .thumbnail(thumbnail)
       .build();
   }
