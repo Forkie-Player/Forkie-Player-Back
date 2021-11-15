@@ -1,4 +1,7 @@
 package toolc.yourlist.auth.domain;
 
-public class Token {
+class Token {
+  AccessToken accessToken;
+  RefreshToken refreshToken;
+
 }
