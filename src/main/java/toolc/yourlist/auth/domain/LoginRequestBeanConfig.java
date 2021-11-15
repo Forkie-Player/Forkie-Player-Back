@@ -15,4 +15,17 @@ public class LoginRequestBeanConfig {
   PasswordFactory passwordFactory() {
     return new PasswordFactory(new AllPasswordPolicy());
   }
+
+
+  CurrentTime currentTime = new CurrentTime();
+
+  @Bean
+  AccessTokenCreator accessTokenCreator() {
+    return new AccessTokenCreator(currentTime);
+  }
+
+  @Bean
+  RefreshTokenCreator refreshTokenCreator() {
+    return new RefreshTokenCreator(currentTime);
+  }
 }
