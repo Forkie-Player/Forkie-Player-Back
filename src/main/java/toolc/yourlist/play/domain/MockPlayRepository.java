@@ -1,23 +1,20 @@
 package toolc.yourlist.play.domain;
 
-import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
-import toolc.yourlist.play.infra.PlayEntity;
+import toolc.yourlist.play.infra.Play;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MockPlayRepository implements PlayRepository {
+public final class MockPlayRepository implements PlayRepository {
   FindByPlaylistId findByPlaylistId;
 
   @FunctionalInterface
   public interface FindByPlaylistId {
-    List<PlayEntity> done(Long playlistId);
+    List<Play> done(Long playlistId);
   }
 
   @Override
-  public List<PlayEntity> findByPlaylistId(Long playlistId) {
+  public List<Play> findByPlaylistId(Long playlistId) {
     return findByPlaylistId.done(playlistId);
   }
 
