@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.time.Instant;
 
 @EqualsAndHashCode
-public class RefreshToken {
+final class RefreshToken {
   private final Instant expirationAt;
 
   public RefreshToken(Instant expirationAt) {
