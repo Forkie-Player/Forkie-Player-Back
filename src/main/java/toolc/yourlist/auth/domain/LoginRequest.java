@@ -16,7 +16,4 @@ public class LoginRequest {
     this.device = device;
   }
 
-  public enum Device {
-    PC, APP
-  }
 }

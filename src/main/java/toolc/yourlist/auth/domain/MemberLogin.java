@@ -8,10 +8,13 @@ import toolc.yourlist.member.domain.AllMember;
 @Component
 public class MemberLogin {
   private final AllMember allMember;
+  private final AccessTokenCreator accessTokenCreator;
+  private final RefreshTokenCreator refreshTokenCreator;
 
-//  public Token login(LoginRequest request) {
-//    allMember.findByLoginId("loginId");
-//    System.out.println("hello");
-//    return new Token();
-//  }
+  public Token login(LoginRequest request) {
+    allMember.findByLoginId(request.loginId().raw());
+
+    return new Token(accessTokenCreator.create(request.loginId()),
+      refreshTokenCreator.create(request.device()));
+  }
 }
