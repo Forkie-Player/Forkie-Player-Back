@@ -6,15 +6,14 @@ import toolc.yourlist.common.domain.BaseEntity;
 import javax.persistence.*;
 
 @Getter
-@Table(name = "playlist")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class PlaylistEntity extends BaseEntity {
+public class Playlist extends BaseEntity {
   private Long memberId;
   private String title;
 
   @Builder
-  public PlaylistEntity(Long memberId, String title) {
+  public Playlist(Long memberId, String title) {
     this.memberId = memberId;
     this.title = title;
   }

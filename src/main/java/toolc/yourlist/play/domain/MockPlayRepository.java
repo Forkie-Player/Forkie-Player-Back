@@ -1,7 +1,7 @@
 package toolc.yourlist.play.domain;
 
 import lombok.Builder;
-import toolc.yourlist.play.infra.PlayEntity;
+import toolc.yourlist.play.infra.Play;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ public final class MockPlayRepository implements PlayRepository {
 
   @FunctionalInterface
   public interface FindByPlaylistId {
-    List<PlayEntity> done(Long playlistId);
+    List<Play> done(Long playlistId);
   }
 
   @Override
-  public List<PlayEntity> findByPlaylistId(Long playlistId) {
+  public List<Play> findByPlaylistId(Long playlistId) {
     return findByPlaylistId.done(playlistId);
   }
 

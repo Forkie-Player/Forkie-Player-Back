@@ -8,11 +8,10 @@ import toolc.yourlist.common.domain.BaseEntity;
 
 import javax.persistence.*;
 
-@Table(name = "play")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class PlayEntity extends BaseEntity {
+public class Play extends BaseEntity {
   private int sequence;
 
   private String thumbnail;
@@ -20,7 +19,7 @@ public class PlayEntity extends BaseEntity {
   private Long playlistId;
 
   @Builder
-  public PlayEntity(int sequence, String thumbnail, Long playlistId) {
+  public Play(int sequence, String thumbnail, Long playlistId) {
     this.sequence = sequence;
     this.thumbnail = thumbnail;
     this.playlistId = playlistId;
