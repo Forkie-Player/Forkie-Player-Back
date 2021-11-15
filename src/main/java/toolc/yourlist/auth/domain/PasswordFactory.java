@@ -7,7 +7,7 @@ public class PasswordFactory {
 
   private final PasswordPolicy passwordPolicy;
 
-  Password create(String password){
+  public Password create(String password){
     if(passwordPolicy.matches(password)){
       return new Password(password);
     };

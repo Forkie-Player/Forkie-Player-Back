@@ -16,7 +16,3 @@ class RefreshTokenCreator {
   }
 
 }
-
-enum Device {
-  PC, APP
-}
