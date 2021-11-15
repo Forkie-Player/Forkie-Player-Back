@@ -12,10 +12,13 @@ public final class PlaylistJson {
   private Long id;
   @JsonProperty
   private String thumbnail;
+  @JsonProperty
+  private String title;
 
   @Builder
-  public PlaylistJson(Long id, String thumbnail) {
+  public PlaylistJson(Long id, String thumbnail, String title) {
     this.id = id;
     this.thumbnail = thumbnail;
+    this.title = title;
   }
 }

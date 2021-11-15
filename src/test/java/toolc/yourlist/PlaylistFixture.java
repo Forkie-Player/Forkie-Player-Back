@@ -8,6 +8,7 @@ import java.util.List;
 public class PlaylistFixture {
   public static PlaylistEntity.PlaylistEntityBuilder playlistEntity() {
     return PlaylistEntity.builder()
+      .title("title")
       .memberId(1L);
   }
 
@@ -20,6 +21,7 @@ public class PlaylistFixture {
   public static PlaylistJson.PlaylistJsonBuilder playlistJson() {
     return PlaylistJson.builder()
       .id(playlistEntity().build().id())
+      .title(playlistEntity().build().title())
       .thumbnail("thumbnail");
   }
 
