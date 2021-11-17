@@ -35,14 +35,14 @@ public class TokenFormatter {
     return Jwts.builder()
       .setSubject(accessToken.loginId().raw())
       .setExpiration(Date.from(accessToken.expirationAt()))
-      .signWith(signatureAlgorithm, key)
+      .signWith(key, signatureAlgorithm)
       .compact();
   }
 
   private String toJwtFromRefreshToken(RefreshToken refreshToken) {
     return Jwts.builder()
       .setExpiration(Date.from(refreshToken.expirationAt()))
-      .signWith(signatureAlgorithm, key)
+      .signWith(key, signatureAlgorithm)
       .compact();
   }
 }
