@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @EqualsAndHashCode
-final class LoginId {
+public final class LoginId {
   @Getter
   private String raw;
 

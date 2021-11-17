@@ -1,11 +1,13 @@
 package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.time.Instant;
 
 @EqualsAndHashCode
-final class AccessToken {
+@Getter
+public final class AccessToken {
   private final LoginId loginId;
   private final Instant expirationAt;
 
