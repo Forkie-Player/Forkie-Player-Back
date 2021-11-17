@@ -1,9 +1,11 @@
 package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @EqualsAndHashCode
-class Token {
+@Getter
+public final class Token {
   AccessToken accessToken;
   RefreshToken refreshToken;
 

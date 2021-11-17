@@ -12,11 +12,7 @@ class LoginRequestMapperFromJson {
   private final PasswordFactory passwordFactory;
 
   LoginRequest mapper(JsonLoginRequest json) {
-    Device device;
-    if (json.device().toLowerCase().equals("pc")) device = Device.PC;
-    else if (json.device().toLowerCase().equals("app")) device = Device.APP;
-    else throw new IllegalArgumentException();
-
+    Device device = json.isPC() ? Device.PC : Device.APP;
     return new LoginRequest(loginIdFactory.create(json.loginId()),
       passwordFactory.create(json.password()), device);
   }

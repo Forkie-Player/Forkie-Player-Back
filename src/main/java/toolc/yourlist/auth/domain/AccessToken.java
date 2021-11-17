@@ -5,7 +5,8 @@ import lombok.EqualsAndHashCode;
 import java.time.Instant;
 
 @EqualsAndHashCode
-final class AccessToken {
+@Getter
+public final class AccessToken {
   private final LoginId loginId;
   private final Instant expirationAt;
 
