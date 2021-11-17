@@ -1,23 +1,36 @@
 package toolc.yourlist.auth.infra;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.parameters.P;
-import toolc.yourlist.auth.domain.LoginIdFactory;
-import toolc.yourlist.auth.domain.PasswordFactory;
+import toolc.yourlist.auth.domain.*;
 
 @Configuration
 public class BeanConfig {
 
-  @Autowired
-  private LoginIdFactory loginIdFactory;
+  @Bean
+  LoginIdFactory loginIdFactory() {
+    return new LoginIdFactory(new All());
+  }
 
-  @Autowired
-  private PasswordFactory passwordFactory;
+  @Bean
+  PasswordFactory passwordFactory() {
+    return new PasswordFactory(new AllPasswordPolicy());
+  }
 
   @Bean
   LoginRequestMapperFromJson loginRequestMapperFromJson() {
-    return new LoginRequestMapperFromJson(loginIdFactory, passwordFactory);
+    return new LoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
+  }
+
+  CurrentTime currentTime = new CurrentTime();
+
+  @Bean
+  AccessTokenCreator accessTokenCreator() {
+    return new AccessTokenCreator(currentTime);
+  }
+
+  @Bean
+  RefreshTokenCreator refreshTokenCreator() {
+    return new RefreshTokenCreator(currentTime);
   }
 }

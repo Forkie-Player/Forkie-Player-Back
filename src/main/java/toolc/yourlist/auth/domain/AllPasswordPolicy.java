@@ -1,6 +1,6 @@
 package toolc.yourlist.auth.domain;
 
-class AllPasswordPolicy implements PasswordPolicy {
+public class AllPasswordPolicy implements PasswordPolicy {
 
   private final PasswordPolicy allowOnlyAlphabetOrNumberOrSpecialCharacter = new AllowOnlyAlphabetOrNumberOrSpecialCharacter();
   private final PasswordPolicy nonNull = new PasswordNonNull();

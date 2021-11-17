@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.time.Instant;
 
-class CurrentTime {
+public class CurrentTime {
   @Getter
   private final Instant now = Instant.now();
 }

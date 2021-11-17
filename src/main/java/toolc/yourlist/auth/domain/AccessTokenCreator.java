@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.time.Duration;
 
 @RequiredArgsConstructor
-class AccessTokenCreator {
+public class AccessTokenCreator {
   private final CurrentTime currentTime;
   private final Duration EXPIRATION_DATE = Duration.ofMinutes(30);
 
