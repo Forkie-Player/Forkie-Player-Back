@@ -27,6 +27,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
+	//validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+
 	//db
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
 	runtimeOnly 'com.h2database:h2:1.4.200'
