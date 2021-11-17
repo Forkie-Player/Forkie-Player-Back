@@ -26,6 +26,7 @@ public class AuthApi {
       tokenFormatter.toJwtFromToken(memberLogin.login(loginRequestMapperFromJson.mapper(request)));
 
     ResponseBody responseBody = new ResponseBody(OK.value(), "로그인 성공", token);
+
     return ResponseEntity.ok(responseBody);
   }
 }

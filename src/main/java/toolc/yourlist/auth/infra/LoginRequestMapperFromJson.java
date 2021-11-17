@@ -13,7 +13,6 @@ class LoginRequestMapperFromJson {
 
   LoginRequest mapper(JsonLoginRequest json) {
     Device device = json.isPC() ? Device.PC : Device.APP;
-
     return new LoginRequest(loginIdFactory.create(json.loginId()),
       passwordFactory.create(json.password()), device);
   }

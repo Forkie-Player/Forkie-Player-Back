@@ -1,29 +1,29 @@
 package toolc.yourlist;
 
-import toolc.yourlist.play.infra.PlayEntity;
+import toolc.yourlist.play.infra.Play;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class PlayFixture {
-  public static PlayEntity.PlayEntityBuilder playEntity() {
-    return PlayEntity.builder()
+  public static Play.PlayBuilder play() {
+    return Play.builder()
       .sequence(1)
       .thumbnail("thumbnail");
   }
 
-  public static List<PlayEntity> playEntityList() {
+  public static List<Play> playList() {
     return Arrays.asList(
-      playEntity()
+      play()
         .build(),
-      playEntity()
+      play()
         .sequence(2)
         .thumbnail("thumbnail2")
         .build(),
-      playEntity()
+      play()
         .sequence(3)
         .thumbnail("thumbnail3")
         .build()
-      );
+    );
   }
 }

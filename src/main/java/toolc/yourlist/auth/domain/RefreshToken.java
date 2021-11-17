@@ -13,5 +13,4 @@ public final class RefreshToken {
   public RefreshToken(Instant expirationAt) {
     this.expirationAt = expirationAt;
   }
-
 }
