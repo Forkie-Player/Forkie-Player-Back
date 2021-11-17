@@ -1,6 +1,5 @@
 package toolc.yourlist.play.infra;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @EqualsAndHashCode
-@JsonDeserialize(using = PlaylistSaveDeserializer.class)
 public final class PlaylistSaveRequest {
   @NotNull
   private final Long memberId;

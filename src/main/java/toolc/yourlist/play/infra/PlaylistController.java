@@ -22,8 +22,8 @@ public class PlaylistController {
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
   private final PlaylistMapper mapper = new PlaylistMapper();
 
-  @GetMapping("/{id}") // TODO: Token 완성시 수정 필요
-  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) { // TODO: 입력이 Token으로 변경될 것
+  @GetMapping("/{id}")
+  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
     List<PlaylistJson> playlistJsons = toPlaylistJsonList(playlistStorage.readWhatBelongsTo(memberId));
 
     ResponseBody responseBody = ResponseBody.builder()
