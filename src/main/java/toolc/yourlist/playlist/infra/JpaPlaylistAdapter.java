@@ -4,13 +4,14 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class JpaPlaylistAdapter implements Playlist {
   private final JpaPlaylistRepository playlistRepository;
 
   @Override
-  public List<PlaylistEntity> readWhatBelongsTo(Long memberId) {
+  public List<PlaylistEntity> readAllBelongsTo(Long memberId) {
     return playlistRepository.findByMemberId(memberId);
   }
 
@@ -20,5 +21,16 @@ public class JpaPlaylistAdapter implements Playlist {
       .memberId(request.memberId())
       .title(request.title())
       .build());
+  }
+
+  @Override
+  public void updateTitle(PlaylistEntity playlistEntity, String title) {
+    playlistEntity.title(title);
+    playlistRepository.save(playlistEntity);
+  }
+
+  @Override
+  public Optional<PlaylistEntity> readBelongsTo(Long id) {
+    return playlistRepository.findById(id);
   }
 }

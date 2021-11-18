@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "playlist")
 public class PlaylistEntity extends BaseEntity {
   private Long memberId;
+  @Setter
   private String title;
 
   @Builder

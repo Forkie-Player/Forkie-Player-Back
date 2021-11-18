@@ -22,7 +22,7 @@ class RequestMapper {
       .title(jsonSaveRequest.title())
       .isMember(member.isMember())
       .playlistCount(playlist
-        .readWhatBelongsTo(member.id())
+        .readAllBelongsTo(member.id())
         .size())
       .build();
   }

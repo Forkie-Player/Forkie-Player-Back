@@ -22,7 +22,7 @@ public class ReadController {
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
     try {
       List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-        playlist.readWhatBelongsTo(memberId));
+        playlist.readAllBelongsTo(memberId));
 
       return JsonResponse.successWithData(playlistJsons, "조회 성공");
     } catch (Exception e) {

@@ -5,13 +5,14 @@ import toolc.yourlist.playlist.infra.Playlist;
 import toolc.yourlist.playlist.infra.PlaylistEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MockPlaylist implements Playlist {
   ReadWhatBelongsTo readWhatBelongsTo;
   SaveByRequest saveByRequest;
 
   @Override
-  public List<PlaylistEntity> readWhatBelongsTo(Long memberId) {
+  public List<PlaylistEntity> readAllBelongsTo(Long memberId) {
     return readWhatBelongsTo.done(memberId);
   }
 
@@ -28,6 +29,16 @@ public class MockPlaylist implements Playlist {
   @FunctionalInterface
   public interface SaveByRequest {
     void done(SaveRequest jsonSaveRequest);
+  }
+
+  @Override
+  public void updateTitle(PlaylistEntity playlistEntity, String title) {
+
+  }
+
+  @Override
+  public Optional<PlaylistEntity> readBelongsTo(Long id) {
+    return null;
   }
 
   @Builder
