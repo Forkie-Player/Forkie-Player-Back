@@ -1,6 +1,7 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import toolc.yourlist.play.domain.PlaylistJson;
 
 import java.util.List;

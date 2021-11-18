@@ -6,14 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toolc.yourlist.common.ResponseBody;
+import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.play.domain.SavePolicy;
 import toolc.yourlist.play.domain.SaveRequest;
 
 import javax.validation.Valid;
-
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,30 +22,18 @@ public class PlaylistCreateController {
 
   @PostMapping("/api/playlist/create")
   public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonSaveRequest request) {
-    SaveRequest saveRequest = mapper.toSaveRequest(request);
+    try {
+      SaveRequest saveRequest = mapper.toSaveRequest(request);
 
-    if (!savePolicy.matches(saveRequest)) {
-      return getBadRequestForExceed();
+      if (!savePolicy.matches(saveRequest)) {
+        return JsonResponse.failForBadRequest("[비회원] 생성 갯수 초과");
+      }
+
+      playlist.saveByRequest(saveRequest);
+
+      return JsonResponse.success("생성 성공");
+    } catch (Exception e) {
+      return JsonResponse.fail(e);
     }
-
-    playlist.saveByRequest(saveRequest);
-
-    ResponseBody responseBody = ResponseBody.builder()
-      .status(OK.value())
-      .message("생성 성공")
-      .data(null)
-      .build();
-
-    return ResponseEntity.ok(responseBody);
-  }
-
-  private ResponseEntity<?> getBadRequestForExceed() {
-    ResponseBody responseBody = ResponseBody.builder()
-      .status(BAD_REQUEST.value())
-      .message("[비회원] 생성 갯수 초과")
-      .data(null)
-      .build();
-
-    return ResponseEntity.badRequest().body(responseBody);
   }
 }
