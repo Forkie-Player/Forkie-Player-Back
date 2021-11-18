@@ -1,7 +1,7 @@
 package toolc.yourlist.play.infra;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.play.domain.MockPlayRepository;
+import toolc.yourlist.play.domain.MockPlay;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +18,8 @@ class ThumbnailOfPlaylistEntityTest {
 
   @Test
   void 썸네일_찾기() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> playList())
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> playList())
       .build());
     String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
@@ -28,8 +28,8 @@ class ThumbnailOfPlaylistEntityTest {
 
   @Test
   void 영상이_없음() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> Collections.emptyList())
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> Collections.emptyList())
       .build());
     String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
@@ -38,8 +38,8 @@ class ThumbnailOfPlaylistEntityTest {
 
   @Test
   void 첫번째_순서_중복() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> getDuplicateList())
+    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> getDuplicateList())
       .build());
     assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
   }
