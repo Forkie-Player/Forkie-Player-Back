@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-class PlaylistSaveRequest {
+public class PlaylistSaveRequest {
   private final Long memberId;
   private final String title;
   private final boolean isMember;

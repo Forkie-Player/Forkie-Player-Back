@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "playlist")
 public class PlaylistEntity extends BaseEntity {
   private Long memberId;
   private String title;

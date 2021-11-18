@@ -19,13 +19,13 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/playlist")
 public class PlaylistController {
-  private final PlaylistStorage playlistStorage;
+  private final Playlist playlist;
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
   private final PlaylistMapper mapper = new PlaylistMapper();
 
   @GetMapping("/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
-    List<PlaylistJson> playlistJsons = toPlaylistJsonList(playlistStorage.readWhatBelongsTo(memberId));
+    List<PlaylistJson> playlistJsons = toPlaylistJsonList(playlist.readWhatBelongsTo(memberId));
 
     ResponseBody responseBody = ResponseBody.builder()
       .status(OK.value())

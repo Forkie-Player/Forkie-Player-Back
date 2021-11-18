@@ -1,10 +1,8 @@
-package toolc.yourlist.play.domain;
-
-import toolc.yourlist.play.infra.PlaylistEntity;
+package toolc.yourlist.play.infra;
 
 import java.util.List;
 
-public interface PlaylistRepository {
+public interface JpaPlaylistRepository {
   List<PlaylistEntity> findByMemberId(Long memberId);
 
   PlaylistEntity save(PlaylistEntity playlistEntity);
