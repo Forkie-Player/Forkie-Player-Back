@@ -1,7 +1,6 @@
 package toolc.yourlist.common.infra;
 
 import org.springframework.http.ResponseEntity;
-import toolc.yourlist.common.ResponseBody;
 
 import static org.springframework.http.HttpStatus.*;
 

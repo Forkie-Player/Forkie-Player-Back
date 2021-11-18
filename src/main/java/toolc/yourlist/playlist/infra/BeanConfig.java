@@ -1,21 +1,25 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.play.domain.CountLimitOrRealMember;
-import toolc.yourlist.play.domain.SavePolicy;
+import toolc.yourlist.play.infra.JpaPlayAdapter;
+import toolc.yourlist.play.infra.JpaPlayRepository;
+import toolc.yourlist.play.infra.Play;
+import toolc.yourlist.playlist.domain.CountLimitOrRealMember;
+import toolc.yourlist.playlist.domain.SavePolicy;
 
-@Configuration
+@Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
-public class PlaylistBeanConfig {
+public class BeanConfig {
   @Bean
   public Playlist playlist(JpaPlaylistRepository playlistRepository) {
     return new JpaPlaylistAdapter(playlistRepository);
   }
 
-  @Bean Play play(JpaPlayRepository playRepository) {
+  @Bean
+  Play play(JpaPlayRepository playRepository) {
     return new JpaPlayAdapter(playRepository);
   }
 
@@ -30,12 +34,12 @@ public class PlaylistBeanConfig {
   }
 
   @Bean
-  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
-    return new PlaylistMapper(thumbnailOfPlaylist);
+  JsonMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
+    return new JsonMapper(thumbnailOfPlaylist);
   }
 
   @Bean
-  PlaylistRequestMapper requestMapper(AllMember allMember, Playlist playlist) {
-    return new PlaylistRequestMapper(allMember, playlist);
+  RequestMapper requestMapper(AllMember allMember, Playlist playlist) {
+    return new RequestMapper(allMember, playlist);
   }
 }

@@ -1,4 +1,4 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
 

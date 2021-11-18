@@ -2,7 +2,6 @@ package toolc.yourlist.common.infra;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
-import toolc.yourlist.common.ResponseBody;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

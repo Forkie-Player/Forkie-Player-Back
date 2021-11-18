@@ -1,4 +1,4 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.playlist.domain;
 
 public class CountLimitOrRealMember implements SavePolicy {
   SavePolicy realMember = new RealMember();

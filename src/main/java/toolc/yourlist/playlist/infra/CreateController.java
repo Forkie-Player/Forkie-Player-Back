@@ -1,4 +1,4 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.play.domain.SavePolicy;
-import toolc.yourlist.play.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.SavePolicy;
+import toolc.yourlist.playlist.domain.SaveRequest;
 
 import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class PlaylistCreateController {
+public class CreateController {
   private final Playlist playlist;
   private final SavePolicy savePolicy;
-  private final PlaylistRequestMapper mapper;
+  private final RequestMapper mapper;
 
   @PostMapping("/api/playlist/create")
   public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonSaveRequest request) {

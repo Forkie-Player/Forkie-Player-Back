@@ -1,4 +1,4 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.playlist.domain;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

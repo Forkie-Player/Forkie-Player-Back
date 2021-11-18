@@ -1,7 +1,7 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.play.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.SaveRequest;
 
 import java.util.List;
 

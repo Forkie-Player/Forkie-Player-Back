@@ -1,4 +1,4 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.play.domain.PlaylistJson;
+import toolc.yourlist.playlist.domain.PlaylistJson;
 
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class PlaylistReadController {
+public class ReadController {
   private final Playlist playlist;
-  private final PlaylistMapper mapper;
+  private final JsonMapper mapper;
 
   @GetMapping("/api/playlist/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {

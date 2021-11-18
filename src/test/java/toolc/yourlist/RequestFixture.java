@@ -1,7 +1,7 @@
 package toolc.yourlist;
 
-import toolc.yourlist.play.domain.SaveRequest;
-import toolc.yourlist.play.infra.JsonSaveRequest;
+import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.infra.JsonSaveRequest;
 
 public class RequestFixture {
   public static JsonSaveRequest.JsonSaveRequestBuilder jsonSaveRequest() {

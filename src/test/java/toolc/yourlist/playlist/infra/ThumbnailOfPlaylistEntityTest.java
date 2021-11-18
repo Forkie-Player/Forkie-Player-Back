@@ -1,7 +1,8 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.play.domain.MockPlay;
+import toolc.yourlist.play.infra.PlayEntity;
 
 import java.util.ArrayList;
 import java.util.Collections;

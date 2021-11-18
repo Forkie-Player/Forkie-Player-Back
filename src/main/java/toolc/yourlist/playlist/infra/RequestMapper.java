@@ -1,12 +1,12 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.play.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.SaveRequest;
 
 @RequiredArgsConstructor
-class PlaylistRequestMapper {
+class RequestMapper {
   private final AllMember allMember;
   private final Playlist playlist;
 

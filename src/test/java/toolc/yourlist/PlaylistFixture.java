@@ -1,7 +1,7 @@
 package toolc.yourlist;
 
-import toolc.yourlist.play.domain.PlaylistJson;
-import toolc.yourlist.play.infra.PlaylistEntity;
+import toolc.yourlist.playlist.domain.PlaylistJson;
+import toolc.yourlist.playlist.infra.PlaylistEntity;
 
 import java.util.List;
 

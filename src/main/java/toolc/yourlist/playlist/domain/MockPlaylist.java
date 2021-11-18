@@ -1,8 +1,8 @@
-package toolc.yourlist.play.domain;
+package toolc.yourlist.playlist.domain;
 
 import lombok.Builder;
-import toolc.yourlist.play.infra.Playlist;
-import toolc.yourlist.play.infra.PlaylistEntity;
+import toolc.yourlist.playlist.infra.Playlist;
+import toolc.yourlist.playlist.infra.PlaylistEntity;
 
 import java.util.List;
 

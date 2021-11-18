@@ -1,4 +1,4 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.*;
 import toolc.yourlist.common.domain.BaseEntity;

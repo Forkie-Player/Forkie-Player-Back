@@ -1,4 +1,4 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import java.util.List;
 

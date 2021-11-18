@@ -1,14 +1,13 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import toolc.yourlist.play.domain.PlaylistJson;
+import toolc.yourlist.playlist.domain.PlaylistJson;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class PlaylistMapper {
+public class JsonMapper {
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   public PlaylistJson toPlaylistJson(PlaylistEntity playlistEntity, String thumbnail) {

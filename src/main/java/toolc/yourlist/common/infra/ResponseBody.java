@@ -1,4 +1,4 @@
-package toolc.yourlist.common;
+package toolc.yourlist.common.infra;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
