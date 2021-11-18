@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.ResponseBody;
 import toolc.yourlist.play.domain.PlaylistJson;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,12 +44,8 @@ public class PlaylistController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<?> createPlaylist(@RequestBody PlaylistSaveRequest request) {
-    if (checkExceed(request)) {
-      return getBadRequestForExceed();
-    }
-
-    playlistStorage.save(request);
+  public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonPlaylistSaveRequest request) {
+//    playlistStorage.save(request);
     ResponseBody responseBody = ResponseBody.builder()
       .status(OK.value())
       .message("생성 성공")
@@ -66,9 +63,5 @@ public class PlaylistController {
       .build();
 
     return ResponseEntity.badRequest().body(responseBody);
-  }
-
-  private boolean checkExceed(PlaylistSaveRequest request) {
-    return !request.isMember() && request.playlistCount() >= 5;
   }
 }

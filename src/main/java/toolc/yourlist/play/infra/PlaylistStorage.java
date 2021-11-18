@@ -13,10 +13,10 @@ public class PlaylistStorage {
     return playlistRepository.findByMemberId(memberId);
   }
 
-  void save(PlaylistSaveRequest request) { // 회원이면 제한X, but 비회원이면 최대 5개... -> 앞에서 비회원이고 현재 playlist갯수가 5개면 badrequest로 응답하면 될 듯.?
-    playlistRepository.save(Playlist.builder()
-      .memberId(request.memberId())
-      .title(request.title())
-      .build());
-  }
+//  void save(JsonPlaylistSaveRequest request) { // 회원이면 제한X, but 비회원이면 최대 5개... -> 앞에서 비회원이고 현재 playlist갯수가 5개면 badrequest로 응답하면 될 듯.?
+//    playlistRepository.save(Playlist.builder()
+//      .memberId(request.loginId())
+//      .title(request.title())
+//      .build());
+//  }
 }
