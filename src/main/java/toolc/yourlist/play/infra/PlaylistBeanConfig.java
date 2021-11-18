@@ -30,7 +30,12 @@ public class PlaylistBeanConfig {
   }
 
   @Bean
-  PlaylistRequestMapper mapper(AllMember allMember, Playlist playlist) {
+  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
+    return new PlaylistMapper(thumbnailOfPlaylist);
+  }
+
+  @Bean
+  PlaylistRequestMapper requestMapper(AllMember allMember, Playlist playlist) {
     return new PlaylistRequestMapper(allMember, playlist);
   }
 }
