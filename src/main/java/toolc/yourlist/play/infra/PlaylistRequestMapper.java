@@ -1,11 +1,28 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.infra.JpaAllMember;
+import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.play.domain.SaveRequest;
 
 @RequiredArgsConstructor
 class PlaylistRequestMapper {
-  private final JpaAllMember jpaAllMember;
+  private final AllMember allMember;
   private final Playlist playlist;
 
+  SaveRequest toSaveRequest(JsonSaveRequest jsonSaveRequest) {
+    Member member = allMember.findByLoginId(jsonSaveRequest.loginId());
+    if (member == null) {
+      throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+    }
+
+    return SaveRequest.builder()
+      .memberId(member.id())
+      .title(jsonSaveRequest.title())
+      .isMember(member.isMember())
+      .playlistCount(playlist
+        .readWhatBelongsTo(member.id())
+        .size())
+      .build();
+  }
 }

@@ -5,7 +5,7 @@ public class CountLimitOrRealMember implements SavePolicy {
   SavePolicy countLimit = new CountLimit();
 
   @Override
-  public boolean matches(PlaylistSaveRequest request) {
+  public boolean matches(SaveRequest request) {
     return realMember.matches(request) ||
       countLimit.matches(request);
   }

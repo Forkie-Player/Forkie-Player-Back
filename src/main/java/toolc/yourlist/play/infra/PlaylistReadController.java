@@ -17,13 +17,12 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/playlist")
-public class PlaylistController {
+public class PlaylistReadController {
   private final Playlist playlist;
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
   private final PlaylistMapper mapper = new PlaylistMapper();
 
-  @GetMapping("/{id}")
+  @GetMapping("/api/playlist/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
     List<PlaylistJson> playlistJsons = toPlaylistJsonList(playlist.readWhatBelongsTo(memberId));
 
@@ -44,7 +43,7 @@ public class PlaylistController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonPlaylistSaveRequest request) {
+  public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonSaveRequest request) {
 //    playlistStorage.save(request);
     ResponseBody responseBody = ResponseBody.builder()
       .status(OK.value())

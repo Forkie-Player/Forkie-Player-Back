@@ -1,17 +1,19 @@
 package toolc.yourlist.play.domain;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-public class PlaylistSaveRequest {
+@EqualsAndHashCode
+public class SaveRequest {
   private final Long memberId;
   private final String title;
   private final boolean isMember;
   private final int playlistCount;
 
   @Builder
-  public PlaylistSaveRequest(Long memberId, String title, boolean isMember, int playlistCount) {
+  public SaveRequest(Long memberId, String title, boolean isMember, int playlistCount) {
     this.memberId = memberId;
     this.title = title;
     this.isMember = isMember;

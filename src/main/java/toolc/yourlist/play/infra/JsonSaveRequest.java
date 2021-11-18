@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @EqualsAndHashCode
-public final class JsonPlaylistSaveRequest {
+public final class JsonSaveRequest {
   @NotNull
   private final String loginId;
   @NotEmpty
   private final String title;
 
   @Builder
-  JsonPlaylistSaveRequest(String loginId, String title) {
+  JsonSaveRequest(String loginId, String title) {
     this.loginId = loginId;
     this.title = title;
   }

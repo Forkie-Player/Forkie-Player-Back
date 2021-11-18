@@ -1,7 +1,7 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.play.domain.PlaylistSaveRequest;
+import toolc.yourlist.play.domain.SaveRequest;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class JpaPlaylistAdapter implements Playlist {
   }
 
   @Override
-  public void save(PlaylistSaveRequest request) {
+  public void save(SaveRequest request) {
     playlistRepository.save(PlaylistEntity.builder()
       .memberId(request.memberId())
       .title(request.title())

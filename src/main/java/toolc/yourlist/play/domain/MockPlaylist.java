@@ -1,7 +1,6 @@
 package toolc.yourlist.play.domain;
 
 import lombok.Builder;
-import toolc.yourlist.play.infra.JsonPlaylistSaveRequest;
 import toolc.yourlist.play.infra.Playlist;
 import toolc.yourlist.play.infra.PlaylistEntity;
 
@@ -17,7 +16,7 @@ public class MockPlaylist implements Playlist {
   }
 
   @Override
-  public void save(PlaylistSaveRequest request) {
+  public void save(SaveRequest request) {
     save.done(request);
   }
 
@@ -28,7 +27,7 @@ public class MockPlaylist implements Playlist {
 
   @FunctionalInterface
   public interface Save {
-    void done(PlaylistSaveRequest JsonPlaylistSaveRequest);
+    void done(SaveRequest jsonSaveRequest);
   }
 
   @Builder
