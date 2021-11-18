@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static toolc.yourlist.PlaylistFixture.playlist;
 import static toolc.yourlist.PlaylistFixture.playlistJson;
 
-class PlaylistMapperTest {
+class PlaylistEntityMapperTest {
   PlaylistMapper mapper = new PlaylistMapper();
 
   @Test

@@ -1,12 +1,11 @@
 package toolc.yourlist.play.domain;
 
-import toolc.yourlist.play.infra.Playlist;
+import toolc.yourlist.play.infra.PlaylistEntity;
 
 import java.util.List;
 
 public interface PlaylistRepository {
-  List<Playlist> findByMemberId(Long memberId);
+  List<PlaylistEntity> findByMemberId(Long memberId);
 
-  Playlist save(Playlist playlist);
-
+  PlaylistEntity save(PlaylistEntity playlistEntity);
 }

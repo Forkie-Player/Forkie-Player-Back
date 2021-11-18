@@ -36,8 +36,8 @@ public class PlaylistController {
     return ResponseEntity.ok(responseBody);
   }
 
-  private List<PlaylistJson> toPlaylistJsonList(List<Playlist> playlistList) {
-    return playlistList.stream()
+  private List<PlaylistJson> toPlaylistJsonList(List<PlaylistEntity> playlistEntityList) {
+    return playlistEntityList.stream()
       .map(playlistEntity ->
         mapper.toPlaylistJson(playlistEntity, thumbnailOfPlaylist.find(playlistEntity.id())))
       .collect(Collectors.toList());

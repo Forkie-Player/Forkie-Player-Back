@@ -3,14 +3,14 @@ package toolc.yourlist.play.infra;
 import toolc.yourlist.play.domain.PlaylistJson;
 
 public class PlaylistMapper {
-  public PlaylistJson toPlaylistJson(Playlist playlist, String thumbnail) {
-    if (playlist == null) {
+  public PlaylistJson toPlaylistJson(PlaylistEntity playlistEntity, String thumbnail) {
+    if (playlistEntity == null) {
       throw new IllegalArgumentException();
     }
 
     return PlaylistJson.builder()
-      .id(playlist.id())
-      .title(playlist.title())
+      .id(playlistEntity.id())
+      .title(playlistEntity.title())
       .thumbnail(thumbnail)
       .build();
   }

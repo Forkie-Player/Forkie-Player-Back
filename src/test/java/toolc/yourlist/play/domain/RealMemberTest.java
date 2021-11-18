@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static toolc.yourlist.play.domain.PlaylistSaveRequestFixture.playlistSaveRequest;
 
 class RealMemberTest {
-  SaveRequestPolicy realMember = new RealMember();
+  SavePolicy realMember = new RealMember();
 
   @Test
   void 회원() {

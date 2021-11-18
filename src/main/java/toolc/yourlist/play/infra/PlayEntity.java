@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Play extends BaseEntity {
+public class PlayEntity extends BaseEntity {
   private int sequence;
 
   private String thumbnail;
@@ -19,7 +19,7 @@ public class Play extends BaseEntity {
   private Long playlistId;
 
   @Builder
-  public Play(int sequence, String thumbnail, Long playlistId) {
+  public PlayEntity(int sequence, String thumbnail, Long playlistId) {
     this.sequence = sequence;
     this.thumbnail = thumbnail;
     this.playlistId = playlistId;

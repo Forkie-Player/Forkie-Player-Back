@@ -1,8 +1,8 @@
 package toolc.yourlist.play.domain;
 
-public class CountLimitOrRealMember implements SaveRequestPolicy {
-  SaveRequestPolicy realMember = new RealMember();
-  SaveRequestPolicy countLimit = new CountLimit();
+public class CountLimitOrRealMember implements SavePolicy {
+  SavePolicy realMember = new RealMember();
+  SavePolicy countLimit = new CountLimit();
 
   @Override
   public boolean matches(PlaylistSaveRequest request) {

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static toolc.yourlist.PlayFixture.play;
 import static toolc.yourlist.PlayFixture.playList;
 
-class ThumbnailOfPlaylistTest {
+class ThumbnailOfPlaylistEntityTest {
   ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   @Test
@@ -44,11 +44,11 @@ class ThumbnailOfPlaylistTest {
     assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
   }
 
-  private List<Play> getDuplicateList() {
-    List<Play> playList = new ArrayList<>();
-    playList.add(play().build());
-    playList.add(play().build());
+  private List<PlayEntity> getDuplicateList() {
+    List<PlayEntity> playEntityList = new ArrayList<>();
+    playEntityList.add(play().build());
+    playEntityList.add(play().build());
 
-    return playList;
+    return playEntityList;
   }
 }

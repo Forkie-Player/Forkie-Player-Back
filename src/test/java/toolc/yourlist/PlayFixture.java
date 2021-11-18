@@ -1,18 +1,18 @@
 package toolc.yourlist;
 
-import toolc.yourlist.play.infra.Play;
+import toolc.yourlist.play.infra.PlayEntity;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class PlayFixture {
-  public static Play.PlayBuilder play() {
-    return Play.builder()
+  public static PlayEntity.PlayEntityBuilder play() {
+    return PlayEntity.builder()
       .sequence(1)
       .thumbnail("thumbnail");
   }
 
-  public static List<Play> playList() {
+  public static List<PlayEntity> playList() {
     return Arrays.asList(
       play()
         .build(),

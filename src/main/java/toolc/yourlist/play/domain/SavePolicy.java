@@ -1,5 +1,5 @@
 package toolc.yourlist.play.domain;
 
-public interface SaveRequestPolicy {
+public interface SavePolicy {
   boolean matches(PlaylistSaveRequest request);
 }

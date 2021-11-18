@@ -1,18 +1,18 @@
 package toolc.yourlist;
 
 import toolc.yourlist.play.domain.PlaylistJson;
-import toolc.yourlist.play.infra.Playlist;
+import toolc.yourlist.play.infra.PlaylistEntity;
 
 import java.util.List;
 
 public class PlaylistFixture {
-  public static Playlist.PlaylistBuilder playlist() {
-    return Playlist.builder()
+  public static PlaylistEntity.PlaylistEntityBuilder playlist() {
+    return PlaylistEntity.builder()
       .title("title")
       .memberId(1L);
   }
 
-  public static List<Playlist> playlists() {
+  public static List<PlaylistEntity> playlists() {
     return List.of(
       playlist().build(),
       playlist().build());

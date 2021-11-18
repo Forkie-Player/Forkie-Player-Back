@@ -9,7 +9,7 @@ import java.util.List;
 public class PlaylistStorage {
   private final PlaylistRepository playlistRepository;
 
-  List<Playlist> readWhatBelongsTo(Long memberId) {
+  List<PlaylistEntity> readWhatBelongsTo(Long memberId) {
     return playlistRepository.findByMemberId(memberId);
   }
 

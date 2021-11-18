@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static toolc.yourlist.play.domain.PlaylistSaveRequestFixture.playlistSaveRequest;
 
 class CountLimitTest {
-  SaveRequestPolicy countLimit = new CountLimit();
+  SavePolicy countLimit = new CountLimit();
 
   @Test
   void 갯수_5개이상() {
