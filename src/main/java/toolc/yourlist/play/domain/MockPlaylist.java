@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MockPlaylist implements Playlist {
   ReadWhatBelongsTo readWhatBelongsTo;
-  Save save;
+  SaveByRequest saveByRequest;
 
   @Override
   public List<PlaylistEntity> readWhatBelongsTo(Long memberId) {
@@ -16,8 +16,8 @@ public class MockPlaylist implements Playlist {
   }
 
   @Override
-  public void save(SaveRequest request) {
-    save.done(request);
+  public void saveByRequest(SaveRequest request) {
+    saveByRequest.done(request);
   }
 
   @FunctionalInterface
@@ -26,13 +26,13 @@ public class MockPlaylist implements Playlist {
   }
 
   @FunctionalInterface
-  public interface Save {
+  public interface SaveByRequest {
     void done(SaveRequest jsonSaveRequest);
   }
 
   @Builder
-  public MockPlaylist(ReadWhatBelongsTo readWhatBelongsTo, Save save) {
+  public MockPlaylist(ReadWhatBelongsTo readWhatBelongsTo, SaveByRequest saveByRequest) {
     this.readWhatBelongsTo = readWhatBelongsTo;
-    this.save = save;
+    this.saveByRequest = saveByRequest;
   }
 }

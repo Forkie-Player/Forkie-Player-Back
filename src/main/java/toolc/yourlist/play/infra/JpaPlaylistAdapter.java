@@ -15,7 +15,7 @@ public class JpaPlaylistAdapter implements Playlist {
   }
 
   @Override
-  public void save(SaveRequest request) {
+  public void saveByRequest(SaveRequest request) {
     playlistRepository.save(PlaylistEntity.builder()
       .memberId(request.memberId())
       .title(request.title())

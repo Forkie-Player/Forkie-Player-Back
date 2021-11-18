@@ -12,6 +12,7 @@ class PlaylistRequestMapper {
 
   SaveRequest toSaveRequest(JsonSaveRequest jsonSaveRequest) {
     Member member = allMember.findByLoginId(jsonSaveRequest.loginId());
+
     if (member == null) {
       throw new IllegalArgumentException("존재하지 않는 회원입니다.");
     }

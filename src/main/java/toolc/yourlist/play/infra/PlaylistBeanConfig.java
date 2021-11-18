@@ -3,6 +3,7 @@ package toolc.yourlist.play.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.domain.CountLimitOrRealMember;
 import toolc.yourlist.play.domain.SavePolicy;
 
@@ -26,5 +27,10 @@ public class PlaylistBeanConfig {
   @Bean
   SavePolicy saveRequestPolicy() {
     return new CountLimitOrRealMember();
+  }
+
+  @Bean
+  PlaylistRequestMapper mapper(AllMember allMember, Playlist playlist) {
+    return new PlaylistRequestMapper(allMember, playlist);
   }
 }

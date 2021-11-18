@@ -1,19 +1,25 @@
 package toolc.yourlist.play.infra;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public final class JsonSaveRequest {
   @NotNull
-  private final String loginId;
-  @NotEmpty
-  private final String title;
+  @JsonProperty
+  private String loginId;
+  @NotBlank
+  @JsonProperty
+  private String title;
 
   @Builder
   JsonSaveRequest(String loginId, String title) {

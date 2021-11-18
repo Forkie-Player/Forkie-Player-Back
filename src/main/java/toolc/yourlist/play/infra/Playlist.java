@@ -7,5 +7,5 @@ import java.util.List;
 public interface Playlist {
   List<PlaylistEntity> readWhatBelongsTo(Long memberId);
 
-  void save(SaveRequest request);
+  void saveByRequest(SaveRequest request);
 }
