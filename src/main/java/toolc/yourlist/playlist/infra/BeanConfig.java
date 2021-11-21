@@ -34,8 +34,8 @@ public class BeanConfig {
   }
 
   @Bean
-  JsonMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
-    return new JsonMapper(thumbnailOfPlaylist);
+  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
+    return new PlaylistMapper(thumbnailOfPlaylist);
   }
 
   @Bean

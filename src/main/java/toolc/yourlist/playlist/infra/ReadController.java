@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class ReadController {
   private final Playlist playlist;
-  private final JsonMapper mapper;
+  private final PlaylistMapper mapper;
 
   @GetMapping("/api/playlist/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {

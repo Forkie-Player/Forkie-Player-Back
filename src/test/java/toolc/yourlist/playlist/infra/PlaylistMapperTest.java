@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static toolc.yourlist.PlayFixture.playList;
 import static toolc.yourlist.PlaylistFixture.*;
 
-class JsonMapperTest {
+class PlaylistMapperTest {
   ThumbnailOfPlaylist thumbnailOfPlaylist;
-  JsonMapper mapper;
+  PlaylistMapper mapper;
 
   @Test
   void playlistJson로_변환() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
-    mapper = new JsonMapper(thumbnailOfPlaylist);
+    mapper = new PlaylistMapper(thumbnailOfPlaylist);
     PlaylistJson playlistJson = mapper.toPlaylistJson(playlist().build(), "thumbnail");
 
     assertThat(playlistJson, is(playlistJson().build()));
@@ -28,7 +28,7 @@ class JsonMapperTest {
   @Test
   void playlist가_null() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
-    mapper = new JsonMapper(thumbnailOfPlaylist);
+    mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
     assertThrows(IllegalArgumentException.class, () ->
       mapper.toPlaylistJson(null, "thumbnail")
@@ -40,7 +40,7 @@ class JsonMapperTest {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> playList())
       .build());
-    mapper = new JsonMapper(thumbnailOfPlaylist);
+    mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
     List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(playlists());
 

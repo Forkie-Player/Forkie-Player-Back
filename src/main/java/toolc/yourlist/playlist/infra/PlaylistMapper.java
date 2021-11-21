@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class JsonMapper {
+public class PlaylistMapper {
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   public PlaylistJson toPlaylistJson(PlaylistEntity playlistEntity, String thumbnail) {
