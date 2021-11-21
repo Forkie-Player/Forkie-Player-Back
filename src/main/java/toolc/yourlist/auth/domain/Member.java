@@ -1,10 +1,12 @@
 package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Getter
 public class Member {
   private String loginId;
   private String password;

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import toolc.yourlist.member.domain.MemberEntity;
 import toolc.yourlist.member.domain.MemberRepository;
 
-public interface JpaAllMember extends JpaRepository<MemberEntity, Long>, MemberRepository {
+public interface JpaAllMemberEntity extends JpaRepository<MemberEntity, Long>, MemberRepository {
   MemberEntity findByLoginId(String loginId);
 }

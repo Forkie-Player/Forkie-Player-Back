@@ -9,15 +9,15 @@ import toolc.yourlist.member.domain.MemberEntity;
 @Component
 public class AllMemberMapper implements AllMember {
 
-  private final JpaAllMember jpaAllMember;
+  private final JpaAllMemberEntity jpaAllMemberEntity;
 
   @Override
   public MemberEntity findByLoginId(String loginId) {
-    return jpaAllMember.findByLoginId(loginId);
+    return jpaAllMemberEntity.findByLoginId(loginId);
   }
 
   @Override
   public MemberEntity save(MemberEntity member) {
-    return jpaAllMember.save(member);
+    return jpaAllMemberEntity.save(member);
   }
 }

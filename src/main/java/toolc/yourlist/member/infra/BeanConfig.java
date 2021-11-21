@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 public class BeanConfig {
 
   @Autowired
-  private JpaAllMember jpaAllMember;
+  private JpaAllMemberEntity jpaAllMemberEntity;
 
   @Bean
   private AllMemberMapper allMemberMapper(){
-    return new AllMemberMapper(jpaAllMember);
+    return new AllMemberMapper(jpaAllMemberEntity);
   }
 }
