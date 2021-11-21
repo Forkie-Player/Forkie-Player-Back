@@ -1,7 +1,7 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.member.domain.MemberEntity;
 import toolc.yourlist.member.domain.MemberRepository;
 import toolc.yourlist.play.domain.PlaylistRepository;
 
@@ -15,7 +15,7 @@ public class PlaylistSaveRequests {
   private final PlaylistRepository playlistRepository;
 
   PlaylistSaveRequest of(Long memberId, String title) {
-    Optional<Member> optionalMember = memberRepository.findById(memberId);
+    Optional<MemberEntity> optionalMember = memberRepository.findById(memberId);
     requires(optionalMember.isPresent(), "멤버 존재X");
 
     return PlaylistSaveRequest.builder()

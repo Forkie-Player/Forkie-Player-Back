@@ -8,7 +8,7 @@ public class Member {
   private String password;
 
 
-  Member(String loginId, String password) {
+  public Member(String loginId, String password) {
     this.loginId = loginId;
     this.password = password;
   }

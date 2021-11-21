@@ -2,7 +2,7 @@ package toolc.yourlist.play.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.common.domain.ContractViolationException;
-import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.member.domain.MemberEntity;
 import toolc.yourlist.member.domain.MockMemberRepository;
 import toolc.yourlist.play.domain.MockPlaylistRepository;
 
@@ -34,7 +34,7 @@ class PlaylistSaveRequestsTest {
     List<Playlist> playlistList = playlists();
     playlistSaveRequests = new PlaylistSaveRequests(MockMemberRepository.builder()
       .findById(id ->
-        Optional.of(new Member("loginId", "password", true)))
+        Optional.of(new MemberEntity("loginId", "password", true)))
       .build(),
       MockPlaylistRepository.builder()
         .findByMemberId(memberId -> playlistList)
@@ -53,7 +53,7 @@ class PlaylistSaveRequestsTest {
     List<Playlist> playlistList = playlists();
     playlistSaveRequests = new PlaylistSaveRequests(MockMemberRepository.builder()
       .findById(id ->
-        Optional.of(new Member("loginId", "password", false)))
+        Optional.of(new MemberEntity("loginId", "password", false)))
       .build(),
       MockPlaylistRepository.builder()
         .findByMemberId(memberId -> playlistList)

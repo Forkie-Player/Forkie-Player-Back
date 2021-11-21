@@ -3,7 +3,7 @@ package toolc.yourlist.auth.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.member.domain.MemberEntity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -28,12 +28,12 @@ class NomMemberSaveEntityTest {
 class MockAllMember implements AllMember {
 
   @Override
-  public Member findByLoginId(String loginId) {
-    return new Member(loginId, "password1!", true);
+  public MemberEntity findByLoginId(String loginId) {
+    return new MemberEntity(loginId, "password1!", true);
   }
 
   @Override
-  public Member save(Member member) {
+  public MemberEntity save(MemberEntity member) {
     return member;
   }
 
