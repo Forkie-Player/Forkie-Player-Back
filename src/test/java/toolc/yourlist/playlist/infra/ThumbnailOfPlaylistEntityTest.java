@@ -4,15 +4,12 @@ import org.junit.jupiter.api.Test;
 import toolc.yourlist.play.domain.MockPlay;
 import toolc.yourlist.play.infra.PlayEntity;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.PlayFixture.play;
-import static toolc.yourlist.PlayFixture.playList;
 
 class ThumbnailOfPlaylistEntityTest {
   ThumbnailOfPlaylist thumbnailOfPlaylist;
@@ -20,11 +17,24 @@ class ThumbnailOfPlaylistEntityTest {
   @Test
   void 썸네일_찾기() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
-      .readWhatBelongsTo(playlistId -> playList())
+      .readWhatBelongsTo(playlistId -> Arrays.asList(
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail001")
+          .build(),
+        PlayEntity.builder()
+          .sequence(2)
+          .thumbnail("thumbnail002")
+          .build(),
+        PlayEntity.builder()
+          .sequence(3)
+          .thumbnail("thumbnail003")
+          .build()
+      ))
       .build());
     String thumbnail = this.thumbnailOfPlaylist.find(1L);
 
-    assertThat("thumbnail", is(thumbnail));
+    assertThat("thumbnail001", is(thumbnail));
   }
 
   @Test
@@ -40,16 +50,21 @@ class ThumbnailOfPlaylistEntityTest {
   @Test
   void 첫번째_순서_중복() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
-      .readWhatBelongsTo(playlistId -> getDuplicateList())
+      .readWhatBelongsTo(playlistId -> Arrays.asList(
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail001")
+          .build(),
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail002")
+          .build(),
+        PlayEntity.builder()
+          .sequence(2)
+          .thumbnail("thumbnail003")
+          .build()
+      ))
       .build());
     assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
-  }
-
-  private List<PlayEntity> getDuplicateList() {
-    List<PlayEntity> playEntityList = new ArrayList<>();
-    playEntityList.add(play().build());
-    playEntityList.add(play().build());
-
-    return playEntityList;
   }
 }

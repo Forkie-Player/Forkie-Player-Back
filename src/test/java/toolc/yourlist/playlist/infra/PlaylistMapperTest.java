@@ -2,15 +2,15 @@ package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.play.domain.MockPlay;
+import toolc.yourlist.play.infra.PlayEntity;
 import toolc.yourlist.playlist.domain.PlaylistJson;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.PlayFixture.playList;
-import static toolc.yourlist.PlaylistFixture.*;
 
 class PlaylistMapperTest {
   ThumbnailOfPlaylist thumbnailOfPlaylist;
@@ -20,9 +20,17 @@ class PlaylistMapperTest {
   void playlistJson로_변환() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
     mapper = new PlaylistMapper(thumbnailOfPlaylist);
-    PlaylistJson playlistJson = mapper.toPlaylistJson(playlist().build(), "thumbnail");
+    PlaylistJson playlistJson = mapper.toPlaylistJson(
+      PlaylistEntity.builder()
+        .title("title")
+        .build(),
+      "thumbnail");
 
-    assertThat(playlistJson, is(playlistJson().build()));
+    assertThat(playlistJson,
+      is(PlaylistJson.builder()
+        .title("title")
+        .thumbnail("thumbnail")
+        .build()));
   }
 
   @Test
@@ -38,12 +46,42 @@ class PlaylistMapperTest {
   @Test
   void playlistJsonList로_변환() {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
-      .readWhatBelongsTo(playlistId -> playList())
+      .readWhatBelongsTo(playlistId -> Arrays.asList(
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail1")
+          .build(),
+        PlayEntity.builder()
+          .sequence(2)
+          .thumbnail("thumbnail2")
+          .build(),
+        PlayEntity.builder()
+          .sequence(3)
+          .thumbnail("thumbnail3")
+          .build()
+      ))
       .build());
     mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
-    List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(playlists());
+    List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
+      List.of(
+        PlaylistEntity.builder()
+          .title("title001")
+          .build(),
+        PlaylistEntity.builder()
+          .title("title002")
+          .build())
+    );
 
-    assertThat(playlistJsons, is(playlistJsonList()));
+    assertThat(playlistJsons
+      , is(List.of(
+        PlaylistJson.builder()
+          .title("title001")
+          .thumbnail("thumbnail1")
+          .build(),
+        PlaylistJson.builder()
+          .title("title002")
+          .thumbnail("thumbnail1")
+          .build())));
   }
 }

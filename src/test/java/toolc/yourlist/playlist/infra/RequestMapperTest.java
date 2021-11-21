@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.member.domain.MockAllMember;
 import toolc.yourlist.playlist.domain.MockPlaylist;
+import toolc.yourlist.playlist.domain.SaveRequest;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.PlaylistFixture.playlists;
-import static toolc.yourlist.RequestFixture.jsonSaveRequest;
-import static toolc.yourlist.RequestFixture.saveRequest;
 
 class RequestMapperTest {
   RequestMapper mapper;
@@ -19,20 +19,30 @@ class RequestMapperTest {
   void PlaylistSaveRequest로_변환() {
     mapper = new RequestMapper(MockAllMember.builder()
       .findByLoginId(loginId ->
-        new Member("loginId",
-          "password",
+        new Member("oh980225",
+          "qwer1234!",
           true))
       .build(),
       MockPlaylist.builder()
-        .readWhatBelongsTo(memberId -> playlists())
+        .readWhatBelongsTo(memberId -> List.of(
+          PlaylistEntity.builder()
+            .title("title001")
+            .build(),
+          PlaylistEntity.builder()
+            .title("title002")
+            .build()))
         .build());
 
-    JsonSaveRequest jsonSaveRequest = jsonSaveRequest().build();
+    JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
+      .loginId("oh980225")
+      .title("title003")
+      .build();
 
     assertThat(mapper.toSaveRequest(jsonSaveRequest),
-      is(saveRequest()
+      is(SaveRequest.builder()
+        .title("title003")
         .isMember(true)
-        .playlistCount(playlists().size())
+        .playlistCount(2)
         .build()));
   }
 
@@ -44,7 +54,10 @@ class RequestMapperTest {
       MockPlaylist.builder()
         .build());
 
-    JsonSaveRequest jsonSaveRequest = jsonSaveRequest().build();
+    JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
+      .loginId("oh980225")
+      .title("title003")
+      .build();
 
     assertThrows(IllegalArgumentException.class, () -> mapper.toSaveRequest(jsonSaveRequest));
   }
