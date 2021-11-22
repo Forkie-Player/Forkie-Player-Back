@@ -1,14 +1,15 @@
 package toolc.yourlist.auth.infra;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.auth.domain.MemberLogin;
+import toolc.yourlist.auth.domain.Token;
 import toolc.yourlist.common.ResponseBody;
 
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -22,11 +23,15 @@ public class AuthApi {
 
   @PostMapping("/api/login")
   public ResponseEntity<?> login(@RequestBody JsonLoginRequest request) {
-    Map<String, String> token =
-      tokenFormatter.toJwtFromToken(memberLogin.login(loginRequestMapperFromJson.mapper(request)));
+    Either<String, Token> loginResult =
+      memberLogin.login(loginRequestMapperFromJson.mapper(request));
 
-    ResponseBody responseBody = new ResponseBody(OK.value(), "로그인 성공", token);
+    if (loginResult.isRight()) {
+      ResponseBody responseBody = new ResponseBody(OK.value(), "로그인 성공",
+        tokenFormatter.toJwtFromToken(loginResult.get()));
 
-    return ResponseEntity.ok(responseBody);
+      return ResponseEntity.ok(responseBody);
+    }
+    return ResponseEntity.badRequest().body(loginResult.getLeft());
   }
 }

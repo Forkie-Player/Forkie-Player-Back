@@ -1,8 +1,8 @@
 package toolc.yourlist.auth.domain;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
 @Component
@@ -10,11 +10,16 @@ public class MemberLogin {
   private final AllMember allMember;
   private final AccessTokenCreator accessTokenCreator;
   private final RefreshTokenCreator refreshTokenCreator;
+  private final CheckPassword checkPassword;
 
-  public Token login(LoginRequest request) {
-    allMember.findByLoginId(request.loginId().raw());
+  public Either<String, Token> login(LoginRequest request) {
+    Member savedMember = allMember.findByLoginId(request.loginId().raw());
 
-    return new Token(accessTokenCreator.create(request.loginId()),
-      refreshTokenCreator.create(request.device()));
+    if(checkPassword.check(request.password(), savedMember)) {
+      return Either.right(new Token(accessTokenCreator.create(request.loginId()),
+        refreshTokenCreator.create(request.device())));
+    }
+    return Either.left("wrong password");
   }
 }
+

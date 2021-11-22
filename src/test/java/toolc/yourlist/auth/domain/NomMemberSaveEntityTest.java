@@ -48,6 +48,11 @@ class MockPasswordEncoder implements PasswordEncoder {
     return "encoded" + raw;
   }
 
+  @Override
+  public boolean matches(CharSequence rawPassword, String encodedPassword) {
+    return false;
+  }
+
   public MockPasswordEncoder() {
   }
 }
