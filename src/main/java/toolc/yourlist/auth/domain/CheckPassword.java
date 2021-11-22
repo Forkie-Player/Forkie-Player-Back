@@ -3,7 +3,7 @@ package toolc.yourlist.auth.domain;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-class CheckPassword {
+public class CheckPassword {
   private final PasswordEncoder passwordEncoder;
 
   boolean check(Password inputPassword, Member savedMember) {

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import toolc.yourlist.auth.domain.PasswordEncoder;
 
-public class PasswordEncoderAdapter implements PasswordEncoder {
+public class PasswordEncoderSpringAdapter implements PasswordEncoder {
 
   private org.springframework.security.crypto.password.PasswordEncoder springEncoder
     = PasswordEncoderFactories.createDelegatingPasswordEncoder();

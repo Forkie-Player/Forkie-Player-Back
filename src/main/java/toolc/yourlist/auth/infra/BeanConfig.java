@@ -3,7 +3,6 @@ package toolc.yourlist.auth.infra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import toolc.yourlist.auth.domain.*;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
@@ -56,6 +55,11 @@ public class BeanConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new PasswordEncoderAdapter();
+    return new PasswordEncoderSpringAdapter();
+  }
+
+  @Bean
+  public CheckPassword checkPassword() {
+    return new CheckPassword(passwordEncoder());
   }
 }
