@@ -1,6 +1,7 @@
 package toolc.yourlist.auth.domain;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.auth.infra.NomMemberSaveEntity;
 
 @RequiredArgsConstructor
 public class NonMemberSignUp {

@@ -1,6 +1,7 @@
 package toolc.yourlist.member.domain;
 
 import lombok.Builder;
+import toolc.yourlist.member.infra.MemberEntity;
 
 import java.util.Optional;
 

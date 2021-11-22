@@ -1,7 +1,7 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.MemberEntity;
+import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.member.domain.MemberRepository;
 import toolc.yourlist.play.domain.PlaylistRepository;
 

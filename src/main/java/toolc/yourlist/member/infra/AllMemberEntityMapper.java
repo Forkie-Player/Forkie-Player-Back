@@ -2,12 +2,10 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.domain.MemberEntity;
 
 @RequiredArgsConstructor
 @Component
-public class AllMemberMapper implements AllMember {
+public class AllMemberEntityMapper implements AllMemberEntity {
 
   private final JpaAllMemberEntity jpaAllMemberEntity;
 

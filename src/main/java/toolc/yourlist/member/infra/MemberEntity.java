@@ -1,4 +1,4 @@
-package toolc.yourlist.member.domain;
+package toolc.yourlist.member.infra;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -2,8 +2,9 @@ package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.domain.MemberEntity;
+import toolc.yourlist.auth.infra.NomMemberSaveEntity;
+import toolc.yourlist.member.infra.AllMemberEntity;
+import toolc.yourlist.member.infra.MemberEntity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -14,7 +15,7 @@ class NomMemberSaveEntityTest {
 
   @BeforeEach
   void setUp() {
-    nomMemberSaveEntity = new NomMemberSaveEntity(new MockAllMember(), new MockPasswordEncoder());
+    nomMemberSaveEntity = new NomMemberSaveEntity(new MockAllMemberEntity(), new MockPasswordEncoder());
   }
 
   @Test
@@ -25,7 +26,7 @@ class NomMemberSaveEntityTest {
 }
 
 
-class MockAllMember implements AllMember {
+class MockAllMemberEntity implements AllMemberEntity {
 
   @Override
   public MemberEntity findByLoginId(String loginId) {
@@ -37,7 +38,7 @@ class MockAllMember implements AllMember {
     return member;
   }
 
-  public MockAllMember() {
+  public MockAllMemberEntity() {
   }
 }
 

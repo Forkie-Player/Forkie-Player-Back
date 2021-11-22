@@ -2,7 +2,7 @@ package toolc.yourlist.auth.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.auth.domain.Member;
-import toolc.yourlist.member.domain.MemberEntity;
+import toolc.yourlist.member.infra.MemberEntity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

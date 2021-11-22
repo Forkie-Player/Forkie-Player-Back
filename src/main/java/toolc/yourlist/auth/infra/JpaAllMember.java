@@ -3,7 +3,7 @@ package toolc.yourlist.auth.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.auth.domain.AllMember;
 import toolc.yourlist.auth.domain.Member;
-import toolc.yourlist.member.domain.MemberEntity;
+import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 @RequiredArgsConstructor

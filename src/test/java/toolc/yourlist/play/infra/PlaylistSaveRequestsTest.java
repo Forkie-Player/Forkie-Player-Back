@@ -2,7 +2,7 @@ package toolc.yourlist.play.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.common.domain.ContractViolationException;
-import toolc.yourlist.member.domain.MemberEntity;
+import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.member.domain.MockMemberRepository;
 import toolc.yourlist.play.domain.MockPlaylistRepository;
 

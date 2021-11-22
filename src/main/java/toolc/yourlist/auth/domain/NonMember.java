@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @EqualsAndHashCode
-final class NonMember {
+public final class NonMember {
 
   @Getter
   private String uuid;

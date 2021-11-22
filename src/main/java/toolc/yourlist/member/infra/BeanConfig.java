@@ -9,7 +9,7 @@ public class BeanConfig {
   private JpaAllMemberEntity jpaAllMemberEntity;
 
   @Bean
-  private AllMemberMapper allMemberMapper(){
-    return new AllMemberMapper(jpaAllMemberEntity);
+  private AllMemberEntityMapper allMemberMapper(){
+    return new AllMemberEntityMapper(jpaAllMemberEntity);
   }
 }
