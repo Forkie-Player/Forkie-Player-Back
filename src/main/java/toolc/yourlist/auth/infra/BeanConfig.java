@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
+import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 
 @Configuration
@@ -42,5 +43,13 @@ public class BeanConfig {
   @Bean
   TokenFormatter tokenFormatter() {
     return new TokenFormatter(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig());
+  }
+
+  @Autowired
+  JpaAllMemberEntity jpaAllMemberEntity;
+
+  @Bean
+  AllMember allMember() {
+    return new JpaAllMember(jpaAllMemberEntity, new MemberDomainAdapter());
   }
 }
