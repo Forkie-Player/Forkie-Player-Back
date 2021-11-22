@@ -8,6 +8,8 @@ import toolc.yourlist.common.infra.ResponseBody;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static toolc.yourlist.common.infra.JsonResponse.fail;
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 
 @RestControllerAdvice
 public class CommonExceptionHandler {
@@ -18,23 +20,13 @@ public class CommonExceptionHandler {
     }
   )
   public ResponseEntity<?> badRequest(Exception e) {
-    ResponseBody responseBody = ResponseBody.builder()
-      .status(BAD_REQUEST.value())
-      .message(e.getMessage())
-      .build();
-
-    return ResponseEntity.badRequest().body(responseBody);
+    return failForBadRequest(e.getMessage());
   }
 
   @ExceptionHandler({
     RuntimeException.class
   })
   public ResponseEntity<?> serverError(Exception e) {
-    ResponseBody responseBody = ResponseBody.builder()
-      .status(INTERNAL_SERVER_ERROR.value())
-      .message(e.getMessage())
-      .build();
-
-    return ResponseEntity.internalServerError().body(responseBody);
+    return fail(e);
   }
 }

@@ -20,14 +20,9 @@ public class ReadController {
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("loginId") String loginId) {
-    try {
-      List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-        persistingPlaylist
-          .readAllBelongsTo(loginId));
+    List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
+      persistingPlaylist.readAllBelongsTo(loginId));
 
-      return JsonResponse.successWithData(playlistJsons, "조회 성공");
-    } catch (Exception e) {
-      return JsonResponse.fail(e);
-    }
+    return JsonResponse.successWithData(playlistJsons, "조회 성공");
   }
 }

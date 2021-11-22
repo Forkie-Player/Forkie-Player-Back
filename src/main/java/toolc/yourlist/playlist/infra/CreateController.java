@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import toolc.yourlist.common.domain.Result;
 import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.playlist.domain.SavePolicy;
 import toolc.yourlist.playlist.domain.SaveRequest;
@@ -22,18 +23,17 @@ public class CreateController {
 
   @PostMapping("/api/playlist/create")
   public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonSaveRequest request) {
-    try {
-      SaveRequest saveRequest = mapper.toSaveRequest(request);
+    Result<SaveRequest> saveRequest = mapper.toSaveRequest(request);
 
-      if (!savePolicy.matches(saveRequest)) {
-        return JsonResponse.failForBadRequest("[비회원] 생성 갯수 초과");
-      }
-
-      persistingPlaylist.saveByRequest(saveRequest);
-
-      return JsonResponse.success("생성 성공");
-    } catch (Exception e) {
-      return JsonResponse.fail(e);
+    if (saveRequest.isFail()) {
+      return saveRequest.fail();
     }
+    if (!savePolicy.matches(saveRequest.success())) {
+      return JsonResponse.failForBadRequest("[비회원] 생성 갯수 초과");
+    }
+
+    persistingPlaylist.saveByRequest(saveRequest.success());
+
+    return JsonResponse.success("생성 성공");
   }
 }

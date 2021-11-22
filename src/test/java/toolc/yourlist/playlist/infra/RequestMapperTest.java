@@ -10,6 +10,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 
 class RequestMapperTest {
 
@@ -30,7 +31,7 @@ class RequestMapperTest {
       .title("title003")
       .build();
 
-    assertThat(mapper.toSaveRequest(jsonSaveRequest),
+    assertThat(mapper.toSaveRequest(jsonSaveRequest).success(),
       is(SaveRequest.builder()
         .loginId("oh980225")
         .title("title003")
@@ -46,12 +47,14 @@ class RequestMapperTest {
       .build(),
       MockPersistingPlaylist.builder()
         .build());
-
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
       .loginId("oh980225")
       .title("title003")
       .build();
 
-    assertThrows(IllegalArgumentException.class, () -> mapper.toSaveRequest(jsonSaveRequest));
+    var actual = mapper.toSaveRequest(jsonSaveRequest).fail();
+
+    var expected = failForBadRequest("유효하지 않은 loginId입니다.");
+    assertThat(actual, is(expected));
   }
 }

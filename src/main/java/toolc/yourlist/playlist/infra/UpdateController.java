@@ -16,13 +16,9 @@ public class UpdateController {
 
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> readPlaylists(@RequestBody JsonUpdateRequest request) {
-    try {
-      Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
-      persistingPlaylist.updateTitle(playlist, request.title());
+    Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
+    persistingPlaylist.updateTitle(playlist, request.title());
 
-      return JsonResponse.success("수정 성공");
-    } catch (Exception e) {
-      return JsonResponse.fail(e);
-    }
+    return JsonResponse.success("수정 성공");
   }
 }
