@@ -5,7 +5,7 @@ import toolc.yourlist.playlist.domain.SaveRequest;
 import java.util.Optional;
 
 public interface PersistingPlaylist {
-  AllPlaylists readAllBelongsTo(Long memberId);
+  AllPlaylists readAllBelongsTo(String loginId);
 
   void saveByRequest(SaveRequest request);
 

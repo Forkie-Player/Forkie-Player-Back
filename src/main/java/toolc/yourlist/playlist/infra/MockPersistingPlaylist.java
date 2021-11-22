@@ -14,8 +14,8 @@ public class MockPersistingPlaylist implements PersistingPlaylist {
   SaveByRequest saveByRequest;
 
   @Override
-  public AllPlaylists readAllBelongsTo(Long memberId) {
-    return readWhatBelongsTo.done(memberId);
+  public AllPlaylists readAllBelongsTo(String loginId) {
+    return readWhatBelongsTo.done(loginId);
   }
 
   @Override
@@ -25,7 +25,7 @@ public class MockPersistingPlaylist implements PersistingPlaylist {
 
   @FunctionalInterface
   public interface ReadWhatBelongsTo {
-    AllPlaylists done(Long memberId);
+    AllPlaylists done(String loginId);
   }
 
   @FunctionalInterface

@@ -14,8 +14,8 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository) {
-    return new JpaPlaylistAdapter(playlistRepository);
+  public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository, AllMember allMember) {
+    return new JpaPlaylistAdapter(playlistRepository, allMember);
   }
 
   @Bean

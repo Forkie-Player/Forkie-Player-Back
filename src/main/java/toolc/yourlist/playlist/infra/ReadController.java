@@ -18,12 +18,12 @@ public class ReadController {
   private final PersistingPlaylist persistingPlaylist;
   private final PlaylistMapper mapper;
 
-  @GetMapping("/api/playlist/{id}")
-  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
+  @GetMapping("/api/playlist/{loginId}")
+  public ResponseEntity<?> readPlaylists(@PathVariable("loginId") String loginId) {
     try {
       List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
         persistingPlaylist
-          .readAllBelongsTo(memberId)
+          .readAllBelongsTo(loginId)
           .entities());
 
       return JsonResponse.successWithData(playlistJsons, "조회 성공");

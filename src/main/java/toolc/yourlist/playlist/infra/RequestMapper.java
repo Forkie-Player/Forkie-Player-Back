@@ -15,14 +15,14 @@ class RequestMapper {
 
     if (member == null) {
       throw new IllegalArgumentException("존재하지 않는 회원입니다.");
-    }
+    } // TODO: 예외가 아니라 BadRequest
 
     return SaveRequest.builder()
-      .memberId(member.id())
+      .loginId(jsonSaveRequest.loginId())
       .title(jsonSaveRequest.title())
       .isMember(member.isMember())
       .playlistCount(persistingPlaylist
-        .readAllBelongsTo(member.id())
+        .readAllBelongsTo(jsonSaveRequest.loginId())
         .entities()
         .size())
       .build();

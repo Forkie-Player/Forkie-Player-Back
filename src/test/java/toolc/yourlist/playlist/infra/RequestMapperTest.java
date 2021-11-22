@@ -41,6 +41,7 @@ class RequestMapperTest {
 
     assertThat(mapper.toSaveRequest(jsonSaveRequest),
       is(SaveRequest.builder()
+        .loginId("oh980225")
         .title("title003")
         .isMember(true)
         .playlistCount(2)
