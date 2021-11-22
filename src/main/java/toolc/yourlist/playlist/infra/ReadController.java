@@ -15,14 +15,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class ReadController {
-  private final Playlist playlist;
+  private final PersistingPlaylist persistingPlaylist;
   private final PlaylistMapper mapper;
 
   @GetMapping("/api/playlist/{id}")
   public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
     try {
       List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-        playlist.readAllBelongsTo(memberId));
+        persistingPlaylist
+          .readAllBelongsTo(memberId)
+          .entities());
 
       return JsonResponse.successWithData(playlistJsons, "조회 성공");
     } catch (Exception e) {

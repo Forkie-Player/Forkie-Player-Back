@@ -1,18 +1,20 @@
-package toolc.yourlist.playlist.domain;
+package toolc.yourlist.playlist.infra;
 
 import lombok.Builder;
-import toolc.yourlist.playlist.infra.Playlist;
+import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.infra.AllPlaylists;
+import toolc.yourlist.playlist.infra.PersistingPlaylist;
 import toolc.yourlist.playlist.infra.PlaylistEntity;
 
 import java.util.List;
 import java.util.Optional;
 
-public class MockPlaylist implements Playlist {
+public class MockPersistingPlaylist implements PersistingPlaylist {
   ReadWhatBelongsTo readWhatBelongsTo;
   SaveByRequest saveByRequest;
 
   @Override
-  public List<PlaylistEntity> readAllBelongsTo(Long memberId) {
+  public AllPlaylists readAllBelongsTo(Long memberId) {
     return readWhatBelongsTo.done(memberId);
   }
 
@@ -23,7 +25,7 @@ public class MockPlaylist implements Playlist {
 
   @FunctionalInterface
   public interface ReadWhatBelongsTo {
-    List<PlaylistEntity> done(Long memberId);
+    AllPlaylists done(Long memberId);
   }
 
   @FunctionalInterface
@@ -42,7 +44,7 @@ public class MockPlaylist implements Playlist {
   }
 
   @Builder
-  public MockPlaylist(ReadWhatBelongsTo readWhatBelongsTo, SaveByRequest saveByRequest) {
+  public MockPersistingPlaylist(ReadWhatBelongsTo readWhatBelongsTo, SaveByRequest saveByRequest) {
     this.readWhatBelongsTo = readWhatBelongsTo;
     this.saveByRequest = saveByRequest;
   }

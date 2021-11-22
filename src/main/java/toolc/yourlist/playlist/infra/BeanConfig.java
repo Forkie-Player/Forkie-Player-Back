@@ -14,7 +14,7 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  public Playlist playlist(JpaPlaylistRepository playlistRepository) {
+  public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository) {
     return new JpaPlaylistAdapter(playlistRepository);
   }
 
@@ -39,7 +39,7 @@ public class BeanConfig {
   }
 
   @Bean
-  RequestMapper requestMapper(AllMember allMember, Playlist playlist) {
-    return new RequestMapper(allMember, playlist);
+  RequestMapper requestMapper(AllMember allMember, PersistingPlaylist persistingPlaylist) {
+    return new RequestMapper(allMember, persistingPlaylist);
   }
 }

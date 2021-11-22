@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 public class CreateController {
-  private final Playlist playlist;
+  private final PersistingPlaylist persistingPlaylist;
   private final SavePolicy savePolicy;
   private final RequestMapper mapper;
 
@@ -29,7 +29,7 @@ public class CreateController {
         return JsonResponse.failForBadRequest("[비회원] 생성 갯수 초과");
       }
 
-      playlist.saveByRequest(saveRequest);
+      persistingPlaylist.saveByRequest(saveRequest);
 
       return JsonResponse.success("생성 성공");
     } catch (Exception e) {

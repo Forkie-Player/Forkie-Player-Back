@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class JpaPlaylistAdapter implements Playlist {
+public class JpaPlaylistAdapter implements PersistingPlaylist {
   private final JpaPlaylistRepository playlistRepository;
 
   @Override
-  public List<PlaylistEntity> readAllBelongsTo(Long memberId) {
-    return playlistRepository.findByMemberId(memberId);
+  public AllPlaylists readAllBelongsTo(Long memberId) {
+    return new AllPlaylists(playlistRepository.findByMemberId(memberId));
   }
 
   @Override

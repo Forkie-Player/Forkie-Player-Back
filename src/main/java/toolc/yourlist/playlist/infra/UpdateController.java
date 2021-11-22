@@ -14,18 +14,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RestController
 public class UpdateController {
-  private final Playlist playlist;
+  private final PersistingPlaylist persistingPlaylist;
 
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> readPlaylists(@RequestBody JsonUpdateRequest request) {
     try {
-      Optional<PlaylistEntity> playlistEntity = playlist.readBelongsTo(request.playlistId());
+      Optional<PlaylistEntity> playlistEntity = persistingPlaylist.readBelongsTo(request.playlistId());
 
       if (playlistEntity.isEmpty()) {
         return JsonResponse.failForBadRequest("플레이리스트가 존재하지 않습니다.");
       }
 
-      playlist.updateTitle(playlistEntity.get(), request.title());
+      persistingPlaylist.updateTitle(playlistEntity.get(), request.title());
 
       return JsonResponse.success("수정 성공");
     } catch (Exception e) {

@@ -3,7 +3,6 @@ package toolc.yourlist.playlist.infra;
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.member.domain.MockAllMember;
-import toolc.yourlist.playlist.domain.MockPlaylist;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
 import java.util.List;
@@ -23,14 +22,16 @@ class RequestMapperTest {
           "qwer1234!",
           true))
       .build(),
-      MockPlaylist.builder()
-        .readWhatBelongsTo(memberId -> List.of(
+      MockPersistingPlaylist.builder()
+        .readWhatBelongsTo(memberId -> new AllPlaylists(List.of(
           PlaylistEntity.builder()
+            .memberId(1L)
             .title("title001")
             .build(),
           PlaylistEntity.builder()
+            .memberId(1L)
             .title("title002")
-            .build()))
+            .build())))
         .build());
 
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
@@ -51,7 +52,7 @@ class RequestMapperTest {
     mapper = new RequestMapper(MockAllMember.builder()
       .findByLoginId(loginId -> null)
       .build(),
-      MockPlaylist.builder()
+      MockPersistingPlaylist.builder()
         .build());
 
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()

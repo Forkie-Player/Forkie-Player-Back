@@ -8,7 +8,7 @@ import toolc.yourlist.playlist.domain.SaveRequest;
 @RequiredArgsConstructor
 class RequestMapper {
   private final AllMember allMember;
-  private final Playlist playlist;
+  private final PersistingPlaylist persistingPlaylist;
 
   SaveRequest toSaveRequest(JsonSaveRequest jsonSaveRequest) {
     Member member = allMember.findByLoginId(jsonSaveRequest.loginId());
@@ -21,8 +21,9 @@ class RequestMapper {
       .memberId(member.id())
       .title(jsonSaveRequest.title())
       .isMember(member.isMember())
-      .playlistCount(playlist
+      .playlistCount(persistingPlaylist
         .readAllBelongsTo(member.id())
+        .entities()
         .size())
       .build();
   }
