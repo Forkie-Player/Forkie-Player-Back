@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class AllMemberEntityMapper implements AllMemberEntity {
+public class AllMemberEntityAdapter implements AllMemberEntity {
 
   private final JpaAllMemberEntity jpaAllMemberEntity;
 
