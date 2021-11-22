@@ -34,12 +34,11 @@ public class MockPersistingPlaylist implements PersistingPlaylist {
   }
 
   @Override
-  public void updateTitle(PlaylistEntity playlistEntity, String title) {
-
+  public void updateTitle(Playlist playlist, String title) {
   }
 
   @Override
-  public Optional<PlaylistEntity> readBelongsTo(Long id) {
+  public Playlist readBelongsTo(Long id) {
     return null;
   }
 

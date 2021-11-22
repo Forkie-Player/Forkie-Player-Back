@@ -10,22 +10,23 @@ import java.util.stream.Collectors;
 public class PlaylistMapper {
   private final ThumbnailOfPlaylist thumbnailOfPlaylist;
 
-  public PlaylistJson toPlaylistJson(PlaylistEntity playlistEntity, String thumbnail) {
-    if (playlistEntity == null) {
+  public PlaylistJson toPlaylistJson(Playlist playlist, String thumbnail) {
+    if (playlist == null) {
       throw new IllegalArgumentException();
     }
 
     return PlaylistJson.builder()
-      .id(playlistEntity.id())
-      .title(playlistEntity.title())
+      .id(playlist.entity().id())
+      .title(playlist.entity().title())
       .thumbnail(thumbnail)
       .build();
   }
 
-  public List<PlaylistJson> toPlaylistJsonList(List<PlaylistEntity> playlistEntityList) {
-    return playlistEntityList.stream()
-      .map(playlistEntity ->
-        toPlaylistJson(playlistEntity, thumbnailOfPlaylist.find(playlistEntity.id())))
+  public List<PlaylistJson> toPlaylistJsonList(AllPlaylists allPlaylists) {
+    return allPlaylists.entities()
+      .stream()
+      .map(playlist ->
+        toPlaylistJson(playlist, thumbnailOfPlaylist.find(playlist.entity().id())))
       .collect(Collectors.toList());
   }
 }

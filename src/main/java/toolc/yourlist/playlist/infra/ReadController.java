@@ -23,8 +23,7 @@ public class ReadController {
     try {
       List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
         persistingPlaylist
-          .readAllBelongsTo(loginId)
-          .entities());
+          .readAllBelongsTo(loginId));
 
       return JsonResponse.successWithData(playlistJsons, "조회 성공");
     } catch (Exception e) {

@@ -7,6 +7,7 @@ import toolc.yourlist.playlist.domain.PlaylistJson;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -21,9 +22,10 @@ class PersistingPlaylistMapperTest {
     thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
     mapper = new PlaylistMapper(thumbnailOfPlaylist);
     PlaylistJson playlistJson = mapper.toPlaylistJson(
-      PlaylistEntity.builder()
-        .title("title")
-        .build(),
+      new Playlist(Optional.of(
+        PlaylistEntity.builder()
+          .title("title")
+          .build())),
       "thumbnail");
 
     assertThat(playlistJson,
@@ -64,14 +66,15 @@ class PersistingPlaylistMapperTest {
     mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
     List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-      List.of(
+      new AllPlaylists(List.of(
         PlaylistEntity.builder()
           .title("title001")
+          .memberId(1L)
           .build(),
         PlaylistEntity.builder()
           .title("title002")
-          .build())
-    );
+          .memberId(1L)
+          .build())));
 
     assertThat(playlistJsons
       , is(List.of(

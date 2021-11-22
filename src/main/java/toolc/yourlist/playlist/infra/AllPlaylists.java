@@ -3,14 +3,15 @@ package toolc.yourlist.playlist.infra;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
 class AllPlaylists {
-  private final List<PlaylistEntity> entities;
+  private final List<Playlist> entities;
 
-  AllPlaylists(List<PlaylistEntity> entities) {
-    final int size = entities.stream()
+  AllPlaylists(List<PlaylistEntity> playlistEntities) {
+    final int size = playlistEntities.stream()
       .map(PlaylistEntity::memberId)
       .collect(Collectors.toUnmodifiableSet())
       .size();
@@ -19,6 +20,8 @@ class AllPlaylists {
       throw new IllegalArgumentException("같은 멤버의 영상목록이 아닙니다.");
     }
 
-    this.entities = entities;
+    this.entities = playlistEntities.stream()
+      .map(playlistEntity -> new Playlist(Optional.of(playlistEntity)))
+      .collect(Collectors.toList());
   }
 }

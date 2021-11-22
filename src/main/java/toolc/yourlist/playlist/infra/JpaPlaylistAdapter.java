@@ -5,8 +5,6 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 public class JpaPlaylistAdapter implements PersistingPlaylist {
   private final JpaPlaylistRepository playlistRepository;
@@ -38,13 +36,13 @@ public class JpaPlaylistAdapter implements PersistingPlaylist {
   }
 
   @Override
-  public void updateTitle(PlaylistEntity playlistEntity, String title) {
-    playlistEntity.title(title);
-    playlistRepository.save(playlistEntity);
+  public void updateTitle(Playlist playlist, String title) {
+    playlist.entity().title(title);
+    playlistRepository.save(playlist.entity());
   }
 
   @Override
-  public Optional<PlaylistEntity> readBelongsTo(Long id) {
-    return playlistRepository.findById(id);
+  public Playlist readBelongsTo(Long id) {
+    return new Playlist(playlistRepository.findById(id));
   }
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
 
-import java.util.Optional;
-
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -19,13 +17,8 @@ public class UpdateController {
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> readPlaylists(@RequestBody JsonUpdateRequest request) {
     try {
-      Optional<PlaylistEntity> playlistEntity = persistingPlaylist.readBelongsTo(request.playlistId());
-
-      if (playlistEntity.isEmpty()) {
-        return JsonResponse.failForBadRequest("플레이리스트가 존재하지 않습니다.");
-      }
-
-      persistingPlaylist.updateTitle(playlistEntity.get(), request.title());
+      Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
+      persistingPlaylist.updateTitle(playlist, request.title());
 
       return JsonResponse.success("수정 성공");
     } catch (Exception e) {
