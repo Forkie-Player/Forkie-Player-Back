@@ -45,4 +45,9 @@ public class JpaPlaylistAdapter implements PersistingPlaylist {
   public Playlist readBelongsTo(Long id) {
     return new Playlist(playlistRepository.findById(id));
   }
+
+  @Override
+  public long havingCountOf(Long memberId) {
+    return playlistRepository.countByMemberId(memberId);
+  }
 }

@@ -10,4 +10,6 @@ public interface PersistingPlaylist {
   void updateTitle(Playlist playlist, String title);
 
   Playlist readBelongsTo(Long id);
+
+  long havingCountOf(Long memberId);
 }

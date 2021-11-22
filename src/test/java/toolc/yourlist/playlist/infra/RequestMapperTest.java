@@ -22,15 +22,7 @@ class RequestMapperTest {
           true))
       .build(),
       MockPersistingPlaylist.builder()
-        .readWhatBelongsTo(memberId -> new AllPlaylists(List.of(
-          PlaylistEntity.builder()
-            .memberId(1L)
-            .title("title001")
-            .build(),
-          PlaylistEntity.builder()
-            .memberId(1L)
-            .title("title002")
-            .build())))
+        .havingCountOf(() -> 2L)
         .build());
 
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
@@ -43,7 +35,7 @@ class RequestMapperTest {
         .loginId("oh980225")
         .title("title003")
         .isMember(true)
-        .playlistCount(2)
+        .playlistCount(2L)
         .build()));
   }
 

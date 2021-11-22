@@ -21,10 +21,7 @@ class RequestMapper {
       .loginId(jsonSaveRequest.loginId())
       .title(jsonSaveRequest.title())
       .isMember(member.isMember())
-      .playlistCount(persistingPlaylist
-        .readAllBelongsTo(jsonSaveRequest.loginId())
-        .entities()
-        .size())
+      .playlistCount(persistingPlaylist.havingCountOf(member.id()))
       .build();
   }
 }
