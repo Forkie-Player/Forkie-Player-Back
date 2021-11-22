@@ -26,12 +26,16 @@ public class AuthApi {
     Either<String, Token> loginResult =
       memberLogin.login(loginRequestMapperFromJson.mapper(request));
 
+    if (loginResult.isLeft()) {
+      return ResponseEntity.badRequest().body(loginResult.getLeft());
+    }
     if (loginResult.isRight()) {
       ResponseBody responseBody = new ResponseBody(OK.value(), "로그인 성공",
         tokenFormatter.toJwtFromToken(loginResult.get()));
 
       return ResponseEntity.ok(responseBody);
     }
-    return ResponseEntity.badRequest().body(loginResult.getLeft());
+
+    throw new InternalError();
   }
 }
