@@ -1,16 +1,18 @@
 package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.playlist.domain.SaveRequest;
+import lombok.Getter;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface Playlist {
-  List<PlaylistEntity> readAllBelongsTo(Long memberId);
+@Getter
+class Playlist {
+  private final PlaylistEntity entity;
 
-  void saveByRequest(SaveRequest request);
+  Playlist(Optional<PlaylistEntity> optionalEntity) {
+    if (optionalEntity.isEmpty()) {
+      throw new IllegalArgumentException("존재하지 않는 영상 목록입니다.");
+    }
 
-  void updateTitle(PlaylistEntity playlistEntity, String title);
-
-  Optional<PlaylistEntity> readBelongsTo(Long id);
+    this.entity = optionalEntity.get();
+  }
 }

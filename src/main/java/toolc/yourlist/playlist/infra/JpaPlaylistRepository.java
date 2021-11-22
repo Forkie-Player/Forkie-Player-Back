@@ -9,4 +9,6 @@ public interface JpaPlaylistRepository {
   PlaylistEntity save(PlaylistEntity playlistEntity);
 
   Optional<PlaylistEntity> findById(Long id);
+
+  long countByMemberId(Long memberId);
 }

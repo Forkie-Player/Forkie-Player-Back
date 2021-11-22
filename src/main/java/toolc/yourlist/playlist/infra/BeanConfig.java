@@ -14,8 +14,8 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  public Playlist playlist(JpaPlaylistRepository playlistRepository) {
-    return new JpaPlaylistAdapter(playlistRepository);
+  public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository, AllMember allMember) {
+    return new JpaPlaylistAdapter(playlistRepository, allMember);
   }
 
   @Bean
@@ -34,12 +34,12 @@ public class BeanConfig {
   }
 
   @Bean
-  JsonMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
-    return new JsonMapper(thumbnailOfPlaylist);
+  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
+    return new PlaylistMapper(thumbnailOfPlaylist);
   }
 
   @Bean
-  RequestMapper requestMapper(AllMember allMember, Playlist playlist) {
-    return new RequestMapper(allMember, playlist);
+  RequestMapper requestMapper(AllMember allMember, PersistingPlaylist persistingPlaylist) {
+    return new RequestMapper(allMember, persistingPlaylist);
   }
 }

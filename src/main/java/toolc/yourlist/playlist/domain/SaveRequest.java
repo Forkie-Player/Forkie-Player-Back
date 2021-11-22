@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class SaveRequest {
-  private final Long memberId;
+  private final String loginId;
   private final String title;
   private final boolean isMember;
-  private final int playlistCount;
+  private final long playlistCount;
 
   @Builder
-  public SaveRequest(Long memberId, String title, boolean isMember, int playlistCount) {
-    this.memberId = memberId;
+  public SaveRequest(String loginId, String title, boolean isMember, long playlistCount) {
+    this.loginId = loginId;
     this.title = title;
     this.isMember = isMember;
     this.playlistCount = playlistCount;

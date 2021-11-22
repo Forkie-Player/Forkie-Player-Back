@@ -15,18 +15,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class ReadController {
-  private final Playlist playlist;
-  private final JsonMapper mapper;
+  private final PersistingPlaylist persistingPlaylist;
+  private final PlaylistMapper mapper;
 
-  @GetMapping("/api/playlist/{id}")
-  public ResponseEntity<?> readPlaylists(@PathVariable("id") Long memberId) {
-    try {
-      List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-        playlist.readAllBelongsTo(memberId));
+  @GetMapping("/api/playlist/{loginId}")
+  public ResponseEntity<?> readPlaylists(@PathVariable("loginId") String loginId) {
+    List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
+      persistingPlaylist.readAllBelongsTo(loginId));
 
-      return JsonResponse.successWithData(playlistJsons, "조회 성공");
-    } catch (Exception e) {
-      return JsonResponse.fail(e);
-    }
+    return JsonResponse.successWithData(playlistJsons, "조회 성공");
   }
 }
