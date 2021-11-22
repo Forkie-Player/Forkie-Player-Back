@@ -12,11 +12,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RequestMapperTest {
-  RequestMapper mapper;
 
   @Test
   void PlaylistSaveRequest로_변환() {
-    mapper = new RequestMapper(MockAllMember.builder()
+    RequestMapper mapper = new RequestMapper(MockAllMember.builder()
       .findByLoginId(loginId ->
         new Member("oh980225",
           "qwer1234!",
@@ -50,7 +49,7 @@ class RequestMapperTest {
 
   @Test
   void 변환시_회원존재X() {
-    mapper = new RequestMapper(MockAllMember.builder()
+    RequestMapper mapper = new RequestMapper(MockAllMember.builder()
       .findByLoginId(loginId -> null)
       .build(),
       MockPersistingPlaylist.builder()

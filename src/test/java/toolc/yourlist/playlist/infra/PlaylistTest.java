@@ -7,6 +7,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaylistTest {
+
   @Test
   void 없는_영상목록() {
     assertThrows(IllegalArgumentException.class, () -> new Playlist(Optional.empty()));

@@ -14,13 +14,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PersistingPlaylistMapperTest {
-  ThumbnailOfPlaylist thumbnailOfPlaylist;
-  PlaylistMapper mapper;
 
   @Test
   void playlistJson로_변환() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
-    mapper = new PlaylistMapper(thumbnailOfPlaylist);
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
+    PlaylistMapper mapper = new PlaylistMapper(thumbnailOfPlaylist);
     PlaylistJson playlistJson = mapper.toPlaylistJson(
       new Playlist(Optional.of(
         PlaylistEntity.builder()
@@ -37,8 +35,8 @@ class PersistingPlaylistMapperTest {
 
   @Test
   void playlist가_null() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
-    mapper = new PlaylistMapper(thumbnailOfPlaylist);
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
+    PlaylistMapper mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
     assertThrows(IllegalArgumentException.class, () ->
       mapper.toPlaylistJson(null, "thumbnail")
@@ -47,7 +45,7 @@ class PersistingPlaylistMapperTest {
 
   @Test
   void playlistJsonList로_변환() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Arrays.asList(
         PlayEntity.builder()
           .sequence(1)
@@ -63,7 +61,7 @@ class PersistingPlaylistMapperTest {
           .build()
       ))
       .build());
-    mapper = new PlaylistMapper(thumbnailOfPlaylist);
+    PlaylistMapper mapper = new PlaylistMapper(thumbnailOfPlaylist);
 
     List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
       new AllPlaylists(List.of(

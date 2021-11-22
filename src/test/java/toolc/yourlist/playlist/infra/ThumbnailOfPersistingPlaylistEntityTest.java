@@ -12,11 +12,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ThumbnailOfPersistingPlaylistEntityTest {
-  ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   @Test
   void 썸네일_찾기() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Arrays.asList(
         PlayEntity.builder()
           .sequence(1)
@@ -32,24 +31,24 @@ class ThumbnailOfPersistingPlaylistEntityTest {
           .build()
       ))
       .build());
-    String thumbnail = this.thumbnailOfPlaylist.find(1L);
+    String thumbnail = thumbnailOfPlaylist.find(1L);
 
     assertThat("thumbnail001", is(thumbnail));
   }
 
   @Test
   void 영상이_없음() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Collections.emptyList())
       .build());
-    String thumbnail = this.thumbnailOfPlaylist.find(1L);
+    String thumbnail = thumbnailOfPlaylist.find(1L);
 
     assertThat(null, is(thumbnail));
   }
 
   @Test
   void 첫번째_순서_중복() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Arrays.asList(
         PlayEntity.builder()
           .sequence(1)

@@ -6,11 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 class RealMemberTest {
-  SavePolicy realMember = new RealMember();
 
   @Test
   void 회원() {
-    assertThat(realMember.matches(
+    assertThat(new RealMember().matches(
       SaveRequest.builder()
         .isMember(true)
         .build()), is(true));
@@ -18,7 +17,7 @@ class RealMemberTest {
 
   @Test
   void 비회원() {
-    assertThat(realMember.matches(
+    assertThat(new RealMember().matches(
       SaveRequest.builder()
         .isMember(false)
         .build()), is(false));
