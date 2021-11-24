@@ -4,17 +4,18 @@ import lombok.Builder;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
 public class MockPersistingPlaylist implements PersistingPlaylist {
-  ReadWhatBelongsTo readWhatBelongsTo;
+  readAllBelongsTo readAllBelongsTo;
   SaveByRequest saveByRequest;
   HavingCountOf havingCountOf;
+  ReadBelongsTo readBelongsTo;
 
   @Override
   public AllPlaylists readAllBelongsTo(String loginId) {
-    return readWhatBelongsTo.done(loginId);
+    return readAllBelongsTo.done(loginId);
   }
 
   @FunctionalInterface
-  public interface ReadWhatBelongsTo {
+  public interface readAllBelongsTo {
     AllPlaylists done(String loginId);
   }
 
@@ -45,16 +46,23 @@ public class MockPersistingPlaylist implements PersistingPlaylist {
 
   @Override
   public Playlist readBelongsTo(Long id) {
-    return null;
+    return readBelongsTo.done(id);
+  }
+
+  @FunctionalInterface
+  public interface ReadBelongsTo {
+    Playlist done(Long id);
   }
 
   @Builder
   public MockPersistingPlaylist(
-    ReadWhatBelongsTo readWhatBelongsTo,
+    readAllBelongsTo readAllBelongsTo,
     SaveByRequest saveByRequest,
-    HavingCountOf havingCountOf) {
-    this.readWhatBelongsTo = readWhatBelongsTo;
+    HavingCountOf havingCountOf,
+    ReadBelongsTo readBelongsTo) {
+    this.readAllBelongsTo = readAllBelongsTo;
     this.saveByRequest = saveByRequest;
     this.havingCountOf = havingCountOf;
+    this.readBelongsTo = readBelongsTo;
   }
 }

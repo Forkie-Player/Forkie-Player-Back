@@ -16,13 +16,21 @@ import java.util.List;
 @RestController
 public class ReadApi {
   private final PersistingPlaylist persistingPlaylist;
+  private final PreCondition preCondition;
   private final PlaylistMapper mapper;
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("loginId") String loginId) {
-    List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
-      persistingPlaylist.readAllBelongsTo(loginId));
+    var existMember = preCondition.checkExistMember(loginId);
 
+    if (existMember.isEmpty()) {
+      return JsonResponse.failForBadRequest(existMember.getLeft());
+    }
+
+    return toOutput(mapper.toPlaylistJsonList(persistingPlaylist.readAllBelongsTo(loginId)));
+  }
+
+  private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
     return JsonResponse.successWithData(playlistJsons, "조회 성공");
   }
 }

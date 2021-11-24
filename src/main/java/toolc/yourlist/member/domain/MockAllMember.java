@@ -1,8 +1,8 @@
 package toolc.yourlist.member.domain;
 
 import lombok.Builder;
-
-import java.util.Optional;
+import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.member.infra.MemberEntity;
 
 public class MockAllMember implements AllMember {
   FindByLoginId findByLoginId;
@@ -18,7 +18,7 @@ public class MockAllMember implements AllMember {
   }
 
   @Override
-  public Member save(Member member) {
+  public MemberEntity save(MemberEntity memberEntity) {
     return null;
   }
 

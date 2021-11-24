@@ -14,6 +14,16 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
+  PreCondition preCondition(AllMember allMember) {
+    return new PreCondition(allMember);
+  }
+
+  @Bean
+  EqualOwnerCondition updateTitleCondition(PersistingPlaylist persistingPlaylist) {
+    return new EqualOwnerCondition(persistingPlaylist);
+  }
+
+  @Bean
   public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository, AllMember allMember) {
     return new JpaPlaylistAdapter(playlistRepository, allMember);
   }
@@ -39,7 +49,7 @@ public class BeanConfig {
   }
 
   @Bean
-  RequestMapper requestMapper(AllMember allMember, PersistingPlaylist persistingPlaylist) {
-    return new RequestMapper(allMember, persistingPlaylist);
+  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist, PreCondition preCondition) {
+    return new JsonSaveRequestMapper(persistingPlaylist, preCondition);
   }
 }

@@ -13,9 +13,11 @@ import toolc.yourlist.common.infra.JsonResponse;
 @RestController
 public class UpdateApi {
   private final PersistingPlaylist persistingPlaylist;
+  private final PreCondition preCondition;
 
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> updateTitle(@RequestBody JsonUpdateRequest request) {
+
     Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
     persistingPlaylist.updateTitle(playlist, request.title());
 

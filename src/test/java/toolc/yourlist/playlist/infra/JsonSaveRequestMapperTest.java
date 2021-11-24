@@ -1,37 +1,37 @@
 package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.member.domain.MockAllMember;
+import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.playlist.domain.SaveRequest;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 
-class RequestMapperTest {
+class JsonSaveRequestMapperTest {
 
   @Test
   void PlaylistSaveRequest로_변환() {
-    RequestMapper mapper = new RequestMapper(MockAllMember.builder()
-      .findByLoginId(loginId ->
-        new Member("oh980225",
-          "qwer1234!",
-          true))
-      .build(),
+    JsonSaveRequestMapper mapper = new JsonSaveRequestMapper(
       MockPersistingPlaylist.builder()
         .havingCountOf(() -> 2L)
-        .build());
+        .build(),
+      new PreCondition(
+        MockAllMember.builder()
+          .findByLoginId(loginId ->
+            new Member(
+              new MemberEntity("oh980225",
+                "qwer1234!",
+                true)))
+          .build()));
 
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
       .loginId("oh980225")
       .title("title003")
       .build();
 
-    assertThat(mapper.toSaveRequest(jsonSaveRequest).success(),
+    assertThat(mapper.toSaveRequest(jsonSaveRequest).get(),
       is(SaveRequest.builder()
         .loginId("oh980225")
         .title("title003")
@@ -42,19 +42,22 @@ class RequestMapperTest {
 
   @Test
   void 변환시_회원존재X() {
-    RequestMapper mapper = new RequestMapper(MockAllMember.builder()
-      .findByLoginId(loginId -> null)
-      .build(),
+    JsonSaveRequestMapper mapper = new JsonSaveRequestMapper(
       MockPersistingPlaylist.builder()
-        .build());
+        .havingCountOf(() -> 2L)
+        .build(),
+      new PreCondition(
+        MockAllMember.builder()
+          .findByLoginId(loginId -> new Member(null))
+          .build())
+      );
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()
       .loginId("oh980225")
       .title("title003")
       .build();
 
-    var actual = mapper.toSaveRequest(jsonSaveRequest).fail();
+    var actual = mapper.toSaveRequest(jsonSaveRequest).getLeft();
 
-    var expected = failForBadRequest("유효하지 않은 loginId입니다.");
-    assertThat(actual, is(expected));
+    assertThat(actual, is("존재하지 않는 회원입니다."));
   }
 }

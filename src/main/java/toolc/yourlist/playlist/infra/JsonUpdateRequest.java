@@ -10,7 +10,12 @@ import javax.validation.constraints.NotNull;
 public class JsonUpdateRequest {
   @NotNull
   @JsonProperty
+  private String loginId;
+
+  @NotNull
+  @JsonProperty
   private Long playlistId;
+
   @NotBlank
   @JsonProperty
   private String title;
