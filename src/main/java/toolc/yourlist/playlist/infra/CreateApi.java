@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class CreateController {
+public class CreateApi {
   private final PersistingPlaylist persistingPlaylist;
   private final SavePolicy savePolicy;
   private final RequestMapper mapper;

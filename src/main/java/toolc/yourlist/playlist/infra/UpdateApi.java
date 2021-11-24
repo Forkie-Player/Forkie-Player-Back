@@ -11,7 +11,7 @@ import toolc.yourlist.common.infra.JsonResponse;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class UpdateController {
+public class UpdateApi {
   private final PersistingPlaylist persistingPlaylist;
 
   @PutMapping("/api/playlist/update")

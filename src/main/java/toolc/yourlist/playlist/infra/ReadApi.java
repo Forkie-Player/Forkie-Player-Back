@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class ReadController {
+public class ReadApi {
   private final PersistingPlaylist persistingPlaylist;
   private final PlaylistMapper mapper;
 
