@@ -15,7 +15,7 @@ public class UpdateApi {
   private final PersistingPlaylist persistingPlaylist;
 
   @PutMapping("/api/playlist/update")
-  public ResponseEntity<?> readPlaylists(@RequestBody JsonUpdateRequest request) {
+  public ResponseEntity<?> updateTitle(@RequestBody JsonUpdateRequest request) {
     Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
     persistingPlaylist.updateTitle(playlist, request.title());
 
