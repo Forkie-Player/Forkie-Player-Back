@@ -19,7 +19,7 @@ class PlaylistExistConditionTest {
             .build())))
       .build());
 
-    var actual = condition.checkExistPlaylist(1L);
+    var actual = condition.check(1L);
 
     var expected = new Playlist(
       Optional.of(
@@ -37,7 +37,7 @@ class PlaylistExistConditionTest {
         Optional.empty()))
       .build());
 
-    var actual = condition.checkExistPlaylist(1L);
+    var actual = condition.check(1L);
 
     assertThat(actual.getLeft(), is("존재하지 않는 영상 목록입니다."));
   }

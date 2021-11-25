@@ -10,7 +10,7 @@ import static io.vavr.control.Either.right;
 public class PlaylistExistCondition {
   private final PersistingPlaylist persistingPlaylist;
 
-  Either<String, Playlist> checkExistPlaylist(Long playlistId) {
+  Either<String, Playlist> check(Long playlistId) {
     try {
       var playlist = persistingPlaylist.readBelongsTo(playlistId);
       return right(playlist);

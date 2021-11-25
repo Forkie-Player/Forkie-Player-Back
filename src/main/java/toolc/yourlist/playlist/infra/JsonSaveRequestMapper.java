@@ -11,10 +11,10 @@ import static io.vavr.control.Either.right;
 @RequiredArgsConstructor
 class JsonSaveRequestMapper {
   private final PersistingPlaylist persistingPlaylist;
-  private final PreCondition preCondition;
+  private final MemberExistCondition memberExistCondition;
 
   Either<String, SaveRequest> toSaveRequest(JsonSaveRequest jsonSaveRequest) {
-    var existMember = preCondition.checkExistMember(jsonSaveRequest.loginId());
+    var existMember = memberExistCondition.check(jsonSaveRequest.loginId());
 
     if (existMember.isEmpty()) {
       return left(existMember.getLeft());

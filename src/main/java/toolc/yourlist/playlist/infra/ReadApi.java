@@ -16,12 +16,12 @@ import java.util.List;
 @RestController
 public class ReadApi {
   private final PersistingPlaylist persistingPlaylist;
-  private final PreCondition preCondition;
+  private final MemberExistCondition memberExistCondition;
   private final PlaylistMapper mapper;
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("loginId") String loginId) {
-    var existMember = preCondition.checkExistMember(loginId);
+    var existMember = memberExistCondition.check(loginId);
 
     if (existMember.isEmpty()) {
       return JsonResponse.failForBadRequest(existMember.getLeft());

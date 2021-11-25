@@ -17,7 +17,7 @@ class JsonSaveRequestMapperTest {
       MockPersistingPlaylist.builder()
         .havingCountOf(() -> 2L)
         .build(),
-      new PreCondition(
+      new MemberExistCondition(
         MockAllMember.builder()
           .findByLoginId(loginId ->
             new Member(
@@ -46,7 +46,7 @@ class JsonSaveRequestMapperTest {
       MockPersistingPlaylist.builder()
         .havingCountOf(() -> 2L)
         .build(),
-      new PreCondition(
+      new MemberExistCondition(
         MockAllMember.builder()
           .findByLoginId(loginId -> new Member(null))
           .build())

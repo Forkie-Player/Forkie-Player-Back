@@ -14,8 +14,8 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  PreCondition preCondition(AllMember allMember) {
-    return new PreCondition(allMember);
+  MemberExistCondition preCondition(AllMember allMember) {
+    return new MemberExistCondition(allMember);
   }
 
   @Bean
@@ -49,7 +49,7 @@ public class BeanConfig {
   }
 
   @Bean
-  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist, PreCondition preCondition) {
-    return new JsonSaveRequestMapper(persistingPlaylist, preCondition);
+  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist, MemberExistCondition memberExistCondition) {
+    return new JsonSaveRequestMapper(persistingPlaylist, memberExistCondition);
   }
 }

@@ -9,10 +9,10 @@ import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 
 @RequiredArgsConstructor
-class PreCondition {
+class MemberExistCondition {
   private final AllMember allMember;
 
-  Either<String, Member> checkExistMember(String loginId) {
+  Either<String, Member> check(String loginId) {
     try {
       var member = allMember.findByLoginId(loginId);
       return right(member);

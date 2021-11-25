@@ -13,13 +13,18 @@ import toolc.yourlist.common.infra.JsonResponse;
 @RestController
 public class UpdateApi {
   private final PersistingPlaylist persistingPlaylist;
-  private final PreCondition preCondition;
+  JsonUpdateRequestMapper mapper;
 
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> updateTitle(@RequestBody JsonUpdateRequest request) {
+    var updateRequest = mapper.toUpdateRequest(request);
 
-    Playlist playlist = persistingPlaylist.readBelongsTo(request.playlistId());
-    persistingPlaylist.updateTitle(playlist, request.title());
+    if(updateRequest.isEmpty()) {
+      return JsonResponse.failForBadRequest(updateRequest.getLeft());
+    }
+
+    Playlist playlist = persistingPlaylist.readBelongsTo(updateRequest.get().playlistId());
+    persistingPlaylist.updateTitle(playlist, updateRequest.get());
 
     return JsonResponse.success("수정 성공");
   }

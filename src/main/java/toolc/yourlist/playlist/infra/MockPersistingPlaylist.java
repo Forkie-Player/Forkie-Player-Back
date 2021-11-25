@@ -2,6 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.Builder;
 import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.UpdateRequest;
 
 public class MockPersistingPlaylist implements PersistingPlaylist {
   readAllBelongsTo readAllBelongsTo;
@@ -41,7 +42,7 @@ public class MockPersistingPlaylist implements PersistingPlaylist {
   }
 
   @Override
-  public void updateTitle(Playlist playlist, String title) {
+  public void updateTitle(Playlist playlist, UpdateRequest updateRequest) {
   }
 
   @Override

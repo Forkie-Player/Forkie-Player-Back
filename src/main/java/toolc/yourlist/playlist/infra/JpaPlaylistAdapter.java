@@ -3,8 +3,8 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.infra.Member;
-import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.UpdateRequest;
 
 @RequiredArgsConstructor
 public class JpaPlaylistAdapter implements PersistingPlaylist {
@@ -29,8 +29,12 @@ public class JpaPlaylistAdapter implements PersistingPlaylist {
   }
 
   @Override
-  public void updateTitle(Playlist playlist, String title) {
-    playlist.entity().title(title);
+  public void updateTitle(Playlist playlist, UpdateRequest updateRequest) {
+    if (!updateRequest.memberId().equals(playlist.memberId())) {
+      throw new IllegalArgumentException("영상목록의 주인이 아닙니다.");
+    }
+
+    playlist.entity().title(updateRequest.title());
     playlistRepository.save(playlist.entity());
   }
 
