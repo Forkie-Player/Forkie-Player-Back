@@ -62,4 +62,10 @@ public class BeanConfig {
   public CheckPassword checkPassword() {
     return new CheckPassword(passwordEncoder());
   }
+
+  @Bean
+  public MemberLogin memberLogin() {
+    return new MemberLogin(allMember(), accessTokenCreator(),
+      refreshTokenCreator(), checkPassword());
+  }
 }

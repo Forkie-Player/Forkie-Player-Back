@@ -2,12 +2,10 @@ package toolc.yourlist.auth.domain;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import static io.vavr.control.Either.*;
 
 @RequiredArgsConstructor
-@Component
 public class MemberLogin {
   private final AllMember allMember;
   private final AccessTokenCreator accessTokenCreator;
