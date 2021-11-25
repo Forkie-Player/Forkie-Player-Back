@@ -4,6 +4,8 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static io.vavr.control.Either.*;
+
 @RequiredArgsConstructor
 @Component
 public class MemberLogin {
@@ -16,10 +18,10 @@ public class MemberLogin {
     Member savedMember = allMember.findByLoginId(request.loginId().raw());
 
     if(checkPassword.check(request.password(), savedMember)) {
-      return Either.right(new Token(accessTokenCreator.create(request.loginId()),
+      return right(new Token(accessTokenCreator.create(request.loginId()),
         refreshTokenCreator.create(request.device())));
     }
-    return Either.left("wrong password");
+    return left("wrong password");
   }
 }
 

@@ -23,7 +23,7 @@ public class AuthApi {
 
   @PostMapping("/api/login")
   public ResponseEntity<?> login(@RequestBody JsonLoginRequest request) {
-    Either<String, Token> loginResult =
+    var loginResult =
       memberLogin.login(loginRequestMapperFromJson.mapper(request));
 
     if (loginResult.isLeft()) {
