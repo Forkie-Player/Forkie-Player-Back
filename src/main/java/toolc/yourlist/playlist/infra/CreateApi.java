@@ -4,6 +4,7 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
+@Controller
 public class CreateApi {
   private final PersistingPlaylist persistingPlaylist;
   private final SavePolicy savePolicy;

@@ -18,6 +18,7 @@ class Playlist {
     this.entity = optionalEntity.orElseThrow(
       () -> new IllegalArgumentException("존재하지 않는 영상 목록입니다.")
     );
+
     this.memberId = entity.memberId();
     this.title = entity.title();
   }
