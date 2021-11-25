@@ -7,11 +7,11 @@ import lombok.Getter;
 public final class NonMember {
 
   @Getter
-  private String uuid;
+  private String deviceId;
 
-  public NonMember(String uuid) {
-    if (uuid == null || uuid.equals(""))
+  public NonMember(String deviceId) {
+    if (deviceId == null || deviceId.equals(""))
       throw new IllegalArgumentException("잘못된 UUID 입니다.");
-    this.uuid = uuid;
+    this.deviceId = deviceId;
   }
 }

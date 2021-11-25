@@ -16,7 +16,7 @@ public class NomMemberSaveEntity implements NonMemberSave {
   @Override
   public NonMember save(NonMember nonMember) {
     allMemberEntity.save(new MemberEntity(
-      nonMember.uuid(), passwordEncoder.encode(nonMember.uuid()), false));
+      nonMember.deviceId(), passwordEncoder.encode(nonMember.deviceId()), false));
     return nonMember;
   }
 }

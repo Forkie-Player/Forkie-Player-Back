@@ -17,11 +17,10 @@ public class MemberLogin {
   public Either<String, Token> login(LoginRequest request) {
     Member savedMember = allMember.findByLoginId(request.loginId().raw());
 
-    if(checkPassword.check(request.password(), savedMember)) {
+    if (checkPassword.check(request.password(), savedMember)) {
       return right(new Token(accessTokenCreator.create(request.loginId()),
         refreshTokenCreator.create(request.device())));
     }
     return left("wrong password");
   }
 }
-
