@@ -21,9 +21,7 @@ class PersistingPlaylistMapperTest {
     PlaylistMapper mapper = new PlaylistMapper(thumbnailOfPlaylist);
     PlaylistJson playlistJson = mapper.toPlaylistJson(
       new Playlist(Optional.of(
-        PlaylistEntity.builder()
-          .title("title")
-          .build())),
+        new PlaylistEntity(1L, "My List"))),
       "thumbnail");
 
     assertThat(playlistJson,
@@ -65,23 +63,17 @@ class PersistingPlaylistMapperTest {
 
     List<PlaylistJson> playlistJsons = mapper.toPlaylistJsonList(
       new AllPlaylists(List.of(
-        PlaylistEntity.builder()
-          .title("title001")
-          .memberId(1L)
-          .build(),
-        PlaylistEntity.builder()
-          .title("title002")
-          .memberId(1L)
-          .build())));
+        new PlaylistEntity(1L, "My Music"),
+        new PlaylistEntity(1L, "My Movie"))));
 
     assertThat(playlistJsons
       , is(List.of(
         PlaylistJson.builder()
-          .title("title001")
+          .title("My Music")
           .thumbnail("thumbnail1")
           .build(),
         PlaylistJson.builder()
-          .title("title002")
+          .title("My Movie")
           .thumbnail("thumbnail1")
           .build())));
   }

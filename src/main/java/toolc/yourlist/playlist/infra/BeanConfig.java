@@ -19,8 +19,8 @@ public class BeanConfig {
   }
 
   @Bean
-  EqualOwnerCondition updateTitleCondition(PersistingPlaylist persistingPlaylist) {
-    return new EqualOwnerCondition(persistingPlaylist);
+  EqualOwnerCondition updateTitleCondition(AllMember allMember) {
+    return new EqualOwnerCondition(allMember);
   }
 
   @Bean

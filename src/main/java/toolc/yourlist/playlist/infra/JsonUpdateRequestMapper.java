@@ -2,7 +2,6 @@ package toolc.yourlist.playlist.infra;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.playlist.domain.UpdateRequest;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
@@ -25,14 +24,14 @@ class JsonUpdateRequestMapper {
     }
 
     if (!equalOwnerCondition.check(
-      existMember.get().entity().id(),
-      jsonUpdateRequest.playlistId())) {
+      existMember.get(),
+      existPlaylist.get())) {
       return left("영상목록의 주인이 아닙니다.");
     }
 
     return right(
       UpdateRequest.builder()
-        .memberId(existMember.get().entity().id())
+        .member(existMember.get())
         .title(jsonUpdateRequest.title())
         .playlistId(jsonUpdateRequest.playlistId())
         .build());

@@ -19,7 +19,7 @@ public class UpdateApi {
   public ResponseEntity<?> updateTitle(@RequestBody JsonUpdateRequest request) {
     var updateRequest = mapper.toUpdateRequest(request);
 
-    if(updateRequest.isEmpty()) {
+    if (updateRequest.isEmpty()) {
       return JsonResponse.failForBadRequest(updateRequest.getLeft());
     }
 

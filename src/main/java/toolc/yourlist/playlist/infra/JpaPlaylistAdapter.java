@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.infra.Member;
 import toolc.yourlist.playlist.domain.SaveRequest;
-import toolc.yourlist.playlist.domain.UpdateRequest;
 
 @RequiredArgsConstructor
 public class JpaPlaylistAdapter implements PersistingPlaylist {
@@ -22,19 +21,18 @@ public class JpaPlaylistAdapter implements PersistingPlaylist {
   public void saveByRequest(SaveRequest request) {
     Member member = allMember.findByLoginId(request.loginId());
 
-    playlistRepository.save(PlaylistEntity.builder()
-      .memberId(member.entity().id())
-      .title(request.title())
-      .build());
+    playlistRepository.save(new PlaylistEntity(
+      member.entity().id(),
+      request.title()));
   }
 
   @Override
-  public void updateTitle(Playlist playlist, UpdateRequest updateRequest) {
-    if (!updateRequest.memberId().equals(playlist.memberId())) {
+  public void updateTitle(Playlist playlist, UpdateRequest request) {
+    if (!request.member().equals(allMember.findById(playlist.memberId()))) {
       throw new IllegalArgumentException("영상목록의 주인이 아닙니다.");
     }
 
-    playlist.entity().title(updateRequest.title());
+    playlist.entity().title(request.title());
     playlistRepository.save(playlist.entity());
   }
 

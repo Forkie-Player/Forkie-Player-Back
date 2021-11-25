@@ -3,6 +3,8 @@ package toolc.yourlist.member.infra;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Getter
 @EqualsAndHashCode
 public class Member {
@@ -19,6 +21,14 @@ public class Member {
     }
 
     this.entity = entity;
+    this.loginId = entity.loginId();
+    this.isMember = entity.isMember();
+    this.password = entity.password();
+  }
+
+  public Member(Optional<MemberEntity> entityOptional) {
+    this.entity = entityOptional.orElseThrow(
+      () -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     this.loginId = entity.loginId();
     this.isMember = entity.isMember();
     this.password = entity.password();

@@ -6,6 +6,8 @@ import toolc.yourlist.member.infra.Member;
 import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -48,7 +50,7 @@ class JsonSaveRequestMapperTest {
         .build(),
       new MemberExistCondition(
         MockAllMember.builder()
-          .findByLoginId(loginId -> new Member(null))
+          .findByLoginId(loginId -> new Member(Optional.empty()))
           .build())
       );
     JsonSaveRequest jsonSaveRequest = JsonSaveRequest.builder()

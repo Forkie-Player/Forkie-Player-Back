@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import toolc.yourlist.member.domain.AllMember;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
 public class AllMemberMapper implements AllMember {
@@ -13,6 +15,11 @@ public class AllMemberMapper implements AllMember {
   @Override
   public Member findByLoginId(String loginId) {
     return new Member(jpaAllMember.findByLoginId(loginId));
+  }
+
+  @Override
+  public Member findById(Long id) {
+    return new Member(jpaAllMember.findById(id));
   }
 
   @Override

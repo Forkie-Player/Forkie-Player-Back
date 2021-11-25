@@ -13,20 +13,13 @@ class PlaylistExistConditionTest {
     PlaylistExistCondition condition = new PlaylistExistCondition(MockPersistingPlaylist.builder()
       .readBelongsTo(id -> new Playlist(
         Optional.of(
-          PlaylistEntity.builder()
-            .memberId(1L)
-            .title("My List")
-            .build())))
+          new PlaylistEntity(1L, "My List"))))
       .build());
 
     var actual = condition.check(1L);
 
-    var expected = new Playlist(
-      Optional.of(
-        PlaylistEntity.builder()
-          .memberId(1L)
-          .title("My List")
-          .build()));
+    var expected = new Playlist(Optional.of(
+      new PlaylistEntity(1L, "My List")));
     assertThat(actual.get(), is(expected));
   }
 

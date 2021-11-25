@@ -1,14 +1,14 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.infra.Member;
 
 @RequiredArgsConstructor
 public class EqualOwnerCondition {
-  private final PersistingPlaylist persistingPlaylist;
+  private final AllMember allMember;
 
-  boolean check(Long memberId, Long playlistId) {
-    Playlist playlist = persistingPlaylist.readBelongsTo(playlistId);
-
-    return memberId.equals(playlist.entity().memberId());
+  boolean check(Member member, Playlist playlist) {
+    return member.equals(allMember.findById(playlist.memberId()));
   }
 }

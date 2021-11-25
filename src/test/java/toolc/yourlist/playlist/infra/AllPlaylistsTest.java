@@ -12,11 +12,7 @@ class AllPlaylistsTest {
   void 멤버Id_불일치() {
     assertThrows(IllegalArgumentException.class, () -> new AllPlaylists(
       List.of(
-        PlaylistEntity.builder()
-          .memberId(1L)
-          .build(),
-        PlaylistEntity.builder()
-          .memberId(2L)
-          .build())));
+        new PlaylistEntity(1L, "My List"),
+        new PlaylistEntity(2L, "Other List"))));
   }
 }

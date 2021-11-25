@@ -2,7 +2,6 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.Builder;
 import toolc.yourlist.playlist.domain.SaveRequest;
-import toolc.yourlist.playlist.domain.UpdateRequest;
 
 public class MockPersistingPlaylist implements PersistingPlaylist {
   readAllBelongsTo readAllBelongsTo;

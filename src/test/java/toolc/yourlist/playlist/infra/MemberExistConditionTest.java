@@ -5,6 +5,8 @@ import toolc.yourlist.member.domain.MockAllMember;
 import toolc.yourlist.member.infra.Member;
 import toolc.yourlist.member.infra.MemberEntity;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -28,7 +30,7 @@ class MemberExistConditionTest {
   @Test
   void 회원_존재X() {
     MemberExistCondition memberExistCondition = new MemberExistCondition(MockAllMember.builder()
-      .findByLoginId(loginId -> new Member(null))
+      .findByLoginId(loginId -> new Member(Optional.empty()))
       .build());
 
     var actual = memberExistCondition.check("oh980225");
