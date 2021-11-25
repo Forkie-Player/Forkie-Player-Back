@@ -10,6 +10,7 @@ build/
 
 ## Application.yaml
 application.yaml
+application*
 
 
 ### STS ###
