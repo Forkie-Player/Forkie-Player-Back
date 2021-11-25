@@ -26,7 +26,7 @@ class PersistingPlaylistMapperTest {
 
     assertThat(playlistJson,
       is(PlaylistJson.builder()
-        .title("title")
+        .title("My List")
         .thumbnail("thumbnail")
         .build()));
   }

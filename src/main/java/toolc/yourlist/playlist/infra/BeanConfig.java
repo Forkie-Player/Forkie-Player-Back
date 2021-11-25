@@ -14,28 +14,18 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  MemberExistCondition preCondition(AllMember allMember) {
+  MemberExistCondition memberExistCondition(AllMember allMember) {
     return new MemberExistCondition(allMember);
   }
 
   @Bean
-  EqualOwnerCondition updateTitleCondition(AllMember allMember) {
+  EqualOwnerCondition equalOwnerCondition(AllMember allMember) {
     return new EqualOwnerCondition(allMember);
   }
 
   @Bean
-  public PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository, AllMember allMember) {
-    return new JpaPlaylistAdapter(playlistRepository, allMember);
-  }
-
-  @Bean
-  Play play(JpaPlayRepository playRepository) {
-    return new JpaPlayAdapter(playRepository);
-  }
-
-  @Bean
-  public ThumbnailOfPlaylist thumbnailOfPlaylist(Play play) {
-    return new ThumbnailOfPlaylist(play);
+  PlaylistExistCondition playlistExistCondition(PersistingPlaylist persistingPlaylist) {
+    return new PlaylistExistCondition(persistingPlaylist);
   }
 
   @Bean
@@ -44,12 +34,48 @@ public class BeanConfig {
   }
 
   @Bean
+  PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository,
+                              AllMember allMember,
+                              SavePolicy savePolicy) {
+    return new JpaPlaylistAdapter(
+      playlistRepository,
+      allMember,
+      savePolicy);
+  }
+
+  @Bean
+  Play play(JpaPlayRepository playRepository) {
+    return new JpaPlayAdapter(playRepository);
+  }
+
+  @Bean
+  ThumbnailOfPlaylist thumbnailOfPlaylist(Play play) {
+    return new ThumbnailOfPlaylist(play);
+  }
+
+
+  @Bean
   PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
     return new PlaylistMapper(thumbnailOfPlaylist);
   }
 
   @Bean
-  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist, MemberExistCondition memberExistCondition) {
-    return new JsonSaveRequestMapper(persistingPlaylist, memberExistCondition);
+  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist,
+                                      MemberExistCondition memberExistCondition,
+                                      SavePolicy savePolicy) {
+    return new JsonSaveRequestMapper(
+      persistingPlaylist,
+      memberExistCondition,
+      savePolicy);
+  }
+
+  @Bean
+  JsonUpdateRequestMapper jsonUpdateRequestMapper(MemberExistCondition memberExistCondition,
+                                                  EqualOwnerCondition equalOwnerCondition,
+                                                  PlaylistExistCondition playlistExistCondition) {
+    return new JsonUpdateRequestMapper(
+      memberExistCondition,
+      equalOwnerCondition,
+      playlistExistCondition);
   }
 }

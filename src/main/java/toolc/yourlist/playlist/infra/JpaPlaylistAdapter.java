@@ -3,12 +3,14 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.playlist.domain.SavePolicy;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
 @RequiredArgsConstructor
 public class JpaPlaylistAdapter implements PersistingPlaylist {
   private final JpaPlaylistRepository playlistRepository;
   private final AllMember allMember;
+  private final SavePolicy savePolicy;
 
   @Override
   public AllPlaylists readAllBelongsTo(String loginId) {
@@ -19,6 +21,10 @@ public class JpaPlaylistAdapter implements PersistingPlaylist {
 
   @Override
   public void saveByRequest(SaveRequest request) {
+    if (!savePolicy.matches(request)) {
+      throw new IllegalArgumentException("[비회원] 생성 갯수 초과");
+    }
+
     Member member = allMember.findByLoginId(request.loginId());
 
     playlistRepository.save(new PlaylistEntity(

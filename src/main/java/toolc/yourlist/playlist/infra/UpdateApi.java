@@ -1,5 +1,6 @@
 package toolc.yourlist.playlist.infra;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import toolc.yourlist.common.infra.JsonResponse;
 @RestController
 public class UpdateApi {
   private final PersistingPlaylist persistingPlaylist;
-  JsonUpdateRequestMapper mapper;
+  private final JsonUpdateRequestMapper mapper;
 
   @PutMapping("/api/playlist/update")
   public ResponseEntity<?> updateTitle(@RequestBody JsonUpdateRequest request) {
@@ -23,9 +24,12 @@ public class UpdateApi {
       return JsonResponse.failForBadRequest(updateRequest.getLeft());
     }
 
+    return toOutput(updateRequest);
+  }
+
+  private ResponseEntity<?> toOutput(Either<String, UpdateRequest> updateRequest) {
     Playlist playlist = persistingPlaylist.readBelongsTo(updateRequest.get().playlistId());
     persistingPlaylist.updateTitle(playlist, updateRequest.get());
-
     return JsonResponse.success("수정 성공");
   }
 }

@@ -1,5 +1,6 @@
 package toolc.yourlist.playlist.infra;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.playlist.domain.SavePolicy;
+import toolc.yourlist.playlist.domain.SaveRequest;
 
 import javax.validation.Valid;
 
@@ -28,10 +30,11 @@ public class CreateApi {
     if (saveRequest.isEmpty()) {
       return failForBadRequest(saveRequest.getLeft());
     }
-    if (!savePolicy.matches(saveRequest.get())) {
-      return failForBadRequest("[비회원] 생성 갯수 초과");
-    }
 
+    return toOutput(saveRequest);
+  }
+
+  private ResponseEntity<?> toOutput(Either<String, SaveRequest> saveRequest) {
     persistingPlaylist.saveByRequest(saveRequest.get());
     return JsonResponse.success("생성 성공");
   }

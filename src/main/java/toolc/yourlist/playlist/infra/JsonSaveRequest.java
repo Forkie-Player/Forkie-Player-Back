@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@EqualsAndHashCode
 @NoArgsConstructor
 public final class JsonSaveRequest {
   @NotNull

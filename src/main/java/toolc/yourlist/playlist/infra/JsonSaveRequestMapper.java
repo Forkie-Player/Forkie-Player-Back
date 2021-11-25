@@ -3,6 +3,7 @@ package toolc.yourlist.playlist.infra;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.playlist.domain.SavePolicy;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
 import static io.vavr.control.Either.left;
@@ -12,6 +13,7 @@ import static io.vavr.control.Either.right;
 class JsonSaveRequestMapper {
   private final PersistingPlaylist persistingPlaylist;
   private final MemberExistCondition memberExistCondition;
+  private final SavePolicy savePolicy;
 
   Either<String, SaveRequest> toSaveRequest(JsonSaveRequest jsonSaveRequest) {
     var existMember = memberExistCondition.check(jsonSaveRequest.loginId());
@@ -20,13 +22,18 @@ class JsonSaveRequestMapper {
       return left(existMember.getLeft());
     }
 
-    return right(
-      SaveRequest.builder()
-        .loginId(jsonSaveRequest.loginId())
-        .title(jsonSaveRequest.title())
-        .isMember(isMember(existMember))
-        .playlistCount(getPlaylistCount(existMember))
-        .build());
+    var saveRequest = SaveRequest.builder()
+      .loginId(jsonSaveRequest.loginId())
+      .title(jsonSaveRequest.title())
+      .isMember(isMember(existMember))
+      .playlistCount(getPlaylistCount(existMember))
+      .build();
+
+    if (!savePolicy.matches(saveRequest)) {
+      return left("[비회원] 생성 갯수 초과");
+    }
+
+    return right(saveRequest);
   }
 
   private long getPlaylistCount(Either<String, Member> existMember) {
