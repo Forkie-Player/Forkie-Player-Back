@@ -10,7 +10,8 @@ class NonMemberTest {
 
   @Test
   void equals() {
-    assertThat(new NonMember("UUID_abcdefghijkl"), is(new NonMember("UUID_abcdefghijkl")));
+    assertThat(new NonMember("55D154BE-07E6-42FA-832B-D9CF11CE0D6A"),
+      is(new NonMember("55D154BE-07E6-42FA-832B-D9CF11CE0D6A")));
   }
 
   @Test

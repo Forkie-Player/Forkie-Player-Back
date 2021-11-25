@@ -1,6 +1,7 @@
 package toolc.yourlist.member.infra;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import toolc.yourlist.common.domain.BaseEntity;
@@ -15,6 +16,7 @@ public class MemberEntity extends BaseEntity {
   private boolean isMember;
   private String password;
 
+  @Builder
   public MemberEntity(String loginId, String password, boolean isMember) {
     this.loginId = loginId;
     this.isMember = isMember;
