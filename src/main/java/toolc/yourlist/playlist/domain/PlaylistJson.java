@@ -16,10 +16,10 @@ public final class PlaylistJson {
   private String title;
 
   @Builder
-  public PlaylistJson(Long id, String thumbnail, String title) {
-    this.id = id;
+  public PlaylistJson(Playlist playlist, String thumbnail) {
+    this.id = playlist.id();
     this.thumbnail = thumbnail;
-    this.title = title;
+    this.title = playlist.title();
   }
 }
 

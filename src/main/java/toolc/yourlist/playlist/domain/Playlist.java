@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class Playlist {
+  private final Long id;
   private final Long memberId;
   private final String title;
 }

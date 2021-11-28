@@ -1,10 +1,14 @@
 package toolc.yourlist.playlist.infra;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import toolc.yourlist.common.domain.BaseEntity;
 import toolc.yourlist.playlist.domain.Playlist;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,7 +25,7 @@ public class PlaylistEntity extends BaseEntity {
   }
 
   Playlist toPlaylist() {
-    return new Playlist(memberId, title);
+    return new Playlist(this.id(), memberId, title);
   }
 }
 

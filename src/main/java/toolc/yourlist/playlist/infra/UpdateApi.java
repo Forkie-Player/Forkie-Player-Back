@@ -29,8 +29,7 @@ public class UpdateApi {
   }
 
   private ResponseEntity<?> toOutput(Either<String, UpdateRequest> updateRequest) {
-    Playlist playlist = persistingPlaylist.readBelongsTo(updateRequest.get().playlistId());
-    persistingPlaylist.updateTitle(playlist, updateRequest.get());
+    persistingPlaylist.updateTitle(updateRequest.get());
     return JsonResponse.success("수정 성공");
   }
 }

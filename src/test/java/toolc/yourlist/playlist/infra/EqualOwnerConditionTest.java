@@ -28,7 +28,7 @@ class EqualOwnerConditionTest {
         Optional.of(
           new MemberEntity("oh980225", "qwer1234!", true)
         )),
-      new Playlist(1L, "My List"));
+      new Playlist(1L, 1L, "My List"));
 
     assertThat(actual, is(true));
   }
@@ -48,7 +48,7 @@ class EqualOwnerConditionTest {
         Optional.of(
           new MemberEntity("oh1263", "abcd1234!", true)
         )),
-      new Playlist(1L, "My List"));
+      new Playlist(1L, 1L, "My List"));
     assertThat(actual, is(false));
   }
 }
