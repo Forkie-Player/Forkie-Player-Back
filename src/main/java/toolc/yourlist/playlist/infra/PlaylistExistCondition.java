@@ -2,6 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.Playlist;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;

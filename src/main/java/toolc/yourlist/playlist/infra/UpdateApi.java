@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
+import toolc.yourlist.playlist.domain.Playlist;
 
 @Slf4j
 @RequiredArgsConstructor

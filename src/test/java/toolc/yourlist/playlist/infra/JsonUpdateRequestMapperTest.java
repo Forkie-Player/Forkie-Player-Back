@@ -5,6 +5,7 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.MockAllMember;
 import toolc.yourlist.member.infra.Member;
 import toolc.yourlist.member.infra.MemberEntity;
+import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.Optional;
 
@@ -23,9 +24,7 @@ class JsonUpdateRequestMapperTest {
       ))
       .build();
     PersistingPlaylist persistingPlaylist = MockPersistingPlaylist.builder()
-      .readBelongsTo(id -> new Playlist(
-        Optional.of(
-          new PlaylistEntity(1L, "My List"))))
+      .readBelongsTo(id -> new Playlist(1L, "My List"))
       .build();
     JsonUpdateRequestMapper mapper = new JsonUpdateRequestMapper(
       new MemberExistCondition(allMember),
@@ -57,9 +56,7 @@ class JsonUpdateRequestMapperTest {
       ))
       .build();
     PersistingPlaylist persistingPlaylist = MockPersistingPlaylist.builder()
-      .readBelongsTo(id -> new Playlist(
-        Optional.of(
-          new PlaylistEntity(1L, "My List"))))
+      .readBelongsTo(id -> new Playlist(1L, "My List"))
       .build();
     JsonUpdateRequestMapper mapper = new JsonUpdateRequestMapper(
       new MemberExistCondition(allMember),
@@ -88,9 +85,7 @@ class JsonUpdateRequestMapperTest {
       ))
       .build();
     PersistingPlaylist persistingPlaylist = MockPersistingPlaylist.builder()
-      .readBelongsTo(id -> new Playlist(
-        Optional.empty()
-      ))
+      .readBelongsTo(id -> new Playlist(null, null))
       .build();
     JsonUpdateRequestMapper mapper = new JsonUpdateRequestMapper(
       new MemberExistCondition(allMember),
@@ -119,9 +114,7 @@ class JsonUpdateRequestMapperTest {
       ))
       .build();
     PersistingPlaylist persistingPlaylist = MockPersistingPlaylist.builder()
-      .readBelongsTo(id -> new Playlist(
-        Optional.of(
-          new PlaylistEntity(1L, "My List"))))
+      .readBelongsTo(id -> new Playlist(1L, "My List"))
       .build();
     JsonUpdateRequestMapper mapper = new JsonUpdateRequestMapper(
       new MemberExistCondition(allMember),

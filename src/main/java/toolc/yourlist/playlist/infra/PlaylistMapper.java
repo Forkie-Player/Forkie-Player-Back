@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.Playlist;
 import toolc.yourlist.playlist.domain.PlaylistJson;
 
 import java.util.List;

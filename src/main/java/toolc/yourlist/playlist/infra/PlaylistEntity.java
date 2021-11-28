@@ -2,6 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.*;
 import toolc.yourlist.common.domain.BaseEntity;
+import toolc.yourlist.playlist.domain.Playlist;
 
 import javax.persistence.*;
 
@@ -17,6 +18,10 @@ public class PlaylistEntity extends BaseEntity {
   public PlaylistEntity(Long memberId, String title) {
     this.memberId = memberId;
     this.title = title;
+  }
+
+  Playlist toPlaylist() {
+    return new Playlist(memberId, title);
   }
 }
 

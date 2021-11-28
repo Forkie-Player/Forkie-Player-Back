@@ -3,6 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.playlist.domain.Playlist;
 import toolc.yourlist.playlist.domain.SavePolicy;
 import toolc.yourlist.playlist.domain.SaveRequest;
 

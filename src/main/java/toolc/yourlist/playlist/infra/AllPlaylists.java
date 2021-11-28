@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.Getter;
+import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ class AllPlaylists {
     }
 
     this.entities = playlistEntities.stream()
-      .map(playlistEntity -> new Playlist(Optional.of(playlistEntity)))
+      .map(PlaylistEntity::toPlaylist)
       .collect(Collectors.toList());
   }
 }

@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.Optional;
 

@@ -3,11 +3,11 @@ package toolc.yourlist.playlist.infra;
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.play.domain.MockPlay;
 import toolc.yourlist.play.infra.PlayEntity;
+import toolc.yourlist.playlist.domain.Playlist;
 import toolc.yourlist.playlist.domain.PlaylistJson;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -20,9 +20,7 @@ class PersistingPlaylistMapperTest {
     ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder().build());
     PlaylistMapper mapper = new PlaylistMapper(thumbnailOfPlaylist);
     PlaylistJson playlistJson = mapper.toPlaylistJson(
-      new Playlist(Optional.of(
-        new PlaylistEntity(1L, "My List"))),
-      "thumbnail");
+      new Playlist(1L, "My List"), "thumbnail");
 
     assertThat(playlistJson,
       is(PlaylistJson.builder()
