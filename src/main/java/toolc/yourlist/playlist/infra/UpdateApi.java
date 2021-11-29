@@ -14,7 +14,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 @RequiredArgsConstructor
 @RestController
 public class UpdateApi {
-  private final PersistingPlaylist persistingPlaylist;
+  private final UpdatePersisting updatePersisting;
   private final JsonUpdateRequestMapper mapper;
 
   @PutMapping("/api/playlist/update")
@@ -29,7 +29,7 @@ public class UpdateApi {
   }
 
   private ResponseEntity<?> toOutput(Either<String, UpdateRequest> updateRequest) {
-    persistingPlaylist.updateTitle(updateRequest.get());
+    updatePersisting.updateTitle(updateRequest.get());
     return JsonResponse.success("수정 성공");
   }
 }

@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.playlist.domain.SavePolicy;
 import toolc.yourlist.playlist.domain.SaveRequest;
 
@@ -11,7 +11,7 @@ import static io.vavr.control.Either.right;
 
 @RequiredArgsConstructor
 class JsonSaveRequestMapper {
-  private final PersistingPlaylist persistingPlaylist;
+  private final ReadPersisting readPersisting;
   private final MemberExistCondition memberExistCondition;
   private final SavePolicy savePolicy;
 
@@ -37,7 +37,7 @@ class JsonSaveRequestMapper {
   }
 
   private long getPlaylistCount(Either<String, Member> existMember) {
-    return persistingPlaylist.havingCountOf(
+    return readPersisting.havingCountOf(
       existMember
         .get()
         .entity()

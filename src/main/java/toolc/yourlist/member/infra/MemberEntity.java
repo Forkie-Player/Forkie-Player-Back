@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import toolc.yourlist.common.domain.BaseEntity;
+import toolc.yourlist.member.domain.Member;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -21,5 +22,9 @@ public class MemberEntity extends BaseEntity {
     this.loginId = loginId;
     this.isMember = isMember;
     this.password = password;
+  }
+
+  public Member toMember() {
+    return new Member(this.id(), loginId, isMember, password);
   }
 }

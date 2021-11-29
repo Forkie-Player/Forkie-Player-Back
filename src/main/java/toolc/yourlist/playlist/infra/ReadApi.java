@@ -18,9 +18,9 @@ import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 @RequiredArgsConstructor
 @RestController
 public class ReadApi {
-  private final PersistingPlaylist persistingPlaylist;
-  private final PlaylistMapper playlistMapper;
+  private final PlaylistReader reader;
   private final LoginIdMapper loginIdMapper;
+  private final PlaylistWithThumbnailMapper playlistWithThumbnailMapper;
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@NotBlank @PathVariable("loginId") String loginId) {
@@ -30,9 +30,7 @@ public class ReadApi {
       return failForBadRequest(readRequest.getLeft());
     }
 
-    return toOutput(playlistMapper
-      .toPlaylistJsonList(persistingPlaylist
-        .readAllBelongsTo(readRequest.get().loginId())));
+    return toOutput(playlistWithThumbnailMapper.toPlaylistJson(reader.readAllPlaylists(loginId)));
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {

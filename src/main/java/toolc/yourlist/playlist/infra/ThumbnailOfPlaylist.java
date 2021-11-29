@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class ThumbnailOfPlaylist {
+public class ThumbnailOfPlaylist implements ReadThumbnail {
   private final Play play;
 
-  String find(Long playlistId) {
+  @Override
+  public String find(Long playlistId) {
     List<PlayEntity> list = play.readWhatBelongsTo(playlistId)
       .stream()
       .filter(playEntity -> playEntity.sequence() == 1)

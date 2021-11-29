@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import toolc.yourlist.member.infra.Member;
+import toolc.yourlist.member.domain.Member;
 
 @Getter
 @EqualsAndHashCode

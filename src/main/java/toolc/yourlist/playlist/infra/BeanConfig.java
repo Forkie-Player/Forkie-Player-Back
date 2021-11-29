@@ -14,6 +14,33 @@ import toolc.yourlist.playlist.domain.SavePolicy;
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
+  SavePolicy saveRequestPolicy() {
+    return new CountLimitOrRealMember();
+  }
+
+  @Bean
+  ReadPersisting readPersisting(JpaPlaylistRepository playlistRepository, AllMember allMember) {
+    return new JpaReadAdapter(playlistRepository, allMember);
+  }
+
+  @Bean
+  UpdatePersisting updatePersisting(JpaPlaylistRepository playlistRepository, AllMember allMember) {
+    return new JpaUpdateAdapter(playlistRepository, allMember);
+  }
+
+  @Bean
+  SavePersisting savePersisting(JpaPlaylistRepository playlistRepository,
+                                AllMember allMember,
+                                SavePolicy savePolicy) {
+    return new JpaSaveAdapter(playlistRepository, allMember, savePolicy);
+  }
+
+  @Bean
+  PlaylistExistCondition playlistExistCondition(ReadPersisting readPersisting) {
+    return new PlaylistExistCondition(readPersisting);
+  }
+
+  @Bean
   MemberExistCondition memberExistCondition(AllMember allMember) {
     return new MemberExistCondition(allMember);
   }
@@ -24,47 +51,21 @@ public class BeanConfig {
   }
 
   @Bean
-  PlaylistExistCondition playlistExistCondition(PersistingPlaylist persistingPlaylist) {
-    return new PlaylistExistCondition(persistingPlaylist);
-  }
-
-  @Bean
-  SavePolicy saveRequestPolicy() {
-    return new CountLimitOrRealMember();
-  }
-
-  @Bean
-  PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository,
-                              AllMember allMember,
-                              SavePolicy savePolicy) {
-    return new JpaPlaylistAdapter(
-      playlistRepository,
-      allMember,
-      savePolicy);
-  }
-
-  @Bean
   Play play(JpaPlayRepository playRepository) {
     return new JpaPlayAdapter(playRepository);
   }
 
   @Bean
-  ThumbnailOfPlaylist thumbnailOfPlaylist(Play play) {
+  ReadThumbnail readThumbnail(Play play) {
     return new ThumbnailOfPlaylist(play);
   }
 
-
   @Bean
-  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
-    return new PlaylistMapper(thumbnailOfPlaylist);
-  }
-
-  @Bean
-  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist,
+  JsonSaveRequestMapper requestMapper(ReadPersisting readPersisting,
                                       MemberExistCondition memberExistCondition,
                                       SavePolicy savePolicy) {
     return new JsonSaveRequestMapper(
-      persistingPlaylist,
+      readPersisting,
       memberExistCondition,
       savePolicy);
   }

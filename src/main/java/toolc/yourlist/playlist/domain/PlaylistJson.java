@@ -15,10 +15,9 @@ public final class PlaylistJson {
   @JsonProperty
   private String title;
 
-  @Builder
-  public PlaylistJson(Playlist playlist, String thumbnail) {
+  public PlaylistJson(PlaylistWithThumbnail playlist) {
     this.id = playlist.id();
-    this.thumbnail = thumbnail;
+    this.thumbnail = playlist.thumbnail();
     this.title = playlist.title();
   }
 }

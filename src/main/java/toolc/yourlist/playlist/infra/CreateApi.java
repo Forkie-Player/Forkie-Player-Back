@@ -21,7 +21,7 @@ import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 @RestController
 @Controller
 public class CreateApi {
-  private final PersistingPlaylist persistingPlaylist;
+  private final SavePersisting savePersisting;
   private final SavePolicy savePolicy;
   private final JsonSaveRequestMapper mapper;
 
@@ -37,7 +37,7 @@ public class CreateApi {
   }
 
   private ResponseEntity<?> toOutput(Either<String, SaveRequest> saveRequest) {
-    persistingPlaylist.saveByRequest(saveRequest.get());
+    savePersisting.saveByRequest(saveRequest.get());
     return JsonResponse.success("생성 성공");
   }
 }
