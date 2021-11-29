@@ -36,13 +36,13 @@ public class BeanConfig {
   }
 
   @Bean
-  PlaylistExistCondition playlistExistCondition(ReadPersisting readPersisting) {
-    return new PlaylistExistCondition(readPersisting);
+  LoginIdMapper loginIdMapper(AllMember allMember) {
+    return new LoginIdMapper(allMember);
   }
 
   @Bean
-  MemberExistCondition memberExistCondition(AllMember allMember) {
-    return new MemberExistCondition(allMember);
+  PlaylistReader playlistReader(ReadPersisting readPersisting, ReadThumbnail readThumbnail) {
+    return new PlaylistReader(readPersisting, readThumbnail);
   }
 
   @Bean
@@ -62,21 +62,21 @@ public class BeanConfig {
 
   @Bean
   JsonSaveRequestMapper requestMapper(ReadPersisting readPersisting,
-                                      MemberExistCondition memberExistCondition,
+                                      AllMember allMember,
                                       SavePolicy savePolicy) {
     return new JsonSaveRequestMapper(
       readPersisting,
-      memberExistCondition,
+      allMember,
       savePolicy);
   }
 
   @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(MemberExistCondition memberExistCondition,
+  JsonUpdateRequestMapper jsonUpdateRequestMapper(AllMember allMember,
                                                   EqualOwnerCondition equalOwnerCondition,
-                                                  PlaylistExistCondition playlistExistCondition) {
+                                                  ReadPersisting readPersisting) {
     return new JsonUpdateRequestMapper(
-      memberExistCondition,
+      allMember,
       equalOwnerCondition,
-      playlistExistCondition);
+      readPersisting);
   }
 }

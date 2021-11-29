@@ -20,7 +20,7 @@ import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 public class ReadApi {
   private final PlaylistReader reader;
   private final LoginIdMapper loginIdMapper;
-  private final PlaylistWithThumbnailMapper playlistWithThumbnailMapper;
+  private final PlaylistWithThumbnailMapper playlistWithThumbnailMapper = new PlaylistWithThumbnailMapper();
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@NotBlank @PathVariable("loginId") String loginId) {

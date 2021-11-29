@@ -22,7 +22,7 @@ public class JpaReadAdapter implements ReadPersisting {
     }
 
     return new AllPlaylists(
-      playlistRepository.findByMemberId(member.entity().id())
+      playlistRepository.findByMemberId(member.id())
         .stream()
         .map(PlaylistEntity::toPlaylist)
         .collect(Collectors.toList())

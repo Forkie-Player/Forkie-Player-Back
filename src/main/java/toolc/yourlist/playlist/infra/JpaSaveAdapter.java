@@ -25,7 +25,7 @@ public class JpaSaveAdapter implements SavePersisting {
     }
 
     playlistRepository.save(new PlaylistEntity(
-      member.entity().id(),
+      member.id(),
       request.title()));
   }
 }
