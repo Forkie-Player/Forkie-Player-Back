@@ -10,29 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class ReadApi {
-  private final LoginIdMapper loginIdMapper;
   private final ReadPersisting readPersisting;
   private final AllPlaylistsMapper allPlaylistsMapper;
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@NotBlank @PathVariable("loginId") String loginId) {
-    var readRequest = loginIdMapper.toReadRequest(loginId);
-
-    if (readRequest.isEmpty()) {
-      return failForBadRequest(readRequest.getLeft());
-    }
-
-    return toOutput(
-      allPlaylistsMapper
-        .toPlaylistJsonList(readPersisting
-          .readAllBelongsTo(readRequest.get().loginId())));
+    return toOutput(allPlaylistsMapper.toPlaylistJsonList(readPersisting.readAllBelongsTo(loginId)));
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {

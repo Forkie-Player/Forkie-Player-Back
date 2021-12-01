@@ -17,10 +17,6 @@ public class JpaReadAdapter implements ReadPersisting {
   public AllPlaylists readAllBelongsTo(String loginId) {
     Member member = allMember.findByLoginId(loginId);
 
-    if (member == null) {
-      throw new IllegalArgumentException("존재하지 않는 회원입니다.");
-    }
-
     return new AllPlaylists(
       playlistRepository.findByMemberId(member.id())
         .stream()
