@@ -11,11 +11,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ThumbnailOfPersistingPlaylistEntityTest {
+class ThumbnailOfPlaylistTest {
 
   @Test
   void 썸네일_찾기() {
-    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Arrays.asList(
         PlayEntity.builder()
           .sequence(1)
@@ -38,7 +38,7 @@ class ThumbnailOfPersistingPlaylistEntityTest {
 
   @Test
   void 영상이_없음() {
-    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Collections.emptyList())
       .build());
     String thumbnail = thumbnailOfPlaylist.find(1L);
@@ -48,7 +48,7 @@ class ThumbnailOfPersistingPlaylistEntityTest {
 
   @Test
   void 첫번째_순서_중복() {
-    ThumbnailOfPlaylist thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
       .readWhatBelongsTo(playlistId -> Arrays.asList(
         PlayEntity.builder()
           .sequence(1)
