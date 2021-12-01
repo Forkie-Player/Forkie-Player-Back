@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.play.infra.JpaPlayAdapter;
-import toolc.yourlist.play.infra.JpaPlayRepository;
-import toolc.yourlist.play.infra.Play;
+import toolc.yourlist.play.infra.*;
 import toolc.yourlist.playlist.domain.CountLimitOrRealMember;
 import toolc.yourlist.playlist.domain.SavePolicy;
 
@@ -41,8 +39,8 @@ public class BeanConfig {
   }
 
   @Bean
-  PlaylistReader playlistReader(ReadPersisting readPersisting, ReadThumbnail readThumbnail) {
-    return new PlaylistReader(readPersisting, readThumbnail);
+  PlaylistReader playlistReader(ReadPersisting readPersisting) {
+    return new PlaylistReader(readPersisting);
   }
 
   @Bean
@@ -53,11 +51,6 @@ public class BeanConfig {
   @Bean
   Play play(JpaPlayRepository playRepository) {
     return new JpaPlayAdapter(playRepository);
-  }
-
-  @Bean
-  ReadThumbnail readThumbnail(Play play) {
-    return new ThumbnailOfPlaylist(play);
   }
 
   @Bean

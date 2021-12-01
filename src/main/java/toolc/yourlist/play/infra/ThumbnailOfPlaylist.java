@@ -1,8 +1,6 @@
-package toolc.yourlist.playlist.infra;
+package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.play.infra.PlayEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;

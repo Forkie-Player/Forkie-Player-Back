@@ -18,6 +18,7 @@ public class PlaylistEntity extends BaseEntity {
   private Long memberId;
   @Setter
   private String title;
+  private String thumbnail;
 
   public PlaylistEntity(Long memberId, String title) {
     this.memberId = memberId;

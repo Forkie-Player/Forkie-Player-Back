@@ -1,9 +1,10 @@
-package toolc.yourlist.playlist.domain;
+package toolc.yourlist.playlist.infra;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import toolc.yourlist.playlist.domain.Playlist;
 
 @Getter
 @EqualsAndHashCode
@@ -15,7 +16,7 @@ public final class PlaylistJson {
   @JsonProperty
   private String title;
 
-  public PlaylistJson(PlaylistWithThumbnail playlist) {
+  public PlaylistJson(Playlist playlist) {
     this.id = playlist.id();
     this.thumbnail = playlist.thumbnail();
     this.title = playlist.title();

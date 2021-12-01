@@ -11,4 +11,5 @@ public class Playlist {
   private final Long id;
   private final Long memberId;
   private final String title;
+  private final String thumbnail;
 }

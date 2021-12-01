@@ -1,9 +1,9 @@
 package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.play.infra.ReadThumbnail;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
-import toolc.yourlist.playlist.domain.PlaylistWithThumbnail;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ class PlaylistReaderTest {
     @Override
     public AllPlaylists readAllBelongsTo(String loginId) {
       return new AllPlaylists(List.of(
-        new Playlist(1L, 1L, "My List"),
-        new Playlist(2L, 1L, "My Music"),
-        new Playlist(3L, 1L, "Game")));
+        new Playlist(1L, 1L, "My List", "puppy.png"),
+        new Playlist(2L, 1L, "My Music", "panda.jpg"),
+        new Playlist(3L, 1L, "Game", "cat.png")));
     }
 
     @Override
@@ -30,17 +30,9 @@ class PlaylistReaderTest {
       return 0;
     }
   }
-
-  class MockReadThumbnail implements ReadThumbnail {
-    @Override
-    public String find(Long playlistId) {
-      return "puppy.img";
-    }
-  }
-
   @Test
   void readAllPlaylists() {
-    PlaylistReader reader = new PlaylistReader(new MockReadPersisting(), new MockReadThumbnail());
+    PlaylistReader reader = new PlaylistReader(new MockReadPersisting());
     var actual = reader.readAllPlaylists("oh980225");
 
     var expected = List.of(
