@@ -1,11 +1,13 @@
 package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @EqualsAndHashCode
+@Getter
 public final class LoginId2 {
   String raw;
 
@@ -16,7 +18,7 @@ public final class LoginId2 {
 
   private void validateId(String raw) {
     if (raw == null) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("null값은 허용하지 않습니다.");
     }
 
     Matcher matcher;

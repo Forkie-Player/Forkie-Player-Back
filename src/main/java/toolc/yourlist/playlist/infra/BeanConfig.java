@@ -34,16 +34,6 @@ public class BeanConfig {
   }
 
   @Bean
-  LoginIdMapper loginIdMapper(AllMember allMember) {
-    return new LoginIdMapper(allMember);
-  }
-
-  @Bean
-  PlaylistReader playlistReader(ReadPersisting readPersisting) {
-    return new PlaylistReader(readPersisting);
-  }
-
-  @Bean
   EqualOwnerCondition equalOwnerCondition(AllMember allMember) {
     return new EqualOwnerCondition(allMember);
   }

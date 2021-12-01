@@ -14,7 +14,7 @@ class AllPlaylistsTest {
   void 멤버Id_불일치() {
     assertThrows(IllegalArgumentException.class, () -> new AllPlaylists(
       List.of(
-        new Playlist(1L, 1L, "My List"),
-        new Playlist(2L, 2L, "Other List"))));
+        new Playlist(1L, 1L, "My List", "panda.png"),
+        new Playlist(2L, 2L, "Other List", "puppy.jpeg"))));
   }
 }

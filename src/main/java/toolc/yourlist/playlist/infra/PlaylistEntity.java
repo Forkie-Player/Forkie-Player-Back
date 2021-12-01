@@ -26,7 +26,7 @@ public class PlaylistEntity extends BaseEntity {
   }
 
   Playlist toPlaylist() {
-    return new Playlist(this.id(), memberId, title);
+    return new Playlist(this.id(), memberId, title, thumbnail);
   }
 }
 

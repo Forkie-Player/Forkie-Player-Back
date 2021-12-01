@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.auth.domain.LoginId2;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.playlist.domain.AllPlaylists;
@@ -14,8 +15,8 @@ public class JpaReadAdapter implements ReadPersisting {
   private final AllMember allMember;
 
   @Override
-  public AllPlaylists readAllBelongsTo(String loginId) {
-    Member member = allMember.findByLoginId(loginId);
+  public AllPlaylists readAllBelongsTo(LoginId2 loginId) {
+    Member member = allMember.findByLoginId(loginId.raw());
 
     return new AllPlaylists(
       playlistRepository.findByMemberId(member.id())

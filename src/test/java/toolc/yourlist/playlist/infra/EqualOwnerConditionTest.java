@@ -19,7 +19,7 @@ class EqualOwnerConditionTest {
 
     var actual = condition.check(
       new Member(1L, "oh980225", true, "qwer1234!"),
-      new Playlist(1L, 1L, "My List"));
+      new Playlist(1L, 1L, "My List", "panda.png"));
 
     assertThat(actual, is(true));
   }
@@ -33,7 +33,7 @@ class EqualOwnerConditionTest {
 
     var actual = condition.check(
       new Member(2L, "oh1263", true, "abcd1234!"),
-      new Playlist(1L, 1L, "My List"));
+      new Playlist(1L, 1L, "My List", "panda.png"));
     assertThat(actual, is(false));
   }
 }

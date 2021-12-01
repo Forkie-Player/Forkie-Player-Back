@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import toolc.yourlist.auth.domain.LoginIdCondition;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 
 @Slf4j
@@ -17,11 +19,20 @@ import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 @RestController
 public class ReadApi {
   private final ReadPersisting readPersisting;
-  private final AllPlaylistsMapper allPlaylistsMapper;
+  private final LoginIdCondition loginIdCondition = new LoginIdCondition();
+  private final AllPlaylistsMapper allPlaylistsMapper = new AllPlaylistsMapper();
 
   @GetMapping("/api/playlist/{loginId}")
   public ResponseEntity<?> readPlaylists(@NotBlank @PathVariable("loginId") String loginId) {
-    return toOutput(allPlaylistsMapper.toPlaylistJsonList(readPersisting.readAllBelongsTo(loginId)));
+    var checkedLoginId = loginIdCondition.check(loginId);
+
+    if (checkedLoginId.isEmpty()) {
+      failForBadRequest(checkedLoginId.getLeft());
+    }
+
+    return toOutput(
+      allPlaylistsMapper.toPlaylistJsonList(
+        readPersisting.readAllBelongsTo(checkedLoginId.get())));
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
