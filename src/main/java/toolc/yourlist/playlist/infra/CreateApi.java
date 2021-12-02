@@ -1,6 +1,5 @@
 package toolc.yourlist.playlist.infra;
 
-import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -9,35 +8,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.playlist.domain.SavePolicy;
-import toolc.yourlist.playlist.domain.SaveRequest;
 
 import javax.validation.Valid;
-
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 @Controller
 public class CreateApi {
-  private final SavePersisting savePersisting;
-  private final SavePolicy savePolicy;
-  private final JsonSaveRequestMapper mapper;
+  private final PlaylistCreator creator;
 
-  @PostMapping("/api/playlist/create")
-  public ResponseEntity<?> createPlaylist(@Valid @RequestBody JsonSaveRequest request) {
-    var saveRequest = mapper.toSaveRequest(request);
-
-    if (saveRequest.isEmpty()) {
-      return failForBadRequest(saveRequest.getLeft());
-    }
-
-    return toOutput(saveRequest);
+  @PostMapping("/api/member-playlist")
+  public ResponseEntity<?> createPlaylistForRealMember(@Valid @RequestBody JsonSaveRequest request) {
+    creator.createForRealMember(request.memberId(), request.title());
+    return JsonResponse.success("생성 성공");
   }
 
-  private ResponseEntity<?> toOutput(Either<String, SaveRequest> saveRequest) {
-    savePersisting.saveByRequest(saveRequest.get());
+  @PostMapping("/api/non-member-playlist")
+  public ResponseEntity<?> createPlaylistForNonMember(@Valid @RequestBody JsonSaveRequest request) {
+    creator.createForNonMember(request.memberId(), request.title());
     return JsonResponse.success("생성 성공");
   }
 }

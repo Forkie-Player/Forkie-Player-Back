@@ -19,7 +19,7 @@ public class AllMemberMapper implements AllMember {
       throw new IllegalArgumentException("존재하지 않는 회원입니다.");
     }
 
-    return jpaAllMember.findByLoginId(loginId).toMember();
+    return memberEntity.toMember();
   }
 
   @Override

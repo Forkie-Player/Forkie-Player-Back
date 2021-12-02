@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.Playlist;
 
 interface SavePersisting {
-  void saveByRequest(SaveRequest request);
+  void save(Playlist playlist);
 }

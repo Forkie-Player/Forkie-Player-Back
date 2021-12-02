@@ -20,13 +20,25 @@ public class PlaylistEntity extends BaseEntity {
   private String title;
   private String thumbnail;
 
-  public PlaylistEntity(Long memberId, String title) {
+  public PlaylistEntity(Long memberId, String title, String thumbnail) {
     this.memberId = memberId;
     this.title = title;
+    this.thumbnail = thumbnail;
+  }
+
+  public PlaylistEntity(Playlist playlist) {
+    this.memberId = playlist.memberId();
+    this.title = playlist.title();
+    this.thumbnail = playlist.thumbnail();
   }
 
   Playlist toPlaylist() {
-    return new Playlist(this.id(), memberId, title, thumbnail);
+    return Playlist.builder()
+      .id(this.id())
+      .memberId(memberId)
+      .title(title)
+      .thumbnail(thumbnail)
+      .build();
   }
 }
 
