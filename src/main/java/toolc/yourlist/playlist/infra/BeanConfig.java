@@ -7,17 +7,10 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.playlist.domain.CountLimitOrRealMember;
-import toolc.yourlist.playlist.domain.SavePolicy;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
 public class BeanConfig {
-  @Bean
-  SavePolicy saveRequestPolicy() {
-    return new CountLimitOrRealMember();
-  }
-
   @Bean
   ReadPersisting readPersisting(JpaPlaylistRepository playlistRepository, AllMember allMember) {
     return new JpaReadAdapter(playlistRepository, allMember);
