@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class AllPlaylists {
+public final class AllPlaylists {
   private final List<Playlist> entities;
 
   public AllPlaylists(List<Playlist> playlists) {

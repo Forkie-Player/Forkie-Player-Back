@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
-public class Playlist {
+public final class Playlist {
   private final Long id;
   private final Long memberId;
   private final String title;

@@ -1,37 +1,47 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.Playlist;
 
 @RequiredArgsConstructor
-public class PlaylistCreator {
+final class PlaylistCreator {
+  private final AllMember allMember;
   private final SavePersisting savePersisting;
-  private final MemberCondition memberCondition;
-  private final CountExceedCondition countExceedCondition;
+  private final CountPolicyForNonMember countPolicy;
 
   void createForRealMember(Long memberId, String title) {
-    if (memberCondition.checkNonMember(memberId)) {
+    var member = allMember.findById(memberId);
+
+    if (!member.isMember()) {
       throw new IllegalArgumentException("회원이 아닙니다.");
     }
 
-    savePersisting.save(Playlist.builder()
-      .memberId(memberId)
-      .title(title)
-      .build());
+    save(playlist(memberId, title));
   }
 
   void createForNonMember(Long memberId, String title) {
-    if (memberCondition.checkRealMember(memberId)) {
+    var member = allMember.findById(memberId);
+
+    if (member.isMember()) {
       throw new IllegalArgumentException("비회원이 아닙니다.");
     }
 
-    if (countExceedCondition.check(memberId)) {
+    if (!countPolicy.check(memberId)) {
       throw new IllegalArgumentException("비회원의 영상 생성 제한을 넘었습니다.");
     }
 
-    savePersisting.save(Playlist.builder()
+    save(playlist(memberId, title));
+  }
+
+  private void save(Playlist playlist) {
+    savePersisting.save(playlist);
+  }
+
+  private Playlist playlist(Long memberId, String title) {
+    return Playlist.builder()
       .memberId(memberId)
       .title(title)
-      .build());
+      .build();
   }
 }

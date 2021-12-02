@@ -27,30 +27,25 @@ public class BeanConfig {
   }
 
   @Bean
-  DifferOwnerCondition equalOwnerCondition(AllMember allMember, ReadPersisting readPersisting) {
-    return new DifferOwnerCondition(allMember, readPersisting);
+  CountPolicyForNonMember savePolicyForNonMember(ReadPersisting readPersisting) {
+    return new CountPolicyForNonMember(readPersisting);
   }
 
   @Bean
-  MemberCondition memberCondition(AllMember allMember) {
-    return new MemberCondition(allMember);
+  PlaylistCreator playlistCreator(AllMember allMember,
+                                  SavePersisting savePersisting,
+                                  CountPolicyForNonMember countPolicyForNonMember) {
+    return new PlaylistCreator(allMember, savePersisting, countPolicyForNonMember);
   }
 
   @Bean
-  CountExceedCondition playlistCountCondition(ReadPersisting readPersisting) {
-    return new CountExceedCondition(readPersisting);
+  OwnerPolicy ownerPolicy(AllMember allMember, ReadPersisting readPersisting) {
+    return new OwnerPolicy(allMember, readPersisting);
   }
 
   @Bean
-  PlaylistCreator playlistCreator(SavePersisting savePersisting,
-                                  MemberCondition memberCondition,
-                                  CountExceedCondition countExceedCondition) {
-    return new PlaylistCreator(savePersisting, memberCondition, countExceedCondition);
-  }
-
-  @Bean
-  PlaylistUpdater playlistUpdater(DifferOwnerCondition differOwnerCondition, UpdatePersisting updatePersisting) {
-    return new PlaylistUpdater(differOwnerCondition, updatePersisting);
+  PlaylistUpdater playlistUpdater(UpdatePersisting updatePersisting, OwnerPolicy ownerPolicy) {
+    return new PlaylistUpdater(updatePersisting, ownerPolicy);
   }
 
   @Bean

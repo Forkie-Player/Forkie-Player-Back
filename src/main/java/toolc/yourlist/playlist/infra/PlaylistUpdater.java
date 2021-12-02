@@ -1,17 +1,18 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.UpdateRequest;
 
 @RequiredArgsConstructor
-public class PlaylistUpdater {
-  private final DifferOwnerCondition differOwnerCondition;
+final class PlaylistUpdater {
   private final UpdatePersisting updatePersisting;
+  private final OwnerPolicy ownerPolicy;
 
-  void updateTitle(Long memberId, Long playlistId, String title) {
-    if (differOwnerCondition.check(memberId, playlistId)) {
+  void updateTitle(UpdateRequest request) {
+    if (!ownerPolicy.check(request.memberId(), request.playlistId())) {
       throw new IllegalArgumentException("Playlist 소유자의 요청이 아닙니다.");
     }
 
-    updatePersisting.updateTitle(playlistId, title);
+    updatePersisting.updateTitle(request.playlistId(), request.title());
   }
 }

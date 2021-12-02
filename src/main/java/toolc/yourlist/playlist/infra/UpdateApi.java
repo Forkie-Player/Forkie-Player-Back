@@ -18,24 +18,8 @@ public class UpdateApi {
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest request) {
-    updater.updateTitle(
-      request.memberId(),
-      request.playlistId(),
-      request.title()
-    );
+    updater.updateTitle(request.toUpdateRequest());
 
     return JsonResponse.success("수정 성공");
   }
 }
-
-
-//  @PutMapping("/api/playlist/update")
-//  public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest request) {
-//    var updateRequest = mapper.toUpdateRequest(request);
-//
-//    if (updateRequest.isEmpty()) {
-//      return JsonResponse.failForBadRequest(updateRequest.getLeft());
-//    }
-//
-//    return toOutput(updateRequest);
-//  }
