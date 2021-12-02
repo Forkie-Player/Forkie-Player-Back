@@ -1,6 +1,6 @@
 package toolc.yourlist.auth.domain;
 
-interface TokenProvider {
+public interface TokenProvider {
   Token create(LoginRequest request);
 }
 

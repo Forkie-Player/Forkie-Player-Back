@@ -64,8 +64,12 @@ public class BeanConfig {
   }
 
   @Bean
+  public TokenProvider tokenProvider() {
+    return new TokenProviderImpl(accessTokenCreator(), refreshTokenCreator());
+  }
+
+  @Bean
   public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), accessTokenCreator(),
-      refreshTokenCreator(), checkPassword());
+    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
   }
 }

@@ -3,7 +3,7 @@ package toolc.yourlist.auth.domain;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-class TokenProviderImpl implements TokenProvider{
+public class TokenProviderImpl implements TokenProvider{
 
   private final AccessTokenCreator accessTokenCreator;
   private final RefreshTokenCreator refreshTokenCreator;
