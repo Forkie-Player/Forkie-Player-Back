@@ -1,5 +1,5 @@
 package toolc.yourlist.playlist.infra;
 
 interface UpdatePersisting {
-  void updateTitle(UpdateRequest request);
+  void updateTitle(Long memberId, String title);
 }

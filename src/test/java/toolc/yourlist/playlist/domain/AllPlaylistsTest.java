@@ -1,4 +1,4 @@
-package toolc.yourlist.playlist.infra;
+package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.playlist.domain.AllPlaylists;

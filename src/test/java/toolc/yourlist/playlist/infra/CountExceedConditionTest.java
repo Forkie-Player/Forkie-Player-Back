@@ -7,7 +7,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class PlaylistCountConditionTest {
+class CountExceedConditionTest {
   class MockReadPersisting implements ReadPersisting {
 
     @Override
@@ -46,7 +46,7 @@ class PlaylistCountConditionTest {
 
   @Test
   void check() {
-    var condition = new PlaylistCountCondition(new MockReadPersisting());
+    var condition = new CountExceedCondition(new MockReadPersisting());
 
     var actual = condition.check(1L);
 
@@ -55,7 +55,7 @@ class PlaylistCountConditionTest {
 
   @Test
   void check_exceed() {
-    var condition = new PlaylistCountCondition(new MockReadPersistingForExceed());
+    var condition = new CountExceedCondition(new MockReadPersistingForExceed());
 
     var actual = condition.check(1L);
 

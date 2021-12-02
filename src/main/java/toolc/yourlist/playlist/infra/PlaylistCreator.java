@@ -7,7 +7,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 public class PlaylistCreator {
   private final SavePersisting savePersisting;
   private final MemberCondition memberCondition;
-  private final PlaylistCountCondition playlistCountCondition;
+  private final CountExceedCondition countExceedCondition;
 
   void createForRealMember(Long memberId, String title) {
     if (memberCondition.checkNonMember(memberId)) {
@@ -25,7 +25,7 @@ public class PlaylistCreator {
       throw new IllegalArgumentException("비회원이 아닙니다.");
     }
 
-    if (playlistCountCondition.check(memberId)) {
+    if (countExceedCondition.check(memberId)) {
       throw new IllegalArgumentException("비회원의 영상 생성 제한을 넘었습니다.");
     }
 

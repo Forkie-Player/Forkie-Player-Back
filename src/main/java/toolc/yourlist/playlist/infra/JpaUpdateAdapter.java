@@ -1,24 +1,21 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 public class JpaUpdateAdapter implements UpdatePersisting {
   private final JpaPlaylistRepository playlistRepository;
-  private final AllMember allMember;
 
   @Override
-  public void updateTitle(UpdateRequest request) {
+  @Transactional
+  public void updateTitle(Long playlistId, String title) {
     PlaylistEntity entity = playlistRepository
-      .findById(request.playlistId())
+      .findById(playlistId)
       .orElseThrow(() ->
         new IllegalArgumentException("존재하지 않는 영상 목록입니다."));
 
-    if (!request.member().equals(allMember.findById(entity.memberId()))) {
-      throw new IllegalArgumentException("영상목록의 주인이 아닙니다.");
-    }
-
-    entity.title(request.title());
+    entity.title(title);
   }
 }

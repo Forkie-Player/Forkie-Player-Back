@@ -1,15 +1,22 @@
 package toolc.yourlist.member.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
-@AllArgsConstructor
 public class Member {
-  private final Long id;
-  private final String loginId;
-  private final boolean isMember;
-  private final String password;
+  private Long id;
+  private String loginId;
+  private boolean isMember;
+  private String password;
+
+  @Builder
+  public Member(Long id, String loginId, boolean isMember, String password) {
+    this.id = id;
+    this.loginId = loginId;
+    this.isMember = isMember;
+    this.password = password;
+  }
 }

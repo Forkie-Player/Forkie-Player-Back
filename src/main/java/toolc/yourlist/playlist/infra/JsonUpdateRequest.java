@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 public class JsonUpdateRequest {
-  @NotBlank
+  @NotNull
   @JsonProperty
-  private String loginId;
+  private Long memberId;
 
   @NotNull
   @JsonProperty
@@ -25,8 +25,8 @@ public class JsonUpdateRequest {
   private String title;
 
   @Builder
-  JsonUpdateRequest(String loginId, Long playlistId, String title) {
-    this.loginId = loginId;
+  JsonUpdateRequest(Long memberId, Long playlistId, String title) {
+    this.memberId = memberId;
     this.playlistId = playlistId;
     this.title = title;
   }

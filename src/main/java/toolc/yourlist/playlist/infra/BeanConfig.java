@@ -24,8 +24,8 @@ public class BeanConfig {
   }
 
   @Bean
-  UpdatePersisting updatePersisting(JpaPlaylistRepository playlistRepository, AllMember allMember) {
-    return new JpaUpdateAdapter(playlistRepository, allMember);
+  UpdatePersisting updatePersisting(JpaPlaylistRepository playlistRepository) {
+    return new JpaUpdateAdapter(playlistRepository);
   }
 
   @Bean
@@ -34,8 +34,8 @@ public class BeanConfig {
   }
 
   @Bean
-  EqualOwnerCondition equalOwnerCondition(AllMember allMember) {
-    return new EqualOwnerCondition(allMember);
+  DifferOwnerCondition equalOwnerCondition(AllMember allMember, ReadPersisting readPersisting) {
+    return new DifferOwnerCondition(allMember, readPersisting);
   }
 
   @Bean
@@ -44,15 +44,20 @@ public class BeanConfig {
   }
 
   @Bean
-  PlaylistCountCondition playlistCountCondition(ReadPersisting readPersisting) {
-    return new PlaylistCountCondition(readPersisting);
+  CountExceedCondition playlistCountCondition(ReadPersisting readPersisting) {
+    return new CountExceedCondition(readPersisting);
   }
 
   @Bean
   PlaylistCreator playlistCreator(SavePersisting savePersisting,
                                   MemberCondition memberCondition,
-                                  PlaylistCountCondition playlistCountCondition) {
-    return new PlaylistCreator(savePersisting, memberCondition, playlistCountCondition);
+                                  CountExceedCondition countExceedCondition) {
+    return new PlaylistCreator(savePersisting, memberCondition, countExceedCondition);
+  }
+
+  @Bean
+  PlaylistUpdater playlistUpdater(DifferOwnerCondition differOwnerCondition, UpdatePersisting updatePersisting) {
+    return new PlaylistUpdater(differOwnerCondition, updatePersisting);
   }
 
   @Bean
