@@ -8,6 +8,7 @@ import static io.vavr.control.Either.*;
 @RequiredArgsConstructor
 public class MemberLogin {
   private final AllMember allMember;
+  private final TokenMaterialMaker tokenMaterialMaker;
   private final TokenProvider tokenProvider;
   private final CheckPassword checkPassword;
 
@@ -15,7 +16,7 @@ public class MemberLogin {
     Member savedMember = allMember.findByLoginId(request.loginId().raw());
 
     if (checkPassword.check(request.password(), savedMember)) {
-      return right(tokenProvider.create(request));
+      return right(tokenProvider.create(tokenMaterialMaker.toTokenMaterial(request)));
     }
     return left("wrong password");
   }

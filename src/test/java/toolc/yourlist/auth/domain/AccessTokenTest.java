@@ -14,7 +14,7 @@ class AccessTokenTest {
   void equals() {
     Instant expirationTime = Instant.now();
 
-    assertThat(new AccessToken(new LoginId("loginid1"), expirationTime),
-      is(new AccessToken(new LoginId("loginid1"), expirationTime)));
+    assertThat(new AccessToken("loginid1", expirationTime),
+      is(new AccessToken("loginid1", expirationTime)));
   }
 }

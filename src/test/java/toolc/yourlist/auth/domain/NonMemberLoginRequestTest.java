@@ -11,19 +11,19 @@ class NonMemberLoginRequestTest {
 
   @Test
   void equals() {
-    assertThat(new NonMemberLoginRequest("qwer1234baced-dfg123"),
-      is(new NonMemberLoginRequest("qwer1234baced-dfg123")));
+    assertThat(new NonMemberLoginRequest("qwer1234baced-dfg123", Device.APP),
+      is(new NonMemberLoginRequest("qwer1234baced-dfg123", Device.APP)));
   }
 
   @Test
   void non_null() {
     assertThrows(IllegalArgumentException.class,
-      () -> new NonMemberLoginRequest(null));
+      () -> new NonMemberLoginRequest(null, Device.APP));
   }
 
   @Test
   void non_empty() {
     assertThrows(IllegalArgumentException.class,
-      () -> new NonMemberLoginRequest(""));
+      () -> new NonMemberLoginRequest("", Device.APP));
   }
 }

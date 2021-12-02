@@ -33,7 +33,7 @@ public class TokenFormatter {
 
   private String toJwtFromAccessToken(AccessToken accessToken) {
     return Jwts.builder()
-      .setSubject(accessToken.loginId().raw())
+      .setSubject(accessToken.identifier())
       .setExpiration(Date.from(accessToken.expirationAt()))
       .signWith(key, signatureAlgorithm)
       .compact();

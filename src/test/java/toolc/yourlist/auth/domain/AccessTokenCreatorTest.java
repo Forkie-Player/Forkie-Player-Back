@@ -14,8 +14,8 @@ class AccessTokenCreatorTest {
     CurrentTime currentTime = new CurrentTime();
     AccessTokenCreator accessTokenCreator = new AccessTokenCreatorImpl(currentTime);
 
-    assertThat(accessTokenCreator.create(new LoginId("jisoo27")),
-      is(new AccessToken(new LoginId("jisoo27"),
+    assertThat(accessTokenCreator.create("jisoo27"),
+      is(new AccessToken("jisoo27",
         currentTime.now().plus(Duration.ofMinutes(30)))));
   }
 

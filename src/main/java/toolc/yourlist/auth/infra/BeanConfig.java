@@ -70,6 +70,7 @@ public class BeanConfig {
 
   @Bean
   public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
+    return new MemberLogin(allMember(), new TokenMaterialMaker(),
+      tokenProvider(), checkPassword());
   }
 }

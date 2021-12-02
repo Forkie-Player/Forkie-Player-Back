@@ -8,11 +8,11 @@ import java.time.Instant;
 @EqualsAndHashCode
 @Getter
 public final class AccessToken {
-  private final LoginId loginId;
+  private final String identifier;
   private final Instant expirationAt;
 
-  AccessToken(LoginId loginId, Instant expirationAt) {
-    this.loginId = loginId;
+  AccessToken(String identifier, Instant expirationAt) {
+    this.identifier = identifier;
     this.expirationAt = expirationAt;
   }
 }

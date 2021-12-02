@@ -10,8 +10,8 @@ public class TokenProviderImpl implements TokenProvider{
 
 
   @Override
-  public Token create(LoginRequest request) {
-    return new Token(accessTokenCreator.create(request.loginId()),
-      refreshTokenCreator.create(request.device()));
+  public Token create(TokenMaterial tokenMaterial) {
+    return new Token(accessTokenCreator.create(tokenMaterial.identifier()),
+      refreshTokenCreator.create(tokenMaterial.device()));
   }
 }

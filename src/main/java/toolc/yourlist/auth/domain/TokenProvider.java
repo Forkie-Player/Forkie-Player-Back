@@ -1,7 +1,6 @@
 package toolc.yourlist.auth.domain;
 
 public interface TokenProvider {
-  Token create(LoginRequest request);
+  Token create(TokenMaterial tokenMaterial);
 }
-
 

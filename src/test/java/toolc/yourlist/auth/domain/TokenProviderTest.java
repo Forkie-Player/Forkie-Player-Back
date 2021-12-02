@@ -20,16 +20,14 @@ class TokenProviderTest {
         new MockAccessTokenCreator(),
         new MockRefreshTokenCreator());
 
-    LoginRequest request = new LoginRequest(
-      new LoginId("jisoo27"),
-      new Password("qwer1234!"), Device.PC);
+    TokenMaterial material = new TokenMaterial("jisoo27", Device.PC);
 
     //when
-    Token actual = tokenProvider.create(request);
+    Token actual = tokenProvider.create(material);
 
     //then
     Token expected = new Token(
-      new AccessToken(new LoginId("jisoo27"), testTime),
+      new AccessToken("jisoo27", testTime),
       new RefreshToken(testTime));
 
     assertThat(actual, is(expected));
@@ -37,8 +35,8 @@ class TokenProviderTest {
 
   private class MockAccessTokenCreator implements AccessTokenCreator {
     @Override
-    public AccessToken create(LoginId loginId) {
-      return new AccessToken(loginId, testTime);
+    public AccessToken create(String identifier) {
+      return new AccessToken(identifier, testTime);
     }
   }
 
