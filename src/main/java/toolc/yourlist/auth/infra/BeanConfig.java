@@ -28,13 +28,13 @@ public class BeanConfig {
   CurrentTime currentTime = new CurrentTime();
 
   @Bean
-  AccessTokenCreator accessTokenCreator() {
-    return new AccessTokenCreator(currentTime);
+  AccessTokenCreatorImpl accessTokenCreator() {
+    return new AccessTokenCreatorImpl(currentTime);
   }
 
   @Bean
   RefreshTokenCreator refreshTokenCreator() {
-    return new RefreshTokenCreator(currentTime);
+    return new RefreshTokenCreatorImpl(currentTime);
   }
 
   @Autowired

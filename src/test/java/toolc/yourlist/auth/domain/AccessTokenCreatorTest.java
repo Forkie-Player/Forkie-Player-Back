@@ -12,7 +12,7 @@ class AccessTokenCreatorTest {
   @Test
   void token_validated_30_minutes() {
     CurrentTime currentTime = new CurrentTime();
-    AccessTokenCreator accessTokenCreator = new AccessTokenCreator(currentTime);
+    AccessTokenCreator accessTokenCreator = new AccessTokenCreatorImpl(currentTime);
 
     assertThat(accessTokenCreator.create(new LoginId("jisoo27")),
       is(new AccessToken(new LoginId("jisoo27"),
