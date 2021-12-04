@@ -1,6 +1,7 @@
 package toolc.yourlist.member.domain;
 
 import lombok.Builder;
+import toolc.yourlist.member.infra.MemberEntity;
 
 import java.util.Optional;
 
@@ -9,16 +10,16 @@ public class MockMemberRepository implements MemberRepository {
 
   @FunctionalInterface
   public interface FindById {
-    Optional<Member> done(Long memberId);
+    Optional<MemberEntity> done(Long memberId);
   }
 
   @Override
-  public Member findByLoginId(String loginId) {
+  public MemberEntity findByLoginId(String loginId) {
     return null;
   }
 
   @Override
-  public Optional<Member> findById(Long id) {
+  public Optional<MemberEntity> findById(Long id) {
     return findById.done(id);
   }
 

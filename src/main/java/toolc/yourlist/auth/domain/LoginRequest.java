@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
-public class LoginRequest {
+public final class LoginRequest {
   private final LoginId loginId;
   private final Password password;
   private final Device device;

@@ -12,7 +12,7 @@ class TokenTest {
   @Test
   void equals() {
     Instant expirationTime = Instant.now();
-    AccessToken accessToken = new AccessToken(new LoginId("loginid1"), expirationTime);
+    AccessToken accessToken = new AccessToken("loginid1", expirationTime);
     RefreshToken refreshToken = new RefreshToken(expirationTime);
 
     assertThat(new Token(accessToken, refreshToken), is(new Token(accessToken, refreshToken)));

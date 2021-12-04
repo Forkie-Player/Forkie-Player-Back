@@ -1,27 +1,26 @@
 package toolc.yourlist.auth.infra;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@JsonDeserialize(as = JsonLoginRequest.class)
+@NoArgsConstructor
 public class JsonLoginRequest {
 
   @NotEmpty
+  @JsonProperty
   private String loginId;
 
   @NotEmpty
+  @JsonProperty
   private String password;
 
   @NotNull
+  @JsonProperty
   private boolean isPC;
 
-  public JsonLoginRequest(String loginId, String password, boolean isPC) {
-    this.loginId = loginId;
-    this.password = password;
-    this.isPC = isPC;
-  }
 }
