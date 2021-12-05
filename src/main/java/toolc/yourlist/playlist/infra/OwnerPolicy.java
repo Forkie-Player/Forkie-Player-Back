@@ -2,18 +2,18 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.playlist.domain.EqualOwnerCondition;
+import toolc.yourlist.playlist.domain.Playlist;
+import toolc.yourlist.playlist.domain.ReadPlaylist;
 
 @RequiredArgsConstructor
-final class OwnerPolicy {
+final class OwnerPolicy implements EqualOwnerCondition {
   private final AllMember allMember;
-  private final ReadPersisting readPersisting;
-  private final EqualOwnerCondition equalOwnerCondition = new EqualOwnerCondition();
+  private final ReadPlaylist readPlaylist;
 
-  boolean check(Long memberId, Long playlistId) {
-    var member = allMember.findById(memberId);
-    var playlist = readPersisting.readBelongsTo(playlistId);
-
-    return equalOwnerCondition.check(member, playlist);
+  @Override
+  public boolean check(Member member, Playlist playlist) {
+    return member.id().equals(playlist.memberId());
   }
 }

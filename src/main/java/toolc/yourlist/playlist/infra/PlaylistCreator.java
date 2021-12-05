@@ -3,11 +3,12 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.Playlist;
+import toolc.yourlist.playlist.domain.SavePlaylist;
 
 @RequiredArgsConstructor
 final class PlaylistCreator {
   private final AllMember allMember;
-  private final SavePersisting savePersisting;
+  private final SavePlaylist savePlaylist;
   private final CountPolicyForNonMember countPolicy;
 
   void createForRealMember(Long memberId, String title) {
@@ -35,7 +36,7 @@ final class PlaylistCreator {
   }
 
   private void save(Playlist playlist) {
-    savePersisting.save(playlist);
+    savePlaylist.save(playlist);
   }
 
   private Playlist playlist(Long memberId, String title) {

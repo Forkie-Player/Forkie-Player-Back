@@ -3,21 +3,22 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.playlist.domain.AllPlaylists;
+import toolc.yourlist.playlist.domain.ListOfPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
+import toolc.yourlist.playlist.domain.ReadPlaylist;
 
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class JpaReadAdapter implements ReadPersisting {
+public class JpaReadAdapter implements ReadPlaylist {
   private final JpaPlaylistRepository playlistRepository;
   private final AllMember allMember;
 
   @Override
-  public AllPlaylists readAllBelongsTo(Long memberId) {
+  public ListOfPlaylists allBelongsTo(Long memberId) {
     Member member = allMember.findById(memberId);
 
-    return new AllPlaylists(
+    return new ListOfPlaylists(
       playlistRepository.findByMemberId(member.id())
         .stream()
         .map(PlaylistEntity::toPlaylist)
@@ -26,7 +27,7 @@ public class JpaReadAdapter implements ReadPersisting {
   }
 
   @Override
-  public Playlist readBelongsTo(Long id) {
+  public Playlist belongsTo(Long id) {
     return playlistRepository
       .findById(id)
       .orElseThrow(() ->

@@ -1,18 +1,16 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class AllPlaylistsTest {
+class ListOfPlaylistsTest {
 
   @Test
   void 멤버Id_불일치() {
-    assertThrows(IllegalArgumentException.class, () -> new AllPlaylists(
+    assertThrows(IllegalArgumentException.class, () -> new ListOfPlaylists(
       List.of(
         new Playlist(1L, 1L, "My List", "panda.png"),
         new Playlist(2L, 2L, "Other List", "puppy.jpeg"))));

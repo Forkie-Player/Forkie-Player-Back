@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import toolc.yourlist.playlist.domain.ReadPlaylist;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -16,14 +17,14 @@ import static toolc.yourlist.common.infra.JsonResponse.successWithData;
 @RequiredArgsConstructor
 @RestController
 public class ReadApi {
-  private final ReadPersisting readPersisting;
-  private final AllPlaylistsMapper allPlaylistsMapper = new AllPlaylistsMapper();
+  private final ReadPlaylist readPlaylist;
+  private final ListOfPlaylistsMapper listOfPlaylistsMapper = new ListOfPlaylistsMapper();
 
   @GetMapping("/api/playlist/{memberId}")
   public ResponseEntity<?> readPlaylists(@NotBlank @PathVariable("memberId") Long memberId) {
     return toOutput(
-      allPlaylistsMapper.toPlaylistJsonList(
-        readPersisting.readAllBelongsTo(memberId)));
+      listOfPlaylistsMapper.toPlaylistJsonList(
+        readPlaylist.allBelongsTo(memberId)));
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {

@@ -1,25 +1,13 @@
 package toolc.yourlist.playlist.domain;
 
-import lombok.Getter;
-import toolc.yourlist.playlist.domain.Playlist;
+public interface AllPlaylists {
+  ListOfPlaylists readAllBelongsTo(Long memberId);
 
-import java.util.List;
-import java.util.stream.Collectors;
+  Playlist readBelongsTo(Long id);
 
-@Getter
-public final class AllPlaylists {
-  private final List<Playlist> entities;
+  long havingCountOf(Long memberId);
 
-  public AllPlaylists(List<Playlist> playlists) {
-    final int size = playlists.stream()
-      .map(Playlist::memberId)
-      .collect(Collectors.toUnmodifiableSet())
-      .size();
+  void save(Playlist playlist);
 
-    if (size != 1) {
-      throw new IllegalArgumentException("같은 멤버의 영상목록이 아닙니다.");
-    }
-
-    this.entities = playlists;
-  }
+  void updateTitle(Long memberId, String title);
 }

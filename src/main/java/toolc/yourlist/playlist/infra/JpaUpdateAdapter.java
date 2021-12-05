@@ -1,11 +1,12 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
-public class JpaUpdateAdapter implements UpdatePersisting {
+public class JpaUpdateAdapter implements UpdatePlaylist {
   private final JpaPlaylistRepository playlistRepository;
 
   @Override

@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.PlaylistCountCondition;
 
 @RequiredArgsConstructor
-final class CountPolicyForNonMember {
-  private final PlaylistCountCondition playlistCountCondition = new PlaylistCountCondition();
-  private final ReadPersisting readPersisting;
+final class CountPolicyForNonMember implements PlaylistCountCondition {
 
-  boolean check(Long memberId) {
-    var count = readPersisting.havingCountOf(memberId);
-    return playlistCountCondition.check(count);
+  @Override
+  public boolean check(long havingCount) {
+    return havingCount < 5;
   }
 }
