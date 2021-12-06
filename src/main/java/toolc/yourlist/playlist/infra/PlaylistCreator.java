@@ -1,15 +1,12 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.common.domain.ContractViolationException;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.CreatePlaylist;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.Optional;
-
-import static toolc.yourlist.common.domain.Contracts.requires;
 
 @RequiredArgsConstructor
 class PlaylistCreator implements CreatePlaylist {
@@ -19,18 +16,18 @@ class PlaylistCreator implements CreatePlaylist {
 
   @Override
   public Optional<String> createPlaylist(Long memberId, String title) {
-    try {
-      var member = allMember.findById(memberId);
-      var playlistCount = allPlaylists.havingCountOf(memberId);
+    var member = allMember.findById(memberId);
+    var playlistCount = allPlaylists.havingCountOf(memberId);
 
-      requires(savePolicy.match(member, playlistCount), "비회원의 영상 생성 제한을 넘었습니다.");
-
-      save(playlist(memberId, title));
-
-      return Optional.empty();
-    } catch (ContractViolationException e) {
-      return Optional.of(e.getMessage());
+    if (member.isEmpty()) {
+      return Optional.of("존재하지 않는 회원");
     }
+    if (!savePolicy.match(member.get(), playlistCount)) {
+      return Optional.of("비회원의 영상 생성 제한을 넘었습니다.");
+    }
+
+    save(playlist(memberId, title));
+    return Optional.empty();
   }
 
   private void save(Playlist playlist) {

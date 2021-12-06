@@ -2,8 +2,10 @@ package toolc.yourlist.member.domain;
 
 import toolc.yourlist.member.infra.MemberEntity;
 
+import java.util.Optional;
+
 public interface AllMember {
-  Member findByLoginId(String loginId);
-  Member findById(Long id);
+  Optional<Member> findByLoginId(String loginId);
+  Optional<Member> findById(Long id);
   MemberEntity save(MemberEntity memberEntity);
 }

@@ -2,7 +2,6 @@ package toolc.yourlist.playlist.infra;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.common.domain.ContractViolationException;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.ListOfPlaylists;
@@ -15,12 +14,12 @@ class PlaylistReader implements ReadPlaylist {
 
   @Override
   public Either<String, ListOfPlaylists> belongsTo(Long memberId) {
-    try {
-      var member = allMember.findById(memberId);
+    var member = allMember.findById(memberId);
 
-      return Either.right(allPlaylists.readAllBelongsTo(memberId));
-    } catch (ContractViolationException e) {
-      return Either.left(e.getMessage());
+    if (member.isEmpty()) {
+      return Either.left("존재하지 않는 회원");
     }
+
+    return Either.right(allPlaylists.readAllBelongsTo(memberId));
   }
 }

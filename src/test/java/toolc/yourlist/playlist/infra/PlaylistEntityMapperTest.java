@@ -5,6 +5,7 @@ import toolc.yourlist.playlist.domain.ListOfPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,13 +16,24 @@ class PlaylistEntityMapperTest {
     var mapper = new PlaylistEntityMapper();
 
     var actual =
-      mapper.toPlaylist(new PlaylistEntity(1L, "My List", "panda.png"));
+      mapper.toPlaylist(Optional.of(new PlaylistEntity(1L, "My List", "panda.png")));
 
-    var expected = Playlist.builder()
+    var expected = Optional.of(Playlist.builder()
       .memberId(1L)
       .title("My List")
       .thumbnail("panda.png")
-      .build();
+      .build());
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  void toPlaylist_entity_empty() {
+    var mapper = new PlaylistEntityMapper();
+
+    var actual =
+      mapper.toPlaylist(Optional.empty());
+
+    var expected = Optional.empty();
     assertThat(actual, is(expected));
   }
 

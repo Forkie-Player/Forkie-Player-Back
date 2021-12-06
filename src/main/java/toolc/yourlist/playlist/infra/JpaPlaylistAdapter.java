@@ -1,12 +1,12 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.common.domain.ContractViolationException;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.ListOfPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 class JpaPlaylistAdapter implements AllPlaylists {
@@ -21,8 +21,8 @@ class JpaPlaylistAdapter implements AllPlaylists {
   }
 
   @Override
-  public Playlist readBelongsTo(Long id) {
-    return mapper.toPlaylist(getEntity(id));
+  public Optional<Playlist> readBelongsTo(Long id) {
+    return mapper.toPlaylist(playlistRepository.findById(id));
   }
 
   @Override
@@ -44,6 +44,6 @@ class JpaPlaylistAdapter implements AllPlaylists {
 
   private PlaylistEntity getEntity(Long playlistId) {
     return playlistRepository.findById(playlistId).orElseThrow(
-      () -> new ContractViolationException("존재하지 않는 영상 목록"));
+      () -> new IllegalArgumentException("존재하지 않는 영상 목록"));
   }
 }
