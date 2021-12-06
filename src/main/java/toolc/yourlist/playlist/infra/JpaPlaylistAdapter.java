@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.common.domain.ContractViolationException;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.ListOfPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
@@ -43,6 +44,6 @@ class JpaPlaylistAdapter implements AllPlaylists {
 
   private PlaylistEntity getEntity(Long playlistId) {
     return playlistRepository.findById(playlistId).orElseThrow(
-      () -> new IllegalArgumentException("존재하지 않는 영상 목록"));
+      () -> new ContractViolationException("존재하지 않는 영상 목록"));
   }
 }

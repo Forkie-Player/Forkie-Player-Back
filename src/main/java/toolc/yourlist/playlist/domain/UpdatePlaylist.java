@@ -1,5 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
+import java.util.Optional;
+
 public interface UpdatePlaylist {
-  void updateTitle(UpdateRequest request);
+  Optional<String> updateTitle(UpdateRequest request);
 }

@@ -1,5 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
+import io.vavr.control.Either;
+
 public interface ReadPlaylist {
-  ListOfPlaylists belongsTo(Long memberId);
+  Either<String, ListOfPlaylists> belongsTo(Long memberId);
 }

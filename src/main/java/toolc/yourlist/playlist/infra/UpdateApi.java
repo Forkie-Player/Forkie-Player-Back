@@ -6,10 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 import javax.validation.Valid;
+
+import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,8 +21,12 @@ class UpdateApi {
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest request) {
-    updater.updateTitle(mapper.toUpdateRequest(request));
+    var message = updater.updateTitle(mapper.toUpdateRequest(request));
 
-    return JsonResponse.success("수정 성공");
+    if (message.isPresent()) {
+      return ok("수정 실패: " + message.get());
+    }
+
+    return ok("수정 성공");
   }
 }

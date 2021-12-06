@@ -11,7 +11,7 @@ class JsonResponseTest {
 
   @Test
   void 성공_데이터O() {
-    assertThat(JsonResponse.successWithData(123, "success"),
+    assertThat(JsonResponse.okWithData(123, "success"),
       is(ResponseEntity.ok(ResponseBody.builder()
         .status(OK.value())
         .message("success")
@@ -21,7 +21,7 @@ class JsonResponseTest {
 
   @Test
   void 성공_데이터X() {
-    assertThat(JsonResponse.success("success"),
+    assertThat(JsonResponse.ok("success"),
       is(ResponseEntity.ok(ResponseBody.builder()
         .status(OK.value())
         .message("success")

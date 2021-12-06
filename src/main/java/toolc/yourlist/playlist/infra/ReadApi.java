@@ -10,7 +10,8 @@ import toolc.yourlist.playlist.domain.ReadPlaylist;
 
 import java.util.List;
 
-import static toolc.yourlist.common.infra.JsonResponse.successWithData;
+import static toolc.yourlist.common.infra.JsonResponse.ok;
+import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,11 +22,16 @@ class ReadApi {
 
   @GetMapping("/api/playlist/{memberId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("memberId") Long memberId) {
-    return toOutput(
-      listOfPlaylistsMapper.toPlaylistJsonList(reader.belongsTo(memberId)));
+    var result = reader.belongsTo(memberId);
+
+    if (result.isEmpty()) {
+      return ok("조회 실패: " + result.getLeft());
+    }
+
+    return toOutput(listOfPlaylistsMapper.toPlaylistJsonList(result.get()));
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
-    return successWithData(playlistJsons, "조회 성공");
+    return okWithData(playlistJsons, "조회 성공");
   }
 }

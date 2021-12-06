@@ -23,8 +23,4 @@ public class MemberEntity extends BaseEntity {
     this.isMember = isMember;
     this.password = password;
   }
-
-  public Member toMember() {
-    return new Member(this.id(), loginId, isMember, password);
-  }
 }

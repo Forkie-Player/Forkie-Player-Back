@@ -11,6 +11,8 @@ import toolc.yourlist.playlist.domain.CreatePlaylist;
 
 import javax.validation.Valid;
 
+import static toolc.yourlist.common.infra.JsonResponse.ok;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -19,7 +21,12 @@ class CreateApi {
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest request) {
-    creator.createPlaylist(request.memberId(), request.title());
-    return JsonResponse.success("생성 성공");
+    var message = creator.createPlaylist(request.memberId(), request.title());
+
+    if (message.isPresent()) {
+      return ok("생성 실패: " + message.get());
+    }
+
+    return JsonResponse.ok("생성 성공");
   }
 }

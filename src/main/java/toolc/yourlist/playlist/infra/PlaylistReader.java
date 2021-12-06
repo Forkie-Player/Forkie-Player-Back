@@ -1,6 +1,8 @@
 package toolc.yourlist.playlist.infra;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.common.domain.ContractViolationException;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.ListOfPlaylists;
@@ -12,8 +14,13 @@ class PlaylistReader implements ReadPlaylist {
   private final AllPlaylists allPlaylists;
 
   @Override
-  public ListOfPlaylists belongsTo(Long memberId) {
-    var member = allMember.findById(memberId);
-    return allPlaylists.readAllBelongsTo(memberId);
+  public Either<String, ListOfPlaylists> belongsTo(Long memberId) {
+    try {
+      var member = allMember.findById(memberId);
+
+      return Either.right(allPlaylists.readAllBelongsTo(memberId));
+    } catch (ContractViolationException e) {
+      return Either.left(e.getMessage());
+    }
   }
 }
