@@ -2,6 +2,8 @@ package toolc.yourlist.auth.domain;
 
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.auth.token.domain.Token;
+import toolc.yourlist.auth.token.domain.TokenProvider;
 
 @RequiredArgsConstructor
 class NonMemberLogin {

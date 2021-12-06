@@ -1,11 +1,11 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.token.domain;
 
 import lombok.RequiredArgsConstructor;
 
 import java.time.Duration;
 
 @RequiredArgsConstructor
-public class RefreshTokenCreatorImpl implements RefreshTokenCreator{
+public class RefreshTokenCreatorImpl implements RefreshTokenCreator {
   private final CurrentTime currentTime;
   private final Duration PC_EXPIRATION_DATE = Duration.ofDays(30);
   private final Duration APP_EXPIRATION_DATE = Duration.ofDays(7);

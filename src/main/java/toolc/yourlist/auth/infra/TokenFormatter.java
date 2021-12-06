@@ -4,9 +4,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import toolc.yourlist.auth.domain.AccessToken;
-import toolc.yourlist.auth.domain.RefreshToken;
-import toolc.yourlist.auth.domain.Token;
+import toolc.yourlist.auth.token.domain.AccessToken;
+import toolc.yourlist.auth.token.domain.RefreshToken;
+import toolc.yourlist.auth.token.domain.Token;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -18,7 +18,8 @@ public class TokenFormatter {
   private final SignatureAlgorithm signatureAlgorithm;
 
   public TokenFormatter(JwtSetConfig jwtSetConfig) {
-    this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSetConfig.secretKey()));
+    this.key =
+      Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSetConfig.secretKey()));
     this.signatureAlgorithm = jwtSetConfig.signatureAlgorithm();
   }
 
@@ -26,7 +27,8 @@ public class TokenFormatter {
     Map<String, String> tokenString = new HashMap<String, String>();
 
     tokenString.put("AccessToken", toJwtFromAccessToken(token.accessToken()));
-    tokenString.put("RefreshToken", toJwtFromRefreshToken(token.refreshToken()));
+    tokenString.put("RefreshToken",
+      toJwtFromRefreshToken(token.refreshToken()));
 
     return tokenString;
   }

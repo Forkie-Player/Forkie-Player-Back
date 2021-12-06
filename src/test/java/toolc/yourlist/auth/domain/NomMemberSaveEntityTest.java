@@ -15,7 +15,8 @@ class NomMemberSaveEntityTest {
 
   @BeforeEach
   void setUp() {
-    nomMemberSaveEntity = new NomMemberSaveEntity(new MockAllMemberEntity(), new MockPasswordEncoder());
+    nomMemberSaveEntity = new NomMemberSaveEntity(new MockAllMemberEntity(),
+      new MockPasswordEncoder());
   }
 
   @Test

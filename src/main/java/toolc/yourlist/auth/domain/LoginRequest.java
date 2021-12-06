@@ -2,6 +2,7 @@ package toolc.yourlist.auth.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import toolc.yourlist.auth.token.domain.Device;
 
 @Getter
 @EqualsAndHashCode

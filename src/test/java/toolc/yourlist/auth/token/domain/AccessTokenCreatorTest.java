@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.token.domain;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,8 @@ class AccessTokenCreatorTest {
   @Test
   void token_validated_30_minutes() {
     CurrentTime currentTime = new CurrentTime();
-    AccessTokenCreator accessTokenCreator = new AccessTokenCreatorImpl(currentTime);
+    AccessTokenCreator accessTokenCreator =
+      new AccessTokenCreatorImpl(currentTime);
 
     assertThat(accessTokenCreator.create("jisoo27"),
       is(new AccessToken("jisoo27",

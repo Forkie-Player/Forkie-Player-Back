@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.token.domain;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,8 @@ class TokenTest {
     AccessToken accessToken = new AccessToken("loginid1", expirationTime);
     RefreshToken refreshToken = new RefreshToken(expirationTime);
 
-    assertThat(new Token(accessToken, refreshToken), is(new Token(accessToken, refreshToken)));
+    assertThat(new Token(accessToken, refreshToken), is(new Token(accessToken
+      , refreshToken)));
   }
 
 }

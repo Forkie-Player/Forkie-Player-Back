@@ -7,7 +7,7 @@ import lombok.Getter;
 public final class NonMember {
 
   @Getter
-  private String deviceId;
+  private final String deviceId;
 
   public NonMember(String deviceId) {
     if (deviceId == null || deviceId.equals(""))

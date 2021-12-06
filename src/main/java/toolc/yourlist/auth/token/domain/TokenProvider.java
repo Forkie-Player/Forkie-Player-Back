@@ -1,4 +1,4 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.token.domain;
 
 public interface TokenProvider {
   Token create(TokenMaterial tokenMaterial);

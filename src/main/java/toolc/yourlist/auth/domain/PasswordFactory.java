@@ -7,10 +7,10 @@ public class PasswordFactory {
 
   private final PasswordPolicy passwordPolicy;
 
-  public Password create(String password){
-    if(passwordPolicy.matches(password)){
+  public Password create(String password) {
+    if (passwordPolicy.matches(password)) {
       return new Password(password);
-    };
+    }
     throw new IllegalArgumentException("잘못된 Password");
   }
 }

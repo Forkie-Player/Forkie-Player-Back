@@ -2,9 +2,11 @@ package toolc.yourlist.auth.domain;
 
 public class AllPasswordPolicy implements PasswordPolicy {
 
-  private final PasswordPolicy allowOnlyAlphabetOrNumberOrSpecialCharacter = new AllowOnlyAlphabetOrNumberOrSpecialCharacter();
+  private final PasswordPolicy allowOnlyAlphabetOrNumberOrSpecialCharacter =
+    new AllowOnlyAlphabetOrNumberOrSpecialCharacter();
   private final PasswordPolicy nonNull = new PasswordNonNull();
-  private final PasswordPolicy haveSpecialCharacter = new PasswordHaveSpecialCharacter();
+  private final PasswordPolicy haveSpecialCharacter =
+    new PasswordHaveSpecialCharacter();
   private final PasswordPolicy lengthLimit = new PasswordLengthLimit();
 
   @Override

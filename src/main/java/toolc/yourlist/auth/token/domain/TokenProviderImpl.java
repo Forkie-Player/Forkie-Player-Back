@@ -1,9 +1,9 @@
-package toolc.yourlist.auth.domain;
+package toolc.yourlist.auth.token.domain;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class TokenProviderImpl implements TokenProvider{
+public class TokenProviderImpl implements TokenProvider {
 
   private final AccessTokenCreator accessTokenCreator;
   private final RefreshTokenCreator refreshTokenCreator;

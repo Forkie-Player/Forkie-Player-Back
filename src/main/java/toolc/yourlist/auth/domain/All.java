@@ -2,7 +2,8 @@ package toolc.yourlist.auth.domain;
 
 public class All implements LoginIdPolicy {
   private final LoginIdPolicy nonNull = new NonNull();
-  private final LoginIdPolicy allowOnlyLowerCaseOrNumber = new AllowOnlyLowerCaseOrNumber();
+  private final LoginIdPolicy allowOnlyLowerCaseOrNumber =
+    new AllowOnlyLowerCaseOrNumber();
   private final LoginIdPolicy lengthLimit = new LengthLimit();
   private final LoginIdPolicy startLowerCase = new StartLowerCase();
 

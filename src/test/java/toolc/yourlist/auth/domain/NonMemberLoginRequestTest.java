@@ -1,6 +1,7 @@
 package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.auth.token.domain.Device;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
