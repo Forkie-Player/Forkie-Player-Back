@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import static org.springframework.http.HttpStatus.*;
 
 public class JsonResponse {
-  public static ResponseEntity<?> successWithData(Object data, String message) {
+  public static ResponseEntity<?> okWithData(Object data, String message) {
     return ResponseEntity.ok(ResponseBody.builder()
       .status(OK.value())
       .message(message)
@@ -13,8 +13,8 @@ public class JsonResponse {
       .build());
   }
 
-  public static ResponseEntity<?> success(String message) {
-    return successWithData(null, message);
+  public static ResponseEntity<?> ok(String message) {
+    return okWithData(null, message);
   }
 
   public static ResponseEntity<?> fail(Exception e) {

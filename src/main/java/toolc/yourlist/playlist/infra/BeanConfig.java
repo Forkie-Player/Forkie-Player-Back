@@ -7,75 +7,37 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.playlist.domain.CountLimitOrRealMember;
-import toolc.yourlist.playlist.domain.SavePolicy;
+import toolc.yourlist.playlist.domain.AllPlaylists;
+import toolc.yourlist.playlist.domain.CreatePlaylist;
+import toolc.yourlist.playlist.domain.ReadPlaylist;
+import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
-public class BeanConfig {
+class BeanConfig {
   @Bean
-  MemberExistCondition memberExistCondition(AllMember allMember) {
-    return new MemberExistCondition(allMember);
+  AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
+    return new JpaPlaylistAdapter(jpaPlaylistRepository);
   }
 
   @Bean
-  EqualOwnerCondition equalOwnerCondition(AllMember allMember) {
-    return new EqualOwnerCondition(allMember);
+  ReadPlaylist readPlaylist(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistReader(allMember, allPlaylists);
   }
 
   @Bean
-  PlaylistExistCondition playlistExistCondition(PersistingPlaylist persistingPlaylist) {
-    return new PlaylistExistCondition(persistingPlaylist);
+  CreatePlaylist createPlaylist(AllMember allMember,
+                                AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allMember, allPlaylists);
   }
 
   @Bean
-  SavePolicy saveRequestPolicy() {
-    return new CountLimitOrRealMember();
-  }
-
-  @Bean
-  PersistingPlaylist playlist(JpaPlaylistRepository playlistRepository,
-                              AllMember allMember,
-                              SavePolicy savePolicy) {
-    return new JpaPlaylistAdapter(
-      playlistRepository,
-      allMember,
-      savePolicy);
+  UpdatePlaylist updatePlaylist(AllPlaylists allPlaylists, AllMember allMember) {
+    return new PlaylistUpdater(allPlaylists, allMember);
   }
 
   @Bean
   Play play(JpaPlayRepository playRepository) {
     return new JpaPlayAdapter(playRepository);
-  }
-
-  @Bean
-  ThumbnailOfPlaylist thumbnailOfPlaylist(Play play) {
-    return new ThumbnailOfPlaylist(play);
-  }
-
-
-  @Bean
-  PlaylistMapper mapper(ThumbnailOfPlaylist thumbnailOfPlaylist) {
-    return new PlaylistMapper(thumbnailOfPlaylist);
-  }
-
-  @Bean
-  JsonSaveRequestMapper requestMapper(PersistingPlaylist persistingPlaylist,
-                                      MemberExistCondition memberExistCondition,
-                                      SavePolicy savePolicy) {
-    return new JsonSaveRequestMapper(
-      persistingPlaylist,
-      memberExistCondition,
-      savePolicy);
-  }
-
-  @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(MemberExistCondition memberExistCondition,
-                                                  EqualOwnerCondition equalOwnerCondition,
-                                                  PlaylistExistCondition playlistExistCondition) {
-    return new JsonUpdateRequestMapper(
-      memberExistCondition,
-      equalOwnerCondition,
-      playlistExistCondition);
   }
 }

@@ -3,6 +3,7 @@ package toolc.yourlist.member.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.domain.Member;
 
 import java.util.Optional;
 
@@ -11,15 +12,18 @@ import java.util.Optional;
 public class AllMemberMapper implements AllMember {
 
   private final JpaAllMember jpaAllMember;
+  private final MemberEntityMapper mapper = new MemberEntityMapper();
 
   @Override
-  public Member findByLoginId(String loginId) {
-    return new Member(jpaAllMember.findByLoginId(loginId));
+  public Optional<Member> findByLoginId(String loginId) {
+    var memberEntity = jpaAllMember.findByLoginId(loginId);
+
+    return mapper.toMember(jpaAllMember.findByLoginId(loginId));
   }
 
   @Override
-  public Member findById(Long id) {
-    return new Member(jpaAllMember.findById(id));
+  public Optional<Member> findById(Long id) {
+    return mapper.toMember(jpaAllMember.findById(id));
   }
 
   @Override

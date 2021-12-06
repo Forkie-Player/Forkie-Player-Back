@@ -1,54 +1,49 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.infra.Member;
-import toolc.yourlist.playlist.domain.SavePolicy;
-import toolc.yourlist.playlist.domain.SaveRequest;
+import toolc.yourlist.playlist.domain.AllPlaylists;
+import toolc.yourlist.playlist.domain.ListOfPlaylists;
+import toolc.yourlist.playlist.domain.Playlist;
+
+import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RequiredArgsConstructor
-public class JpaPlaylistAdapter implements PersistingPlaylist {
+class JpaPlaylistAdapter implements AllPlaylists {
   private final JpaPlaylistRepository playlistRepository;
-  private final AllMember allMember;
-  private final SavePolicy savePolicy;
+  private final PlaylistEntityMapper mapper = new PlaylistEntityMapper();
 
   @Override
-  public AllPlaylists readAllBelongsTo(String loginId) {
-    Member member = allMember.findByLoginId(loginId);
-
-    return new AllPlaylists(playlistRepository.findByMemberId(member.entity().id()));
+  public ListOfPlaylists readAllBelongsTo(Long memberId) {
+    return mapper.toListOfPlaylists(
+      playlistRepository.findByMemberId(memberId)
+    );
   }
 
   @Override
-  public void saveByRequest(SaveRequest request) {
-    if (!savePolicy.matches(request)) {
-      throw new IllegalArgumentException("[비회원] 생성 갯수 초과");
-    }
-
-    Member member = allMember.findByLoginId(request.loginId());
-
-    playlistRepository.save(new PlaylistEntity(
-      member.entity().id(),
-      request.title()));
-  }
-
-  @Override
-  public void updateTitle(Playlist playlist, UpdateRequest request) {
-    if (!request.member().equals(allMember.findById(playlist.memberId()))) {
-      throw new IllegalArgumentException("영상목록의 주인이 아닙니다.");
-    }
-
-    playlist.entity().title(request.title());
-    playlistRepository.save(playlist.entity());
-  }
-
-  @Override
-  public Playlist readBelongsTo(Long id) {
-    return new Playlist(playlistRepository.findById(id));
+  public Optional<Playlist> readBelongsTo(Long id) {
+    return mapper.toPlaylist(playlistRepository.findById(id));
   }
 
   @Override
   public long havingCountOf(Long memberId) {
     return playlistRepository.countByMemberId(memberId);
+  }
+
+  @Override
+  public void save(Playlist playlist) {
+    playlistRepository.save(new PlaylistEntity(playlist));
+  }
+
+  @Override
+  @Transactional
+  public void updateTitleBelongsTo(Long playlistId, String title) {
+    var entity = getEntity(playlistId);
+    entity.title(title);
+  }
+
+  private PlaylistEntity getEntity(Long playlistId) {
+    return playlistRepository.findById(playlistId).orElseThrow(
+      () -> new IllegalArgumentException("존재하지 않는 영상 목록"));
   }
 }

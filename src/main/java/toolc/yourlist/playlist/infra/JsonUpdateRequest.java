@@ -2,19 +2,19 @@ package toolc.yourlist.playlist.infra;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import toolc.yourlist.playlist.domain.UpdateRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public class JsonUpdateRequest {
-  @NotBlank
+final class JsonUpdateRequest {
+  @NotNull
   @JsonProperty
-  private String loginId;
+  private Long memberId;
 
   @NotNull
   @JsonProperty
@@ -25,9 +25,13 @@ public class JsonUpdateRequest {
   private String title;
 
   @Builder
-  JsonUpdateRequest(String loginId, Long playlistId, String title) {
-    this.loginId = loginId;
+  JsonUpdateRequest(Long memberId, Long playlistId, String title) {
+    this.memberId = memberId;
     this.playlistId = playlistId;
     this.title = title;
+  }
+
+  UpdateRequest toUpdateRequest() {
+    return new UpdateRequest(memberId, playlistId, title);
   }
 }

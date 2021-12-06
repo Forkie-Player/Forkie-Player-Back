@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import toolc.yourlist.common.domain.BaseEntity;
+import toolc.yourlist.member.domain.Member;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

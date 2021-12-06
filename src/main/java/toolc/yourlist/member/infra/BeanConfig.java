@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 public class BeanConfig {
-
-  @Autowired
-  private JpaAllMember jpaAllMember;
-
   @Bean
-  private AllMemberMapper allMemberMapper(){
+  private AllMemberMapper allMemberMapper(JpaAllMember jpaAllMember){
     return new AllMemberMapper(jpaAllMember);
   }
 }
