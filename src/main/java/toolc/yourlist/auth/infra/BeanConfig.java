@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
 import toolc.yourlist.auth.token.domain.*;
+import toolc.yourlist.auth.token.usecase.TokenMaterialMaker;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 

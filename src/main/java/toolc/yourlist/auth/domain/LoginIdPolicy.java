@@ -1,6 +1,6 @@
 package toolc.yourlist.auth.domain;
 
-interface LoginIdPolicy {
+public interface LoginIdPolicy {
   boolean matches(String rawId);
 }
 

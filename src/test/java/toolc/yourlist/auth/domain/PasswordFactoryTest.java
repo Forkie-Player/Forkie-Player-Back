@@ -12,8 +12,7 @@ class PasswordFactoryTest {
     PasswordFactory passwordFactory =
       new PasswordFactory(new AllPasswordPolicy());
 
-    assertThat(passwordFactory.create("password!"), is(new Password("password" +
-      "!")));
+    assertThat(passwordFactory.create("password!"), is(new Password("password!")));
   }
 
   @Test

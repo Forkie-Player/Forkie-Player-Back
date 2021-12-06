@@ -3,7 +3,7 @@ package toolc.yourlist.auth.domain;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.auth.token.domain.Token;
-import toolc.yourlist.auth.token.domain.TokenMaterialMaker;
+import toolc.yourlist.auth.token.usecase.TokenMaterialMaker;
 import toolc.yourlist.auth.token.domain.TokenProvider;
 
 import static io.vavr.control.Either.left;

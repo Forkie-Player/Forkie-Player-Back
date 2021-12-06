@@ -1,7 +1,8 @@
-package toolc.yourlist.auth.token.domain;
+package toolc.yourlist.auth.token.usecase;
 
 import toolc.yourlist.auth.domain.LoginRequest;
 import toolc.yourlist.auth.domain.NonMemberLoginRequest;
+import toolc.yourlist.auth.token.domain.TokenMaterial;
 
 public class TokenMaterialMaker {
   public TokenMaterial toTokenMaterial(LoginRequest request) {
