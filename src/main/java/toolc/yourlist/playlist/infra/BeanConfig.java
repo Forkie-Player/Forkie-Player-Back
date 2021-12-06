@@ -8,24 +8,31 @@ import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
 import toolc.yourlist.playlist.domain.AllPlaylists;
+import toolc.yourlist.playlist.domain.CreatePlaylist;
+import toolc.yourlist.playlist.domain.ReadPlaylist;
+import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
-public class BeanConfig {
+class BeanConfig {
   @Bean
   AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
     return new JpaPlaylistAdapter(jpaPlaylistRepository);
   }
 
+  @Bean
+  ReadPlaylist readPlaylist(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistReader(allMember, allPlaylists);
+  }
 
   @Bean
-  PlaylistCreator playlistCreator(AllMember allMember,
-                                  AllPlaylists allPlaylists) {
+  CreatePlaylist createPlaylist(AllMember allMember,
+                                AllPlaylists allPlaylists) {
     return new PlaylistCreator(allMember, allPlaylists);
   }
 
   @Bean
-  PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists, AllMember allMember) {
+  UpdatePlaylist updatePlaylist(AllPlaylists allPlaylists, AllMember allMember) {
     return new PlaylistUpdater(allPlaylists, allMember);
   }
 

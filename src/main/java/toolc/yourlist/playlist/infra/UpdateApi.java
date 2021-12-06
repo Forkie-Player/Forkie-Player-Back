@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
+import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class UpdateApi {
-  private final PlaylistUpdater updater;
+class UpdateApi {
+  private final UpdatePlaylist updater;
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest request) {

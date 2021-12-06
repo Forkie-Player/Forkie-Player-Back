@@ -3,15 +3,17 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.playlist.domain.AllPlaylists;
+import toolc.yourlist.playlist.domain.CreatePlaylist;
 import toolc.yourlist.playlist.domain.Playlist;
 
 @RequiredArgsConstructor
-final class PlaylistCreator {
+class PlaylistCreator implements CreatePlaylist {
   private final AllMember allMember;
   private final AllPlaylists allPlaylists;
   private final SavePolicy savePolicy = new SavePolicy();
 
-  void createPlaylist(Long memberId, String title) {
+  @Override
+  public void createPlaylist(Long memberId, String title) {
     var member = allMember.findById(memberId);
     var playlistCount = allPlaylists.havingCountOf(memberId);
 

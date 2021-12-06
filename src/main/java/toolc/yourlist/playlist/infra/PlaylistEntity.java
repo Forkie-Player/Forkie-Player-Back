@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "playlist")
-public class PlaylistEntity extends BaseEntity {
+class PlaylistEntity extends BaseEntity {
   private Long memberId;
   @Setter
   private String title;
@@ -30,15 +30,6 @@ public class PlaylistEntity extends BaseEntity {
     this.memberId = playlist.memberId();
     this.title = playlist.title();
     this.thumbnail = playlist.thumbnail();
-  }
-
-  Playlist toPlaylist() {
-    return Playlist.builder()
-      .id(this.id())
-      .memberId(memberId)
-      .title(title)
-      .thumbnail(thumbnail)
-      .build();
   }
 }
 

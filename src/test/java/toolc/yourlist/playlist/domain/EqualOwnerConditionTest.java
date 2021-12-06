@@ -19,6 +19,7 @@ class EqualOwnerConditionTest {
         .password("qwer1234!")
         .build(),
       Playlist.builder()
+        .id(1L)
         .memberId(1L)
         .title("My List")
         .thumbnail("panda.png")
@@ -40,6 +41,7 @@ class EqualOwnerConditionTest {
         .password("qwer1234!")
         .build(),
       Playlist.builder()
+        .id(1L)
         .memberId(2L)
         .title("My List")
         .thumbnail("panda.png")

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public final class JsonSaveRequest {
+final class JsonSaveRequest {
   @NotNull
   @JsonProperty
   private Long memberId;

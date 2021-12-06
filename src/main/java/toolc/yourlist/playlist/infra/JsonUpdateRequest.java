@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public final class JsonUpdateRequest {
+final class JsonUpdateRequest {
   @NotNull
   @JsonProperty
   private Long memberId;

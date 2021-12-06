@@ -8,7 +8,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 
 @Getter
 @EqualsAndHashCode
-public final class PlaylistJson {
+final class PlaylistJson {
   @JsonProperty
   private Long id;
   @JsonProperty

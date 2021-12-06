@@ -8,7 +8,12 @@ import java.util.stream.Collectors;
 
 class PlaylistEntityMapper {
   Playlist toPlaylist(PlaylistEntity entity) {
-    return new Playlist(entity.memberId(), entity.title(), entity.thumbnail());
+    return Playlist.builder()
+      .id(entity.id())
+      .memberId(entity.memberId())
+      .title(entity.title())
+      .thumbnail(entity.thumbnail())
+      .build();
   }
 
   ListOfPlaylists toListOfPlaylists(List<PlaylistEntity> entityList) {

@@ -17,7 +17,11 @@ class PlaylistEntityMapperTest {
     var actual =
       mapper.toPlaylist(new PlaylistEntity(1L, "My List", "panda.png"));
 
-    var expected = new Playlist(1L, "My List", "panda.png");
+    var expected = Playlist.builder()
+      .memberId(1L)
+      .title("My List")
+      .thumbnail("panda.png")
+      .build();
     assertThat(actual, is(expected));
   }
 
@@ -32,8 +36,16 @@ class PlaylistEntityMapperTest {
       ));
 
     var expected = new ListOfPlaylists(List.of(
-      new Playlist(1L, "My List", "panda.png"),
-      new Playlist(1L, "My Music", "puppy.png")
+      Playlist.builder()
+        .memberId(1L)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
+      Playlist.builder()
+        .memberId(1L)
+        .title("My Music")
+        .thumbnail("puppy.png")
+        .build()
     ));
     assertThat(actual, is(expected));
   }

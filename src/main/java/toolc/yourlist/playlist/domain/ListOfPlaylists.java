@@ -1,11 +1,13 @@
 package toolc.yourlist.playlist.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@EqualsAndHashCode
 public final class ListOfPlaylists {
   private final List<Playlist> entities;
 

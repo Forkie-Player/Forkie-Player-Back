@@ -12,7 +12,17 @@ class ListOfPlaylistsTest {
   void 멤버Id_불일치() {
     assertThrows(IllegalArgumentException.class, () -> new ListOfPlaylists(
       List.of(
-        new Playlist(1L, 1L, "My List", "panda.png"),
-        new Playlist(2L, 2L, "Other List", "puppy.jpeg"))));
+        Playlist.builder()
+          .id(1L)
+          .memberId(1L)
+          .title("My List")
+          .thumbnail("panda.png")
+          .build(),
+        Playlist.builder()
+          .id(2L)
+          .memberId(2L)
+          .title("Other List")
+          .thumbnail("puppy.png")
+          .build())));
   }
 }

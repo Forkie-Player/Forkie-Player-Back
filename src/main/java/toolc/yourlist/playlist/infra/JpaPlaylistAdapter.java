@@ -8,7 +8,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
-public class JpaPlaylistAdapter implements AllPlaylists {
+class JpaPlaylistAdapter implements AllPlaylists {
   private final JpaPlaylistRepository playlistRepository;
   private final PlaylistEntityMapper mapper = new PlaylistEntityMapper();
 
