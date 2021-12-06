@@ -18,15 +18,9 @@ import javax.validation.Valid;
 public class CreateApi {
   private final PlaylistCreator creator;
 
-  @PostMapping("/api/member-playlist")
-  public ResponseEntity<?> createPlaylistForRealMember(@Valid @RequestBody JsonSaveRequest request) {
-    creator.createForRealMember(request.memberId(), request.title());
-    return JsonResponse.success("생성 성공");
-  }
-
-  @PostMapping("/api/non-member-playlist")
-  public ResponseEntity<?> createPlaylistForNonMember(@Valid @RequestBody JsonSaveRequest request) {
-    creator.createForNonMember(request.memberId(), request.title());
+  @PostMapping("/api/playlist")
+  public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest request) {
+    creator.createPlaylist(request.memberId(), request.title());
     return JsonResponse.success("생성 성공");
   }
 }

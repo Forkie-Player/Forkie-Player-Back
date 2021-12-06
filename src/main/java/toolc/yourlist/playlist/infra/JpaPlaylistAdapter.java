@@ -36,7 +36,7 @@ public class JpaPlaylistAdapter implements AllPlaylists {
 
   @Override
   @Transactional
-  public void updateTitle(Long playlistId, String title) {
+  public void updateTitleBelongsTo(Long playlistId, String title) {
     var entity = getEntity(playlistId);
     entity.title(title);
   }

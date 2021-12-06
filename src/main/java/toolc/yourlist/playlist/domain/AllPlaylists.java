@@ -9,5 +9,5 @@ public interface AllPlaylists {
 
   void save(Playlist playlist);
 
-  void updateTitle(Long memberId, String title);
+  void updateTitleBelongsTo(Long playlistId, String title);
 }

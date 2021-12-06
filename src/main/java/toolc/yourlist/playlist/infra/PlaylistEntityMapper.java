@@ -6,7 +6,7 @@ import toolc.yourlist.playlist.domain.Playlist;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class PlaylistEntityMapper { // TODO: Test 필요!
+class PlaylistEntityMapper {
   Playlist toPlaylist(PlaylistEntity entity) {
     return new Playlist(entity.memberId(), entity.title(), entity.thumbnail());
   }

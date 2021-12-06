@@ -7,48 +7,26 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.playlist.domain.ReadPlaylist;
-import toolc.yourlist.playlist.domain.SavePlaylist;
-import toolc.yourlist.playlist.domain.UpdatePlaylist;
+import toolc.yourlist.playlist.domain.AllPlaylists;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
 public class BeanConfig {
   @Bean
-  ReadPlaylist readPlaylist(JpaPlaylistRepository playlistRepository, AllMember allMember) {
-    return new JpaReadAdapter(playlistRepository, allMember);
+  AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
+    return new JpaPlaylistAdapter(jpaPlaylistRepository);
   }
 
-  @Bean
-  UpdatePlaylist updatePlaylist(JpaPlaylistRepository playlistRepository) {
-    return new JpaUpdateAdapter(playlistRepository);
-  }
-
-  @Bean
-  SavePlaylist savePlaylist(JpaPlaylistRepository playlistRepository) {
-    return new JpaSaveAdapter(playlistRepository);
-  }
-
-  @Bean
-  CountPolicyForNonMember savePolicyForNonMember(ReadPlaylist readPlaylist) {
-    return new CountPolicyForNonMember(readPlaylist);
-  }
 
   @Bean
   PlaylistCreator playlistCreator(AllMember allMember,
-                                  SavePlaylist savePlaylist,
-                                  CountPolicyForNonMember countPolicyForNonMember) {
-    return new PlaylistCreator(allMember, savePlaylist, countPolicyForNonMember);
+                                  AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allMember, allPlaylists);
   }
 
   @Bean
-  OwnerPolicy ownerPolicy(AllMember allMember, ReadPlaylist readPlaylist) {
-    return new OwnerPolicy(allMember, readPlaylist);
-  }
-
-  @Bean
-  PlaylistUpdater playlistUpdater(UpdatePlaylist updatePlaylist, OwnerPolicy ownerPolicy) {
-    return new PlaylistUpdater(updatePlaylist, ownerPolicy);
+  PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists, AllMember allMember) {
+    return new PlaylistUpdater(allPlaylists, allMember);
   }
 
   @Bean
