@@ -23,8 +23,8 @@ public class BeanConfig {
   }
 
   @Bean
-  LoginRequestMapperFromJson loginRequestMapperFromJson() {
-    return new LoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
+  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson() {
+    return new RealLoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
   }
 
   CurrentTime currentTime = new CurrentTime();

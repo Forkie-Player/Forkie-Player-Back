@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public class JsonLoginRequest {
+public class JsonRealLoginRequest {
 
   @NotEmpty
   @JsonProperty

@@ -7,13 +7,12 @@ import toolc.yourlist.auth.token.usecase.TokenMaterialMaker;
 import toolc.yourlist.auth.token.domain.TokenProvider;
 
 @RequiredArgsConstructor
-class NonMemberLogin {
+public class NonMemberLogin {
   private final AllNonMember allNonMember;
   private final TokenMaterialMaker tokenMaterialMaker;
   private final TokenProvider tokenProvider;
 
-  Token login(NonMemberLoginRequest request) {
-    //todo : 토큰
+  public Token login(NonMemberLoginRequest request) {
     NonMember savedNonMember = allNonMember.findByDeviceId(request.deviceId());
 
     return tokenProvider.create(tokenMaterialMaker.toTokenMaterial(request));

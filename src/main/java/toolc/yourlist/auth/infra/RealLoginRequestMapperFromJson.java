@@ -7,11 +7,11 @@ import toolc.yourlist.auth.domain.PasswordFactory;
 import toolc.yourlist.auth.token.domain.Device;
 
 @RequiredArgsConstructor
-class LoginRequestMapperFromJson {
+class RealLoginRequestMapperFromJson {
   private final LoginIdFactory loginIdFactory;
   private final PasswordFactory passwordFactory;
 
-  LoginRequest mapper(JsonLoginRequest json) {
+  LoginRequest mapper(JsonRealLoginRequest json) {
     Device device = json.isPC() ? Device.PC : Device.APP;
     return new LoginRequest(loginIdFactory.create(json.loginId()),
       passwordFactory.create(json.password()), device);
