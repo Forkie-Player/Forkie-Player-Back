@@ -16,10 +16,11 @@ import javax.validation.Valid;
 @RestController
 class UpdateApi {
   private final UpdatePlaylist updater;
+  private final JsonRequestMapper mapper = new JsonRequestMapper();
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest request) {
-    updater.updateTitle(request.toUpdateRequest());
+    updater.updateTitle(mapper.toUpdateRequest(request));
 
     return JsonResponse.success("수정 성공");
   }

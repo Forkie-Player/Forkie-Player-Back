@@ -17,6 +17,7 @@ class PlaylistUpdater implements UpdatePlaylist {
   public void updateTitle(UpdateRequest request) {
     var member = allMember.findById(request.memberId());
     var playlist = allPlaylists.readBelongsTo(request.playlistId());
+
     if (!equalCondition.check(member, playlist)) {
       throw new IllegalArgumentException("Playlist 소유자의 요청이 아닙니다.");
     }
