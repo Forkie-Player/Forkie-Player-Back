@@ -10,7 +10,7 @@ import toolc.yourlist.play.infra.Play;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.PlaylistCreator;
 import toolc.yourlist.playlist.domain.PlaylistReader;
-import toolc.yourlist.playlist.domain.UpdatePlaylist;
+import toolc.yourlist.playlist.domain.PlaylistUpdater;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
@@ -32,8 +32,8 @@ class BeanConfig {
   }
 
   @Bean
-  UpdatePlaylist updatePlaylist(AllPlaylists allPlaylists, AllMember allMember) {
-    return new PlaylistUpdater(allPlaylists, allMember);
+  PlaylistUpdater playlistUpdater(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistUpdater(allMember, allPlaylists);
   }
 
   @Bean

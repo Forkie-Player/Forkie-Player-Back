@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toolc.yourlist.playlist.domain.UpdatePlaylist;
+import toolc.yourlist.playlist.domain.PlaylistUpdater;
 
 import javax.validation.Valid;
 
@@ -16,7 +16,7 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RequiredArgsConstructor
 @RestController
 class UpdateApi {
-  private final UpdatePlaylist updater;
+  private final PlaylistUpdater updater;
   private final JsonRequestMapper mapper = new JsonRequestMapper();
 
   @PutMapping("/api/playlist")

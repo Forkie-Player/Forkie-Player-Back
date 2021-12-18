@@ -1,21 +1,16 @@
-package toolc.yourlist.playlist.infra;
+package toolc.yourlist.playlist.domain;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.EqualOwnerCondition;
-import toolc.yourlist.playlist.domain.UpdatePlaylist;
-import toolc.yourlist.playlist.domain.UpdateRequest;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
-class PlaylistUpdater implements UpdatePlaylist {
-  private final AllPlaylists allPlaylists;
+public class PlaylistUpdater {
   private final AllMember allMember;
+  private final AllPlaylists allPlaylists;
   private final EqualOwnerCondition equalCondition = new EqualOwnerCondition();
 
-  @Override
   public Optional<String> updateTitle(UpdateRequest request) {
     var member = allMember.findById(request.memberId());
     var playlist = allPlaylists.readBelongsTo(request.playlistId());
