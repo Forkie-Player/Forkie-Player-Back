@@ -8,7 +8,7 @@ import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
 import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.CreatePlaylist;
+import toolc.yourlist.playlist.domain.PlaylistCreator;
 import toolc.yourlist.playlist.domain.ReadPlaylist;
 import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
@@ -26,8 +26,8 @@ class BeanConfig {
   }
 
   @Bean
-  CreatePlaylist createPlaylist(AllMember allMember,
-                                AllPlaylists allPlaylists) {
+  PlaylistCreator createPlaylist(AllMember allMember,
+                                 AllPlaylists allPlaylists) {
     return new PlaylistCreator(allMember, allPlaylists);
   }
 

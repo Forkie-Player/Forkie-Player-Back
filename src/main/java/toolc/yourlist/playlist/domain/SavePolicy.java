@@ -1,4 +1,4 @@
-package toolc.yourlist.playlist.infra;
+package toolc.yourlist.playlist.domain;
 
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.playlist.domain.PlaylistCountCondition;

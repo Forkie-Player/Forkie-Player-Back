@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.playlist.domain.CreatePlaylist;
+import toolc.yourlist.playlist.domain.PlaylistCreator;
 
 import javax.validation.Valid;
 
@@ -17,7 +17,7 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RequiredArgsConstructor
 @RestController
 class CreateApi {
-  private final CreatePlaylist creator;
+  private final PlaylistCreator creator;
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest request) {
