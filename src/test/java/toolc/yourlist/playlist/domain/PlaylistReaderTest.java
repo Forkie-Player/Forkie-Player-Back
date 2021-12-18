@@ -5,12 +5,13 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
 import toolc.yourlist.member.infra.MemberEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class PlaylistCreatorTest {
+class PlaylistReaderTest {
   class MockAllMember implements AllMember {
 
     @Override
@@ -22,7 +23,7 @@ class PlaylistCreatorTest {
     public Optional<Member> findById(Long id) {
       return Optional.of(Member.builder()
         .id(id)
-        .loginId("oh9802255")
+        .loginId("oh980225")
         .password("qwer1234!")
         .isMember(true)
         .build());
@@ -38,7 +39,18 @@ class PlaylistCreatorTest {
 
     @Override
     public ListOfPlaylists readAllBelongsTo(Long memberId) {
-      return null;
+      return new ListOfPlaylists(List.of(Playlist.builder()
+          .id(1L)
+          .memberId(memberId)
+          .title("My List")
+          .thumbnail("panda.png")
+          .build(),
+        Playlist.builder()
+          .id(2L)
+          .memberId(memberId)
+          .title("Good Music")
+          .thumbnail("puppy.png")
+          .build()));
     }
 
     @Override
@@ -48,7 +60,7 @@ class PlaylistCreatorTest {
 
     @Override
     public long havingCountOf(Long memberId) {
-      return 5;
+      return 0;
     }
 
     @Override
@@ -64,12 +76,23 @@ class PlaylistCreatorTest {
   final AllPlaylists allPlaylists = new MockAllPlaylists();
 
   @Test
-  void createPlaylist() {
-    PlaylistCreator creator = new PlaylistCreator(allMember, allPlaylists);
+  void belongsTo() {
+    var reader = new PlaylistReader(allMember, allPlaylists);
 
-    var actual = creator.createPlaylist(1L, "My List");
+    var actual = reader.belongsTo(1L).get();
 
-    var expected = Optional.empty();
+    var expected = new ListOfPlaylists(List.of(Playlist.builder()
+        .id(1L)
+        .memberId(1L)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
+      Playlist.builder()
+        .id(2L)
+        .memberId(1L)
+        .title("Good Music")
+        .thumbnail("puppy.png")
+        .build()));
     assertThat(actual, is(expected));
   }
 }

@@ -9,7 +9,7 @@ import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.PlaylistCreator;
-import toolc.yourlist.playlist.domain.ReadPlaylist;
+import toolc.yourlist.playlist.domain.PlaylistReader;
 import toolc.yourlist.playlist.domain.UpdatePlaylist;
 
 @Configuration("PlaylistBeanConfig")
@@ -21,13 +21,13 @@ class BeanConfig {
   }
 
   @Bean
-  ReadPlaylist readPlaylist(AllMember allMember, AllPlaylists allPlaylists) {
+  PlaylistReader playlistReader(AllMember allMember, AllPlaylists allPlaylists) {
     return new PlaylistReader(allMember, allPlaylists);
   }
 
   @Bean
-  PlaylistCreator createPlaylist(AllMember allMember,
-                                 AllPlaylists allPlaylists) {
+  PlaylistCreator playlistCreator(AllMember allMember,
+                                  AllPlaylists allPlaylists) {
     return new PlaylistCreator(allMember, allPlaylists);
   }
 
