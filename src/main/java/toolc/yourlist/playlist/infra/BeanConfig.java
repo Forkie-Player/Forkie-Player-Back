@@ -7,10 +7,7 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.PlaylistCreator;
-import toolc.yourlist.playlist.domain.PlaylistReader;
-import toolc.yourlist.playlist.domain.PlaylistUpdater;
+import toolc.yourlist.playlist.domain.*;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
@@ -32,8 +29,18 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistUpdater playlistUpdater(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistUpdater(allMember, allPlaylists);
+  UpdateRequestFactory updateRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
+    return new UpdateRequestFactory(allMember, allPlaylists);
+  }
+
+  @Bean
+  JsonUpdateRequestMapper updateRequestMapper(UpdateRequestFactory factory) {
+    return new JsonUpdateRequestMapper(factory);
+  }
+
+  @Bean
+  PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists) {
+    return new PlaylistUpdater(allPlaylists);
   }
 
   @Bean

@@ -22,8 +22,7 @@ class PlaylistEntityMapper {
   }
 
   ListOfPlaylists toListOfPlaylists(List<PlaylistEntity> entityList) {
-    return new ListOfPlaylists(entityList
-      .stream()
+    return new ListOfPlaylists(entityList.stream()
       .map(entity -> Playlist.builder()
         .id(entity.id())
         .memberId(entity.memberId())

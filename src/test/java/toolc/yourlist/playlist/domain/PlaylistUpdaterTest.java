@@ -1,9 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.member.infra.MemberEntity;
 
 import java.util.Optional;
 
@@ -11,31 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class PlaylistUpdaterTest {
-  class MockAllMember implements AllMember {
-
-    @Override
-    public Optional<Member> findByLoginId(String loginId) {
-      return Optional.empty();
-    }
-
-    @Override
-    public Optional<Member> findById(Long id) {
-      return Optional.of(Member.builder()
-        .id(id)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build());
-    }
-
-    @Override
-    public MemberEntity save(MemberEntity memberEntity) {
-      return null;
-    }
-  }
-
   class MockAllPlaylists implements AllPlaylists {
-
     @Override
     public ListOfPlaylists readAllBelongsTo(Long memberId) {
       return null;
@@ -65,17 +39,50 @@ class PlaylistUpdaterTest {
     }
   }
 
-  final AllMember allMember = new MockAllMember();
-  final AllPlaylists allPlaylists = new MockAllPlaylists();
-
   @Test
   void updateTitle() {
-    var updater = new PlaylistUpdater(allMember, allPlaylists);
-    var request = new UpdateRequest(1L, 1L, "New List");
+    var allPlaylists = new MockAllPlaylists();
+    var updater = new PlaylistUpdater(allPlaylists);
+    var request = new UpdateRequest(Member.builder()
+      .id(1L)
+      .loginId("oh980225")
+      .password("qwer1234!")
+      .isMember(true)
+      .build(),
+      Playlist.builder()
+        .id(1L)
+        .memberId(1L)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
+      "New List");
 
-    var actual = updater.updateTitle(request);
+    var actual = updater.updateTitle(request).get();
 
-    var expected = Optional.empty();
-    assertThat(actual, is(expected));
+    assertThat(actual, is(true));
+  }
+
+
+  @Test
+  void updateTitle_not_equal_owner() {
+    var allPlaylists = new MockAllPlaylists();
+    var updater = new PlaylistUpdater(allPlaylists);
+    var request = new UpdateRequest(Member.builder()
+      .id(1L)
+      .loginId("oh980225")
+      .password("qwer1234!")
+      .isMember(true)
+      .build(),
+      Playlist.builder()
+        .id(1L)
+        .memberId(2L)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
+      "New List");
+
+    var actual = updater.updateTitle(request).getLeft();
+
+    assertThat(actual, is("Playlist 소유자의 요청이 아닙니다."));
   }
 }

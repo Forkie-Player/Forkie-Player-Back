@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import toolc.yourlist.playlist.domain.UpdateRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,9 +28,5 @@ final class JsonUpdateRequest {
     this.memberId = memberId;
     this.playlistId = playlistId;
     this.title = title;
-  }
-
-  UpdateRequest toUpdateRequest() {
-    return new UpdateRequest(memberId, playlistId, title);
   }
 }
