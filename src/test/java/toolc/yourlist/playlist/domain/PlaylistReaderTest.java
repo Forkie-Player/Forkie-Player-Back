@@ -1,9 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.member.infra.MemberEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,29 +10,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class PlaylistReaderTest {
-  class MockAllMember implements AllMember {
-
-    @Override
-    public Optional<Member> findByLoginId(String loginId) {
-      return Optional.empty();
-    }
-
-    @Override
-    public Optional<Member> findById(Long id) {
-      return Optional.of(Member.builder()
-        .id(id)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build());
-    }
-
-    @Override
-    public MemberEntity save(MemberEntity memberEntity) {
-      return null;
-    }
-  }
-
   class MockAllPlaylists implements AllPlaylists {
 
     @Override
@@ -72,14 +47,19 @@ class PlaylistReaderTest {
     }
   }
 
-  final AllMember allMember = new MockAllMember();
   final AllPlaylists allPlaylists = new MockAllPlaylists();
 
   @Test
   void belongsTo() {
-    var reader = new PlaylistReader(allMember, allPlaylists);
+    var reader = new PlaylistReader(allPlaylists);
+    var request = new ReadRequest(Member.builder()
+      .id(1L)
+      .loginId("oh980225")
+      .password("qwer1234!")
+      .isMember(true)
+      .build());
 
-    var actual = reader.belongsTo(1L).get();
+    var actual = reader.belongsTo(request).get();
 
     var expected = new ListOfPlaylists(List.of(Playlist.builder()
         .id(1L)
