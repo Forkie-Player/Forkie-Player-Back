@@ -23,9 +23,18 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistCreator playlistCreator(AllMember allMember,
-                                  AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allMember, allPlaylists);
+  CreateRequestFactory createRequestFactory(AllMember allMember) {
+    return new CreateRequestFactory(allMember);
+  }
+
+  @Bean
+  JsonCreateRequestMapper createRequestMapper(CreateRequestFactory factory) {
+    return new JsonCreateRequestMapper(factory);
+  }
+
+  @Bean
+  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allPlaylists);
   }
 
   @Bean

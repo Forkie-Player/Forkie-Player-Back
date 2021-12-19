@@ -1,9 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.member.infra.MemberEntity;
 
 import java.util.Optional;
 
@@ -11,29 +9,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class PlaylistCreatorTest {
-  class MockAllMember implements AllMember {
-
-    @Override
-    public Optional<Member> findByLoginId(String loginId) {
-      return Optional.empty();
-    }
-
-    @Override
-    public Optional<Member> findById(Long id) {
-      return Optional.of(Member.builder()
-        .id(id)
-        .loginId("oh9802255")
-        .password("qwer1234!")
-        .isMember(true)
-        .build());
-    }
-
-    @Override
-    public MemberEntity save(MemberEntity memberEntity) {
-      return null;
-    }
-  }
-
   class MockAllPlaylists implements AllPlaylists {
 
     @Override
@@ -60,16 +35,37 @@ class PlaylistCreatorTest {
     }
   }
 
-  final AllMember allMember = new MockAllMember();
-  final AllPlaylists allPlaylists = new MockAllPlaylists();
-
   @Test
   void createPlaylist() {
-    PlaylistCreator creator = new PlaylistCreator(allMember, allPlaylists);
+    var allPlaylists = new MockAllPlaylists();
+    var creator = new PlaylistCreator(allPlaylists);
+    var request = new CreateRequest(Member.builder()
+      .id(1L)
+      .loginId("oh980225")
+      .password("qwer1234!")
+      .isMember(true)
+      .build(),
+      "My List");
 
-    var actual = creator.createPlaylist(1L, "My List");
+    var actual = creator.createPlaylist(request).get();
 
-    var expected = Optional.empty();
-    assertThat(actual, is(expected));
+    assertThat(actual, is(true));
+  }
+
+  @Test
+  void createPlaylist_not_match_save_policy() {
+    var allPlaylists = new MockAllPlaylists();
+    var creator = new PlaylistCreator(allPlaylists);
+    var request = new CreateRequest(Member.builder()
+      .id(1L)
+      .loginId("oh1263")
+      .password("abcd1234!")
+      .isMember(false)
+      .build(),
+      "My List");
+
+    var actual = creator.createPlaylist(request).getLeft();
+
+    assertThat(actual, is("비회원의 영상 생성 제한을 넘었습니다."));
   }
 }

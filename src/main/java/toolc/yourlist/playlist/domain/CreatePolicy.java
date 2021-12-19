@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 import toolc.yourlist.member.domain.Member;
 
-final class SavePolicy {
+final class CreatePolicy {
   private final PlaylistCountCondition countCondition = new PlaylistCountCondition();
   private final RealMemberCondition realMemberCondition = new RealMemberCondition();
 

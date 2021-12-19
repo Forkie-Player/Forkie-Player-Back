@@ -1,29 +1,22 @@
 package toolc.yourlist.playlist.domain;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class PlaylistCreator {
-  private final AllMember allMember;
   private final AllPlaylists allPlaylists;
-  private final SavePolicy savePolicy = new SavePolicy();
+  private final CreatePolicy createPolicy = new CreatePolicy();
 
-  public Optional<String> createPlaylist(Long memberId, String title) {
-    var member = allMember.findById(memberId);
-    var playlistCount = allPlaylists.havingCountOf(memberId);
+  public Either<String, Boolean> createPlaylist(CreateRequest request) {
+    var playlistCount = allPlaylists.havingCountOf(request.member().id());
 
-    if (member.isEmpty()) {
-      return Optional.of("존재하지 않는 회원");
-    }
-    if (!savePolicy.match(member.get(), playlistCount)) {
-      return Optional.of("비회원의 영상 생성 제한을 넘었습니다.");
+    if (!createPolicy.match(request.member(), playlistCount)) {
+      return Either.left("비회원의 영상 생성 제한을 넘었습니다.");
     }
 
-    save(playlist(memberId, title));
-    return Optional.empty();
+    save(playlist(request.member().id(), request.title()));
+    return Either.right(Boolean.TRUE);
   }
 
   private void save(Playlist playlist) {

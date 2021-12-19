@@ -6,10 +6,10 @@ import toolc.yourlist.member.domain.Member;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class SavePolicyTest {
+class CreatePolicyTest {
   @Test
   void match_non_member_and_exceed_playlist() {
-    var policy = new SavePolicy();
+    var policy = new CreatePolicy();
 
     var actual = policy.match(Member.builder()
         .id(1L)
