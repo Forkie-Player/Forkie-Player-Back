@@ -6,11 +6,11 @@ import toolc.yourlist.member.domain.Member;
 
 @Getter
 @EqualsAndHashCode
-public class CreateRequest {
+public class SaveRequest {
   private final Member member;
   private final String title;
 
-  CreateRequest(Member member, String title) {
+  public SaveRequest(Member member, String title) {
     this.title = title;
     this.member = member;
   }

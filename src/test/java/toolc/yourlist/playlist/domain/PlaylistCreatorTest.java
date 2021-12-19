@@ -39,7 +39,7 @@ class PlaylistCreatorTest {
   void createPlaylist() {
     var allPlaylists = new MockAllPlaylists();
     var creator = new PlaylistCreator(allPlaylists);
-    var request = new CreateRequest(Member.builder()
+    var request = new SaveRequest(Member.builder()
       .id(1L)
       .loginId("oh980225")
       .password("qwer1234!")
@@ -56,7 +56,7 @@ class PlaylistCreatorTest {
   void createPlaylist_not_match_save_policy() {
     var allPlaylists = new MockAllPlaylists();
     var creator = new PlaylistCreator(allPlaylists);
-    var request = new CreateRequest(Member.builder()
+    var request = new SaveRequest(Member.builder()
       .id(1L)
       .loginId("oh1263")
       .password("abcd1234!")

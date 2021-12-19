@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-final class JsonCreateRequest {
+final class JsonSaveRequest {
   @NotNull
   @JsonProperty
   private Long memberId;
@@ -19,7 +19,7 @@ final class JsonCreateRequest {
   private String title;
 
   @Builder
-  JsonCreateRequest(Long memberId, String title) {
+  JsonSaveRequest(Long memberId, String title) {
     this.memberId = memberId;
     this.title = title;
   }

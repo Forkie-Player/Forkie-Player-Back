@@ -8,6 +8,7 @@ import toolc.yourlist.member.domain.AllMember;
 public class ReadRequestFactory implements CreateReadRequest {
   private final AllMember allMember;
 
+  @Override
   public Either<String, ReadRequest> create(Long memberId) {
     var member = allMember.findById(memberId);
 

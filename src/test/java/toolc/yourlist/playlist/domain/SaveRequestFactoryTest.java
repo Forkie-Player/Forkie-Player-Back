@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class CreateRequestFactoryTest {
+class SaveRequestFactoryTest {
   class MockAllMember implements AllMember {
 
     @Override
@@ -55,11 +55,11 @@ class CreateRequestFactoryTest {
   @Test
   void create() {
     var allMember = new MockAllMember();
-    var factory = new CreateRequestFactory(allMember);
+    var factory = new SaveRequestFactory(allMember);
 
     var actual = factory.create(1L, "My List").get();
 
-    var expected = new CreateRequest(Member.builder()
+    var expected = new SaveRequest(Member.builder()
       .id(1L)
       .loginId("oh980225")
       .password("qwer1234!")
@@ -73,7 +73,7 @@ class CreateRequestFactoryTest {
   @Test
   void create_not_exist_member() {
     var allMember = new EmptyMember();
-    var factory = new CreateRequestFactory(allMember);
+    var factory = new SaveRequestFactory(allMember);
 
     var actual = factory.create(1L, "My List").getLeft();
 

@@ -5,11 +5,12 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
-public class UpdateRequestFactory {
+public class UpdateRequestFactory implements CreateUpdateRequest {
   private final AllMember allMember;
   private final AllPlaylists allPlaylists;
 
-  public Either<String, UpdateRequest> create(Long memberId, Long playlistId, String title) {
+  @Override
+  public Either<String, UpdateRequest> create(Long memberId, Long playlistId, String newTitle) {
     var member = allMember.findById(memberId);
     var playlist = allPlaylists.readBelongsTo(playlistId);
 
@@ -20,6 +21,6 @@ public class UpdateRequestFactory {
       return Either.left("존재하지 않는 영상 목록");
     }
 
-    return Either.right(new UpdateRequest(member.get(), playlist.get(), title));
+    return Either.right(new UpdateRequest(member.get(), playlist.get(), newTitle));
   }
 }
