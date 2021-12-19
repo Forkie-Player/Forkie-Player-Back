@@ -18,6 +18,9 @@ repositories {
 	mavenCentral()
 }
 
+// log4j2
+ext['log4j2.version'] = '2.17.0'
+
 dependencies {
 	//spring
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'

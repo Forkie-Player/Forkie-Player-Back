@@ -6,13 +6,11 @@ import toolc.yourlist.member.domain.Member;
 
 @Getter
 @EqualsAndHashCode
-public final class UpdateRequest {
+public class SaveRequest {
   private final Member member;
-  private final Playlist playlist;
   private final String title;
 
-  public UpdateRequest(Member member, Playlist playlist, String title) {
-    this.playlist = playlist;
+  public SaveRequest(Member member, String title) {
     this.title = title;
     this.member = member;
   }

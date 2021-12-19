@@ -7,10 +7,7 @@ import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
-import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.CreatePlaylist;
-import toolc.yourlist.playlist.domain.ReadPlaylist;
-import toolc.yourlist.playlist.domain.UpdatePlaylist;
+import toolc.yourlist.playlist.domain.*;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
@@ -21,19 +18,48 @@ class BeanConfig {
   }
 
   @Bean
-  ReadPlaylist readPlaylist(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistReader(allMember, allPlaylists);
+  CreateReadRequest readRequestFactory(AllMember allMember) {
+    return new ReadRequestFactory(allMember);
   }
 
   @Bean
-  CreatePlaylist createPlaylist(AllMember allMember,
-                                AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allMember, allPlaylists);
+  MemberIdMapper memberIdMapper(CreateReadRequest factory) {
+    return new MemberIdMapper(factory);
   }
 
   @Bean
-  UpdatePlaylist updatePlaylist(AllPlaylists allPlaylists, AllMember allMember) {
-    return new PlaylistUpdater(allPlaylists, allMember);
+  PlaylistReader playlistReader(AllPlaylists allPlaylists) {
+    return new PlaylistReader(allPlaylists);
+  }
+
+  @Bean
+  CreateSaveRequest createRequestFactory(AllMember allMember) {
+    return new SaveRequestFactory(allMember);
+  }
+
+  @Bean
+  JsonSaveRequestMapper createRequestMapper(CreateSaveRequest factory) {
+    return new JsonSaveRequestMapper(factory);
+  }
+
+  @Bean
+  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allPlaylists);
+  }
+
+  @Bean
+  CreateUpdateRequest updateRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
+    return new UpdateRequestFactory(allMember, allPlaylists);
+  }
+
+  @Bean
+  JsonUpdateRequestMapper updateRequestMapper(CreateUpdateRequest factory) {
+    return new JsonUpdateRequestMapper(factory);
+  }
+
+  @Bean
+  PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists) {
+    return new PlaylistUpdater(allPlaylists);
   }
 
   @Bean

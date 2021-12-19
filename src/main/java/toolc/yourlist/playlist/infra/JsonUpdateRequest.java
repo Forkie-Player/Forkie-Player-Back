@@ -30,8 +30,4 @@ final class JsonUpdateRequest {
     this.playlistId = playlistId;
     this.title = title;
   }
-
-  UpdateRequest toUpdateRequest() {
-    return new UpdateRequest(memberId, playlistId, title);
-  }
 }
