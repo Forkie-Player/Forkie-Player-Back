@@ -12,4 +12,6 @@ public interface AllPlaylists {
   void save(Playlist playlist);
 
   void updateTitleBelongsTo(Long playlistId, String title);
+
+  void delete(Playlist playlist);
 }

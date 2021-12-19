@@ -11,4 +11,6 @@ interface JpaPlaylistRepository {
   Optional<PlaylistEntity> findById(Long id);
 
   long countByMemberId(Long memberId);
+
+  void deleteById(Long id);
 }
