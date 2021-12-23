@@ -45,6 +45,10 @@ class PlaylistReaderTest {
     @Override
     public void updateTitleBelongsTo(Long playlistId, String title) {
     }
+
+    @Override
+    public void delete(Playlist playlist) {
+    }
   }
 
   final AllPlaylists allPlaylists = new MockAllPlaylists();

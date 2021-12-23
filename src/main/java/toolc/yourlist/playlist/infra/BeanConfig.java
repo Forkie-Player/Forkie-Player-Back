@@ -33,12 +33,12 @@ class BeanConfig {
   }
 
   @Bean
-  CreateSaveRequest createRequestFactory(AllMember allMember) {
+  CreateSaveRequest saveRequestFactory(AllMember allMember) {
     return new SaveRequestFactory(allMember);
   }
 
   @Bean
-  JsonSaveRequestMapper createRequestMapper(CreateSaveRequest factory) {
+  JsonSaveRequestMapper jsonSaveRequestMapper(CreateSaveRequest factory) {
     return new JsonSaveRequestMapper(factory);
   }
 
@@ -53,13 +53,28 @@ class BeanConfig {
   }
 
   @Bean
-  JsonUpdateRequestMapper updateRequestMapper(CreateUpdateRequest factory) {
+  JsonUpdateRequestMapper jsonUpdateRequestMapper(CreateUpdateRequest factory) {
     return new JsonUpdateRequestMapper(factory);
   }
 
   @Bean
   PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists) {
     return new PlaylistUpdater(allPlaylists);
+  }
+
+  @Bean
+  DeleteRequestFactory deleteRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
+    return new DeleteRequestFactory(allMember, allPlaylists);
+  }
+
+  @Bean
+  JsonDeleteRequestMapper jsonDeleteRequestMapper(DeleteRequestFactory factory) {
+    return new JsonDeleteRequestMapper(factory);
+  }
+
+  @Bean
+  PlaylistEliminator playlistEliminator(AllPlaylists allPlaylists) {
+    return new PlaylistEliminator(allPlaylists);
   }
 
   @Bean

@@ -80,6 +80,10 @@ class UpdateRequestFactoryTest {
     @Override
     public void updateTitleBelongsTo(Long playlistId, String title) {
     }
+
+    @Override
+    public void delete(Playlist playlist) {
+    }
   }
 
   class EmptyPlaylist implements AllPlaylists {
@@ -104,6 +108,10 @@ class UpdateRequestFactoryTest {
 
     @Override
     public void updateTitleBelongsTo(Long playlistId, String title) {
+    }
+
+    @Override
+    public void delete(Playlist playlist) {
     }
   }
 

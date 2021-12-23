@@ -10,7 +10,7 @@ public class DeleteRequest {
   private final Member member;
   private final Playlist playlist;
 
-  public DeleteRequest(Member member, Playlist playlist) {
+  DeleteRequest(Member member, Playlist playlist) {
     this.member = member;
     this.playlist = playlist;
   }

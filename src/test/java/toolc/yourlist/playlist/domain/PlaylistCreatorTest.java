@@ -33,6 +33,10 @@ class PlaylistCreatorTest {
     @Override
     public void updateTitleBelongsTo(Long playlistId, String title) {
     }
+
+    @Override
+    public void delete(Playlist playlist) {
+    }
   }
 
   @Test

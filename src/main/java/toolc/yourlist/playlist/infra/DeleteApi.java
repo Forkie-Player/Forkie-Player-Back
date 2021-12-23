@@ -22,10 +22,20 @@ public class DeleteApi {
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> delete(@Valid @RequestBody JsonDeleteRequest jsonRequest) {
+    var request = mapper.toDeleteRequest(jsonRequest);
+    if (request.isEmpty()) {
+      return failDelete(request.getLeft());
+    }
+
+    var result = eliminator.delete(request.get());
+    if (result.isEmpty()) {
+      return failDelete(result.getLeft());
+    }
+
     return ok("삭제 성공");
   }
 
-  private ResponseEntity<?> failUpdate(String message) {
+  private ResponseEntity<?> failDelete(String message) {
     return failForBadRequest("삭제 실패 : " + message);
   }
 }
