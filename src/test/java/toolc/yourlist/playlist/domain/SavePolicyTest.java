@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class SavePolicyTest {
+
   @Test
   void match_non_member_and_exceed_playlist() {
     var policy = new SavePolicy();

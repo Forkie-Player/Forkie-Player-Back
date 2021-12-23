@@ -3,37 +3,10 @@ package toolc.yourlist.playlist.domain;
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.domain.Member;
 
-import java.util.Optional;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class PlaylistCreatorTest {
-  class MockAllPlaylists implements AllPlaylists {
-
-    @Override
-    public ListOfPlaylists readAllBelongsTo(Long memberId) {
-      return null;
-    }
-
-    @Override
-    public Optional<Playlist> readBelongsTo(Long id) {
-      return Optional.empty();
-    }
-
-    @Override
-    public long havingCountOf(Long memberId) {
-      return 5;
-    }
-
-    @Override
-    public void save(Playlist playlist) {
-    }
-
-    @Override
-    public void updateTitleBelongsTo(Long playlistId, String title) {
-    }
-  }
 
   @Test
   void createPlaylist() {

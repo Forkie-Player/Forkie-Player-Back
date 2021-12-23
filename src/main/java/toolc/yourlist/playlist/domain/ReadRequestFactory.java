@@ -5,17 +5,23 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
-public class ReadRequestFactory implements CreateReadRequest {
+public class ReadRequestFactory {
   private final AllMember allMember;
 
-  @Override
-  public Either<String, ReadRequest> create(Long memberId) {
-    var member = allMember.findById(memberId);
+  public Either<String, ReadRequest> create(String memberId) {
+    try {
+      if (memberId == null) {
+        return Either.left("입력이 비어있습니다.");
+      }
 
-    if (member.isEmpty()) {
-      return Either.left("존재하지 않는 회원");
+      var member = allMember.findById(Long.parseLong(memberId));
+      if (member.isEmpty()) {
+        return Either.left("존재하지 않는 회원");
+      }
+
+      return Either.right(new ReadRequest(member.get()));
+    } catch (NumberFormatException e) {
+      return Either.left("입력이 숫자 형식이 아닙니다.");
     }
-
-    return Either.right(new ReadRequest(member.get()));
   }
 }

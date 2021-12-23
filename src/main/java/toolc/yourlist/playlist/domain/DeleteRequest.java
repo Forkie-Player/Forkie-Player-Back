@@ -6,12 +6,12 @@ import toolc.yourlist.member.domain.Member;
 
 @Getter
 @EqualsAndHashCode
-public class SaveRequest {
+public class DeleteRequest {
   private final Member member;
-  private final String title;
+  private final Playlist playlist;
 
-  SaveRequest(Member member, String title) {
-    this.title = title;
+  DeleteRequest(Member member, Playlist playlist) {
     this.member = member;
+    this.playlist = playlist;
   }
 }

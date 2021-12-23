@@ -10,6 +10,7 @@ import toolc.yourlist.playlist.domain.PlaylistUpdater;
 
 import javax.validation.Valid;
 
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @Slf4j
@@ -35,6 +36,6 @@ class UpdateApi {
   }
 
   private ResponseEntity<?> failUpdate(String message) {
-    return ok("수정 실패 : " + message);
+    return failForBadRequest("수정 실패 : " + message);
   }
 }

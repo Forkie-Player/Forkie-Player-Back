@@ -42,6 +42,11 @@ class JpaPlaylistAdapter implements AllPlaylists {
     entity.title(title);
   }
 
+  @Override
+  public void delete(Playlist playlist) {
+    playlistRepository.deleteById(playlist.id());
+  }
+
   private PlaylistEntity getEntity(Long playlistId) {
     return playlistRepository.findById(playlistId).orElseThrow(
       () -> new IllegalArgumentException("존재하지 않는 영상 목록"));

@@ -11,7 +11,7 @@ import toolc.yourlist.playlist.domain.PlaylistCreator;
 
 import javax.validation.Valid;
 
-import static toolc.yourlist.common.infra.JsonResponse.ok;
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,7 +35,14 @@ class CreateApi {
     return JsonResponse.ok("생성 성공");
   }
 
+
+
+
+
+
+
+
   private ResponseEntity<?> failCreate(String message) {
-    return ok("생성 실패: " + message);
+    return failForBadRequest("생성 실패: " + message);
   }
 }
