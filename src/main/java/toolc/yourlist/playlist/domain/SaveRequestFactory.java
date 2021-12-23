@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
-public class SaveRequestFactory implements CreateSaveRequest {
+public class SaveRequestFactory {
   private final AllMember allMember;
 
-  @Override
   public Either<String, SaveRequest> create(Long memberId, String title) {
     var member = allMember.findById(memberId);
 

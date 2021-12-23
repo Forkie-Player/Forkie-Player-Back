@@ -18,12 +18,12 @@ class BeanConfig {
   }
 
   @Bean
-  CreateReadRequest readRequestFactory(AllMember allMember) {
+  ReadRequestFactory readRequestFactory(AllMember allMember) {
     return new ReadRequestFactory(allMember);
   }
 
   @Bean
-  MemberIdMapper memberIdMapper(CreateReadRequest factory) {
+  MemberIdMapper memberIdMapper(ReadRequestFactory factory) {
     return new MemberIdMapper(factory);
   }
 
@@ -33,12 +33,12 @@ class BeanConfig {
   }
 
   @Bean
-  CreateSaveRequest saveRequestFactory(AllMember allMember) {
+  SaveRequestFactory saveRequestFactory(AllMember allMember) {
     return new SaveRequestFactory(allMember);
   }
 
   @Bean
-  JsonSaveRequestMapper jsonSaveRequestMapper(CreateSaveRequest factory) {
+  JsonSaveRequestMapper jsonSaveRequestMapper(SaveRequestFactory factory) {
     return new JsonSaveRequestMapper(factory);
   }
 
@@ -48,12 +48,12 @@ class BeanConfig {
   }
 
   @Bean
-  CreateUpdateRequest updateRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
+  UpdateRequestFactory updateRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
     return new UpdateRequestFactory(allMember, allPlaylists);
   }
 
   @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(CreateUpdateRequest factory) {
+  JsonUpdateRequestMapper jsonUpdateRequestMapper(UpdateRequestFactory factory) {
     return new JsonUpdateRequestMapper(factory);
   }
 

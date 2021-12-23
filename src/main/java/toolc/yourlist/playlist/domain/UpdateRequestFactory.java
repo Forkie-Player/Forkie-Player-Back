@@ -5,11 +5,10 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
-public class UpdateRequestFactory implements CreateUpdateRequest {
+public class UpdateRequestFactory {
   private final AllMember allMember;
   private final AllPlaylists allPlaylists;
 
-  @Override
   public Either<String, UpdateRequest> create(Long memberId, Long playlistId, String newTitle) {
     var member = allMember.findById(memberId);
     var playlist = allPlaylists.readBelongsTo(playlistId);
