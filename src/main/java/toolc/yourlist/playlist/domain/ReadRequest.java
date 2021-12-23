@@ -9,7 +9,7 @@ import toolc.yourlist.member.domain.Member;
 public class ReadRequest {
   private final Member member;
 
-  public ReadRequest(Member member) {
+  ReadRequest(Member member) {
     this.member = member;
   }
 }

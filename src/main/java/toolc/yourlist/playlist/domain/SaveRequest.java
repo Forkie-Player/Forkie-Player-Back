@@ -10,7 +10,7 @@ public class SaveRequest {
   private final Member member;
   private final String title;
 
-  public SaveRequest(Member member, String title) {
+  SaveRequest(Member member, String title) {
     this.title = title;
     this.member = member;
   }
