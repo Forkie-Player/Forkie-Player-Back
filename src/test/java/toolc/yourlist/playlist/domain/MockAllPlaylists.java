@@ -1,11 +1,24 @@
 package toolc.yourlist.playlist.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 class MockAllPlaylists implements AllPlaylists {
+
   @Override
   public ListOfPlaylists readAllBelongsTo(Long memberId) {
-    return null;
+    return new ListOfPlaylists(List.of(Playlist.builder()
+        .id(1L)
+        .memberId(memberId)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
+      Playlist.builder()
+        .id(2L)
+        .memberId(memberId)
+        .title("Good Music")
+        .thumbnail("puppy.png")
+        .build()));
   }
 
   @Override
@@ -20,7 +33,7 @@ class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public long havingCountOf(Long memberId) {
-    return 0;
+    return 5;
   }
 
   @Override

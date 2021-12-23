@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class JsonSaveRequestMapperTest {
+
   class MockFactory implements CreateSaveRequest {
 
     @Override

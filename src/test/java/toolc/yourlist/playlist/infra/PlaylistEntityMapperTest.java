@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class PlaylistEntityMapperTest {
+
   @Test
   void toPlaylist() {
     var mapper = new PlaylistEntityMapper();
