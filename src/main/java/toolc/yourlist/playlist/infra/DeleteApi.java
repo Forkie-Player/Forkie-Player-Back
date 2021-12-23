@@ -10,6 +10,7 @@ import toolc.yourlist.playlist.domain.PlaylistEliminator;
 
 import javax.validation.Valid;
 
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @Slf4j
@@ -25,6 +26,6 @@ public class DeleteApi {
   }
 
   private ResponseEntity<?> failUpdate(String message) {
-    return ok("삭제 실패 : " + message);
+    return failForBadRequest("삭제 실패 : " + message);
   }
 }

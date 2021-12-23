@@ -10,7 +10,7 @@ import toolc.yourlist.playlist.domain.PlaylistReader;
 
 import java.util.List;
 
-import static toolc.yourlist.common.infra.JsonResponse.ok;
+import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 
 @Slf4j
@@ -37,7 +37,7 @@ class ReadApi {
   }
 
   private ResponseEntity<?> failRead(String message) {
-    return ok("조회 실패: " + message);
+    return failForBadRequest("조회 실패: " + message);
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
