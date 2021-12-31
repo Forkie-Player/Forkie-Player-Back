@@ -1,7 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.Member;
 
 import java.util.List;
 

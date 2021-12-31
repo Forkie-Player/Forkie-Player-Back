@@ -1,7 +1,6 @@
 package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.infra.AllMemberMapper;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;

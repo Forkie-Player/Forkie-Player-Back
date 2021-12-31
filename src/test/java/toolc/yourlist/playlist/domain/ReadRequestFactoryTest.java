@@ -1,7 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.member.domain.Member;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

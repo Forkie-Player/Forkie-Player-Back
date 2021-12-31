@@ -1,8 +1,9 @@
-package toolc.yourlist.member.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.member.infra.JpaAllMemberEntity;
+import toolc.yourlist.playlist.domain.AllMember;
+import toolc.yourlist.playlist.domain.Member;
 import toolc.yourlist.playlist.domain.NoExistMemberException;
 
 @RequiredArgsConstructor
@@ -10,11 +11,6 @@ public class AllMemberMapper implements AllMember {
 
   private final JpaAllMemberEntity jpaAllMemberEntity;
   private final MemberEntityMapper mapper = new MemberEntityMapper();
-
-  @Override
-  public Member findByLoginId(String loginId) {
-    return mapper.toMember(jpaAllMemberEntity.findByLoginId(loginId));
-  }
 
   @Override
   public Member findById(Long id) {

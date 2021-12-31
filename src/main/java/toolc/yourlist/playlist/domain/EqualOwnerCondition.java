@@ -1,7 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.Member;
 
 @RequiredArgsConstructor
 final class EqualOwnerCondition {

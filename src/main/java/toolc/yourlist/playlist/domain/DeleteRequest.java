@@ -2,7 +2,6 @@ package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import toolc.yourlist.member.domain.Member;
 
 @Getter
 @EqualsAndHashCode

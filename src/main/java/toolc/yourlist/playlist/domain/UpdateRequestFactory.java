@@ -2,7 +2,6 @@ package toolc.yourlist.playlist.domain;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
 
 @RequiredArgsConstructor
 public class UpdateRequestFactory {

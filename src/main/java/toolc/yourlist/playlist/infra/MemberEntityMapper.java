@@ -1,6 +1,7 @@
-package toolc.yourlist.member.infra;
+package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.member.domain.Member;
+import toolc.yourlist.member.infra.MemberEntity;
+import toolc.yourlist.playlist.domain.Member;
 import toolc.yourlist.playlist.domain.NoExistMemberException;
 
 import java.util.Optional;

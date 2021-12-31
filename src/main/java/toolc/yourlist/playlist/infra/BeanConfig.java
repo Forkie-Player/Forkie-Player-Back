@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.infra.JpaAllMemberEntity;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
 import toolc.yourlist.play.infra.Play;
@@ -12,6 +12,11 @@ import toolc.yourlist.playlist.domain.*;
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
 class BeanConfig {
+  @Bean
+  AllMember allMemberInPlaylist(JpaAllMemberEntity jpaAllMemberEntity) {
+    return new AllMemberMapper(jpaAllMemberEntity);
+  }
+
   @Bean
   AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
     return new JpaPlaylistAdapter(jpaPlaylistRepository);
