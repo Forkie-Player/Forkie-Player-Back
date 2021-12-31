@@ -1,54 +1,68 @@
 package toolc.yourlist.play.infra;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.play.domain.MockPlayRepository;
+import toolc.yourlist.play.domain.MockPlay;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static toolc.yourlist.PlayFixture.play;
-import static toolc.yourlist.PlayFixture.playList;
 
 class ThumbnailOfPlaylistTest {
-  ThumbnailOfPlaylist thumbnailOfPlaylist;
 
   @Test
   void 썸네일_찾기() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> playList())
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> Arrays.asList(
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail001")
+          .build(),
+        PlayEntity.builder()
+          .sequence(2)
+          .thumbnail("thumbnail002")
+          .build(),
+        PlayEntity.builder()
+          .sequence(3)
+          .thumbnail("thumbnail003")
+          .build()
+      ))
       .build());
-    String thumbnail = this.thumbnailOfPlaylist.find(1L);
+    String thumbnail = thumbnailOfPlaylist.find(1L);
 
-    assertThat("thumbnail", is(thumbnail));
+    assertThat("thumbnail001", is(thumbnail));
   }
 
   @Test
   void 영상이_없음() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> Collections.emptyList())
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> Collections.emptyList())
       .build());
-    String thumbnail = this.thumbnailOfPlaylist.find(1L);
+    String thumbnail = thumbnailOfPlaylist.find(1L);
 
     assertThat(null, is(thumbnail));
   }
 
   @Test
   void 첫번째_순서_중복() {
-    thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlayRepository.builder()
-      .findByPlaylistId(playlistId -> getDuplicateList())
+    ReadThumbnail thumbnailOfPlaylist = new ThumbnailOfPlaylist(MockPlay.builder()
+      .readWhatBelongsTo(playlistId -> Arrays.asList(
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail001")
+          .build(),
+        PlayEntity.builder()
+          .sequence(1)
+          .thumbnail("thumbnail002")
+          .build(),
+        PlayEntity.builder()
+          .sequence(2)
+          .thumbnail("thumbnail003")
+          .build()
+      ))
       .build());
     assertThrows(IllegalArgumentException.class, () -> thumbnailOfPlaylist.find(1L));
-  }
-
-  private List<Play> getDuplicateList() {
-    List<Play> playList = new ArrayList<>();
-    playList.add(play().build());
-    playList.add(play().build());
-
-    return playList;
   }
 }

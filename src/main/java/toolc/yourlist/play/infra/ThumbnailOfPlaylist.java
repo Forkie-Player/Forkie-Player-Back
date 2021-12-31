@@ -1,17 +1,17 @@
 package toolc.yourlist.play.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.play.domain.PlayRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class ThumbnailOfPlaylist {
-  private final PlayRepository playRepository;
+public class ThumbnailOfPlaylist implements ReadThumbnail {
+  private final Play play;
 
-  String find(Long playlistId) {
-    List<Play> list = playRepository.findByPlaylistId(playlistId)
+  @Override
+  public String find(Long playlistId) {
+    List<PlayEntity> list = play.readWhatBelongsTo(playlistId)
       .stream()
       .filter(playEntity -> playEntity.sequence() == 1)
       .collect(Collectors.toList());
