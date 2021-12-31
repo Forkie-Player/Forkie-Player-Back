@@ -4,30 +4,34 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-
-import java.util.Optional;
+import toolc.yourlist.member.domain.NoExistMemberException;
 
 @RequiredArgsConstructor
 @Component
 public class AllMemberMapper implements AllMember {
 
-  private final JpaAllMember jpaAllMember;
+  private final JpaAllMemberEntity jpaAllMemberEntity;
   private final MemberEntityMapper mapper = new MemberEntityMapper();
 
   @Override
-  public Optional<Member> findByLoginId(String loginId) {
-    var memberEntity = jpaAllMember.findByLoginId(loginId);
+  public Member findByLoginId(String loginId) {
+    var memberEntity = jpaAllMemberEntity.findByLoginId(loginId);
 
-    return mapper.toMember(jpaAllMember.findByLoginId(loginId));
+    return mapper.toMember(jpaAllMemberEntity.findByLoginId(loginId));
   }
 
   @Override
-  public Optional<Member> findById(Long id) {
-    return mapper.toMember(jpaAllMember.findById(id));
+  public Member findById(Long id) {
+    return mapper.toMember(jpaAllMemberEntity.findById(id));
   }
 
   @Override
-  public MemberEntity save(MemberEntity memberEntity) {
-    return jpaAllMember.save(memberEntity);
+  public boolean exist(Long id) {
+    try {
+      findById(id);
+      return true;
+    } catch (NoExistMemberException e) {
+      return false;
+    }
   }
 }

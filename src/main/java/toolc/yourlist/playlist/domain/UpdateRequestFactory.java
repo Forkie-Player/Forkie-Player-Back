@@ -10,16 +10,16 @@ public class UpdateRequestFactory {
   private final AllPlaylists allPlaylists;
 
   public Either<String, UpdateRequest> create(Long memberId, Long playlistId, String newTitle) {
-    var member = allMember.findById(memberId);
-    var playlist = allPlaylists.readBelongsTo(playlistId);
-
-    if (member.isEmpty()) {
+    if (!allMember.exist(memberId)) {
       return Either.left("존재하지 않는 회원");
     }
-    if (playlist.isEmpty()) {
+    if (!allPlaylists.exist(playlistId)) {
       return Either.left("존재하지 않는 영상 목록");
     }
 
-    return Either.right(new UpdateRequest(member.get(), playlist.get(), newTitle));
+    var member = allMember.findById(memberId);
+    var playlist = allPlaylists.readBelongsTo(playlistId);
+
+    return Either.right(new UpdateRequest(member, playlist, newTitle));
   }
 }

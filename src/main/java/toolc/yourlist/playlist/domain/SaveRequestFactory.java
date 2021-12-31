@@ -9,12 +9,12 @@ public class SaveRequestFactory {
   private final AllMember allMember;
 
   public Either<String, SaveRequest> create(Long memberId, String title) {
-    var member = allMember.findById(memberId);
-
-    if (member.isEmpty()) {
+    if (!allMember.exist(memberId)) {
       return Either.left("존재하지 않는 회원");
     }
 
-    return Either.right(new SaveRequest(member.get(), title));
+    var member = allMember.findById(memberId);
+
+    return Either.right(new SaveRequest(member, title));
   }
 }

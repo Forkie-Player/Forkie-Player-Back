@@ -1,7 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
 import java.util.List;
-import java.util.Optional;
 
 class MockAllPlaylists implements AllPlaylists {
 
@@ -22,13 +21,18 @@ class MockAllPlaylists implements AllPlaylists {
   }
 
   @Override
-  public Optional<Playlist> readBelongsTo(Long id) {
-    return Optional.of(Playlist.builder()
+  public Playlist readBelongsTo(Long id) {
+    return Playlist.builder()
       .id(id)
       .memberId(1L)
       .title("My List")
       .thumbnail("panda.png")
-      .build());
+      .build();
+  }
+
+  @Override
+  public boolean exist(Long id) {
+    return true;
   }
 
   @Override

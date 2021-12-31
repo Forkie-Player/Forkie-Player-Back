@@ -26,7 +26,7 @@ class ReadRequestFactoryTest {
 
   @Test
   void create_not_null() {
-    var allMember = new EmptyMember();
+    var allMember = new MockAllMember();
     var factory = new ReadRequestFactory(allMember);
 
     var actual = factory.create(null).getLeft();

@@ -1,11 +1,11 @@
 package toolc.yourlist.playlist.domain;
 
-import java.util.Optional;
-
 public interface AllPlaylists {
   ListOfPlaylists readAllBelongsTo(Long memberId);
 
-  Optional<Playlist> readBelongsTo(Long id);
+  Playlist readBelongsTo(Long id);
+
+  boolean exist(Long id);
 
   long havingCountOf(Long memberId);
 

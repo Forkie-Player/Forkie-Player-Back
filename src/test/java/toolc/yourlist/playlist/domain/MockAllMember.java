@@ -2,29 +2,31 @@ package toolc.yourlist.playlist.domain;
 
 import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.Member;
-import toolc.yourlist.member.infra.MemberEntity;
-
-import java.util.Optional;
 
 class MockAllMember implements AllMember {
 
   @Override
-  public Optional<Member> findByLoginId(String loginId) {
-    return Optional.empty();
+  public Member findByLoginId(String loginId) {
+    return Member.builder()
+      .id(1L)
+      .loginId(loginId)
+      .password("qwer1234!")
+      .isMember(true)
+      .build();
   }
 
   @Override
-  public Optional<Member> findById(Long id) {
-    return Optional.of(Member.builder()
+  public Member findById(Long id) {
+    return Member.builder()
       .id(id)
       .loginId("oh980225")
       .password("qwer1234!")
       .isMember(true)
-      .build());
+      .build();
   }
 
   @Override
-  public MemberEntity save(MemberEntity memberEntity) {
-    return null;
+  public boolean exist(Long id) {
+    return true;
   }
 }

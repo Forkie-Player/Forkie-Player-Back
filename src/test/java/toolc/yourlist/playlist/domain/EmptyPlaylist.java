@@ -1,16 +1,19 @@
 package toolc.yourlist.playlist.domain;
 
-import java.util.Optional;
-
-class EmptyPlaylist implements AllPlaylists {
+class EmptyPlaylist implements AllPlaylists{
   @Override
   public ListOfPlaylists readAllBelongsTo(Long memberId) {
     return null;
   }
 
   @Override
-  public Optional<Playlist> readBelongsTo(Long id) {
-    return Optional.empty();
+  public Playlist readBelongsTo(Long id) {
+    return null;
+  }
+
+  @Override
+  public boolean exist(Long id) {
+    return false;
   }
 
   @Override
