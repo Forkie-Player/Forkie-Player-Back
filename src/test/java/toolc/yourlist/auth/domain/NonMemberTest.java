@@ -10,19 +10,19 @@ class NonMemberTest {
 
   @Test
   void equals() {
-    assertThat(new NonMember("55D154BE-07E6-42FA-832B-D9CF11CE0D6A"),
-      is(new NonMember("55D154BE-07E6-42FA-832B-D9CF11CE0D6A")));
+    assertThat(new NonMember(100L,"55D154BE-07E6-42FA-832B-D9CF11CE0D6A"),
+      is(new NonMember(100L,"55D154BE-07E6-42FA-832B-D9CF11CE0D6A")));
   }
 
   @Test
   void non_null() {
     assertThrows(IllegalArgumentException.class, () ->
-      new NonMember(null));
+      new NonMember(100L,null));
   }
 
   @Test
   void non_empty() {
     assertThrows(IllegalArgumentException.class, () ->
-      new NonMember(""));
+      new NonMember(100L,""));
   }
 }

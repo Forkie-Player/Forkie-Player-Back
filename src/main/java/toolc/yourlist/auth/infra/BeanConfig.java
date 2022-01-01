@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
 import toolc.yourlist.auth.token.domain.*;
-import toolc.yourlist.auth.token.usecase.TokenMaterialMaker;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 
@@ -14,7 +13,7 @@ public class BeanConfig {
 
   @Bean
   LoginIdFactory loginIdFactory() {
-    return new LoginIdFactory(new All());
+    return new LoginIdFactory(new AllLoginPolicy());
   }
 
   @Bean
@@ -27,25 +26,21 @@ public class BeanConfig {
     return new RealLoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
   }
 
-  CurrentTime currentTime = new CurrentTime();
-
   @Bean
-  AccessTokenCreatorImpl accessTokenCreator() {
-    return new AccessTokenCreatorImpl(currentTime);
+  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson() {
+    return new NonLoginRequestMapperFromJson();
   }
 
+  CurrentTimeServer currentTimeServer = new RealTimeServer();
+
   @Bean
-  RefreshTokenCreator refreshTokenCreator() {
-    return new RefreshTokenCreatorImpl(currentTime);
+  TokenExpirationConfig expirationConfig() {
+    return new TokenExpirationConfig(currentTimeServer);
   }
 
   @Autowired
   JwtSetConfigSecretKeyYamlAdapter jwtSetConfigSecretKeyYamlAdapter;
 
-  @Bean
-  TokenFormatter tokenFormatter() {
-    return new TokenFormatter(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig());
-  }
 
   @Autowired
   JpaAllMemberEntity jpaAllMemberEntity;
@@ -53,6 +48,11 @@ public class BeanConfig {
   @Bean
   AllMember allMember() {
     return new JpaAllMember(jpaAllMemberEntity, new MemberDomainAdapter());
+  }
+
+  @Bean
+  AllNonMember allNonMember() {
+    return new JpaAllNonMember(jpaAllMemberEntity, new NonMemberDomainAdapter());
   }
 
   @Bean
@@ -67,12 +67,16 @@ public class BeanConfig {
 
   @Bean
   public TokenProvider tokenProvider() {
-    return new TokenProviderImpl(accessTokenCreator(), refreshTokenCreator());
+    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(), expirationConfig());
   }
 
   @Bean
   public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), new TokenMaterialMaker(),
-      tokenProvider(), checkPassword());
+    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
+  }
+
+  @Bean
+  public NonMemberLogin nonMemberLogin() {
+    return new NonMemberLogin(allNonMember(), tokenProvider());
   }
 }

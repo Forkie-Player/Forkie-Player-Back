@@ -6,6 +6,6 @@ import toolc.yourlist.member.infra.MemberEntity;
 public class MemberDomainAdapter {
 
   Member toDomainMember(MemberEntity member) {
-    return new Member(member.loginId(), member.password());
+    return new Member(member.id(), member.loginId(), member.password());
   }
 }

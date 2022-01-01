@@ -12,7 +12,7 @@ class NonMemberAdapterTest {
   @Test
   void make_non_member() {
     //given
-    final var adapter = new NonMemberAdapter();
+    final var adapter = new NonMemberDomainAdapter();
     final var entity = MemberEntity.builder()
       .loginId("55D154BE-07E6-42FA-832B-D9CF11CE0D6A")
       .isMember(false)
@@ -22,7 +22,7 @@ class NonMemberAdapterTest {
     final var actual = adapter.toDomainNonMember(entity);
 
     //then
-    final var expected = new NonMember("55D154BE-07E6-42FA-832B-D9CF11CE0D6A");
+    final var expected = new NonMember(null, "55D154BE-07E6-42FA-832B-D9CF11CE0D6A");
     assertThat(actual, is(expected));
   }
 }

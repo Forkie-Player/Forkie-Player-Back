@@ -19,7 +19,7 @@ public class JpaAllMember implements AllMember {
   }
 
   @Override
-  public Member NonMemberSave(Member member) {
+  public Member memberSave(Member member) {
     jpaAllMemberEntity.save(new MemberEntity(member.loginId(),
       member.password(), false));
     return member;

@@ -21,8 +21,8 @@ class NomMemberSaveEntityTest {
 
   @Test
   void save_non_member() {
-    assertThat(nomMemberSaveEntity.save(new NonMember("NonMemberUUID")),
-      is(new NonMember("NonMemberUUID")));
+    assertThat(nomMemberSaveEntity.save(new NonMember(1L, "NonMemberUUID")),
+      is(new NonMember(1L,"NonMemberUUID")));
   }
 }
 

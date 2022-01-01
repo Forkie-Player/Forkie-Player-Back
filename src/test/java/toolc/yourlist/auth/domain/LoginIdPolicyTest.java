@@ -37,7 +37,7 @@ class LoginIdPolicyTest {
 
   @Test
   void should_be_satisfied_all_loginId_policy() {
-    LoginIdPolicy allLoginIdPolicy = new All();
+    LoginIdPolicy allLoginIdPolicy = new AllLoginPolicy();
 
     assertThat(allLoginIdPolicy.matches("jisoo01"), is(true));
   }

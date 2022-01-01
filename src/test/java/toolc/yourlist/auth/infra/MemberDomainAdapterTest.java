@@ -10,14 +10,15 @@ import static org.hamcrest.Matchers.*;
 class MemberDomainAdapterTest {
 
   @Test
-  void test1() {
+  void adapter() {
     MemberDomainAdapter adapter = new MemberDomainAdapter();
     MemberEntity memberEntity = new MemberEntity("jspark27", "encodedPassword"
       , false);
 
     Member actual = adapter.toDomainMember(memberEntity);
+    System.out.println(actual.id());
 
-    assertThat(new Member("jspark27", "encodedPassword"), is(actual));
+    assertThat(new Member(null, "jspark27", "encodedPassword"), is(actual));
 
   }
 

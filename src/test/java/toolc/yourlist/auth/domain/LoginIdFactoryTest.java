@@ -11,14 +11,14 @@ class LoginIdFactoryTest {
 
   @Test
   void create_loginId() {
-    LoginIdFactory loginIdFactory = new LoginIdFactory(new All());
+    LoginIdFactory loginIdFactory = new LoginIdFactory(new AllLoginPolicy());
 
     assertThat(loginIdFactory.create("loginid"), is(new LoginId("loginid")));
   }
 
   @Test
   void wrong_loginId() {
-    LoginIdFactory loginIdFactory = new LoginIdFactory(new All());
+    LoginIdFactory loginIdFactory = new LoginIdFactory(new AllLoginPolicy());
 
     assertThrows(IllegalArgumentException.class, () -> loginIdFactory.create(
       "Id"));

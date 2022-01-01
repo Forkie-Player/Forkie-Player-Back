@@ -9,10 +9,11 @@ import toolc.yourlist.member.infra.JpaAllMemberEntity;
 public class JpaAllNonMember implements AllNonMember {
 
   private final JpaAllMemberEntity jpaAllMemberEntity;
+  private final NonMemberDomainAdapter adapter;
 
   @Override
   public NonMember findByDeviceId(String deviceId) {
-    return null;
+    return adapter.toDomainNonMember(jpaAllMemberEntity.findByLoginId(deviceId));
   }
 }
 

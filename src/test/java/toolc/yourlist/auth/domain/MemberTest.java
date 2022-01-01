@@ -9,8 +9,8 @@ class MemberTest {
 
   @Test
   void equals() {
-    assertThat(new Member("jspark27", "q1w2e3r4!@#"),
-      is(new Member("jspark27", "q1w2e3r4!@#")));
+    assertThat(new Member(1L, "jspark27", "q1w2e3r4!@#"),
+      is(new Member(1L, "jspark27", "q1w2e3r4!@#")));
   }
 
 }

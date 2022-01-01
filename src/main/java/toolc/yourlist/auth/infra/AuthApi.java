@@ -19,7 +19,6 @@ public class AuthApi {
   private final MemberLogin memberLogin;
   private final NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson;
   private final NonMemberLogin nonMemberLogin;
-  private final TokenFormatter tokenFormatter;
 
   @PostMapping("/api/login/real")
   public ResponseEntity<?> login(@RequestBody JsonRealLoginRequest request) {
@@ -30,9 +29,8 @@ public class AuthApi {
       return ResponseEntity.badRequest().body(loginResult.getLeft());
     }
     if (loginResult.isRight()) {
-      ResponseBody responseBody = new ResponseBody(OK.value(), "회원 로그인 성공",
-        tokenFormatter.toJwtFromToken(loginResult.get()));
-
+      ResponseBody responseBody = new ResponseBody(
+        OK.value(), "회원 로그인 성공", loginResult.get());
       return ResponseEntity.ok(responseBody);
     }
 
@@ -44,7 +42,7 @@ public class AuthApi {
 
     ResponseBody responseBody = new ResponseBody(
       OK.value(), "비회원 로그인 성공",
-      tokenFormatter.toJwtFromToken(nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request))));
+      nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request)));
 
     return ResponseEntity.ok(responseBody);
   }
