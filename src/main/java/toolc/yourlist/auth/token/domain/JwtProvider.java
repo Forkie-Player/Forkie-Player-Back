@@ -15,7 +15,8 @@ public class JwtProvider implements TokenProvider {
   private final TokenExpirationConfig tokenExpirationConfig;
 
 
-  public Token create(Long id, Device device) {
+  public Token create(Long id, boolean isPC) {
+    Device device = isPC ? Device.PC : Device.APP;
     return new Token(toJwtFromAccessToken(id),
       toJwtFromRefreshToken(device));
   }

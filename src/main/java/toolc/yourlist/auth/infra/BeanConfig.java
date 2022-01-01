@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
-import toolc.yourlist.auth.token.domain.*;
+import toolc.yourlist.auth.token.domain.CurrentTimeServer;
+import toolc.yourlist.auth.token.domain.JwtProvider;
+import toolc.yourlist.auth.token.domain.RealTimeServer;
+import toolc.yourlist.auth.token.domain.TokenExpirationConfig;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 

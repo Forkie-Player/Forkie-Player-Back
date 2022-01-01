@@ -9,11 +9,11 @@ import javax.crypto.SecretKey;
 
 @Getter
 public class JwtSetConfig {
-  private SecretKey key;
-  private SignatureAlgorithm signatureAlgorithm;
+  private final SecretKey key;
+  private final SignatureAlgorithm signatureAlgorithm;
 
   public JwtSetConfig(String secretKey) {
-    this.key =  Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+    this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     this.signatureAlgorithm = SignatureAlgorithm.HS512;
   }
 }
