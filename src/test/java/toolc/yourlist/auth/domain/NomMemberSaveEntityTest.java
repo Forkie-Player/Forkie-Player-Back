@@ -27,34 +27,3 @@ class NomMemberSaveEntityTest {
 }
 
 
-class MockAllMemberEntity implements AllMemberEntity {
-
-  @Override
-  public MemberEntity findByLoginId(String loginId) {
-    return new MemberEntity(loginId, "password1!", true);
-  }
-
-  @Override
-  public MemberEntity save(MemberEntity member) {
-    return member;
-  }
-
-  public MockAllMemberEntity() {
-  }
-}
-
-class MockPasswordEncoder implements PasswordEncoder {
-
-  @Override
-  public String encode(String raw) {
-    return "encoded" + raw;
-  }
-
-  @Override
-  public boolean matches(CharSequence rawPassword, String encodedPassword) {
-    return false;
-  }
-
-  public MockPasswordEncoder() {
-  }
-}
