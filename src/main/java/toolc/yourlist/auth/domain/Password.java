@@ -8,7 +8,7 @@ import lombok.Getter;
 final class Password {
 
   @Getter
-  private String raw;
+  private final String raw;
 
   public Password(String raw) {
     this.raw = raw;

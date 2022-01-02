@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class AllMemberEntityAdapter implements AllMemberEntity {
+
   private final JpaAllMemberEntity jpaAllMemberEntity;
 
   @Override

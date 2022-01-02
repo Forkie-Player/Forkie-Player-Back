@@ -1,11 +1,13 @@
 package toolc.yourlist.playlist.usecase;
 
+import lombok.RequiredArgsConstructor;
+import toolc.yourlist.auth.domain.MakeDefaultPlayList;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
 
-// TODO: merge 후 MakeDefaultPlaylist 구현
-public class DefaultPlaylist {
-  AllPlaylists allPlaylists;
+@RequiredArgsConstructor
+public class DefaultPlaylist implements MakeDefaultPlayList {
+  private final AllPlaylists allPlaylists;
 
   public void make(Long id) {
     allPlaylists.save(getDefault(id));

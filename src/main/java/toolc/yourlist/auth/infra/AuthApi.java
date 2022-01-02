@@ -6,33 +6,59 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.auth.domain.MemberLogin;
+import toolc.yourlist.auth.domain.NonMemberLogin;
+import toolc.yourlist.auth.domain.NonMemberSignUp;
 import toolc.yourlist.common.infra.ResponseBody;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
 public class AuthApi {
 
-  private final LoginRequestMapperFromJson loginRequestMapperFromJson;
-  private final TokenFormatter tokenFormatter;
+  private final RealLoginRequestMapperFromJson realLoginRequestMapperFromJson;
   private final MemberLogin memberLogin;
+  private final NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson;
+  private final NonMemberLogin nonMemberLogin;
+  private final NonMemberSignUpRequestMapperFromJson nonMemberSignUpRequestMapperFromJson;
+  private final NonMemberSignUp nonMemberSignUp;
 
-  @PostMapping("/api/login")
-  public ResponseEntity<?> login(@RequestBody JsonLoginRequest request) {
+  @PostMapping("/api/login/real")
+  public ResponseEntity<?> login(@RequestBody JsonRealLoginRequest request) {
     var loginResult =
-      memberLogin.login(loginRequestMapperFromJson.mapper(request));
+      memberLogin.login(realLoginRequestMapperFromJson.mapper(request));
 
     if (loginResult.isLeft()) {
       return ResponseEntity.badRequest().body(loginResult.getLeft());
     }
     if (loginResult.isRight()) {
-      ResponseBody responseBody = new ResponseBody(OK.value(), "로그인 성공",
-        tokenFormatter.toJwtFromToken(loginResult.get()));
-
+      ResponseBody responseBody = new ResponseBody(
+        OK.value(), "회원 로그인 성공", loginResult.get());
       return ResponseEntity.ok(responseBody);
     }
 
     throw new InternalError();
+  }
+
+  @PostMapping("/api/login/non")
+  public ResponseEntity<?> login(@RequestBody JsonNonLoginRequest request) {
+
+    ResponseBody responseBody = new ResponseBody(
+      OK.value(), "비회원 로그인 성공",
+      nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request)));
+
+    return ResponseEntity.ok(responseBody);
+  }
+
+  @PostMapping("api/signup")
+  public ResponseEntity<?> signUp(@RequestBody JsonNonMemberSignUpRequest jsonRequest) {
+    var request = nonMemberSignUpRequestMapperFromJson.mapper(jsonRequest);
+
+    var result = nonMemberSignUp.singUp(request);
+    ResponseBody responseBody = new ResponseBody(
+      CREATED.value(), "비회원 로그인 성공", null);
+
+    return ResponseEntity.created(null).body(responseBody);
   }
 }

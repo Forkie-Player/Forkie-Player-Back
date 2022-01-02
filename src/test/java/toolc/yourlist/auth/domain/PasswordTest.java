@@ -10,6 +10,7 @@ class PasswordTest {
 
   @Test
   void equals() {
-    assertThat(new Password("password1227!"), is(new Password("password1227!")));
+    assertThat(new Password("password1227!"),
+      is(new Password("password1227!")));
   }
 }

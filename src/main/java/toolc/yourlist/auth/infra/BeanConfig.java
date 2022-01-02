@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
+import toolc.yourlist.auth.token.domain.CurrentTimeServer;
+import toolc.yourlist.auth.token.domain.JwtProvider;
+import toolc.yourlist.auth.token.domain.RealTimeServer;
+import toolc.yourlist.auth.token.domain.TokenExpirationConfig;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 
@@ -12,7 +16,7 @@ public class BeanConfig {
 
   @Bean
   LoginIdFactory loginIdFactory() {
-    return new LoginIdFactory(new All());
+    return new LoginIdFactory(new AllLoginPolicy());
   }
 
   @Bean
@@ -21,29 +25,30 @@ public class BeanConfig {
   }
 
   @Bean
-  LoginRequestMapperFromJson loginRequestMapperFromJson() {
-    return new LoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
-  }
-
-  CurrentTime currentTime = new CurrentTime();
-
-  @Bean
-  AccessTokenCreatorImpl accessTokenCreator() {
-    return new AccessTokenCreatorImpl(currentTime);
+  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson() {
+    return new RealLoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
   }
 
   @Bean
-  RefreshTokenCreator refreshTokenCreator() {
-    return new RefreshTokenCreatorImpl(currentTime);
+  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson() {
+    return new NonLoginRequestMapperFromJson();
+  }
+
+  @Bean
+  NonMemberSignUpRequestMapperFromJson nonMemberSignUpRequestMapperFromJson() {
+    return new NonMemberSignUpRequestMapperFromJson();
+  }
+
+  CurrentTimeServer currentTimeServer = new RealTimeServer();
+
+  @Bean
+  TokenExpirationConfig expirationConfig() {
+    return new TokenExpirationConfig(currentTimeServer);
   }
 
   @Autowired
   JwtSetConfigSecretKeyYamlAdapter jwtSetConfigSecretKeyYamlAdapter;
 
-  @Bean
-  TokenFormatter tokenFormatter() {
-    return new TokenFormatter(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig());
-  }
 
   @Autowired
   JpaAllMemberEntity jpaAllMemberEntity;
@@ -51,6 +56,11 @@ public class BeanConfig {
   @Bean
   AllMember allMember() {
     return new JpaAllMember(jpaAllMemberEntity, new MemberDomainAdapter());
+  }
+
+  @Bean
+  AllNonMember allNonMember() {
+    return new JpaAllNonMember(jpaAllMemberEntity, new NonMemberDomainAdapter());
   }
 
   @Bean
@@ -65,12 +75,26 @@ public class BeanConfig {
 
   @Bean
   public TokenProvider tokenProvider() {
-    return new TokenProviderImpl(accessTokenCreator(), refreshTokenCreator());
+    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(), expirationConfig());
   }
 
   @Bean
   public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), new TokenMaterialMaker(),
-      tokenProvider(), checkPassword());
+    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
+  }
+
+  @Bean
+  public NonMemberLogin nonMemberLogin() {
+    return new NonMemberLogin(allNonMember(), tokenProvider());
+  }
+
+  @Bean
+  public NonMemberSave nonMemberSave() {
+    return new NonMemberSave(allNonMember());
+  }
+
+  @Bean
+  public NonMemberSignUp nonMemberSignUp(MakeDefaultPlayList makeDefaultPlayList) {
+    return new NonMemberSignUp(nonMemberSave(), makeDefaultPlayList);
   }
 }

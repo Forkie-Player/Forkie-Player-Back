@@ -6,10 +6,10 @@ import lombok.Getter;
 @EqualsAndHashCode
 @Getter
 public final class Token {
-  AccessToken accessToken;
-  RefreshToken refreshToken;
+  String accessToken;
+  String refreshToken;
 
-  public Token(AccessToken accessToken, RefreshToken refreshToken) {
+  public Token(String accessToken, String refreshToken) {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
   }

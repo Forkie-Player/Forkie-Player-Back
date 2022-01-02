@@ -1,7 +1,6 @@
 package toolc.yourlist.auth.domain;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.auth.domain.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -30,15 +29,17 @@ class PasswordPolicyTest {
 
   @Test
   void allow_only_alphabet_or_number_or_special_character() {
-    PasswordPolicy allowOnlyAlphabetOrNumberOrSpecialCharacter = new AllowOnlyAlphabetOrNumberOrSpecialCharacter();
+    PasswordPolicy allowOnlyAlphabetOrNumberOrSpecialCharacter =
+      new AllowOnlyAlphabetOrNumberOrSpecialCharacter();
 
-    assertThat(allowOnlyAlphabetOrNumberOrSpecialCharacter.matches("j1!") , is(true));
+    assertThat(allowOnlyAlphabetOrNumberOrSpecialCharacter.matches("j1!"),
+      is(true));
   }
 
   @Test
   void should_be_satisfied_all_password_policy() {
     PasswordPolicy allPasswordPolicy = new AllPasswordPolicy();
 
-    assertThat(allPasswordPolicy.matches("PasswordTest1!") , is(true));
+    assertThat(allPasswordPolicy.matches("PasswordTest1!"), is(true));
   }
 }
