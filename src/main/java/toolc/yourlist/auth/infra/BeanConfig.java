@@ -34,6 +34,11 @@ public class BeanConfig {
     return new NonLoginRequestMapperFromJson();
   }
 
+  @Bean
+  NonMemberSignUpRequestMapperFromJson nonMemberSignUpRequestMapperFromJson() {
+    return new NonMemberSignUpRequestMapperFromJson();
+  }
+
   CurrentTimeServer currentTimeServer = new RealTimeServer();
 
   @Bean
@@ -81,5 +86,15 @@ public class BeanConfig {
   @Bean
   public NonMemberLogin nonMemberLogin() {
     return new NonMemberLogin(allNonMember(), tokenProvider());
+  }
+
+  @Bean
+  public NonMemberSave nonMemberSave() {
+    return new NonMemberSave(allNonMember());
+  }
+
+  @Bean
+  public NonMemberSignUp nonMemberSignUp() {
+    return new NonMemberSignUp(nonMemberSave());
   }
 }

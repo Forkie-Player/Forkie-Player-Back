@@ -19,7 +19,7 @@ class NonMemberAdapterTest {
       .build();
 
     //when
-    final var actual = adapter.toDomainNonMember(entity);
+    final var actual = adapter.toDomain(entity);
 
     //then
     final var expected = new NonMember(null, "55D154BE-07E6-42FA-832B-D9CF11CE0D6A");

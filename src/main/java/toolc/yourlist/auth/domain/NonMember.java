@@ -7,8 +7,12 @@ import lombok.Getter;
 @Getter
 public final class NonMember {
 
-  private final Long id;
+  private Long id;
   private final String deviceId;
+
+  public NonMember(String deviceId) {
+    this.deviceId = deviceId;
+  }
 
   public NonMember(Long id, String deviceId) {
     if (deviceId == null || deviceId.equals(""))

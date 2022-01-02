@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.auth.domain.MemberLogin;
 import toolc.yourlist.auth.domain.NonMemberLogin;
+import toolc.yourlist.auth.domain.NonMemberSignUp;
 import toolc.yourlist.common.ResponseBody;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -19,6 +21,8 @@ public class AuthApi {
   private final MemberLogin memberLogin;
   private final NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson;
   private final NonMemberLogin nonMemberLogin;
+  private final NonMemberSignUpRequestMapperFromJson nonMemberSignUpRequestMapperFromJson;
+  private final NonMemberSignUp nonMemberSignUp;
 
   @PostMapping("/api/login/real")
   public ResponseEntity<?> login(@RequestBody JsonRealLoginRequest request) {
@@ -45,5 +49,16 @@ public class AuthApi {
       nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request)));
 
     return ResponseEntity.ok(responseBody);
+  }
+
+  @PostMapping("api/signup")
+  public ResponseEntity<?> signUp(@RequestBody JsonNonMemberSignUpRequest jsonRequest) {
+    var request = nonMemberSignUpRequestMapperFromJson.mapper(jsonRequest);
+
+    var result = nonMemberSignUp.singUp(request);
+    ResponseBody responseBody = new ResponseBody(
+      CREATED.value(), "비회원 로그인 성공", null);
+
+    return ResponseEntity.created(null).body(responseBody);
   }
 }
