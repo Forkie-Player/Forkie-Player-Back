@@ -4,7 +4,7 @@ import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
 
 // TODO: merge 후 MakeDefaultPlaylist 구현
-public class DefaultPlaylist {
+public class BasicPlaylist {
   AllPlaylists allPlaylists;
 
   public void make(Long id) {
