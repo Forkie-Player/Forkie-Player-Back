@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.MakeDefaultPlayList;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
-import toolc.yourlist.play.infra.JpaPlayAdapter;
-import toolc.yourlist.play.infra.JpaPlayRepository;
-import toolc.yourlist.play.infra.Play;
+import toolc.yourlist.play.domain.JpaPlayRepository;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 
