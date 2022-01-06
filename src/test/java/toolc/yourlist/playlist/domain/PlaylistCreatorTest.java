@@ -19,7 +19,7 @@ class PlaylistCreatorTest {
       .build(),
       "My List");
 
-    var actual = creator.createPlaylist(request).get();
+    var actual = creator.create(request).get();
 
     assertThat(actual, is(true));
   }
@@ -36,7 +36,7 @@ class PlaylistCreatorTest {
       .build(),
       "My List");
 
-    var actual = creator.createPlaylist(request).getLeft();
+    var actual = creator.create(request).getLeft();
 
     assertThat(actual, is("비회원의 영상 생성 제한을 넘었습니다."));
   }

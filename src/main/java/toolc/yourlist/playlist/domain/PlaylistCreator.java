@@ -8,7 +8,7 @@ public class PlaylistCreator {
   private final AllPlaylists allPlaylists;
   private final SavePolicy savePolicy = new SavePolicy();
 
-  public Either<String, Boolean> createPlaylist(SaveRequest request) {
+  public Either<String, Boolean> create(SaveRequest request) {
     var playlistCount = allPlaylists.havingCountOf(request.member().id());
 
     if (!savePolicy.match(request.member(), playlistCount)) {

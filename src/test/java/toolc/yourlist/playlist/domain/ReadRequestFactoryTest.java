@@ -24,26 +24,6 @@ class ReadRequestFactoryTest {
   }
 
   @Test
-  void create_not_null() {
-    var allMember = new MockAllMember();
-    var factory = new ReadRequestFactory(allMember);
-
-    var actual = factory.create(null).getLeft();
-
-    assertThat(actual, is("입력이 비어있습니다."));
-  }
-
-  @Test
-  void create_not_exist_member() {
-    var allMember = new EmptyMember();
-    var factory = new ReadRequestFactory(allMember);
-
-    var actual = factory.create("1").getLeft();
-
-    assertThat(actual, is("존재하지 않는 회원"));
-  }
-
-  @Test
   void create_not_number() {
     var allMember = new EmptyMember();
     var factory = new ReadRequestFactory(allMember);
