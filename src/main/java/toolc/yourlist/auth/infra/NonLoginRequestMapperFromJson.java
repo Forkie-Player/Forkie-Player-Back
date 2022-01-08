@@ -6,7 +6,7 @@ import toolc.yourlist.auth.domain.NonMemberLoginRequest;
 @RequiredArgsConstructor
 class NonLoginRequestMapperFromJson {
 
-  NonMemberLoginRequest mapper(JsonNonLoginRequest json) {
-    return new NonMemberLoginRequest(json.deviceId(), json.isPC());
+  NonMemberLoginRequest mapper(JsonNonLoginRequest jsonRequest) {
+    return new NonMemberLoginRequest(jsonRequest.deviceId(), jsonRequest.isPC());
   }
 }

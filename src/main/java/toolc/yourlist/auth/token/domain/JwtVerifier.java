@@ -3,6 +3,7 @@ package toolc.yourlist.auth.token.domain;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.vavr.control.Either;
+import toolc.yourlist.auth.domain.ReissueRequest;
 import toolc.yourlist.auth.domain.Token;
 import toolc.yourlist.auth.domain.TokenProvider;
 import toolc.yourlist.auth.domain.TokenVerifier;
@@ -27,11 +28,11 @@ public class JwtVerifier implements TokenVerifier {
   }
 
   @Override
-  public Either<String, Token> reissue(String accessToken, String refreshToken, boolean isPc) {
-    Long id = getPk(accessToken);
+  public Either<String, Token> reissue(ReissueRequest request) {
+    Long id = getPk(request.accessToken());
 
-    if (checkExpiration(id, refreshToken, isPc))
-      return right(tokenProvider.create(id, isPc));
+    if (checkExpiration(id, request.refreshToken(), request.isPC()))
+      return right(tokenProvider.create(id, request.isPC()));
     else
       return left("refreshToken 이 만료되었습니다.");
   }
