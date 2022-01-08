@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.*;
-import toolc.yourlist.auth.token.domain.CurrentTimeServer;
-import toolc.yourlist.auth.token.domain.JwtProvider;
-import toolc.yourlist.auth.token.domain.RealTimeServer;
-import toolc.yourlist.auth.token.domain.TokenExpirationConfig;
+import toolc.yourlist.auth.token.domain.*;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 
 
@@ -96,5 +93,17 @@ public class BeanConfig {
   @Bean
   public NonMemberSignUp nonMemberSignUp(MakeDefaultPlayList makeDefaultPlayList) {
     return new NonMemberSignUp(nonMemberSave(), makeDefaultPlayList);
+  }
+
+  @Bean
+  RefreshTokenStorage refreshTokenStorage() {
+    return new RefreshTokenStorage();
+  }
+
+  @Bean
+  public TokenVerifier tokenVerifier(RefreshTokenStorage refreshTokenStorage,
+                                     TokenProvider tokenProvider) {
+    return new JwtVerifier(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
+      refreshTokenStorage, tokenProvider);
   }
 }

@@ -57,7 +57,7 @@ public class AuthApi {
 
     var result = nonMemberSignUp.singUp(request);
     ResponseBody responseBody = new ResponseBody(
-      CREATED.value(), "비회원 로그인 성공", null);
+      CREATED.value(), "비회원 등록 성공", null);
 
     return ResponseEntity.created(null).body(responseBody);
   }
