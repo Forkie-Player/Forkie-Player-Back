@@ -12,7 +12,7 @@ class SaveRequestFactoryTest {
     var allMember = new MockAllMember();
     var factory = new SaveRequestFactory(allMember);
 
-    var actual = factory.create(1L, "My List");
+    var actual = factory.create(1L, "My List").get();
 
     var expected = new SaveRequest(Member.builder()
       .id(1L)
@@ -23,5 +23,15 @@ class SaveRequestFactoryTest {
       "My List");
 
     assertThat(actual, is(expected));
+  }
+
+  @Test
+  void create_not_exist_member() {
+    var allMember = new EmptyMember();
+    var factory = new SaveRequestFactory(allMember);
+
+    var actual = factory.create(1L, "My List").getLeft();
+
+    assertThat(actual, is("존재하지 않는 회원"));
   }
 }

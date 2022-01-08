@@ -22,9 +22,12 @@ class CreateApi {
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest jsonRequest) {
-    var result = creator
-      .create(mapper.toCreateRequest(jsonRequest));
+    var request = mapper.toCreateRequest(jsonRequest);
+    if (request.isEmpty()) {
+      return failCreate(request.getLeft());
+    }
 
+    var result = creator.createPlaylist(request.get());
     if (result.isEmpty()) {
       return failCreate(result.getLeft());
     }

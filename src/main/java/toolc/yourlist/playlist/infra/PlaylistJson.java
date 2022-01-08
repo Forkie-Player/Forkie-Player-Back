@@ -1,15 +1,24 @@
 package toolc.yourlist.playlist.infra;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import toolc.yourlist.playlist.domain.Playlist;
 
-record PlaylistJson(
-  @JsonProperty Long id,
-  @JsonProperty String thumbnail,
-  @JsonProperty String title
-) {
+@Getter
+@EqualsAndHashCode
+final class PlaylistJson {
+  @JsonProperty
+  private Long id;
+  @JsonProperty
+  private String thumbnail;
+  @JsonProperty
+  private String title;
+
   public PlaylistJson(Playlist playlist) {
-    this(playlist.id(), playlist.thumbnail(), playlist.title());
+    this.id = playlist.id();
+    this.thumbnail = playlist.thumbnail();
+    this.title = playlist.title();
   }
 }
 

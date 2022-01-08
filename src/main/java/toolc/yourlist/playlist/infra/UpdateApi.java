@@ -22,9 +22,12 @@ class UpdateApi {
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest jsonRequest) {
-    var result = updater
-      .updateTitle(mapper.toUpdateRequest(jsonRequest));
+    var request = mapper.toUpdateRequest(jsonRequest);
+    if (request.isEmpty()) {
+      return failUpdate(request.getLeft());
+    }
 
+    var result = updater.updateTitle(request.get());
     if (result.isEmpty()) {
       return failUpdate(result.getLeft());
     }

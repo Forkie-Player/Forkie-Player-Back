@@ -1,12 +1,26 @@
 package toolc.yourlist.playlist.infra;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-record JsonSaveRequest(
-  @NotNull @JsonProperty Long memberId,
-  @NotBlank @JsonProperty String title
-) {
+@Getter
+@NoArgsConstructor
+final class JsonSaveRequest {
+  @NotNull
+  @JsonProperty
+  private Long memberId;
+  @NotBlank
+  @JsonProperty
+  private String title;
+
+  @Builder
+  JsonSaveRequest(Long memberId, String title) {
+    this.memberId = memberId;
+    this.title = title;
+  }
 }
