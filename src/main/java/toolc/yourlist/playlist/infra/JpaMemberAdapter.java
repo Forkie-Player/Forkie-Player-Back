@@ -7,7 +7,7 @@ import toolc.yourlist.playlist.domain.Member;
 import toolc.yourlist.playlist.domain.NoExistMemberException;
 
 @RequiredArgsConstructor
-public class AllMemberMapper implements AllMember {
+public class JpaMemberAdapter implements AllMember {
 
   private final JpaAllMemberEntity jpaAllMemberEntity;
   private final MemberEntityMapper mapper = new MemberEntityMapper();

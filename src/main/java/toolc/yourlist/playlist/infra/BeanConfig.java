@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.MakeDefaultPlayList;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
-import toolc.yourlist.play.domain.JpaPlayRepository;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 
@@ -14,7 +13,7 @@ import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 class BeanConfig {
   @Bean
   AllMember allMemberInPlaylist(JpaAllMemberEntity jpaAllMemberEntity) {
-    return new AllMemberMapper(jpaAllMemberEntity);
+    return new JpaMemberAdapter(jpaAllMemberEntity);
   }
 
   @Bean
@@ -83,12 +82,7 @@ class BeanConfig {
   }
 
   @Bean
-  Play play(JpaPlayRepository playRepository) {
-    return new JpaPlayAdapter(playRepository);
-  }
-
-  @Bean
-  MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists){
+  MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists) {
     return new DefaultPlaylist(allPlaylists);
   }
 }
