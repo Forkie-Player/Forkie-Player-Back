@@ -5,15 +5,17 @@ import lombok.Getter;
 
 @EqualsAndHashCode
 @Getter
-
 public final class NonMemberLoginRequest {
   private final String deviceId;
-  private final boolean isPC;
+  private final AuthExpiration authExpiration;
+  private final String TokenSaveNamePrefix;
 
-  public NonMemberLoginRequest(String deviceId, boolean isPC) {
-    this.isPC = isPC;
+  public NonMemberLoginRequest(String deviceId, AuthExpiration authExpiration
+    , String TokenSaveNamePrefix) {
+    this.authExpiration = authExpiration;
     checkNullOrEmpty(deviceId);
     this.deviceId = deviceId;
+    this.TokenSaveNamePrefix = TokenSaveNamePrefix;
   }
 
   private void checkNullOrEmpty(String deviceId) {

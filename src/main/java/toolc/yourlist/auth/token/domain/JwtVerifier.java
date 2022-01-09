@@ -31,8 +31,9 @@ public class JwtVerifier implements TokenVerifier {
   public Either<String, Token> reissue(ReissueRequest request) {
     Long id = getPk(request.accessToken());
 
-    if (checkExpiration(id, request.refreshToken(), request.isPC()))
-      return right(tokenProvider.create(id, request.isPC()));
+    if (checkExpiration(request.tokenSaveNamePrefix() + id, request.refreshToken()))
+      return right(tokenProvider.create(
+        id, request.authExpiration(), request.tokenSaveNamePrefix()));
     else
       return left("refreshToken 이 만료되었습니다.");
   }
@@ -42,8 +43,8 @@ public class JwtVerifier implements TokenVerifier {
       jwtParser.parseClaimsJws(accessToken).getBody().getSubject());
   }
 
-  private boolean checkExpiration(Long id, String refreshToken, boolean isPC) {
-    String savedToken = refreshTokenStorage.find(isPC ? "PC" : "APP" + id);
+  private boolean checkExpiration(String tokenSaveName, String refreshToken) {
+    String savedToken = refreshTokenStorage.find(tokenSaveName);
     return refreshToken.equals(savedToken);
   }
 

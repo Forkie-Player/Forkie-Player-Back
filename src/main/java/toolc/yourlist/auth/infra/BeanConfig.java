@@ -22,13 +22,17 @@ public class BeanConfig {
   }
 
   @Bean
-  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson() {
-    return new RealLoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
+  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson(
+    LoginIdFactory loginIdFactory,
+    PasswordFactory passwordFactory,
+    TokenExpirationConfig tokenExpirationConfig) {
+    return new RealLoginRequestMapperFromJson(loginIdFactory, passwordFactory,
+      tokenExpirationConfig);
   }
 
   @Bean
-  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson() {
-    return new NonLoginRequestMapperFromJson();
+  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson(TokenExpirationConfig tokenExpirationConfig) {
+    return new NonLoginRequestMapperFromJson(tokenExpirationConfig);
   }
 
   @Bean
@@ -71,19 +75,19 @@ public class BeanConfig {
   }
 
   @Bean
-  public TokenProvider tokenProvider() {
+  public TokenProvider tokenProvider(TokenExpirationConfig tokenExpirationConfig) {
     return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
-      expirationConfig(), refreshTokenStorage());
+      refreshTokenStorage());
   }
 
   @Bean
-  public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
+  public MemberLogin memberLogin(TokenProvider tokenProvider) {
+    return new MemberLogin(allMember(), tokenProvider, checkPassword());
   }
 
   @Bean
-  public NonMemberLogin nonMemberLogin() {
-    return new NonMemberLogin(allNonMember(), tokenProvider());
+  public NonMemberLogin nonMemberLogin(TokenProvider tokenProvider) {
+    return new NonMemberLogin(allNonMember(), tokenProvider);
   }
 
   @Bean
@@ -102,9 +106,9 @@ public class BeanConfig {
   }
 
   @Bean
-  public TokenVerifier tokenVerifier() {
+  public TokenVerifier tokenVerifier(TokenProvider tokenProvider) {
     return new JwtVerifier(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
-      refreshTokenStorage(), tokenProvider());
+      refreshTokenStorage(), tokenProvider);
   }
 
   @Bean
@@ -113,7 +117,8 @@ public class BeanConfig {
   }
 
   @Bean
-  public ReissueRequestAdapterFromJson reissueRequestAdapterFromJson() {
-    return new ReissueRequestAdapterFromJson();
+  public ReissueRequestAdapterFromJson reissueRequestAdapterFromJson(
+    TokenExpirationConfig tokenExpirationConfig) {
+    return new ReissueRequestAdapterFromJson(tokenExpirationConfig);
   }
 }
