@@ -6,6 +6,7 @@ import toolc.yourlist.auth.domain.Token;
 import toolc.yourlist.auth.domain.TokenProvider;
 import toolc.yourlist.auth.infra.JwtSetConfig;
 
+import java.sql.Ref;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -13,12 +14,15 @@ public class JwtProvider implements TokenProvider {
 
   private final JwtSetConfig jwtSetConfig;
   private final TokenExpirationConfig tokenExpirationConfig;
+  private final RefreshTokenStorage refreshTokenStorage;
 
 
   public Token create(Long id, boolean isPC) {
     Device device = isPC ? Device.PC : Device.APP;
-    return new Token(toJwtFromAccessToken(id),
+    Token newToken = new Token(toJwtFromAccessToken(id),
       toJwtFromRefreshToken(device));
+    refreshTokenStorage.save(isPC ? "PC" : "APP" + id, newToken.refreshToken());
+    return newToken;
   }
 
   private String toJwtFromAccessToken(Long id) {

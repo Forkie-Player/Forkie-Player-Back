@@ -72,7 +72,8 @@ public class BeanConfig {
 
   @Bean
   public TokenProvider tokenProvider() {
-    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(), expirationConfig());
+    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
+      expirationConfig(), refreshTokenStorage());
   }
 
   @Bean
@@ -96,11 +97,12 @@ public class BeanConfig {
   }
 
   @Bean
-  public RefreshTokenStorage refreshTokenStorage(){
+  public RefreshTokenStorage refreshTokenStorage() {
     return new RefreshTokenStorage();
   }
+
   @Bean
-  public TokenVerifier tokenVerifier(){
+  public TokenVerifier tokenVerifier() {
     return new JwtVerifier(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
       refreshTokenStorage(), tokenProvider());
   }
