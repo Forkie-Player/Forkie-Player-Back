@@ -31,9 +31,9 @@ public class JwtVerifier implements TokenVerifier {
   public Either<String, Token> reissue(ReissueRequest request) {
     Long id = getPk(request.accessToken());
 
-    if (checkExpiration(request.tokenSaveNamePrefix() + id, request.refreshToken()))
+    if (checkExpiration(request.infoForToken().tokenSavedNamePrefix() + id, request.refreshToken()))
       return right(tokenProvider.create(
-        id, request.authExpiration(), request.tokenSaveNamePrefix()));
+        id, request.infoForToken().authExpiration(), request.infoForToken().tokenSavedNamePrefix()));
     else
       return left("refreshToken 이 만료되었습니다.");
   }

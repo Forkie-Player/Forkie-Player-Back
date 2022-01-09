@@ -25,14 +25,14 @@ public class BeanConfig {
   RealLoginRequestMapperFromJson realLoginRequestMapperFromJson(
     LoginIdFactory loginIdFactory,
     PasswordFactory passwordFactory,
-    TokenExpirationConfig tokenExpirationConfig) {
+    InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
     return new RealLoginRequestMapperFromJson(loginIdFactory, passwordFactory,
-      tokenExpirationConfig);
+      infoForTokenMakerWithIsPC);
   }
 
   @Bean
-  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson(TokenExpirationConfig tokenExpirationConfig) {
-    return new NonLoginRequestMapperFromJson(tokenExpirationConfig);
+  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson(InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
+    return new NonLoginRequestMapperFromJson(infoForTokenMakerWithIsPC);
   }
 
   @Bean
@@ -117,8 +117,13 @@ public class BeanConfig {
   }
 
   @Bean
+  public InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC(TokenExpirationConfig tokenExpirationConfig) {
+    return new InfoForTokenMakerWithIsPC(tokenExpirationConfig);
+  }
+
+  @Bean
   public ReissueRequestAdapterFromJson reissueRequestAdapterFromJson(
-    TokenExpirationConfig tokenExpirationConfig) {
-    return new ReissueRequestAdapterFromJson(tokenExpirationConfig);
+    InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
+    return new ReissueRequestAdapterFromJson(infoForTokenMakerWithIsPC);
   }
 }

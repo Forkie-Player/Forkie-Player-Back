@@ -13,26 +13,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NonMemberLoginRequestTest {
 
-  AuthExpiration authExpiration = new AuthExpiration(Instant.now().plus(30, ChronoUnit.MINUTES)
-    , Instant.now().plus(60, ChronoUnit.MINUTES));
+  InfoForToken infoForToken = new InfoForToken(
+    new AuthExpiration(Instant.now().plus(30, ChronoUnit.MINUTES)
+      , Instant.now().plus(60, ChronoUnit.MINUTES)), "PC");
 
   @Test
   void equals() {
     assertThat(new NonMemberLoginRequest(
-      "qwer1234baced-dfg123", authExpiration, "PC" + 10L),
+        "qwer1234baced-dfg123", infoForToken),
       is(new NonMemberLoginRequest(
-        "qwer1234baced-dfg123", authExpiration, "PC" + 10L)));
+        "qwer1234baced-dfg123", infoForToken)));
   }
 
   @Test
   void non_null() {
     assertThrows(IllegalArgumentException.class,
-      () -> new NonMemberLoginRequest(null, null, null));
+      () -> new NonMemberLoginRequest(null, infoForToken));
   }
 
   @Test
   void non_empty() {
     assertThrows(IllegalArgumentException.class,
-      () -> new NonMemberLoginRequest("", authExpiration, "PC" + 10L));
+      () -> new NonMemberLoginRequest("", infoForToken));
   }
 }

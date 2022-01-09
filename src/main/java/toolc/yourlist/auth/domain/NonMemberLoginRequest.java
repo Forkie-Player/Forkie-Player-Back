@@ -7,15 +7,12 @@ import lombok.Getter;
 @Getter
 public final class NonMemberLoginRequest {
   private final String deviceId;
-  private final AuthExpiration authExpiration;
-  private final String TokenSaveNamePrefix;
+  private final InfoForToken infoForToken;
 
-  public NonMemberLoginRequest(String deviceId, AuthExpiration authExpiration
-    , String TokenSaveNamePrefix) {
-    this.authExpiration = authExpiration;
+  public NonMemberLoginRequest(String deviceId, InfoForToken infoForToken) {
+    this.infoForToken = infoForToken;
     checkNullOrEmpty(deviceId);
     this.deviceId = deviceId;
-    this.TokenSaveNamePrefix = TokenSaveNamePrefix;
   }
 
   private void checkNullOrEmpty(String deviceId) {
