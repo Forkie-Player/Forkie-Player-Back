@@ -1,4 +1,4 @@
-package toolc.yourlist.playlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import lombok.AccessLevel;
 import lombok.Builder;

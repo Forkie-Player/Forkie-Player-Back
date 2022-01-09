@@ -1,4 +1,4 @@
-package toolc.yourlist.playlist.play.infra;
+package toolc.yourlist.playlist.infra;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
