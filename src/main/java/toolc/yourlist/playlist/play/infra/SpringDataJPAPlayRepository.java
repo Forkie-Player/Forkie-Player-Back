@@ -1,7 +1,7 @@
-package toolc.yourlist.play.infra;
+package toolc.yourlist.playlist.play.infra;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import toolc.yourlist.play.domain.JpaPlayRepository;
+import toolc.yourlist.playlist.play.domain.JpaPlayRepository;
 
 public interface SpringDataJPAPlayRepository extends JpaRepository<PlayEntity, Long>, JpaPlayRepository {
 }
