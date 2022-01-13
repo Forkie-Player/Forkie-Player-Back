@@ -22,17 +22,8 @@ public class DeleteApi {
 
   @DeleteMapping("/api/playlist")
   public ResponseEntity<?> delete(@Valid @RequestBody JsonDeleteRequest jsonRequest) {
-    var result = eliminator
-      .delete(mapper.toDeleteRequest(jsonRequest));
-
-    if (result.isEmpty()) {
-      return failDelete(result.getLeft());
-    }
+    eliminator.delete(mapper.toDeleteRequest(jsonRequest));
 
     return ok("삭제 성공");
-  }
-
-  private ResponseEntity<?> failDelete(String message) {
-    return failForBadRequest("삭제 실패 : " + message);
   }
 }

@@ -22,17 +22,8 @@ class UpdateApi {
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest jsonRequest) {
-    var result = updater
-      .updateTitle(mapper.toUpdateRequest(jsonRequest));
-
-    if (result.isEmpty()) {
-      return failUpdate(result.getLeft());
-    }
+    updater.updateTitle(mapper.toUpdateRequest(jsonRequest));
 
     return ok("수정 성공");
-  }
-
-  private ResponseEntity<?> failUpdate(String message) {
-    return failForBadRequest("수정 실패 : " + message);
   }
 }
