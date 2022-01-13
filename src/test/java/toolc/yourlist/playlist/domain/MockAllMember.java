@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
-class MockAllMember implements AllMember {
+public class MockAllMember implements AllMember {
   @Override
   public Member findById(Long id) {
     return Member.builder()

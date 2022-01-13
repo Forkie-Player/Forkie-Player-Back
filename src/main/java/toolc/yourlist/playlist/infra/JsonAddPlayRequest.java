@@ -1,5 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
+import lombok.Builder;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,4 +16,6 @@ record JsonAddPlayRequest(
   @NotBlank String channelTitle,
   @NotBlank String channelImg
 ) {
+  @Builder
+  public JsonAddPlayRequest {}
 }

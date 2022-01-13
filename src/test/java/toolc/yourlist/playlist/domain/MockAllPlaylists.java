@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 import java.util.List;
 
-class MockAllPlaylists implements AllPlaylists {
+public class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public ListOfPlaylists readAllBelongsTo(Long memberId) {
