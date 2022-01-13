@@ -2,18 +2,17 @@ package toolc.yourlist.auth.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.auth.domain.InfoForToken;
-import toolc.yourlist.auth.domain.NonMemberLoginRequest;
-
+import toolc.yourlist.auth.domain.ReissueRequest;
 
 @RequiredArgsConstructor
-class NonLoginRequestMapperFromJson {
-
+class ReissueRequestAdapterFromJson {
   private final InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC;
 
-  NonMemberLoginRequest mapper(JsonNonLoginRequest jsonRequest) {
+
+  ReissueRequest mapper(JsonReissueRequest jsonRequest) {
 
     InfoForToken infoForToken = infoForTokenMakerWithIsPC.makeInfo(jsonRequest.isPC());
 
-    return new NonMemberLoginRequest(jsonRequest.deviceId(), infoForToken);
+    return new ReissueRequest(jsonRequest.accessToken(), jsonRequest.refreshToken(), infoForToken);
   }
 }

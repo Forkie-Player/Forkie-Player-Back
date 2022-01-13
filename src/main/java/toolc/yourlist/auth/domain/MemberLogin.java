@@ -16,7 +16,8 @@ public class MemberLogin {
     Member savedMember = allMember.findByLoginId(request.loginId().raw());
 
     if (checkPassword.check(request.password(), savedMember)) {
-      return right(tokenProvider.create(savedMember.id(), request.isPC()));
+      return right(tokenProvider.create(savedMember.id(), request.infoForToken().authExpiration(),
+        request.infoForToken().tokenSavedNamePrefix()));
     }
     return left("wrong password");
   }

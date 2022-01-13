@@ -11,6 +11,7 @@ public class NonMemberLogin {
   public Token login(NonMemberLoginRequest request) {
     NonMember savedNonMember = allNonMember.findByDeviceId(request.deviceId());
 
-    return tokenProvider.create(savedNonMember.id(), request.isPC());
+    return tokenProvider.create(savedNonMember.id(), request.infoForToken().authExpiration(),
+      request.infoForToken().tokenSavedNamePrefix());
   }
 }

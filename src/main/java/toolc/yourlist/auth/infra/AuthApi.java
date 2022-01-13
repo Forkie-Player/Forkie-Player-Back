@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.auth.domain.MemberLogin;
 import toolc.yourlist.auth.domain.NonMemberLogin;
 import toolc.yourlist.auth.domain.NonMemberSignUp;
+import toolc.yourlist.auth.domain.TokenVerifier;
+import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.common.infra.ResponseBody;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -23,6 +25,10 @@ public class AuthApi {
   private final NonMemberLogin nonMemberLogin;
   private final NonMemberSignUpRequestMapperFromJson nonMemberSignUpRequestMapperFromJson;
   private final NonMemberSignUp nonMemberSignUp;
+
+  private final ReissueRequestAdapterFromJson reissueRequestAdapterFromJson;
+  private final TokenVerifier tokenVerifier;
+  private final TokenToJsonAdapter tokenToJsonAdapter;
 
   @PostMapping("/api/login/real")
   public ResponseEntity<?> login(@RequestBody JsonRealLoginRequest request) {
@@ -46,7 +52,7 @@ public class AuthApi {
 
     ResponseBody responseBody = new ResponseBody(
       OK.value(), "비회원 로그인 성공",
-      nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request)));
+      tokenToJsonAdapter.toJson(nonMemberLogin.login(nonLoginRequestMapperFromJson.mapper(request))));
 
     return ResponseEntity.ok(responseBody);
   }
@@ -60,5 +66,16 @@ public class AuthApi {
       CREATED.value(), "비회원 등록 성공", null);
 
     return ResponseEntity.created(null).body(responseBody);
+  }
+
+  @PostMapping("api/reissue")
+  public ResponseEntity<?> reissue(@RequestBody JsonReissueRequest jsonRequest) {
+    var request = reissueRequestAdapterFromJson.mapper(jsonRequest);
+
+    var result = tokenVerifier.reissue(request);
+    if (result.isRight()) {
+      return JsonResponse.okWithData(tokenToJsonAdapter.toJson(result.get()), "재발급 성공");
+    } else
+      return ResponseEntity.badRequest().body(result.getLeft());
   }
 }

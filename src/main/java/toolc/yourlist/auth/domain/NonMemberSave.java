@@ -8,7 +8,7 @@ public class NonMemberSave {
 
   private final AllNonMember allNonMember;
 
-  NonMember save(String deviceId){
+  NonMember save(String deviceId) {
     return allNonMember.save(new NonMember(deviceId));
   }
 }

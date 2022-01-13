@@ -5,13 +5,12 @@ import lombok.Getter;
 
 @EqualsAndHashCode
 @Getter
-
 public final class NonMemberLoginRequest {
   private final String deviceId;
-  private final boolean isPC;
+  private final InfoForToken infoForToken;
 
-  public NonMemberLoginRequest(String deviceId, boolean isPC) {
-    this.isPC = isPC;
+  public NonMemberLoginRequest(String deviceId, InfoForToken infoForToken) {
+    this.infoForToken = infoForToken;
     checkNullOrEmpty(deviceId);
     this.deviceId = deviceId;
   }

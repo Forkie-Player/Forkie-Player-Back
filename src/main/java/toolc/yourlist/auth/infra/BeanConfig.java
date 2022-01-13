@@ -22,13 +22,17 @@ public class BeanConfig {
   }
 
   @Bean
-  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson() {
-    return new RealLoginRequestMapperFromJson(loginIdFactory(), passwordFactory());
+  RealLoginRequestMapperFromJson realLoginRequestMapperFromJson(
+    LoginIdFactory loginIdFactory,
+    PasswordFactory passwordFactory,
+    InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
+    return new RealLoginRequestMapperFromJson(loginIdFactory, passwordFactory,
+      infoForTokenMakerWithIsPC);
   }
 
   @Bean
-  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson() {
-    return new NonLoginRequestMapperFromJson();
+  NonLoginRequestMapperFromJson nonLoginRequestMapperFromJson(InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
+    return new NonLoginRequestMapperFromJson(infoForTokenMakerWithIsPC);
   }
 
   @Bean
@@ -71,18 +75,19 @@ public class BeanConfig {
   }
 
   @Bean
-  public TokenProvider tokenProvider() {
-    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(), expirationConfig());
+  public TokenProvider tokenProvider(TokenExpirationConfig tokenExpirationConfig) {
+    return new JwtProvider(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
+      refreshTokenStorage());
   }
 
   @Bean
-  public MemberLogin memberLogin() {
-    return new MemberLogin(allMember(), tokenProvider(), checkPassword());
+  public MemberLogin memberLogin(TokenProvider tokenProvider) {
+    return new MemberLogin(allMember(), tokenProvider, checkPassword());
   }
 
   @Bean
-  public NonMemberLogin nonMemberLogin() {
-    return new NonMemberLogin(allNonMember(), tokenProvider());
+  public NonMemberLogin nonMemberLogin(TokenProvider tokenProvider) {
+    return new NonMemberLogin(allNonMember(), tokenProvider);
   }
 
   @Bean
@@ -96,14 +101,30 @@ public class BeanConfig {
   }
 
   @Bean
-  RefreshTokenStorage refreshTokenStorage() {
+  public RefreshTokenStorage refreshTokenStorage() {
     return new RefreshTokenStorage();
   }
 
   @Bean
-  public TokenVerifier tokenVerifier(RefreshTokenStorage refreshTokenStorage,
-                                     TokenProvider tokenProvider) {
+  public TokenVerifier tokenVerifier(TokenProvider tokenProvider) {
     return new JwtVerifier(jwtSetConfigSecretKeyYamlAdapter.toJwtSetConfig(),
-      refreshTokenStorage, tokenProvider);
+      refreshTokenStorage(), tokenProvider);
+  }
+
+  @Bean
+  public TokenToJsonAdapter tokenToJsonAdapter() {
+    return new TokenToJsonAdapter();
+  }
+
+  @Bean
+  public InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC(TokenExpirationConfig tokenExpirationConfig) {
+    return new InfoForTokenMakerWithIsPC(tokenExpirationConfig);
+  }
+
+  @Bean
+  public ReissueRequestAdapterFromJson reissueRequestAdapterFromJson(
+    InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
+    return new ReissueRequestAdapterFromJson(infoForTokenMakerWithIsPC);
+
   }
 }

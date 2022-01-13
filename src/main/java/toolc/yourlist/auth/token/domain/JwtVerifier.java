@@ -3,6 +3,7 @@ package toolc.yourlist.auth.token.domain;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.vavr.control.Either;
+import toolc.yourlist.auth.domain.ReissueRequest;
 import toolc.yourlist.auth.domain.Token;
 import toolc.yourlist.auth.domain.TokenProvider;
 import toolc.yourlist.auth.domain.TokenVerifier;
@@ -27,11 +28,13 @@ public class JwtVerifier implements TokenVerifier {
   }
 
   @Override
-  public Either<String, Token> reissue(String accessToken, String refreshToken, boolean isPc) {
-    Long id = getPk(accessToken);
+  public Either<String, Token> reissue(ReissueRequest request) {
+    Long id = getPk(request.accessToken());
 
-    if (checkExpiration(id, refreshToken, isPc))
-      return right(tokenProvider.create(id, isPc));
+    if (checkExpiration(request.infoForToken().tokenSavedNamePrefix() + id, request.refreshToken()))
+      return right(tokenProvider.create(
+        id, request.infoForToken().authExpiration(), request.infoForToken().tokenSavedNamePrefix()));
+
     else
       return left("refreshToken 이 만료되었습니다.");
   }
@@ -41,8 +44,8 @@ public class JwtVerifier implements TokenVerifier {
       jwtParser.parseClaimsJws(accessToken).getBody().getSubject());
   }
 
-  private boolean checkExpiration(Long id, String refreshToken, boolean isPC) {
-    String savedToken = refreshTokenStorage.find(isPC ? "PC" : "APP" + id);
+  private boolean checkExpiration(String tokenSaveName, String refreshToken) {
+    String savedToken = refreshTokenStorage.find(tokenSaveName);
     return refreshToken.equals(savedToken);
   }
 

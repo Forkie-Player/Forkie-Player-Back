@@ -14,14 +14,14 @@ public class TokenExpirationConfig {
   private final Duration REFRESH_APP_EXPIRATION = Duration.ofDays(7);
 
 
-  Instant accessTokenExpirationTime() {
+  public Instant accessTokenExpirationTime() {
     return currentTimeServer.now().plus(ACCESS_ALL_EXPIRATION);
   }
 
-  Instant refreshTokenExpirationTime(Device device) {
+  public Instant refreshTokenExpirationTime(boolean isPC) {
 
     return currentTimeServer.now().plus(
-      device == Device.PC ? REFRESH_PC_EXPIRATION : REFRESH_APP_EXPIRATION);
+      isPC ? REFRESH_PC_EXPIRATION : REFRESH_APP_EXPIRATION);
   }
 
 
