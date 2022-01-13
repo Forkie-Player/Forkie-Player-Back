@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class AddApi {
+class AddPlayApi {
   @GetMapping("/api/play")
-  public ResponseEntity<?> addPlay(@RequestBody JsonAddRequest jsonRequest) {
+  public ResponseEntity<?> addPlay(@RequestBody JsonAddPlayRequest jsonRequest) {
     // input:  json -> domain request로
+    // time은 예외인가 아닌가... 우리는 애초에 프론트에서 거꾸로 입력이 안되게 막고 있다.
+    // -> 그러면 바꿔서 들어오는 것은 예외이다..!
+    // domain input
+    // playlist, member, playInfo(time, channel, title, videoId) 정도!
 
     // logic: domain request를 이용한 domain 로직 처리
 
