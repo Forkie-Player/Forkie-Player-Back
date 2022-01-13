@@ -1,4 +1,16 @@
 package toolc.yourlist.playlist.domain;
 
-public record SaveRequest(Member member, String title) {
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@EqualsAndHashCode
+public class SaveRequest {
+  private final Member member;
+  private final String title;
+
+  SaveRequest(Member member, String title) {
+    this.title = title;
+    this.member = member;
+  }
 }

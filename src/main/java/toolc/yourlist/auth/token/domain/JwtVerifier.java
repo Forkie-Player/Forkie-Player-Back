@@ -34,6 +34,7 @@ public class JwtVerifier implements TokenVerifier {
     if (checkExpiration(request.infoForToken().tokenSavedNamePrefix() + id, request.refreshToken()))
       return right(tokenProvider.create(
         id, request.infoForToken().authExpiration(), request.infoForToken().tokenSavedNamePrefix()));
+
     else
       return left("refreshToken 이 만료되었습니다.");
   }

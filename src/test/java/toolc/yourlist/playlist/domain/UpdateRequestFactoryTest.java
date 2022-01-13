@@ -14,7 +14,7 @@ class UpdateRequestFactoryTest {
     var factory = new UpdateRequestFactory(allMember, allPlaylists);
 
     var actual =
-      factory.create(1L, 1L, "New List");
+      factory.create(1L, 1L, "New List").get();
 
     var expected = new UpdateRequest(Member.builder()
       .id(1L)
@@ -30,5 +30,29 @@ class UpdateRequestFactoryTest {
         .build(),
       "New List");
     assertThat(actual, is(expected));
+  }
+
+  @Test
+  void creat_not_exist_member() {
+    var allMember = new EmptyMember();
+    var allPlaylists = new MockAllPlaylists();
+    var factory = new UpdateRequestFactory(allMember, allPlaylists);
+
+    var actual =
+      factory.create(1L, 1L, "New List").getLeft();
+
+    assertThat(actual, is("존재하지 않는 회원"));
+  }
+
+  @Test
+  void creat_not_exist_playlist() {
+    var allMember = new MockAllMember();
+    var allPlaylists = new EmptyPlaylist();
+    var factory = new UpdateRequestFactory(allMember, allPlaylists);
+
+    var actual =
+      factory.create(1L, 1L, "New List").getLeft();
+
+    assertThat(actual, is("존재하지 않는 영상 목록"));
   }
 }

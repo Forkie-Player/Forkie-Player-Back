@@ -13,7 +13,7 @@ class DeleteRequestFactoryTest {
     var allPlaylists = new MockAllPlaylists();
     var factory = new DeleteRequestFactory(allMember, allPlaylists);
 
-    var actual = factory.create(1L, 1L);
+    var actual = factory.create(1L, 1L).get();
 
     var expected = new DeleteRequest(
       Member.builder()
@@ -29,5 +29,27 @@ class DeleteRequestFactoryTest {
         .thumbnail("panda.png")
         .build());
     assertThat(actual, is(expected));
+  }
+
+  @Test
+  void create_not_exist_member() {
+    var allMember = new EmptyMember();
+    var allPlaylists = new MockAllPlaylists();
+    var factory = new DeleteRequestFactory(allMember, allPlaylists);
+
+    var actual = factory.create(1L, 1L).getLeft();
+
+    assertThat(actual, is("존재하지 않는 회원"));
+  }
+
+  @Test
+  void create_not_exist_playlist() {
+    var allMember = new MockAllMember();
+    var allPlaylists = new EmptyPlaylist();
+    var factory = new DeleteRequestFactory(allMember, allPlaylists);
+
+    var actual = factory.create(1L, 1L).getLeft();
+
+    assertThat(actual, is("존재하지 않는 영상 목록"));
   }
 }

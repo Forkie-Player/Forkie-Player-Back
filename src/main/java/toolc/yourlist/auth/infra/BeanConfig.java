@@ -125,5 +125,6 @@ public class BeanConfig {
   public ReissueRequestAdapterFromJson reissueRequestAdapterFromJson(
     InfoForTokenMakerWithIsPC infoForTokenMakerWithIsPC) {
     return new ReissueRequestAdapterFromJson(infoForTokenMakerWithIsPC);
+
   }
 }

@@ -22,9 +22,12 @@ public class DeleteApi {
 
   @DeleteMapping("/api/playlist")
   public ResponseEntity<?> delete(@Valid @RequestBody JsonDeleteRequest jsonRequest) {
-    var result = eliminator
-      .delete(mapper.toDeleteRequest(jsonRequest));
+    var request = mapper.toDeleteRequest(jsonRequest);
+    if (request.isEmpty()) {
+      return failDelete(request.getLeft());
+    }
 
+    var result = eliminator.delete(request.get());
     if (result.isEmpty()) {
       return failDelete(result.getLeft());
     }
