@@ -8,8 +8,12 @@ public class AuthManager {
   Map<String, Long> visitorsStorage = new HashMap<>();
   Long id = 1L;
 
-  void registerVisitor(String deviceId) {
-    if (visitorsStorage.containsKey(deviceId)) throw new IllegalArgumentException();
-    visitorsStorage.put(deviceId, id++);
+  void registerVisitor(String uuid) {
+    if (visitorsStorage.containsKey(uuid)) throw new IllegalArgumentException();
+    visitorsStorage.put(uuid, id++);
+  }
+
+  Token getVisitorToken(String uuid, boolean isPc){
+    return new Token("accessToken", "refreshToken");
   }
 }
