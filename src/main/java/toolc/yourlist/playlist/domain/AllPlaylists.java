@@ -14,4 +14,6 @@ public interface AllPlaylists {
   void updateTitleBelongsTo(Long playlistId, String title);
 
   void delete(Playlist playlist);
+
+  void updateThumbnail(Long playlistId, String thumbnail);
 }

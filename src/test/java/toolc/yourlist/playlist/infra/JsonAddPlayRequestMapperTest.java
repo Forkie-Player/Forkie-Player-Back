@@ -40,6 +40,7 @@ class JsonAddPlayRequestMapperTest {
         .title("Funny Video")
         .videoId("abcd1234")
         .thumbnail("panda.png")
+        .playlistId(1L)
         .playTime(new PlayTime(10000L, 13000L))
         .channel(new Channel("happy man", "smile.png"))
         .build());

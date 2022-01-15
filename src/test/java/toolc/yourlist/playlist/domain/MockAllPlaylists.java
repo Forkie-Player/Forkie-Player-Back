@@ -51,4 +51,8 @@ public class MockAllPlaylists implements AllPlaylists {
   @Override
   public void delete(Playlist playlist) {
   }
+
+  @Override
+  public void updateThumbnail(Long playlistId, String thumbnail) {
+  }
 }

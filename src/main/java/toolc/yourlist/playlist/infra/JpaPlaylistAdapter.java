@@ -57,6 +57,11 @@ class JpaPlaylistAdapter implements AllPlaylists {
     playlistRepository.deleteById(playlist.id());
   }
 
+  @Override
+  public void updateThumbnail(Long playlistId, String thumbnail) {
+    var entity = getEntity(playlistId);
+  }
+
   private PlaylistEntity getEntity(Long playlistId) {
     return playlistRepository.findById(playlistId).orElseThrow(
       NoExistPlaylistException::new);

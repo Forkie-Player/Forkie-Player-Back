@@ -22,6 +22,11 @@ class BeanConfig {
   }
 
   @Bean
+  AllPlay allPlay(JpaPlayRepository jpaPlayRepository) {
+    return new JpaPlayAdapter(jpaPlayRepository);
+  }
+
+  @Bean
   MemberIdMapper memberIdMapper(AllMember allMember) {
     return new MemberIdMapper(allMember);
   }
@@ -64,5 +69,15 @@ class BeanConfig {
   @Bean
   MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists) {
     return new DefaultPlaylist(allPlaylists);
+  }
+
+  @Bean
+  JsonAddPlayRequestMapper jsonAddPlayRequestMapper(AllMember allMember, AllPlaylists allPlaylists) {
+    return new JsonAddPlayRequestMapper(allMember, allPlaylists);
+  }
+
+  @Bean
+  PlayAdder playAdder(AllPlay allPlay, AllPlaylists allPlaylists) {
+    return new PlayAdder(allPlay, allPlaylists);
   }
 }

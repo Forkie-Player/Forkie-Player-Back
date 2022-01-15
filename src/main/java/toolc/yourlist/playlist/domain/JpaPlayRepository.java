@@ -5,5 +5,6 @@ import toolc.yourlist.playlist.infra.PlayEntity;
 import java.util.List;
 
 public interface JpaPlayRepository {
-  List<PlayEntity> findByPlaylistId(Long playlistId);
+  PlayEntity save(PlayEntity playEntity);
+  long countByPlaylistId(Long playlistId);
 }

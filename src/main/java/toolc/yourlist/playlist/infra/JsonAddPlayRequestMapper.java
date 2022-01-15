@@ -17,6 +17,7 @@ class JsonAddPlayRequestMapper {
       .title(jsonRequest.title())
       .videoId(jsonRequest.videoId())
       .thumbnail(jsonRequest.thumbnail())
+      .playlistId(jsonRequest.playlistId())
       .playTime(playTime)
       .channel(channel)
       .build();
