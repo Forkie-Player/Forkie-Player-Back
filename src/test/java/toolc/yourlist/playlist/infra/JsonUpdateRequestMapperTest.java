@@ -1,21 +1,20 @@
-package toolc.yourlist.playlist.domain;
+package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class DeleteRequestFactoryTest {
-
+class JsonUpdateRequestMapperTest {
   @Test
-  void create() {
-    var allMember = new MockAllMember();
-    var allPlaylists = new MockAllPlaylists();
-    var factory = new DeleteRequestFactory(allMember, allPlaylists);
+  void toUpdateRequest() {
+    var mapper = new JsonUpdateRequestMapper(new MockAllMember(), new MockAllPlaylists());
 
-    var actual = factory.create(1L, 1L);
+    var actual = mapper.toUpdateRequest(
+      new JsonUpdateRequest(1L, 1L, "Happy Video"));
 
-    var expected = new DeleteRequest(
+    var expected = new UpdateRequest(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -27,7 +26,8 @@ class DeleteRequestFactoryTest {
         .memberId(1L)
         .title("My List")
         .thumbnail("panda.png")
-        .build());
+        .build(),
+      "Happy Video");
     assertThat(actual, is(expected));
   }
 }

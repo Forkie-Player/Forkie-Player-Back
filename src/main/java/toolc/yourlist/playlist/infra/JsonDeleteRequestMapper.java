@@ -1,14 +1,19 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.AllMember;
+import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.DeleteRequest;
-import toolc.yourlist.playlist.domain.DeleteRequestFactory;
 
 @RequiredArgsConstructor
 public class JsonDeleteRequestMapper {
-  private final DeleteRequestFactory factory;
+  private final AllMember allMember;
+  private final AllPlaylists allPlaylists;
 
   DeleteRequest toDeleteRequest(JsonDeleteRequest jsonRequest) {
-    return factory.create(jsonRequest.memberId(), jsonRequest.playlistId());
+    var member = allMember.findById(jsonRequest.memberId());
+    var playlist = allPlaylists.readBelongsTo(jsonRequest.playlistId());
+
+    return new DeleteRequest(member, playlist);
   }
 }

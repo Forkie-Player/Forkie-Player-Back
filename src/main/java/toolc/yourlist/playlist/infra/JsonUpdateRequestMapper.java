@@ -1,17 +1,19 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.playlist.domain.AllMember;
+import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.UpdateRequest;
-import toolc.yourlist.playlist.domain.UpdateRequestFactory;
 
 @RequiredArgsConstructor
 public class JsonUpdateRequestMapper {
-  private final UpdateRequestFactory factory;
+  private final AllMember allMember;
+  private final AllPlaylists allPlaylists;
 
   UpdateRequest toUpdateRequest(JsonUpdateRequest jsonRequest) {
-    return factory.create(
-      jsonRequest.memberId(),
-      jsonRequest.playlistId(),
-      jsonRequest.title());
+    var member = allMember.findById(jsonRequest.memberId());
+    var playlist = allPlaylists.readBelongsTo(jsonRequest.playlistId());
+
+    return new UpdateRequest(member, playlist, jsonRequest.title());
   }
 }

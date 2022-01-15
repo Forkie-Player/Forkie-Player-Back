@@ -11,7 +11,20 @@ class JsonAddPlayRequestMapperTest {
   void toAddPlayRequest() {
     var mapper = new JsonAddPlayRequestMapper(new MockAllMember(), new MockAllPlaylists());
 
-    var actual = new AddPlayRequest(Member.builder()
+    var actual = mapper.toAddPlayRequest(
+      JsonAddPlayRequest.builder()
+        .memberId(1L)
+        .playlistId(1L)
+        .title("Funny Video")
+        .videoId("abcd1234")
+        .startTime(10000L)
+        .endTime(13000L)
+        .thumbnail("panda.png")
+        .channelTitle("happy man")
+        .channelImg("smile.png")
+        .build());
+
+    var expected = new AddPlayRequest(Member.builder()
       .id(1L)
       .loginId("oh980225")
       .password("qwer1234!")
@@ -30,18 +43,6 @@ class JsonAddPlayRequestMapperTest {
         .playTime(new PlayTime(10000L, 13000L))
         .channel(new Channel("happy man", "smile.png"))
         .build());
-
-    assertThat(actual, is(mapper.toAddPlayRequest(
-      JsonAddPlayRequest.builder()
-        .memberId(1L)
-        .playlistId(1L)
-        .title("Funny Video")
-        .videoId("abcd1234")
-        .startTime(10000L)
-        .endTime(13000L)
-        .thumbnail("panda.png")
-        .channelTitle("happy man")
-        .channelImg("smile.png")
-        .build())));
+    assertThat(actual, is(expected));
   }
 }

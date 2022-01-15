@@ -45,9 +45,7 @@ class ListOfPlaylistsMapperTest {
           .memberId(1L)
           .title("My Music")
           .thumbnail("puppy.png")
-          .build()
-      ));
-
+          .build()));
     assertThat(actual, is(expected));
   }
 }
