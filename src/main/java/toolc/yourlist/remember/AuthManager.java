@@ -1,7 +1,12 @@
 package toolc.yourlist.remember;
 
+import io.vavr.control.Either;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.vavr.control.Either.left;
+import static io.vavr.control.Either.right;
 
 public class AuthManager {
 
@@ -13,7 +18,10 @@ public class AuthManager {
     visitorsStorage.put(uuid, id++);
   }
 
-  Token getVisitorToken(String uuid, boolean isPc){
-    return new Token("accessToken", "refreshToken");
+  Either<String, Token> getVisitorToken(String uuid, boolean isPc) {
+    if (visitorsStorage.containsKey(uuid)) {
+      return right(new Token("accessToken", "refreshToken"));
+    } else return left("등록되어 있지 않은 방문자 입니다.");
   }
+
 }
