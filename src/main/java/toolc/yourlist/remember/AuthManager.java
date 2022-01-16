@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import io.vavr.control.Either;
 
 import java.time.Instant;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,8 +38,9 @@ public class AuthManager {
         .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
         .compact();
 
+      Period refreshTokenExpiration = isPc ? Period.ofDays(7) : Period.ofDays(90);
       final var refreshToken = Jwts.builder()
-        .setExpiration(Date.from(Instant.ofEpochMilli(1642300789).plus(7, ChronoUnit.DAYS)))
+        .setExpiration(Date.from(Instant.ofEpochMilli(1642300789).plus(refreshTokenExpiration)))
         .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
         .compact();
 

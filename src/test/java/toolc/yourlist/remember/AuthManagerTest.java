@@ -85,4 +85,19 @@ class AuthManagerTest {
     assertThat(result, is(not(anotherVisitorToken)));
   }
 
+  @Test
+  void token_expiration_depending_on_connection_device() {
+    //given
+    final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
+    authManager.registerVisitor(uuid);
+    final var tokenWhenConnectPc = authManager.getVisitorToken(uuid, true);
+
+    //when
+    final var tokenWhenConnectApp = authManager.getVisitorToken(uuid, false);
+
+    //then
+    assertThat(tokenWhenConnectApp, is(not(tokenWhenConnectPc)));
+
+  }
+
 }
