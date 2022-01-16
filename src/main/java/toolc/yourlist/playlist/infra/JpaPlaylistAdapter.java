@@ -60,6 +60,7 @@ class JpaPlaylistAdapter implements AllPlaylists {
   @Override
   public void updateThumbnail(Long playlistId, String thumbnail) {
     var entity = getEntity(playlistId);
+    entity.thumbnail(thumbnail);
   }
 
   private PlaylistEntity getEntity(Long playlistId) {

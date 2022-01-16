@@ -77,7 +77,12 @@ class BeanConfig {
   }
 
   @Bean
-  PlayAdder playAdder(AllPlay allPlay, AllPlaylists allPlaylists) {
-    return new PlayAdder(allPlay, allPlaylists);
+  PlaylistThumbnail playlistThumbnail(AllPlaylists allPlaylists) {
+    return new ThumbnailChanger(allPlaylists);
+  }
+
+  @Bean
+  PlayAdder playAdder(AllPlay allPlay, PlaylistThumbnail playlistThumbnail) {
+    return new PlayAdder(allPlay, playlistThumbnail);
   }
 }
