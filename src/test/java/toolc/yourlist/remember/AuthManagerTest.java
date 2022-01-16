@@ -17,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthManagerTest {
 
-  AuthManager authManager = new AuthManager(new TokenProvider());
+  TokenSecretKey tokenSecretKey = new TokenSecretKey();
+  AuthManager authManager = new AuthManager(new TokenProvider(tokenSecretKey), new TokenReader(tokenSecretKey));
 
   @Test
   void registered_visitor_can_not_register_again() {
