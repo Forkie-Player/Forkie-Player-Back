@@ -38,18 +38,18 @@ class AuthManagerTest {
     final var result = authManager.getVisitorToken(uuid, isPC);
 
     //then
-    String id = authManager.visitorsStorage.get(uuid).toString();
+    String id = authManager.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
@@ -112,22 +112,43 @@ class AuthManagerTest {
       token.accessToken(), token.refreshToken(), true);
 
     //then
-    String id = authManager.visitorsStorage.get(uuid).toString();
+    String id = authManager.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     assertThat(result, is(right(new Token(accessToken, refreshToken))));
   }
 
+  @Test
+  void should_be_registered_when_reissued() {
+    String id = "4321";
+    String key =
+      "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
+
+
+    final var accessToken = Jwts.builder()
+      .setSubject(id)
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
+      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
+      .compact();
+
+    final var refreshToken = Jwts.builder()
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
+      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
+      .compact();
+
+    assertThrows(IllegalArgumentException.class, () -> authManager.reissueToken(
+      accessToken, refreshToken, true));
+  }
 }

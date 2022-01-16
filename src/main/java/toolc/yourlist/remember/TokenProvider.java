@@ -17,12 +17,12 @@ public class TokenProvider {
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var newRefreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(refreshTokenExpiration)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(refreshTokenExpiration)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
