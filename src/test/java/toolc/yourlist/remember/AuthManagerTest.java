@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthManagerTest {
 
-  AuthManager authManager = new AuthManager();
+  AuthManager authManager = new AuthManager(new TokenProvider());
 
   @Test
   void registered_visitor_can_not_register_again() {
@@ -44,12 +44,12 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(7, ChronoUnit.DAYS)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
@@ -118,16 +118,16 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642315775).plus(7, ChronoUnit.DAYS)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
-    assertThat(result, is(right(new Token( accessToken, refreshToken))));
+    assertThat(result, is(right(new Token(accessToken, refreshToken))));
   }
 
 }
