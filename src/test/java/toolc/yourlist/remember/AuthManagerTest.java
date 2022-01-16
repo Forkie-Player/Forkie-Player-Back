@@ -28,7 +28,7 @@ class AuthManagerTest {
   }
 
   @Test
-  void get_visitor_token_gives_Token() {
+  void registered_visitor_can_receive_Token() {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
     authManager.registerVisitor(uuid);
@@ -44,12 +44,12 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochMilli(1642300789).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochMilli(1642300789).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(7, ChronoUnit.DAYS)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
@@ -98,6 +98,36 @@ class AuthManagerTest {
     //then
     assertThat(tokenWhenConnectApp, is(not(tokenWhenConnectPc)));
 
+  }
+
+  @Test
+  void can_be_reissued_using_existing_token() {
+    //given
+    final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
+    authManager.registerVisitor(uuid);
+    final var token = authManager.getVisitorToken(uuid, true).get();
+
+    //when
+    final var result = authManager.reissueToken(
+      token.accessToken(), token.refreshToken(), true);
+
+    //then
+    String id = authManager.visitorsStorage.get(uuid).toString();
+    String key =
+      "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
+
+    final var accessToken = Jwts.builder()
+      .setSubject(id)
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(30, ChronoUnit.MINUTES)))
+      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
+      .compact();
+
+    final var refreshToken = Jwts.builder()
+      .setExpiration(Date.from(Instant.ofEpochSecond(1642312459).plus(7, ChronoUnit.DAYS)))
+      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
+      .compact();
+
+    assertThat(result, is(right(new Token( accessToken, refreshToken))));
   }
 
 }
