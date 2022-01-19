@@ -6,17 +6,22 @@ import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 public class PlayAdder {
-  private final EqualOwnerCondition condition = new EqualOwnerCondition();
   private final AllPlay allPlay;
   private final PlaylistThumbnail playlistThumbnail;
 
   @Transactional
   public void add(AddPlayRequest request) {
-    condition.check(request.member(), request.playlist());
+    var playlistSize = allPlay.havingCountOf(request.equalOwner().playlist().id());
+    var play = Play.builder()
+      .playlistId(request.equalOwner().playlist().id())
+      .title(request.info().title())
+      .thumbnail(request.info().thumbnail())
+      .videoId(request.info().videoId())
+      .playTime(request.time())
+      .channel(request.channel())
+      .build();
 
-    long playlistSize = allPlay.havingCountOf(request.playlist().id());
-
-    allPlay.save(request.play(), playlistSize);
-    playlistThumbnail.change(request.playlist().id(), request.play().thumbnail(), playlistSize);
+    allPlay.save(play, playlistSize);
+    playlistThumbnail.change(request.equalOwner().playlist().id(), request.info().thumbnail(), playlistSize);
   }
 }

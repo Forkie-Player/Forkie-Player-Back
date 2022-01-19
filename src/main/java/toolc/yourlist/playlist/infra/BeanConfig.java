@@ -27,6 +27,11 @@ class BeanConfig {
   }
 
   @Bean
+  EqualOwnerFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists) {
+    return new EqualOwnerFactory(allMember, allPlaylists);
+  }
+
+  @Bean
   MemberIdMapper memberIdMapper(AllMember allMember) {
     return new MemberIdMapper(allMember);
   }
@@ -47,8 +52,8 @@ class BeanConfig {
   }
 
   @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(AllMember allMember, AllPlaylists allPlaylists) {
-    return new JsonUpdateRequestMapper(allMember, allPlaylists);
+  JsonUpdateRequestMapper jsonUpdateRequestMapper(EqualOwnerFactory factory) {
+    return new JsonUpdateRequestMapper(factory);
   }
 
   @Bean
@@ -72,8 +77,8 @@ class BeanConfig {
   }
 
   @Bean
-  JsonAddPlayRequestMapper jsonAddPlayRequestMapper(AllMember allMember, AllPlaylists allPlaylists) {
-    return new JsonAddPlayRequestMapper(allMember, allPlaylists);
+  JsonAddPlayRequestMapper jsonAddPlayRequestMapper(EqualOwnerFactory factory) {
+    return new JsonAddPlayRequestMapper(factory);
   }
 
   @Bean
