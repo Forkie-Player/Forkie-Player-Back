@@ -7,6 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class PlayAdderTest {
@@ -45,5 +46,7 @@ class PlayAdderTest {
         .channel(channel)
         .build(), playlistSize);
     verify(playlistThumbnail).change(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
+    verifyNoMoreInteractions(allPlay);
+    verifyNoMoreInteractions(playlistThumbnail);
   }
 }
