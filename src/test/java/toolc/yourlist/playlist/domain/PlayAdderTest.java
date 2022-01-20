@@ -1,10 +1,49 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
-
-// TODO: Mockito이용해서 오케스트레이션 -> 함수의 콜을 확인하는 테스트 필요
+@ExtendWith(MockitoExtension.class)
 class PlayAdderTest {
+  @Test
+  void add(@Mock AllPlay allPlay, @Mock PlaylistThumbnail playlistThumbnail) {
+    var adder = new PlayAdder(allPlay, playlistThumbnail);
+    var equalOwner = new EqualOwner(
+      Member.builder()
+        .id(1L)
+        .loginId("oh980225")
+        .password("qwer1234!")
+        .isMember(true)
+        .build(),
+      Playlist.builder()
+        .id(1L)
+        .memberId(1L)
+        .title("My List")
+        .build());
+    var info = new PlayInfo("Good Music", "abcd1234", "panda.png");
+    var time = new PlayTime(10000L, 130000L);
+    var channel = new Channel("Music man", "man.png");
+    var request = new AddPlayRequest(equalOwner, info, time, channel);
+    var playlistSize = 0L;
+    given(allPlay.havingCountOf(1L)).willReturn(playlistSize);
+
+    adder.add(request);
+
+    verify(allPlay).havingCountOf(equalOwner.playlist().id());
+    verify(allPlay).save(
+      Play.builder()
+        .title(info.title())
+        .videoId(info.videoId())
+        .thumbnail(info.thumbnail())
+        .playlistId(equalOwner.playlist().id())
+        .playTime(time)
+        .channel(channel)
+        .build(), playlistSize);
+    verify(playlistThumbnail).change(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
+  }
 }
