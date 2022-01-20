@@ -5,39 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+// TODO: Mockito이용해서 오케스트레이션 -> 함수의 콜을 확인하는 테스트 필요
 class PlaylistCreatorTest {
-
   @Test
   void createPlaylist() {
     var allPlaylists = new MockAllPlaylists();
-    var creator = new PlaylistCreator(allPlaylists);
-    var request = new SaveRequest(Member.builder()
-      .id(1L)
-      .loginId("oh980225")
-      .password("qwer1234!")
-      .isMember(true)
-      .build(),
+    var allMember = new MockAllMember();
+    var creator = new PlaylistCreator(allMember, allPlaylists);
+    var request = new SaveRequest(
+      1L,
       "My List");
 
     var actual = creator.create(request).get();
 
     assertThat(actual, is(true));
-  }
-
-  @Test
-  void createPlaylist_not_match_save_policy() {
-    var allPlaylists = new MockAllPlaylists();
-    var creator = new PlaylistCreator(allPlaylists);
-    var request = new SaveRequest(Member.builder()
-      .id(1L)
-      .loginId("oh1263")
-      .password("abcd1234!")
-      .isMember(false)
-      .build(),
-      "My List");
-
-    var actual = creator.create(request).getLeft();
-
-    assertThat(actual, is("비회원의 영상 생성 제한을 넘었습니다."));
   }
 }

@@ -12,7 +12,7 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RestController
 @RequiredArgsConstructor
 class AddPlayApi {
-  private final JsonAddPlayRequestMapper mapper;
+  private final JsonRequestMapper mapper;
   private final PlayAdder adder;
 
   @PostMapping("/api/play")

@@ -18,7 +18,7 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RestController
 class UpdateApi {
   private final PlaylistUpdater updater;
-  private final JsonUpdateRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest jsonRequest) {

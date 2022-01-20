@@ -18,7 +18,7 @@ import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 @RestController
 class CreateApi {
   private final PlaylistCreator creator;
-  private final JsonSaveRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest jsonRequest) {

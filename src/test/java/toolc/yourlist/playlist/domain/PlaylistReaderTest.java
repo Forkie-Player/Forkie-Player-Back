@@ -7,8 +7,8 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+// TODO: Mockito이용해서 오케스트레이션 -> 함수의 콜을 확인하는 테스트 필요
 class PlaylistReaderTest {
-
   @Test
   void belongsTo() {
     var allPlaylists = new MockAllPlaylists();

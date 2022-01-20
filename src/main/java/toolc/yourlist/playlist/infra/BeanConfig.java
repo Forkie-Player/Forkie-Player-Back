@@ -37,33 +37,23 @@ class BeanConfig {
   }
 
   @Bean
+  JsonRequestMapper jsonRequestMapper(EqualOwnerFactory factory) {
+    return new JsonRequestMapper(factory);
+  }
+
+  @Bean
   PlaylistReader playlistReader(AllPlaylists allPlaylists) {
     return new PlaylistReader(allPlaylists);
   }
 
   @Bean
-  JsonSaveRequestMapper jsonSaveRequestMapper(AllMember allMember) {
-    return new JsonSaveRequestMapper(allMember);
-  }
-
-  @Bean
-  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allPlaylists);
-  }
-
-  @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(EqualOwnerFactory factory) {
-    return new JsonUpdateRequestMapper(factory);
+  PlaylistCreator playlistCreator(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allMember, allPlaylists);
   }
 
   @Bean
   PlaylistUpdater playlistUpdater(AllPlaylists allPlaylists) {
     return new PlaylistUpdater(allPlaylists);
-  }
-
-  @Bean
-  JsonDeleteRequestMapper jsonDeleteRequestMapper(AllMember allMember, AllPlaylists allPlaylists) {
-    return new JsonDeleteRequestMapper(allMember, allPlaylists);
   }
 
   @Bean
@@ -74,11 +64,6 @@ class BeanConfig {
   @Bean
   MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists) {
     return new DefaultPlaylist(allPlaylists);
-  }
-
-  @Bean
-  JsonAddPlayRequestMapper jsonAddPlayRequestMapper(EqualOwnerFactory factory) {
-    return new JsonAddPlayRequestMapper(factory);
   }
 
   @Bean

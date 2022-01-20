@@ -18,7 +18,7 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RestController
 public class DeleteApi {
   private final PlaylistEliminator eliminator;
-  private final JsonDeleteRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @DeleteMapping("/api/playlist")
   public ResponseEntity<?> delete(@Valid @RequestBody JsonDeleteRequest jsonRequest) {
