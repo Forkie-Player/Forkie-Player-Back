@@ -10,14 +10,16 @@ import static io.vavr.control.Either.left;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MemberAuthProviderTest {
 
   @Mock
   TokenProvider tokenProvider;
+
+  @Mock
+  TokenReader tokenReader;
 
   @InjectMocks
   MemberAuthProvider authProvider;
@@ -45,8 +47,27 @@ class MemberAuthProviderTest {
     authProvider.registerMember(loginId, password);
 
     //when
-    System.out.println(authProvider.login(loginId, password, isPC));
+    authProvider.login(loginId, password, isPC);
 
+    //then
     verify(tokenProvider, times(1)).makeToken(any(), any());
+  }
+
+  @Test
+  void call_tokenProvider_once_when_request_reissue_token() {
+    //given
+    String accessToken = "xMiJ9.eyJJZCI6MSwiVXNlclR5cGUiOiJ2aXNpdG9yIiwQ.bVqP9ynDa";
+    String refreshToken = "R5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0aWF0IjoxNTE2MjM5MDIyfQ.Sf";
+    boolean isPC = true;
+
+    authProvider.memberStorage.put(36223L, "jisoo27");
+    when(tokenReader.getId(anyString())).thenReturn(36223L);
+
+    //when
+    authProvider.reissueToken(accessToken, refreshToken, isPC);
+
+    //then
+    verify(tokenProvider, times(1)).makeToken(any(), any());
+
   }
 }

@@ -14,6 +14,7 @@ import static io.vavr.control.Either.right;
 public class MemberAuthProvider {
 
   private final TokenProvider tokenProvider;
+  private final TokenReader tokenReader;
 
   Map<Long, String> memberStorage = new HashMap<>();
   Long id = 1L;
@@ -41,5 +42,16 @@ public class MemberAuthProvider {
       .map(Map.Entry::getKey)
       .findFirst()
       .get();
+  }
+
+  Either<String, Token> reissueToken(String accessToken, String refreshToken, boolean isPC) {
+    Long id = tokenReader.getId(accessToken);
+    if (!memberStorage.containsKey(id)) {
+      throw new IllegalArgumentException();
+    }
+
+    Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
+
+    return right(tokenProvider.makeToken(id, refreshTokenExpiration));
   }
 }
