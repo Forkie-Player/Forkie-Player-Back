@@ -24,16 +24,12 @@ class ReadApi {
   @GetMapping("/api/playlist/{memberId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("memberId") String memberId) {
     var request = memberIdMapper.toReadRequest(memberId);
+
     if (request.isEmpty()) {
       return failRead(request.getLeft());
     }
 
-    var result = reader.belongsTo(request.get());
-    if (result.isEmpty()) {
-      return failRead(result.getLeft());
-    }
-
-    return toOutput(listOfPlaylistsMapper.toPlaylistJsonList(result.get()));
+    return toOutput(listOfPlaylistsMapper.toPlaylistJsonList(reader.belongsTo(request.get())));
   }
 
   private ResponseEntity<?> failRead(String message) {
