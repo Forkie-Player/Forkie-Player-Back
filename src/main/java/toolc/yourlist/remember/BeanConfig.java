@@ -27,7 +27,7 @@ public class BeanConfig {
   }
 
   @Bean
-  AuthManager authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
-    return new AuthManager(tokenProvider, tokenReader);
+  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
+    return new VisitorAuthProvider(tokenProvider, tokenReader);
   }
 }

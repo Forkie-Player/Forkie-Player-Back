@@ -3,7 +3,6 @@ package toolc.yourlist.remember;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
-import java.time.Instant;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -16,7 +15,6 @@ public class TokenProvider {
 
   Token makeToken(Long id, Period refreshTokenExpiration) {
 
-    Date from = Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES));
     final var accessToken = Jwts.builder()
       .setSubject(id.toString())
       .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))

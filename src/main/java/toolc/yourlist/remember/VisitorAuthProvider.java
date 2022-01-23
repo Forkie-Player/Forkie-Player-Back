@@ -11,7 +11,7 @@ import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 
 @RequiredArgsConstructor
-public class AuthManager {
+public class VisitorAuthProvider {
 
   private final TokenProvider tokenProvider;
   private final TokenReader tokenReader;
