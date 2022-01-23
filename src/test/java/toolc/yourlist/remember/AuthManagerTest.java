@@ -40,12 +40,12 @@ class AuthManagerTest {
     final var result = authManager.getVisitorToken(uuid, isPC);
 
     //then
-    String id = authManager.findIdByUUID(uuid);
+    Long id = authManager.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     final var accessToken = Jwts.builder()
-      .setSubject(id)
+      .setSubject(id.toString())
       .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
@@ -114,12 +114,12 @@ class AuthManagerTest {
       token.accessToken(), token.refreshToken(), true);
 
     //then
-    String id = authManager.findIdByUUID(uuid);
+    Long id = authManager.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     final var accessToken = Jwts.builder()
-      .setSubject(id)
+      .setSubject(id.toString())
       .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();

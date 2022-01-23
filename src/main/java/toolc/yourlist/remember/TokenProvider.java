@@ -16,10 +16,10 @@ public class TokenProvider {
 
   private final TokenSecretKey tokenSecretKey;
 
-  Token makeToken(String id, Period refreshTokenExpiration){
+  Token makeToken(Long id, Period refreshTokenExpiration){
 
     final var accessToken = Jwts.builder()
-      .setSubject(id)
+      .setSubject(id.toString())
       .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
       .signWith(tokenSecretKey.secretKey())
       .compact();

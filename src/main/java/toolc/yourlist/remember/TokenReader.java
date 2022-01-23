@@ -12,7 +12,7 @@ class TokenReader {
   }
 
 
-  String getId(String accessToken) {
-    return jwtParser.parseClaimsJws(accessToken).getBody().getSubject();
+  Long getId(String accessToken) {
+    return Long.parseLong(jwtParser.parseClaimsJws(accessToken).getBody().getSubject());
   }
 }

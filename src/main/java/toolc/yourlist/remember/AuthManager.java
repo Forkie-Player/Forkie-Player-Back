@@ -19,13 +19,13 @@ public class AuthManager {
   Map<Long, String> visitorsStorage = new HashMap<>();
   Long id = 1L;
 
-  String findIdByUUID(String uuid) {
+  Long findIdByUUID(String uuid) {
     return visitorsStorage.entrySet()
       .stream()
       .filter(enyty -> enyty.getValue().equals(uuid))
       .map(Map.Entry::getKey)
       .findFirst()
-      .get().toString();
+      .get();
   }
 
   void registerVisitor(String uuid) {
@@ -35,7 +35,7 @@ public class AuthManager {
 
   Either<String, Token> getVisitorToken(String uuid, boolean isPC) {
     if (visitorsStorage.containsValue(uuid)) {
-      String id = findIdByUUID(uuid);
+      Long id = findIdByUUID(uuid);
       Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
 
       return right(tokenProvider.makeToken(id, refreshTokenExpiration));
@@ -43,8 +43,8 @@ public class AuthManager {
   }
 
   Either<String, Token> reissueToken(String accessToken, String refreshToken, boolean isPC) {
-    String id = tokenReader.getId(accessToken);
-    if (!visitorsStorage.containsKey(Long.parseLong(id))) {
+    Long id = tokenReader.getId(accessToken);
+    if (!visitorsStorage.containsKey(id)) {
       // todo :: usecase에는 없다. 하지만 서버 작동 중 문제가 생겨서 발생했을 가능성은? -> 예외로?
       throw new IllegalArgumentException();
     }

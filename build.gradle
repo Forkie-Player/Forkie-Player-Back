@@ -52,8 +52,6 @@ dependencies {
 
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-	testImplementation 'org.mockito:mockito-core:3.7.7'
-	testImplementation 'org.mockito:mockito-junit-jupiter:3.7.7'
 	testImplementation 'org.hamcrest:hamcrest:2.2'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 }
