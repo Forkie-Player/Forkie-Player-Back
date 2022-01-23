@@ -6,27 +6,33 @@ import lombok.RequiredArgsConstructor;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class TokenProvider {
 
   private final TokenSecretKey tokenSecretKey;
   private final TimeServer timeServer;
+  private final UserType userType;
 
   Token makeToken(Long id, Period refreshTokenExpiration) {
 
+    Map<String, Object> payloads = new HashMap<>();
+    payloads.put("Id", id);
+    payloads.put("UserType", userType);
     final var accessToken = Jwts.builder()
-      .setSubject(id.toString())
+      .setClaims(payloads)
       .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(tokenSecretKey.secretKey())
       .compact();
 
-    final var newRefreshToken = Jwts.builder()
+    final var refreshToken = Jwts.builder()
       .setExpiration(Date.from(timeServer.nowTime().plus(refreshTokenExpiration).toInstant()))
       .signWith(tokenSecretKey.secretKey())
       .compact();
 
-    return new Token(accessToken, newRefreshToken);
+    return new Token(accessToken, refreshToken);
   }
 }
 

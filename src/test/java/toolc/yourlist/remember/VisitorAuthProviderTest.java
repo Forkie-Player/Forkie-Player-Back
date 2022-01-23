@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
@@ -19,7 +21,7 @@ class VisitorAuthProviderTest {
   TokenSecretKey tokenSecretKey = new TokenSecretKey();
   TimeServer timeServer = new FakeTimeServer();
   VisitorAuthProvider visitorAuthProvider = new VisitorAuthProvider(
-    new TokenProvider(tokenSecretKey, timeServer), new TokenReader(tokenSecretKey));
+    new TokenProvider(tokenSecretKey, timeServer, UserType.MEMBER), new TokenReader(tokenSecretKey));
 
   @Test
   void registered_visitor_can_not_register_again() {
@@ -44,8 +46,12 @@ class VisitorAuthProviderTest {
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
+    Map<String, Object> payloads = new HashMap<>();
+    payloads.put("Id", id);
+    payloads.put("UserType", UserType.MEMBER);
+
     final var accessToken = Jwts.builder()
-      .setSubject(id.toString())
+      .setClaims(payloads)
       .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
@@ -109,6 +115,7 @@ class VisitorAuthProviderTest {
     visitorAuthProvider.registerVisitor(uuid);
     final var token = visitorAuthProvider.getVisitorToken(uuid, true).get();
 
+    System.out.println(token);
     //when
     final var result = visitorAuthProvider.reissueToken(
       token.accessToken(), token.refreshToken(), true);
@@ -118,8 +125,12 @@ class VisitorAuthProviderTest {
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
+    Map<String, Object> payloads = new HashMap<>();
+    payloads.put("Id", id);
+    payloads.put("UserType", UserType.MEMBER);
+
     final var accessToken = Jwts.builder()
-      .setSubject(id.toString())
+      .setClaims(payloads)
       .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();

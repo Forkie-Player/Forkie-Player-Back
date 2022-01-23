@@ -18,7 +18,7 @@ public class BeanConfig {
 
   @Bean
   TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TimeServer timeServer) {
-    return new TokenProvider(tokenSecretKey, timeServer);
+    return new TokenProvider(tokenSecretKey, timeServer, UserType.MEMBER);
   }
 
   @Bean

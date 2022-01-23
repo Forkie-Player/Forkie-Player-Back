@@ -1,5 +1,6 @@
 package toolc.yourlist.remember;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
@@ -13,6 +14,6 @@ class TokenReader {
 
 
   Long getId(String accessToken) {
-    return Long.parseLong(jwtParser.parseClaimsJws(accessToken).getBody().getSubject());
+    return jwtParser.parseClaimsJws(accessToken).getBody().get("Id", Long.class);
   }
 }
