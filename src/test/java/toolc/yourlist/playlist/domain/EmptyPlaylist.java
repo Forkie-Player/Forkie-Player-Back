@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
-class EmptyPlaylist implements AllPlaylists{
+public class EmptyPlaylist implements AllPlaylists{
   @Override
   public ListOfPlaylists readAllBelongsTo(Long memberId) {
     return null;
@@ -31,5 +31,9 @@ class EmptyPlaylist implements AllPlaylists{
 
   @Override
   public void delete(Playlist playlist) {
+  }
+
+  @Override
+  public void updateThumbnail(Long playlistId, String thumbnail) {
   }
 }

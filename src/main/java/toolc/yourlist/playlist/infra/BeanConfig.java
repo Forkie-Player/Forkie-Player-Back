@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.auth.domain.MakeDefaultPlayList;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
-import toolc.yourlist.play.infra.JpaPlayAdapter;
-import toolc.yourlist.play.infra.JpaPlayRepository;
-import toolc.yourlist.play.infra.Play;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 
@@ -16,7 +13,7 @@ import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 class BeanConfig {
   @Bean
   AllMember allMemberInPlaylist(JpaAllMemberEntity jpaAllMemberEntity) {
-    return new AllMemberMapper(jpaAllMemberEntity);
+    return new JpaMemberAdapter(jpaAllMemberEntity);
   }
 
   @Bean
@@ -25,13 +22,23 @@ class BeanConfig {
   }
 
   @Bean
-  ReadRequestFactory readRequestFactory(AllMember allMember) {
-    return new ReadRequestFactory(allMember);
+  AllPlay allPlay(JpaPlayRepository jpaPlayRepository) {
+    return new JpaPlayAdapter(jpaPlayRepository);
   }
 
   @Bean
-  MemberIdMapper memberIdMapper(ReadRequestFactory factory) {
-    return new MemberIdMapper(factory);
+  EqualOwnerFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists) {
+    return new EqualOwnerFactory(allMember, allPlaylists);
+  }
+
+  @Bean
+  MemberIdMapper memberIdMapper(AllMember allMember) {
+    return new MemberIdMapper(allMember);
+  }
+
+  @Bean
+  JsonRequestMapper jsonRequestMapper(EqualOwnerFactory factory) {
+    return new JsonRequestMapper(factory);
   }
 
   @Bean
@@ -40,28 +47,8 @@ class BeanConfig {
   }
 
   @Bean
-  SaveRequestFactory saveRequestFactory(AllMember allMember) {
-    return new SaveRequestFactory(allMember);
-  }
-
-  @Bean
-  JsonSaveRequestMapper jsonSaveRequestMapper(SaveRequestFactory factory) {
-    return new JsonSaveRequestMapper(factory);
-  }
-
-  @Bean
-  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allPlaylists);
-  }
-
-  @Bean
-  UpdateRequestFactory updateRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
-    return new UpdateRequestFactory(allMember, allPlaylists);
-  }
-
-  @Bean
-  JsonUpdateRequestMapper jsonUpdateRequestMapper(UpdateRequestFactory factory) {
-    return new JsonUpdateRequestMapper(factory);
+  PlaylistCreator playlistCreator(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allMember, allPlaylists);
   }
 
   @Bean
@@ -70,27 +57,22 @@ class BeanConfig {
   }
 
   @Bean
-  DeleteRequestFactory deleteRequestFactory(AllMember allMember, AllPlaylists allPlaylists) {
-    return new DeleteRequestFactory(allMember, allPlaylists);
-  }
-
-  @Bean
-  JsonDeleteRequestMapper jsonDeleteRequestMapper(DeleteRequestFactory factory) {
-    return new JsonDeleteRequestMapper(factory);
-  }
-
-  @Bean
   PlaylistEliminator playlistEliminator(AllPlaylists allPlaylists) {
     return new PlaylistEliminator(allPlaylists);
   }
 
   @Bean
-  Play play(JpaPlayRepository playRepository) {
-    return new JpaPlayAdapter(playRepository);
+  MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists) {
+    return new DefaultPlaylist(allPlaylists);
   }
 
   @Bean
-  MakeDefaultPlayList defaultPlaylist(AllPlaylists allPlaylists){
-    return new DefaultPlaylist(allPlaylists);
+  PlaylistThumbnail playlistThumbnail(AllPlaylists allPlaylists) {
+    return new ThumbnailChanger(allPlaylists);
+  }
+
+  @Bean
+  PlayAdder playAdder(AllPlay allPlay, PlaylistThumbnail playlistThumbnail) {
+    return new PlayAdder(allPlay, playlistThumbnail);
   }
 }

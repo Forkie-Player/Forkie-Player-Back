@@ -18,24 +18,12 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RestController
 public class DeleteApi {
   private final PlaylistEliminator eliminator;
-  private final JsonDeleteRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @DeleteMapping("/api/playlist")
   public ResponseEntity<?> delete(@Valid @RequestBody JsonDeleteRequest jsonRequest) {
-    var request = mapper.toDeleteRequest(jsonRequest);
-    if (request.isEmpty()) {
-      return failDelete(request.getLeft());
-    }
-
-    var result = eliminator.delete(request.get());
-    if (result.isEmpty()) {
-      return failDelete(result.getLeft());
-    }
+    eliminator.delete(mapper.toDeleteRequest(jsonRequest));
 
     return ok("삭제 성공");
-  }
-
-  private ResponseEntity<?> failDelete(String message) {
-    return failForBadRequest("삭제 실패 : " + message);
   }
 }

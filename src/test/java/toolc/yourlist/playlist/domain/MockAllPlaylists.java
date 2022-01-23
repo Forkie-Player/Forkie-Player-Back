@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 import java.util.List;
 
-class MockAllPlaylists implements AllPlaylists {
+public class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public ListOfPlaylists readAllBelongsTo(Long memberId) {
@@ -50,5 +50,9 @@ class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public void delete(Playlist playlist) {
+  }
+
+  @Override
+  public void updateThumbnail(Long playlistId, String thumbnail) {
   }
 }

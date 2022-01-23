@@ -10,7 +10,6 @@ import toolc.yourlist.playlist.domain.PlaylistUpdater;
 
 import javax.validation.Valid;
 
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @Slf4j
@@ -18,24 +17,12 @@ import static toolc.yourlist.common.infra.JsonResponse.ok;
 @RestController
 class UpdateApi {
   private final PlaylistUpdater updater;
-  private final JsonUpdateRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @PutMapping("/api/playlist")
   public ResponseEntity<?> updateTitle(@Valid @RequestBody JsonUpdateRequest jsonRequest) {
-    var request = mapper.toUpdateRequest(jsonRequest);
-    if (request.isEmpty()) {
-      return failUpdate(request.getLeft());
-    }
-
-    var result = updater.updateTitle(request.get());
-    if (result.isEmpty()) {
-      return failUpdate(result.getLeft());
-    }
+    updater.updateTitle(mapper.toUpdateRequest(jsonRequest));
 
     return ok("수정 성공");
-  }
-
-  private ResponseEntity<?> failUpdate(String message) {
-    return failForBadRequest("수정 실패 : " + message);
   }
 }

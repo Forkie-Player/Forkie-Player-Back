@@ -18,16 +18,13 @@ import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 @RestController
 class CreateApi {
   private final PlaylistCreator creator;
-  private final JsonSaveRequestMapper mapper;
+  private final JsonRequestMapper mapper;
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest jsonRequest) {
-    var request = mapper.toCreateRequest(jsonRequest);
-    if (request.isEmpty()) {
-      return failCreate(request.getLeft());
-    }
+    var result = creator
+      .create(mapper.toCreateRequest(jsonRequest));
 
-    var result = creator.createPlaylist(request.get());
     if (result.isEmpty()) {
       return failCreate(result.getLeft());
     }

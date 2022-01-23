@@ -1,56 +1,40 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+@ExtendWith(MockitoExtension.class)
 class PlaylistUpdaterTest {
-
   @Test
-  void updateTitle() {
-    var allPlaylists = new MockAllPlaylists();
+  void updateTitle(@Mock AllPlaylists allPlaylists) {
     var updater = new PlaylistUpdater(allPlaylists);
-    var request = new UpdateRequest(Member.builder()
-      .id(1L)
-      .loginId("oh980225")
-      .password("qwer1234!")
-      .isMember(true)
-      .build(),
-      Playlist.builder()
-        .id(1L)
-        .memberId(1L)
-        .title("My List")
-        .thumbnail("panda.png")
-        .build(),
-      "New List");
+    var request = new UpdateRequest(
+      new EqualOwner(
+        Member.builder()
+          .id(1L)
+          .loginId("oh980225")
+          .password("qwer1234!")
+          .isMember(true)
+          .build(),
+        Playlist.builder()
+          .id(1L)
+          .memberId(1L)
+          .title("My List")
+          .thumbnail("panda.png")
+          .build()
+      ),
+      "My Music");
 
-    var actual = updater.updateTitle(request).get();
+    updater.updateTitle(request);
 
-    assertThat(actual, is(true));
-  }
-
-
-  @Test
-  void updateTitle_not_equal_owner() {
-    var allPlaylists = new MockAllPlaylists();
-    var updater = new PlaylistUpdater(allPlaylists);
-    var request = new UpdateRequest(Member.builder()
-      .id(1L)
-      .loginId("oh980225")
-      .password("qwer1234!")
-      .isMember(true)
-      .build(),
-      Playlist.builder()
-        .id(1L)
-        .memberId(2L)
-        .title("My List")
-        .thumbnail("panda.png")
-        .build(),
-      "New List");
-
-    var actual = updater.updateTitle(request).getLeft();
-
-    assertThat(actual, is("Playlist 소유자의 요청이 아닙니다."));
+    verify(allPlaylists).updateTitleBelongsTo(
+      request.equalOwner().playlist().id(),
+      request.title());
+    verifyNoMoreInteractions(allPlaylists);
   }
 }
