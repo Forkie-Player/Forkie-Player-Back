@@ -8,9 +8,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static io.vavr.control.Either.left;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class MemberAuthProviderTest {
@@ -20,7 +21,6 @@ class MemberAuthProviderTest {
 
   @InjectMocks
   MemberAuthProvider authProvider;
-
 
 
   @Test

@@ -5,7 +5,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -18,8 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class AuthManagerTest {
 
   TokenSecretKey tokenSecretKey = new TokenSecretKey();
+  TimeServer timeServer = new FakeTimeServer();
   AuthManager authManager = new AuthManager(
-    new TokenProvider(tokenSecretKey), new TokenReader(tokenSecretKey));
+    new TokenProvider(tokenSecretKey, timeServer), new TokenReader(tokenSecretKey));
 
   @Test
   void registered_visitor_can_not_register_again() {
@@ -46,12 +46,12 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id.toString())
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
@@ -120,12 +120,12 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id.toString())
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
@@ -141,12 +141,12 @@ class AuthManagerTest {
 
     final var accessToken = Jwts.builder()
       .setSubject(id)
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(30, ChronoUnit.MINUTES)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 
     final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(Instant.ofEpochSecond(1642318730).plus(7, ChronoUnit.DAYS)))
+      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
       .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
       .compact();
 

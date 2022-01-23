@@ -12,8 +12,13 @@ public class BeanConfig {
   }
 
   @Bean
-  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey) {
-    return new TokenProvider(tokenSecretKey);
+  TimeServer timeServer() {
+    return new RealTimeServer();
+  }
+
+  @Bean
+  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TimeServer timeServer) {
+    return new TokenProvider(tokenSecretKey, timeServer);
   }
 
   @Bean
