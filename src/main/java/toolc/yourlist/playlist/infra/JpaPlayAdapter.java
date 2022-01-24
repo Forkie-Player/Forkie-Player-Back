@@ -11,8 +11,8 @@ public class JpaPlayAdapter implements AllPlay {
   private final PlayEntityMapper mapper = new PlayEntityMapper();
 
   @Override
-  public void save(Play play, long playlistSize) {
-    jpaPlayRepository.save(new PlayEntity(play, playlistSize + 1));
+  public void save(Play play) {
+    jpaPlayRepository.save(new PlayEntity(play));
   }
 
   @Override

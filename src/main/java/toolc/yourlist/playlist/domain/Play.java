@@ -8,6 +8,7 @@ public record Play(
   String videoId,
   String thumbnail,
   Long playlistId,
+  Long sequence,
   PlayTime playTime,
   Channel channel) {
   @Builder

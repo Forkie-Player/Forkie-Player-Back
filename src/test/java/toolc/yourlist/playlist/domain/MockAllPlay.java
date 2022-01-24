@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 public class MockAllPlay implements AllPlay{
   @Override
-  public void save(Play play, long playlistSize) {
+  public void save(Play play) {
   }
 
   @Override

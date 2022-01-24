@@ -17,6 +17,7 @@ class ListOfPlaysTest {
           .title("So Good Music")
           .videoId("abcd1234")
           .thumbnail("panda.png")
+          .sequence(1L)
           .playTime(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -26,6 +27,33 @@ class ListOfPlaysTest {
           .title("So Sad Music")
           .videoId("qwer1234")
           .thumbnail("puppy.png")
+          .sequence(2L)
+          .playTime(new PlayTime(1500L, 20000L))
+          .channel(new Channel("Music man", "mike.png"))
+          .build())));
+  }
+
+  @Test
+  void 영상들_순서_중복() {
+    assertThrows(DuplicateSeqException.class, () -> new ListOfPlays(
+      List.of(
+        Play.builder()
+          .id(1L)
+          .playlistId(1L)
+          .title("So Good Music")
+          .videoId("abcd1234")
+          .thumbnail("panda.png")
+          .sequence(1L)
+          .playTime(new PlayTime(1000L, 10000L))
+          .channel(new Channel("Music man", "mike.png"))
+          .build(),
+        Play.builder()
+          .id(2L)
+          .playlistId(1L)
+          .title("So Sad Music")
+          .videoId("qwer1234")
+          .thumbnail("puppy.png")
+          .sequence(1L)
           .playTime(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));

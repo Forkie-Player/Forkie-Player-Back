@@ -17,11 +17,12 @@ public class PlayAdder {
       .title(request.info().title())
       .thumbnail(request.info().thumbnail())
       .videoId(request.info().videoId())
+      .sequence(playlistSize + 1)
       .playTime(request.time())
       .channel(request.channel())
       .build();
 
-    allPlay.save(play, playlistSize);
+    allPlay.save(play);
     playlistThumbnail.change(request.equalOwner().playlist().id(), request.info().thumbnail(), playlistSize);
   }
 }

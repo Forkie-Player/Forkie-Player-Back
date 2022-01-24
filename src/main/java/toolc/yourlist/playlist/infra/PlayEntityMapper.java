@@ -12,6 +12,7 @@ class PlayEntityMapper {
         .id(entity.id())
         .playlistId(entity.playlistId())
         .title(entity.title())
+        .sequence(entity.sequence())
         .playTime(new PlayTime(entity.start(), entity.end()))
         .channel(new Channel(entity.title(), entity.channelImage()))
         .thumbnail(entity.thumbnail())
