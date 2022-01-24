@@ -10,13 +10,8 @@ public record Play (
   Long playlistId,
   Long sequence,
   PlayTime playTime,
-  Channel channel) implements Comparable<Play> {
+  Channel channel){
   @Builder
   public Play {
-  }
-
-  @Override
-  public int compareTo(Play play) {
-    return sequence.compareTo(play.sequence);
   }
 }
