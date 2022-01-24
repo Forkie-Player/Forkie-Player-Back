@@ -1,5 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public record ListOfPlays(List<Play> list) {
       throw new NotInEqualPlaylistException();
     }
 
-    // 순서 중복 검증
+    // 순서를 위한 로직
     final int seqSize = list.stream()
       .map(Play::sequence)
       .collect(Collectors.toUnmodifiableSet())
@@ -24,5 +25,7 @@ public record ListOfPlays(List<Play> list) {
     if (seqSize != list.size()) {
       throw new DuplicateSeqException();
     }
+
+    list.sort(Comparator.comparingLong(Play::sequence));
   }
 }

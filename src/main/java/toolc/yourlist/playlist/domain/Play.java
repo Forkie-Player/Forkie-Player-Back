@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 import lombok.Builder;
 
-public record Play(
+public record Play (
   Long id,
   String title,
   String videoId,
@@ -10,8 +10,13 @@ public record Play(
   Long playlistId,
   Long sequence,
   PlayTime playTime,
-  Channel channel) {
+  Channel channel) implements Comparable<Play> {
   @Builder
   public Play {
+  }
+
+  @Override
+  public int compareTo(Play play) {
+    return sequence.compareTo(play.sequence);
   }
 }

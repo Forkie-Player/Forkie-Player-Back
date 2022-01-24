@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -30,13 +31,14 @@ class PlayReaderTest {
         .thumbnail("panda.png")
         .build()));
     var listOfPlay = new ListOfPlays(
-      List.of(
+      Arrays.asList(
         Play.builder()
           .id(1L)
           .playlistId(request.equalOwner().playlist().id())
           .title("So Good Music")
           .videoId("abcd1234")
           .thumbnail("panda.png")
+          .sequence(1L)
           .playTime(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -46,6 +48,7 @@ class PlayReaderTest {
           .title("So Sad Music")
           .videoId("qwer1234")
           .thumbnail("puppy.png")
+          .sequence(2L)
           .playTime(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build()));
