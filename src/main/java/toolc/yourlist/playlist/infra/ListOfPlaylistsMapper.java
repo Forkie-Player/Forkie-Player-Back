@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 class ListOfPlaylistsMapper {
   List<PlaylistJson> toPlaylistJsonList(ListOfPlaylists listOfPlaylists) {
-    return listOfPlaylists.entities()
+    return listOfPlaylists.list()
       .stream()
       .map(PlaylistJson::new)
       .collect(Collectors.toList());

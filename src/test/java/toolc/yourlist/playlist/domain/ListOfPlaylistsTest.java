@@ -7,7 +7,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ListOfPlaylistsTest {
-
   @Test
   void 멤버Id_불일치() {
     assertThrows(IllegalArgumentException.class, () -> new ListOfPlaylists(
