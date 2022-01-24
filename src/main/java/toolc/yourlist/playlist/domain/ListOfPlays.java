@@ -11,7 +11,7 @@ public record ListOfPlays(List<Play> list) {
       .size();
 
     if (size != 1) {
-      throw new IllegalArgumentException("같은 영상 목록 내 영상이 아닙니다.");
+      throw new NotInEqualPlaylistException();
     }
   }
 }

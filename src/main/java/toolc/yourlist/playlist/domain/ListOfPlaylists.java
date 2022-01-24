@@ -11,7 +11,7 @@ public record ListOfPlaylists(List<Playlist> list) {
       .size();
 
     if (size != 1) {
-      throw new IllegalArgumentException("같은 멤버의 영상목록이 아닙니다.");
+      throw new NotEqualOwnerForPlaylistsException();
     }
   }
 }

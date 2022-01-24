@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ListOfPlaylistsTest {
   @Test
-  void 멤버Id_불일치() {
-    assertThrows(IllegalArgumentException.class, () -> new ListOfPlaylists(
+  void 동일하지_않은_멤버의_영상목록들() {
+    assertThrows(NotEqualOwnerForPlaylistsException.class, () -> new ListOfPlaylists(
       List.of(
         Playlist.builder()
           .id(1L)

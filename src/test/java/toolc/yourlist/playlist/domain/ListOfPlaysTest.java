@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ListOfPlaysTest {
   @Test
   void 다른_영상목록의_영상_포함() {
-    assertThrows(IllegalArgumentException.class, () -> new ListOfPlays(
+    assertThrows(NotInEqualPlaylistException.class, () -> new ListOfPlays(
       List.of(
         Play.builder()
           .id(1L)
