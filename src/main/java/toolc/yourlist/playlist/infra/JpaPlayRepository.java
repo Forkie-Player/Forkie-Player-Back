@@ -7,5 +7,5 @@ public interface JpaPlayRepository {
 
   long countByPlaylistId(Long playlistId);
 
-  List<PlayEntity> findByPlaylistId(Long playlistId);
+  List<PlayEntity> findByPlaylistIdOrderBySequence(Long playlistId);
 }

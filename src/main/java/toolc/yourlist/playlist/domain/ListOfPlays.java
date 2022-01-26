@@ -1,6 +1,5 @@
 package toolc.yourlist.playlist.domain;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,15 +15,11 @@ public record ListOfPlays(List<Play> list) {
     }
 
     // 순서를 위한 로직
-    final int seqSize = list.stream()
-      .map(Play::sequence)
-      .collect(Collectors.toUnmodifiableSet())
-      .size();
-
-    if (seqSize != list.size()) {
-      throw new DuplicateSeqException();
-    }
-
-    list.sort(Comparator.comparingLong(Play::sequence));
+    // TODO: 순서 정책으로 따로 뺄 수도 있을 듯!
+    list.forEach(play -> {
+      if (play.sequence() != list.indexOf(play) + 1) {
+        throw new InvalidSeqException();
+      }
+    });
   }
 }
