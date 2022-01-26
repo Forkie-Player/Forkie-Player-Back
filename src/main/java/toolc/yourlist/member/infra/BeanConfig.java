@@ -1,15 +1,34 @@
 package toolc.yourlist.member.infra;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import toolc.yourlist.member.*;
 
+@Configuration
 public class BeanConfig {
 
-  @Autowired
-  private JpaAllMemberEntity jpaAllMemberEntity;
+  @Bean
+  TokenSecretKey tokenSecretKey() {
+    return new TokenSecretKey();
+  }
 
   @Bean
-  private AllMemberEntityAdapter allMemberMapper(){
-    return new AllMemberEntityAdapter(jpaAllMemberEntity);
+  TimeServer timeServer() {
+    return new RealTimeServer();
+  }
+
+  @Bean
+  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TimeServer timeServer) {
+    return new TokenProvider(tokenSecretKey, timeServer, UserType.MEMBER);
+  }
+
+  @Bean
+  TokenReader tokenReader(TokenSecretKey tokenSecretKey) {
+    return new TokenReader(tokenSecretKey);
+  }
+
+  @Bean
+  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
+    return new VisitorAuthProvider(tokenProvider, tokenReader);
   }
 }

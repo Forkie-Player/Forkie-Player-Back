@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.usecase;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.auth.domain.MakeDefaultPlayList;
+import toolc.yourlist.member.domain.MakeDefaultPlayList;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlist;
 

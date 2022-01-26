@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import toolc.yourlist.auth.domain.MakeDefaultPlayList;
+import toolc.yourlist.member.domain.MakeDefaultPlayList;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 import toolc.yourlist.play.infra.JpaPlayAdapter;
 import toolc.yourlist.play.infra.JpaPlayRepository;
