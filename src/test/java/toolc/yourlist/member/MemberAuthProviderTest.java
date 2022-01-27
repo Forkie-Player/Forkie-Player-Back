@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 
@@ -21,6 +22,9 @@ class MemberAuthProviderTest {
   TokenProvider tokenProvider;
 
   @Mock
+  AllMember allMember;
+
+  @Mock
   TokenReader tokenReader;
 
   @InjectMocks
@@ -33,11 +37,10 @@ class MemberAuthProviderTest {
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
 
+    when(allMember.isNotExistByLoginId(loginId)).thenReturn(true);
 
-    authProvider.registerMember(loginId, password);
-
+    //then
     assertThat(authProvider.registerMember(loginId, password), is(left("Already register Member")));
-
   }
 
   @Test
@@ -62,7 +65,7 @@ class MemberAuthProviderTest {
     String refreshToken = "R5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0aWF0IjoxNTE2MjM5MDIyfQ.Sf";
     boolean isPC = true;
 
-    authProvider.memberStorage.put(36223L, "jisoo27");
+    when(allMember.isNotExistById(anyLong())).thenReturn(false);
     when(tokenReader.getId(anyString())).thenReturn(36223L);
 
     //when

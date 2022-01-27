@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.domain.loginId.LoginId;
