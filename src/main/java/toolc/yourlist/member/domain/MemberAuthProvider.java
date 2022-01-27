@@ -1,8 +1,7 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.AllMember;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 

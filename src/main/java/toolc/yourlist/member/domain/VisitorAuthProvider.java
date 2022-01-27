@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;

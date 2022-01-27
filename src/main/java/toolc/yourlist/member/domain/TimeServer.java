@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import java.time.ZonedDateTime;
 

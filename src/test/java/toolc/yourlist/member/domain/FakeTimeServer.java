@@ -1,4 +1,6 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
+
+import toolc.yourlist.member.domain.TimeServer;
 
 import java.time.ZonedDateTime;
 

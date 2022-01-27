@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,6 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import toolc.yourlist.member.domain.AllMember;
+import toolc.yourlist.member.domain.MemberAuthProvider;
+import toolc.yourlist.member.domain.TokenProvider;
+import toolc.yourlist.member.domain.TokenReader;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 

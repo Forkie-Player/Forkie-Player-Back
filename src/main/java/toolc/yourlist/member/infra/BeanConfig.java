@@ -2,7 +2,7 @@ package toolc.yourlist.member.infra;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import toolc.yourlist.member.*;
+import toolc.yourlist.member.domain.*;
 
 @Configuration
 public class BeanConfig {

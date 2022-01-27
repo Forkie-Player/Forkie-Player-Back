@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.infra;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

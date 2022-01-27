@@ -1,4 +1,4 @@
-package toolc.yourlist.member;
+package toolc.yourlist.member.domain;
 
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
