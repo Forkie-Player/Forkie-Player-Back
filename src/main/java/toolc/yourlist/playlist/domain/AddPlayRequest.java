@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 public record AddPlayRequest(
-  EqualOwnerForPlaylist equalOwnerForPlaylist,
+  EqualMemberForPlaylist equalMemberForPlaylist,
   PlayInfo info,
   PlayTime time,
   Channel channel) {

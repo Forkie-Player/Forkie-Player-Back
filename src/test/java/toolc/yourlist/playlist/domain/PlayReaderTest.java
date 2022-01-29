@@ -16,7 +16,7 @@ class PlayReaderTest {
   @Test
   void readAllPlays(@Mock AllPlay allPlay) {
     var reader = new PlayReader(allPlay);
-    var request = new ReadAllPlaysRequest(new EqualOwnerForPlaylist(
+    var request = new ReadAllPlaysRequest(new EqualMemberForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -33,7 +33,7 @@ class PlayReaderTest {
       Arrays.asList(
         Play.builder()
           .id(1L)
-          .playlistId(request.equalOwnerForPlaylist().playlist().id())
+          .playlistId(request.equalMemberForPlaylist().playlist().id())
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
           .sequence(1L)
           .time(new PlayTime(1000L, 10000L))
@@ -41,19 +41,19 @@ class PlayReaderTest {
           .build(),
         Play.builder()
           .id(2L)
-          .playlistId(request.equalOwnerForPlaylist().playlist().id())
+          .playlistId(request.equalMemberForPlaylist().playlist().id())
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
           .sequence(2L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build()));
-    when(allPlay.readAllBelongsTo(request.equalOwnerForPlaylist().playlist().id()))
+    when(allPlay.readAllBelongsTo(request.equalMemberForPlaylist().playlist().id()))
       .thenReturn(listOfPlay);
 
     var actual = reader.readAllPlays(request);
 
     assertThat(actual, is(listOfPlay));
-    verify(allPlay).readAllBelongsTo(request.equalOwnerForPlaylist().playlist().id());
+    verify(allPlay).readAllBelongsTo(request.equalMemberForPlaylist().playlist().id());
     verifyNoMoreInteractions(allPlay);
   }
 }

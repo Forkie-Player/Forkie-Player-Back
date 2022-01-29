@@ -6,7 +6,7 @@ class TimeUpdaterTest {
   @Test
   void update() {
     var updater = new TimeUpdater();
-    var request = new TimeUpdateRequest(new EqualOwnerForPlay(
+    var request = new TimeUpdateRequest(new EqualMemberForPlay(
       Member.builder()
         .id(1L)
         .loginId("oh980225")

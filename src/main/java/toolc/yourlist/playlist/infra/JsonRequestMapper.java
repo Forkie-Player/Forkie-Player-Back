@@ -5,7 +5,7 @@ import toolc.yourlist.playlist.domain.*;
 
 @RequiredArgsConstructor
 public class JsonRequestMapper {
-  private final EqualOwnerFactory factory;
+  private final EqualMemberFactory factory;
 
   SaveRequest toCreateRequest(JsonSaveRequest jsonRequest) {
     return new SaveRequest(jsonRequest.memberId(), jsonRequest.title());

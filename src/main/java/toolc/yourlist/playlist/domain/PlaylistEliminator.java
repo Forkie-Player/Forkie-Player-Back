@@ -7,6 +7,6 @@ public class PlaylistEliminator {
   private final AllPlaylists allPlaylists;
 
   public void delete(DeleteRequest request) {
-    allPlaylists.delete(request.equalOwnerForPlaylist().playlist());
+    allPlaylists.delete(request.equalMemberForPlaylist().playlist());
   }
 }

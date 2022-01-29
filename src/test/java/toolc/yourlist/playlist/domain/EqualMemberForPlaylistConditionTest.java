@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class EqualOwnerForPlaylistConditionTest {
+class EqualMemberForPlaylistConditionTest {
   @Test
   void 영상목록의_주인X() {
-    var condition = new EqualOwnerCondition();
+    var condition = new EqualMemberCondition();
 
     assertThrows(NotOwnerException.class, () -> condition.check(
       Member.builder()

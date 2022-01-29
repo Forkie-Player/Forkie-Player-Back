@@ -11,9 +11,9 @@ public class PlayAdder {
 
   @Transactional
   public void add(AddPlayRequest request) {
-    var playlistSize = allPlay.havingCountOf(request.equalOwnerForPlaylist().playlist().id());
+    var playlistSize = allPlay.havingCountOf(request.equalMemberForPlaylist().playlist().id());
     var play = Play.builder()
-      .playlistId(request.equalOwnerForPlaylist().playlist().id())
+      .playlistId(request.equalMemberForPlaylist().playlist().id())
       .sequence(playlistSize + 1)
       .info(request.info())
       .time(request.time())
@@ -22,7 +22,7 @@ public class PlayAdder {
 
     allPlay.save(play);
     playlistThumbnail.change(
-      request.equalOwnerForPlaylist().playlist().id(),
+      request.equalMemberForPlaylist().playlist().id(),
       request.info().thumbnail(),
       playlistSize);
   }

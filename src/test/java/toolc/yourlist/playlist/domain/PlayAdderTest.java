@@ -14,7 +14,7 @@ class PlayAdderTest {
   @Test
   void add(@Mock AllPlay allPlay, @Mock PlaylistThumbnail playlistThumbnail) {
     var adder = new PlayAdder(allPlay, playlistThumbnail);
-    var equalOwner = new EqualOwnerForPlaylist(
+    var equalOwner = new EqualMemberForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")

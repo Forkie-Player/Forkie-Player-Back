@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
 public record UpdateRequest(
-  EqualOwnerForPlaylist equalOwnerForPlaylist,
+  EqualMemberForPlaylist equalMemberForPlaylist,
   String title) {
 }
