@@ -14,8 +14,6 @@ public record ListOfPlays(List<Play> list) {
       throw new NotInEqualPlaylistException();
     }
 
-    // 순서를 위한 로직
-    // TODO: 순서 정책으로 따로 뺄 수도 있을 듯!
     list.forEach(play -> {
       if (play.sequence() != list.indexOf(play) + 1) {
         throw new InvalidSeqException();

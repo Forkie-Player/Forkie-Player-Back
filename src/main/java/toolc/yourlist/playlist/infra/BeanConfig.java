@@ -75,4 +75,9 @@ class BeanConfig {
   PlayAdder playAdder(AllPlay allPlay, PlaylistThumbnail playlistThumbnail) {
     return new PlayAdder(allPlay, playlistThumbnail);
   }
+
+  @Bean
+  PlayReader playReader(AllPlay allPlay) {
+    return new PlayReader(allPlay);
+  }
 }
