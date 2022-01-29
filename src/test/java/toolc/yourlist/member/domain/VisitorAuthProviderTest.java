@@ -4,7 +4,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,19 +20,32 @@ import static io.vavr.control.Either.right;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class VisitorAuthProviderTest {
 
-  TokenSecretKey tokenSecretKey = new TokenSecretKey();
+  @Mock
+  TokenProvider tokenProvider;
+
+  @Mock
+  TokenReader tokenReader;
+
+  @Mock
+  AllVisitor allVisitor;
+
+  @InjectMocks
+  VisitorAuthProvider visitorAuthProvider;
+
   TimeServer timeServer = new FakeTimeServer();
-  VisitorAuthProvider visitorAuthProvider = new VisitorAuthProvider(
-    new TokenProvider(tokenSecretKey, timeServer, UserType.MEMBER), new TokenReader(tokenSecretKey));
 
   @Test
   void registered_visitor_can_not_register_again() {
     var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
+    when(allVisitor.isNotExistByUUID(uuid))
+      .thenThrow(new IllegalArgumentException());
 
-    visitorAuthProvider.registerVisitor(uuid);
     assertThrows(IllegalArgumentException.class, () -> visitorAuthProvider.registerVisitor(uuid));
   }
 
@@ -40,14 +58,14 @@ class VisitorAuthProviderTest {
     //when
     final var isPC = true;
     final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
+    when(allVisitor.findIdByUUID(uuid)).thenReturn(3442L);
 
     //then
-    Long id = visitorAuthProvider.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     Map<String, Object> payloads = new HashMap<>();
-    payloads.put("Id", id);
+    payloads.put("Id", 3442L);
     payloads.put("UserType", UserType.MEMBER);
 
     final var accessToken = Jwts.builder()
@@ -68,7 +86,7 @@ class VisitorAuthProviderTest {
   void token_are_not_given_to_unregistered_visitor() {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    assertThat(visitorAuthProvider.visitorsStorage.get(uuid), nullValue());
+    when(allVisitor.isNotExistByUUID(anyString())).thenReturn(true);
 
     //when
     final var isPC = true;
@@ -81,16 +99,20 @@ class VisitorAuthProviderTest {
     //given
     final var uuid1 = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
     final var uuid2 = "11ASB6JS-12QE-78DF-ZXC3-23GD22XC1V1T";
-    visitorAuthProvider.registerVisitor(uuid1);
-    visitorAuthProvider.registerVisitor(uuid2);
-    var isPC = true;
-    final var anotherVisitorToken = visitorAuthProvider.getVisitorToken(uuid1, isPC);
+    final var refreshTokenExpiration = Period.ofDays(7);
+
+    when(allVisitor.isNotExistByUUID(anyString())).thenReturn(false);
+    when(allVisitor.findIdByUUID(uuid1)).thenReturn(8833L);
+    when(allVisitor.findIdByUUID(uuid2)).thenReturn(99233L);
+    when(tokenProvider.makeToken(8833L, refreshTokenExpiration))
+      .thenReturn(new Token("access.token.8833", "refresh.token.8833"));
 
     //when
-    var result = visitorAuthProvider.getVisitorToken(uuid2, isPC);
+    final var visitorToken = visitorAuthProvider.getVisitorToken(uuid1, true);
+    final var anotherVisitorToken = visitorAuthProvider.getVisitorToken(uuid2, true);
 
     //then
-    assertThat(result, is(not(anotherVisitorToken)));
+    assertThat(anotherVisitorToken, is(not(visitorToken)));
   }
 
   @Test
@@ -112,21 +134,23 @@ class VisitorAuthProviderTest {
   void can_be_reissued_using_existing_token() {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    visitorAuthProvider.registerVisitor(uuid);
+    final var refreshTokenExpiration = Period.ofDays(7);
+    when(allVisitor.findIdByUUID(uuid)).thenReturn(83623L);
+    when(tokenProvider.makeToken(83623L, refreshTokenExpiration))
+      .thenReturn(new Token("Existing.access.token.8q2e123", "Existing.refresh.token.aj2xcv3"));
+
     final var token = visitorAuthProvider.getVisitorToken(uuid, true).get();
 
-    System.out.println(token);
     //when
     final var result = visitorAuthProvider.reissueToken(
-      token.accessToken(), token.refreshToken(), true);
+      "Existing.access.token.8q2e123", "Existing.refresh.token.aj2xcv3", true);
 
     //then
-    Long id = visitorAuthProvider.findIdByUUID(uuid);
     String key =
       "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
     Map<String, Object> payloads = new HashMap<>();
-    payloads.put("Id", id);
+    payloads.put("Id", 2444123L);
     payloads.put("UserType", UserType.MEMBER);
 
     final var accessToken = Jwts.builder()

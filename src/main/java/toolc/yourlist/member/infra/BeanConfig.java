@@ -27,8 +27,8 @@ public class BeanConfig {
     return new TokenReader(tokenSecretKey);
   }
 
-  @Bean
-  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
-    return new VisitorAuthProvider(tokenProvider, tokenReader);
-  }
+//  @Bean
+//  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
+//    return new VisitorAuthProvider(tokenProvider, tokenReader);
+//  }
 }

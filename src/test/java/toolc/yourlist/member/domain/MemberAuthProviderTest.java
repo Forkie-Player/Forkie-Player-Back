@@ -5,10 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import toolc.yourlist.member.domain.AllMember;
-import toolc.yourlist.member.domain.MemberAuthProvider;
-import toolc.yourlist.member.domain.TokenProvider;
-import toolc.yourlist.member.domain.TokenReader;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 
@@ -55,7 +51,7 @@ class MemberAuthProviderTest {
     authProvider.registerMember(loginId, password);
 
     //when
-    authProvider.login(loginId, password, isPC);
+    authProvider.getMemberToken(loginId, password, isPC);
 
     //then
     verify(tokenProvider, times(1)).makeToken(any(), any());

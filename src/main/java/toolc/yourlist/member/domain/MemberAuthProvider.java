@@ -27,7 +27,7 @@ public class MemberAuthProvider {
   }
 
 
-  Either<String, Token> login(LoginId loginId, Password password, boolean isPC) {
+  Either<String, Token> getMemberToken(LoginId loginId, Password password, boolean isPC) {
     Long id = allMember.findIdByLoginId(loginId);
     Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
     return right(tokenProvider.makeToken(id, refreshTokenExpiration));
