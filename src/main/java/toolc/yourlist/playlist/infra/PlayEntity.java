@@ -55,11 +55,11 @@ public class PlayEntity extends BaseEntity {
     this.channelTitle = channelTitle;
   }
 
-  public PlayEntity(Play play, long sequence) {
+  public PlayEntity(Play play) {
     this(
       play.title(),
       play.videoId(),
-      sequence,
+      play.sequence(),
       play.thumbnail(),
       play.playlistId(),
       play.playTime().startTime(),

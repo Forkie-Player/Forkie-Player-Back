@@ -10,7 +10,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class ListOfPlaylistsMapperTest {
-
   @Test
   void toPlaylistJsonList() {
     var mapper = new ListOfPlaylistsMapper();

@@ -42,9 +42,10 @@ class PlayAdderTest {
         .videoId(info.videoId())
         .thumbnail(info.thumbnail())
         .playlistId(equalOwner.playlist().id())
+        .sequence(playlistSize + 1)
         .playTime(time)
         .channel(channel)
-        .build(), playlistSize);
+        .build());
     verify(playlistThumbnail).change(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
     verifyNoMoreInteractions(allPlay);
     verifyNoMoreInteractions(playlistThumbnail);

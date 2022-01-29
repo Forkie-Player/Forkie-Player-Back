@@ -31,4 +31,10 @@ public class JsonRequestMapper {
 
     return new AddPlayRequest(equalOwner, info, time, channel);
   }
+
+  ReadAllPlaysRequest toReadAllPlaysRequest(JsonReadAllPlaysRequest jsonRequest) {
+    var equalOwner = factory.create(jsonRequest.memberId(), jsonRequest.playlistId());
+
+    return new ReadAllPlaysRequest(equalOwner);
+  }
 }
