@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
-public class MockAllPlay implements AllPlay{
+public class MockAllPlay implements AllPlay {
   @Override
   public void save(Play play) {
   }
@@ -13,5 +13,17 @@ public class MockAllPlay implements AllPlay{
   @Override
   public ListOfPlays readAllBelongsTo(Long playlistId) {
     return null;
+  }
+
+  @Override
+  public Play belongsTo(Long id) {
+    return Play.builder()
+      .id(id)
+      .playlistId(1L)
+      .sequence(1L)
+      .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
+      .time(new PlayTime(1000L, 3000L))
+      .channel(new Channel("Music man", "man.png"))
+      .build();
   }
 }

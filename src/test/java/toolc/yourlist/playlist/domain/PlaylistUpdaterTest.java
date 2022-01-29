@@ -14,7 +14,7 @@ class PlaylistUpdaterTest {
   void updateTitle(@Mock AllPlaylists allPlaylists) {
     var updater = new PlaylistUpdater(allPlaylists);
     var request = new UpdateRequest(
-      new EqualOwner(
+      new EqualOwnerForPlaylist(
         Member.builder()
           .id(1L)
           .loginId("oh980225")
@@ -33,7 +33,7 @@ class PlaylistUpdaterTest {
     updater.updateTitle(request);
 
     verify(allPlaylists).updateTitleBelongsTo(
-      request.equalOwner().playlist().id(),
+      request.equalOwnerForPlaylist().playlist().id(),
       request.title());
     verifyNoMoreInteractions(allPlaylists);
   }

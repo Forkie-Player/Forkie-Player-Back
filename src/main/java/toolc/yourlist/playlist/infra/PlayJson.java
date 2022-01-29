@@ -18,12 +18,12 @@ record PlayJson(
 ) {
   public PlayJson(Play play) {
     this(play.id(),
-      play.title(),
-      play.videoId(),
+      play.info().title(),
+      play.info().videoId(),
       play.sequence(),
-      play.thumbnail(),
-      play.playTime().startTime(),
-      play.playTime().endTime(),
+      play.info().thumbnail(),
+      play.time().startTime(),
+      play.time().endTime(),
       play.channel().image(),
       play.channel().title());
   }

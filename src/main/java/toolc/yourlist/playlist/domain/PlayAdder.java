@@ -11,18 +11,19 @@ public class PlayAdder {
 
   @Transactional
   public void add(AddPlayRequest request) {
-    var playlistSize = allPlay.havingCountOf(request.equalOwner().playlist().id());
+    var playlistSize = allPlay.havingCountOf(request.equalOwnerForPlaylist().playlist().id());
     var play = Play.builder()
-      .playlistId(request.equalOwner().playlist().id())
-      .title(request.info().title())
-      .thumbnail(request.info().thumbnail())
-      .videoId(request.info().videoId())
+      .playlistId(request.equalOwnerForPlaylist().playlist().id())
       .sequence(playlistSize + 1)
-      .playTime(request.time())
+      .info(request.info())
+      .time(request.time())
       .channel(request.channel())
       .build();
 
     allPlay.save(play);
-    playlistThumbnail.change(request.equalOwner().playlist().id(), request.info().thumbnail(), playlistSize);
+    playlistThumbnail.change(
+      request.equalOwnerForPlaylist().playlist().id(),
+      request.info().thumbnail(),
+      playlistSize);
   }
 }

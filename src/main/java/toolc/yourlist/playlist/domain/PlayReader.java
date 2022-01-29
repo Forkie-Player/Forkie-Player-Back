@@ -7,6 +7,6 @@ public class PlayReader {
   private final AllPlay allPlay;
 
   public ListOfPlays readAllPlays(ReadAllPlaysRequest request) {
-    return allPlay.readAllBelongsTo(request.equalOwner().playlist().id());
+    return allPlay.readAllBelongsTo(request.equalOwnerForPlaylist().playlist().id());
   }
 }

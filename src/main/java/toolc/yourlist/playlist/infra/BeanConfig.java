@@ -27,8 +27,8 @@ class BeanConfig {
   }
 
   @Bean
-  EqualOwnerFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists) {
-    return new EqualOwnerFactory(allMember, allPlaylists);
+  EqualOwnerFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new EqualOwnerFactory(allMember, allPlaylists, allPlay);
   }
 
   @Bean

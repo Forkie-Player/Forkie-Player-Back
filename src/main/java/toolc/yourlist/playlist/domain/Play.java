@@ -4,12 +4,10 @@ import lombok.Builder;
 
 public record Play (
   Long id,
-  String title,
-  String videoId,
-  String thumbnail,
   Long playlistId,
   Long sequence,
-  PlayTime playTime,
+  PlayInfo info,
+  PlayTime time,
   Channel channel){
   @Builder
   public Play {

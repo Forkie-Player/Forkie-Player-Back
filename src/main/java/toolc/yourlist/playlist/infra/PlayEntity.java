@@ -57,13 +57,13 @@ public class PlayEntity extends BaseEntity {
 
   public PlayEntity(Play play) {
     this(
-      play.title(),
-      play.videoId(),
+      play.info().title(),
+      play.info().videoId(),
       play.sequence(),
-      play.thumbnail(),
+      play.info().thumbnail(),
       play.playlistId(),
-      play.playTime().startTime(),
-      play.playTime().endTime(),
+      play.time().startTime(),
+      play.time().endTime(),
       play.channel().image(),
       play.channel().title());
   }

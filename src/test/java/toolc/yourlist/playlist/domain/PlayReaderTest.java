@@ -6,7 +6,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +16,7 @@ class PlayReaderTest {
   @Test
   void readAllPlays(@Mock AllPlay allPlay) {
     var reader = new PlayReader(allPlay);
-    var request = new ReadAllPlaysRequest(new EqualOwner(
+    var request = new ReadAllPlaysRequest(new EqualOwnerForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -34,31 +33,27 @@ class PlayReaderTest {
       Arrays.asList(
         Play.builder()
           .id(1L)
-          .playlistId(request.equalOwner().playlist().id())
-          .title("So Good Music")
-          .videoId("abcd1234")
-          .thumbnail("panda.png")
+          .playlistId(request.equalOwnerForPlaylist().playlist().id())
+          .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
           .sequence(1L)
-          .playTime(new PlayTime(1000L, 10000L))
+          .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
         Play.builder()
           .id(2L)
-          .playlistId(request.equalOwner().playlist().id())
-          .title("So Sad Music")
-          .videoId("qwer1234")
-          .thumbnail("puppy.png")
+          .playlistId(request.equalOwnerForPlaylist().playlist().id())
+          .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
           .sequence(2L)
-          .playTime(new PlayTime(1500L, 20000L))
+          .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build()));
-    when(allPlay.readAllBelongsTo(request.equalOwner().playlist().id()))
+    when(allPlay.readAllBelongsTo(request.equalOwnerForPlaylist().playlist().id()))
       .thenReturn(listOfPlay);
 
     var actual = reader.readAllPlays(request);
 
     assertThat(actual, is(listOfPlay));
-    verify(allPlay).readAllBelongsTo(request.equalOwner().playlist().id());
+    verify(allPlay).readAllBelongsTo(request.equalOwnerForPlaylist().playlist().id());
     verifyNoMoreInteractions(allPlay);
   }
 }

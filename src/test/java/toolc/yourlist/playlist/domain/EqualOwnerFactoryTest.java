@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class EqualOwnerFactoryTest {
 
   @Test
-  void create() {
-    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists());
+  void createForPlaylist() {
+    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
-    var actual = factory.create(1L, 1L);
+    var actual = factory.createForPlaylist(1L, 1L);
 
-    var expected = new EqualOwner(
+    var expected = new EqualOwnerForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -32,9 +32,41 @@ class EqualOwnerFactoryTest {
   }
 
   @Test
-  void create_not_equal_owner() {
-    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists());
+  void createForPlaylist_not_equal_owner() {
+    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
-    assertThrows(NotOwnerException.class, () -> factory.create(2L, 1L));
+    assertThrows(NotOwnerException.class, () -> factory.createForPlaylist(2L, 1L));
+  }
+
+  @Test
+  void createForPlay() {
+    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+
+    var actual = factory.createForPlay(1L, 1L);
+
+    var expected = new EqualOwnerForPlay(
+      Member.builder()
+        .id(1L)
+        .loginId("oh980225")
+        .password("qwer1234!")
+        .isMember(true)
+        .build(),
+      Play.builder()
+        .id(1L)
+        .playlistId(1L)
+        .sequence(1L)
+        .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
+        .time(new PlayTime(1000L, 3000L))
+        .channel(new Channel("Music man", "man.png"))
+        .build()
+    );
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  void createForPlay_not_equal_owner() {
+    var factory = new EqualOwnerFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+
+    assertThrows(NotOwnerException.class, () -> factory.createForPlay(2L, 1L));
   }
 }

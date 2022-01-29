@@ -14,7 +14,7 @@ class PlayAdderTest {
   @Test
   void add(@Mock AllPlay allPlay, @Mock PlaylistThumbnail playlistThumbnail) {
     var adder = new PlayAdder(allPlay, playlistThumbnail);
-    var equalOwner = new EqualOwner(
+    var equalOwner = new EqualOwnerForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -38,12 +38,10 @@ class PlayAdderTest {
     verify(allPlay).havingCountOf(equalOwner.playlist().id());
     verify(allPlay).save(
       Play.builder()
-        .title(info.title())
-        .videoId(info.videoId())
-        .thumbnail(info.thumbnail())
+        .info(info)
         .playlistId(equalOwner.playlist().id())
         .sequence(playlistSize + 1)
-        .playTime(time)
+        .time(time)
         .channel(channel)
         .build());
     verify(playlistThumbnail).change(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
