@@ -1,4 +1,4 @@
 package toolc.yourlist.playlist.domain;
 
-record TimeUpdateRequest (EqualMemberForPlay equalMemberForPlay, PlayTime time) {
+public record TimeUpdateRequest (EqualMemberForPlay equalMemberForPlay, PlayTime time) {
 }

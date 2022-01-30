@@ -80,4 +80,9 @@ class BeanConfig {
   PlayReader playReader(AllPlay allPlay) {
     return new PlayReader(allPlay);
   }
+
+  @Bean
+  TimeUpdater timeUpdater(AllPlay allPlay) {
+    return new TimeUpdater(allPlay);
+  }
 }

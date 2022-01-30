@@ -37,4 +37,11 @@ public class JsonRequestMapper {
 
     return new ReadAllPlaysRequest(equalOwner);
   }
+
+  TimeUpdateRequest toTimeUpdateRequest(JsonUpdateTimeRequest jsonRequest) {
+    var equalOwner = factory.createForPlay(jsonRequest.memberId(), jsonRequest.playId());
+    var time = new PlayTime(jsonRequest.startTime(), jsonRequest.endTime());
+
+    return new TimeUpdateRequest(equalOwner, time);
+  }
 }
