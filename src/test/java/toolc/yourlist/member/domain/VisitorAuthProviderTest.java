@@ -169,23 +169,14 @@ class VisitorAuthProviderTest {
 
   @Test
   void should_be_registered_when_reissued() {
-    String id = "4321";
-    String key =
-      "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
+    //given
+    String existingAccessToken = "c3ByaW5nLWJv.b3Qtc2VjdXJpdHk1tan.d0LXR1dG9yaW";
+    String existingRefreshToken = "dd34B123zcLWJv.b12231asdfzsJpdHk1tan.d0LXR1d123Gdsa";
+    when(tokenReader.getId(existingAccessToken)).thenReturn(81239123L);
+    when(allVisitor.isNotExistById(81239123L)).thenReturn(true);
 
-
-    final var accessToken = Jwts.builder()
-      .setSubject(id)
-      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
-
-    final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
 
     assertThrows(IllegalArgumentException.class, () -> visitorAuthProvider.reissueToken(
-      accessToken, refreshToken, true));
+      existingAccessToken, existingRefreshToken, true));
   }
 }
