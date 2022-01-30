@@ -1,11 +1,19 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+
+@ExtendWith(MockitoExtension.class)
 class TimeUpdaterTest {
   @Test
-  void update() {
-    var updater = new TimeUpdater();
+  void update(@Mock AllPlay allPlay) {
+    var updater = new TimeUpdater(allPlay);
     var request = new TimeUpdateRequest(new EqualMemberForPlay(
       Member.builder()
         .id(1L)
@@ -30,5 +38,9 @@ class TimeUpdaterTest {
     ), new PlayTime(2000L, 4000L));
 
     updater.update(request);
+    verify(allPlay).updateTime(
+      request.equalMemberForPlay().play().id(),
+      request.time());
+    verifyNoMoreInteractions(allPlay);
   }
 }

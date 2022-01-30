@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import toolc.yourlist.common.domain.BaseEntity;
 import toolc.yourlist.playlist.domain.Play;
+import toolc.yourlist.playlist.domain.PlayTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -66,5 +67,10 @@ public class PlayEntity extends BaseEntity {
       play.time().endTime(),
       play.channel().image(),
       play.channel().title());
+  }
+
+  void time(PlayTime time) {
+    this.start = time.startTime();
+    this.end = time.endTime();
   }
 }

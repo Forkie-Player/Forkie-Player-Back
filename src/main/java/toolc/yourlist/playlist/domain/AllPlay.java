@@ -5,4 +5,5 @@ public interface AllPlay {
   long havingCountOf(Long playlistId);
   ListOfPlays readAllBelongsTo(Long playlistId);
   Play belongsTo(Long id);
+  void updateTime(Long id, PlayTime time);
 }

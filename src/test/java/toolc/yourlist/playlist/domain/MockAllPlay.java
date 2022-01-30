@@ -26,4 +26,8 @@ public class MockAllPlay implements AllPlay {
       .channel(new Channel("Music man", "man.png"))
       .build();
   }
+
+  @Override
+  public void updateTime(Long id, PlayTime time) {
+  }
 }
