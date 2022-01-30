@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class EqualOwnerTest {
+class EqualMemberForPlaylistTest {
   @Test
   void not_equal_owner() {
-    assertThrows(NotOwnerException.class, () -> new EqualOwner(
+    assertThrows(NotOwnerException.class, () -> new EqualMemberForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")

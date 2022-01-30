@@ -14,7 +14,7 @@ class PlaylistEliminatorTest {
   void delete(@Mock AllPlaylists allPlaylists) {
     var eliminator = new PlaylistEliminator(allPlaylists);
     var request = new DeleteRequest(
-      new EqualOwner(
+      new EqualMemberForPlaylist(
         Member.builder()
           .id(1L)
           .loginId("oh980225")
@@ -30,7 +30,7 @@ class PlaylistEliminatorTest {
 
     eliminator.delete(request);
 
-    verify(allPlaylists).delete(request.equalOwner().playlist());
+    verify(allPlaylists).delete(request.equalMemberForPlaylist().playlist());
     verifyNoMoreInteractions(allPlaylists);
   }
 }

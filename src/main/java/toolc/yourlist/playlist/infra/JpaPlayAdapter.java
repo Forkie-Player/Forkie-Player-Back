@@ -1,9 +1,9 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.playlist.domain.AllPlay;
-import toolc.yourlist.playlist.domain.ListOfPlays;
-import toolc.yourlist.playlist.domain.Play;
+import toolc.yourlist.playlist.domain.*;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 public class JpaPlayAdapter implements AllPlay {
@@ -23,5 +23,21 @@ public class JpaPlayAdapter implements AllPlay {
   @Override
   public ListOfPlays readAllBelongsTo(Long playlistId) {
     return mapper.toListOfPlays(jpaPlayRepository.findByPlaylistIdOrderBySequence(playlistId));
+  }
+
+  @Override
+  public Play belongsTo(Long id) {
+    return mapper.toPlay(jpaPlayRepository.findById(id));
+  }
+
+  @Override
+  @Transactional
+  public void updateTime(Long id, PlayTime time) {
+    var entity = getEntity(id);
+    entity.time(time);
+  }
+
+  private PlayEntity getEntity(Long id) {
+    return jpaPlayRepository.findById(id).orElseThrow(NoExistPlayException::new);
   }
 }

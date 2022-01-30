@@ -27,8 +27,8 @@ class BeanConfig {
   }
 
   @Bean
-  EqualOwnerFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists) {
-    return new EqualOwnerFactory(allMember, allPlaylists);
+  EqualMemberFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new EqualMemberFactory(allMember, allPlaylists, allPlay);
   }
 
   @Bean
@@ -37,7 +37,7 @@ class BeanConfig {
   }
 
   @Bean
-  JsonRequestMapper jsonRequestMapper(EqualOwnerFactory factory) {
+  JsonRequestMapper jsonRequestMapper(EqualMemberFactory factory) {
     return new JsonRequestMapper(factory);
   }
 
@@ -79,5 +79,10 @@ class BeanConfig {
   @Bean
   PlayReader playReader(AllPlay allPlay) {
     return new PlayReader(allPlay);
+  }
+
+  @Bean
+  TimeUpdater timeUpdater(AllPlay allPlay) {
+    return new TimeUpdater(allPlay);
   }
 }

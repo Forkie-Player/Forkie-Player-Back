@@ -22,9 +22,7 @@ public class ReadPlayApi {
   //  PathVariable로 playlistId를 받을 예정
   @GetMapping("/api/play")
   public ResponseEntity<?> readPlays(@RequestBody JsonReadAllPlaysRequest jsonRequest) {
-    var request = requestMapper.toReadAllPlaysRequest(jsonRequest);
-
-    return toOutput(reader.readAllPlays(request));
+    return toOutput(reader.readAllPlays(requestMapper.toReadAllPlaysRequest(jsonRequest)));
   }
 
   private ResponseEntity<?> toOutput(ListOfPlays result) {
