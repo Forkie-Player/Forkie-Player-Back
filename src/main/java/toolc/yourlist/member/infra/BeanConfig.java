@@ -3,6 +3,7 @@ package toolc.yourlist.member.infra;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.*;
+import toolc.yourlist.member.infra.jwt.filter.JwtResolver;
 
 @Configuration
 public class BeanConfig {
@@ -27,6 +28,10 @@ public class BeanConfig {
     return new TokenReader(tokenSecretKey);
   }
 
+  @Bean
+  JwtResolver jwtResolver(TokenSecretKey tokenSecretKey) {
+    return new JwtResolver(tokenSecretKey);
+  }
 //  @Bean
 //  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
 //    return new VisitorAuthProvider(tokenProvider, tokenReader);

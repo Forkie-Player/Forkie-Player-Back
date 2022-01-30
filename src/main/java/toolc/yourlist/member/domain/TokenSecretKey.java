@@ -9,7 +9,7 @@ public class TokenSecretKey {
   private String key =
     "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
 
-  SecretKey secretKey() {
+  public SecretKey secretKey() {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
   }
 }
