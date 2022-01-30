@@ -53,33 +53,18 @@ class VisitorAuthProviderTest {
   void registered_visitor_can_receive_Token() {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    visitorAuthProvider.registerVisitor(uuid);
+    final var isPC = true;
 
     //when
-    final var isPC = true;
-    final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
-    when(allVisitor.findIdByUUID(uuid)).thenReturn(3442L);
+    when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
+    when(tokenProvider.makeToken(3912839421L, Period.ofDays(7)))
+      .thenReturn(new Token("access.token.3912839421L", "refresh.token.3912839421L"));
 
     //then
-    String key =
-      "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
+    final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
 
-    Map<String, Object> payloads = new HashMap<>();
-    payloads.put("Id", 3442L);
-    payloads.put("UserType", UserType.MEMBER);
-
-    final var accessToken = Jwts.builder()
-      .setClaims(payloads)
-      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
-
-    final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
-
-    assertThat(result, is(right(new Token(accessToken, refreshToken))));
+    assertThat(result, is(right(new Token(
+      "access.token.3912839421L", "refresh.token.3912839421L"))));
   }
 
   @Test
@@ -115,56 +100,28 @@ class VisitorAuthProviderTest {
     assertThat(anotherVisitorToken, is(not(visitorToken)));
   }
 
-  @Test
-  void token_expiration_depending_on_connection_device() {
-    //given
-    final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    visitorAuthProvider.registerVisitor(uuid);
-    final var tokenWhenConnectPc = visitorAuthProvider.getVisitorToken(uuid, true);
 
-    //when
-    final var tokenWhenConnectApp = visitorAuthProvider.getVisitorToken(uuid, false);
-
-    //then
-    assertThat(tokenWhenConnectApp, is(not(tokenWhenConnectPc)));
-
-  }
 
   @Test
   void can_be_reissued_using_existing_token() {
     //given
-    final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    final var refreshTokenExpiration = Period.ofDays(7);
-    when(allVisitor.findIdByUUID(uuid)).thenReturn(83623L);
-    when(tokenProvider.makeToken(83623L, refreshTokenExpiration))
-      .thenReturn(new Token("Existing.access.token.8q2e123", "Existing.refresh.token.aj2xcv3"));
-
-    final var token = visitorAuthProvider.getVisitorToken(uuid, true).get();
+    final var existingAccessToken = "WJ1vsFSD912Kv.b3Qta12ASDzv.8q2e11SS3C23";
+    final var existingRefreshToken = "dd34B123zcLWJv.b12231asdfzsJpdHk1tan.d0LXR1d123Gdsa";
+    final var isPC = true;
 
     //when
-    final var result = visitorAuthProvider.reissueToken(
-      "Existing.access.token.8q2e123", "Existing.refresh.token.aj2xcv3", true);
+    when(tokenReader.getId(existingAccessToken)).thenReturn(83623L);
+    when(allVisitor.isNotExistById(83623L)).thenReturn(false);
+
+    when(tokenProvider.makeToken(83623L, Period.ofDays(7)))
+      .thenReturn(new Token("reissued.access.token.8q2e123", "reissued.refresh.token.aj2xcv3"));
+
 
     //then
-    String key =
-      "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK";
-
-    Map<String, Object> payloads = new HashMap<>();
-    payloads.put("Id", 2444123L);
-    payloads.put("UserType", UserType.MEMBER);
-
-    final var accessToken = Jwts.builder()
-      .setClaims(payloads)
-      .setExpiration(Date.from(timeServer.nowTime().plus(30, ChronoUnit.MINUTES).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
-
-    final var refreshToken = Jwts.builder()
-      .setExpiration(Date.from(timeServer.nowTime().plus(7, ChronoUnit.DAYS).toInstant()))
-      .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(key)))
-      .compact();
-
-    assertThat(result, is(right(new Token(accessToken, refreshToken))));
+    final var result = visitorAuthProvider.reissueToken(
+      existingAccessToken, existingRefreshToken, true);
+    assertThat(result, is(right(new Token(
+      "reissued.access.token.8q2e123", "reissued.refresh.token.aj2xcv3"))));
   }
 
   @Test
