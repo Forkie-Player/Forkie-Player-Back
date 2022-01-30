@@ -12,4 +12,12 @@ class PlayTimeTest {
 
     assertThrows(ExceedEndTimeException.class, () -> new PlayTime(startTime, endTime));
   }
+
+  @Test
+  void constructor_negative_time() {
+    Long startTime = -13000L;
+    Long endTime = 10000L;
+
+    assertThrows(NegativeException.class, () -> new PlayTime(startTime, endTime));
+  }
 }
