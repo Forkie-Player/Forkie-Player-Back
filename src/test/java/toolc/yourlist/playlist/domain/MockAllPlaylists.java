@@ -5,8 +5,8 @@ import java.util.List;
 public class MockAllPlaylists implements AllPlaylists {
 
   @Override
-  public ListOfPlaylists readAllBelongsTo(Long memberId) {
-    return new ListOfPlaylists(List.of(Playlist.builder()
+  public Playlists readAllBelongsTo(Long memberId) {
+    return new Playlists(List.of(Playlist.builder()
         .id(1L)
         .memberId(memberId)
         .title("My List")

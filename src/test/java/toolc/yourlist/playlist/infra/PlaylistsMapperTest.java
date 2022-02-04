@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.playlist.domain.ListOfPlaylists;
+import toolc.yourlist.playlist.domain.Playlists;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class ListOfPlaylistsMapperTest {
+class PlaylistsMapperTest {
   @Test
   void toPlaylistJsonList() {
     var mapper = new ListOfPlaylistsMapper();
 
-    var actual = mapper.toPlaylistJsonList(new ListOfPlaylists(List.of(
+    var actual = mapper.toPlaylistJsonList(new Playlists(List.of(
       Playlist.builder()
         .id(1L)
         .memberId(1L)

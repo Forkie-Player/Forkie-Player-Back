@@ -6,10 +6,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ListOfPlaylistsTest {
+class PlaylistsTest {
   @Test
   void 동일하지_않은_멤버의_영상목록들() {
-    assertThrows(NotEqualOwnerForPlaylistsException.class, () -> new ListOfPlaylists(
+    assertThrows(NotEqualOwnerForPlaylistsException.class, () -> new Playlists(
       List.of(
         Playlist.builder()
           .id(1L)

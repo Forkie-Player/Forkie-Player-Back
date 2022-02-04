@@ -11,7 +11,7 @@ public class MockAllPlay implements AllPlay {
   }
 
   @Override
-  public ListOfPlays readAllBelongsTo(Long playlistId) {
+  public Plays readAllBelongsTo(Long playlistId) {
     return null;
   }
 

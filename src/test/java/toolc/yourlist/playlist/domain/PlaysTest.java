@@ -6,10 +6,10 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ListOfPlaysTest {
+class PlaysTest {
   @Test
   void 다른_영상목록의_영상_포함() {
-    assertThrows(NotInEqualPlaylistException.class, () -> new ListOfPlays(
+    assertThrows(NotInEqualPlaylistException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)
@@ -31,7 +31,7 @@ class ListOfPlaysTest {
 
   @Test
   void 영상들_순서_이상_중복된_경우() {
-    assertThrows(InvalidSeqException.class, () -> new ListOfPlays(
+    assertThrows(InvalidSeqException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)
@@ -53,7 +53,7 @@ class ListOfPlaysTest {
 
   @Test
   void 영상들_순서_이상_정렬X_경우() {
-    assertThrows(InvalidSeqException.class, () -> new ListOfPlays(
+    assertThrows(InvalidSeqException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)

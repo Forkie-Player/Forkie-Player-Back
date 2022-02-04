@@ -40,7 +40,7 @@ class PlayAdderTest {
       Play.builder()
         .info(info)
         .playlistId(equalOwner.playlist().id())
-        .sequence(playlistSize + 1)
+        .sequence(playlistSize  )
         .time(time)
         .channel(channel)
         .build());
