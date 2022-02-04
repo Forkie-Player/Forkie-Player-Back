@@ -14,7 +14,7 @@ public class PlayAdder {
     var playlistSize = allPlay.havingCountOf(request.equalMemberForPlaylist().playlist().id());
     var play = Play.builder()
       .playlistId(request.equalMemberForPlaylist().playlist().id())
-      .sequence(playlistSize + 1)
+      .sequence(playlistSize)
       .info(request.info())
       .time(request.time())
       .channel(request.channel())

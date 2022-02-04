@@ -15,7 +15,7 @@ class ListOfPlaysTest {
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -23,7 +23,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(2L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(2L)
+          .sequence(1L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));
@@ -37,7 +37,7 @@ class ListOfPlaysTest {
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -45,7 +45,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(1L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));
@@ -59,7 +59,7 @@ class ListOfPlaysTest {
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(2L)
+          .sequence(1L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -67,7 +67,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(1L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));

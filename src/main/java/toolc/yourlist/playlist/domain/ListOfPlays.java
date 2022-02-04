@@ -15,7 +15,7 @@ public record ListOfPlays(List<Play> list) {
     }
 
     list.forEach(play -> {
-      if (play.sequence() != list.indexOf(play) + 1) {
+      if (play.sequence() != list.indexOf(play)) {
         throw new InvalidSeqException();
       }
     });
