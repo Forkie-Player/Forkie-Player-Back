@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.cors.CorsUtils;
-import toolc.yourlist.member.domain.MemberRepository;
 import toolc.yourlist.member.infra.jwt.filter.JwtResolver;
 import toolc.yourlist.member.infra.jwt.handler.JwtAccessDeniedHandler;
 import toolc.yourlist.member.infra.jwt.handler.JwtAuthenticationEntryPoint;

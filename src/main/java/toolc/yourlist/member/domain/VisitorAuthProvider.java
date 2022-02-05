@@ -17,7 +17,7 @@ public class VisitorAuthProvider {
   private final TokenReader tokenReader;
   private final AllVisitor allVisitor;
 
-  void registerVisitor(String uuid) {
+  public void registerVisitor(String uuid) {
     if (allVisitor.isNotExistByUUID(uuid)) throw new IllegalArgumentException();
     allVisitor.registerVisitor(uuid);
   }
