@@ -15,13 +15,24 @@ public class UserApi {
   private final RequestMapperFromJson requestMapperFromJson;
 
   @PostMapping("/auth/signup/visitor")
-  public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpRequest jsonRequest) {
+  public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpAndLoginRequest jsonRequest) {
     var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = visitorAuthProvider.registerVisitor(request);
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
-    return JsonResponse.okWithData(result.get(), "");
+    return JsonResponse.okWithData(result.get(), "Successful registration of visitor");
+  }
+
+  @PostMapping("/auth/login/visitor")
+  public ResponseEntity<?> login(@RequestBody JsonVisitorSignUpAndLoginRequest jsonRequest) {
+    var request = requestMapperFromJson.mapper(jsonRequest);
+
+    var result = visitorAuthProvider.getVisitorToken(request.uuid(), request.isPC());
+    if (result.isLeft()) {
+      return JsonResponse.failForBadRequest(result.getLeft());
+    }
+    return JsonResponse.okWithData(result.get(), "Successful visitor login");
   }
 }

@@ -4,7 +4,7 @@ import toolc.yourlist.member.domain.VisitorRegisterRequest;
 
 public class RequestMapperFromJson {
 
-  VisitorRegisterRequest mapper(JsonVisitorSignUpRequest jsonRequest) {
+  VisitorRegisterRequest mapper(JsonVisitorSignUpAndLoginRequest jsonRequest) {
     return new VisitorRegisterRequest(jsonRequest.uuid(), jsonRequest.isPC());
   }
 }

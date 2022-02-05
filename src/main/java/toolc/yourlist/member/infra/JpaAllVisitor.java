@@ -26,7 +26,7 @@ public class JpaAllVisitor implements AllVisitor {
 
   @Override
   public void registerVisitor(String uuid) {
-    adapter.toDomainVisitor(jpaAllVisitorEntity.save(new VisitorEntity(uuid)));
+    jpaAllVisitorEntity.save(new VisitorEntity(uuid));
   }
 
   @Override

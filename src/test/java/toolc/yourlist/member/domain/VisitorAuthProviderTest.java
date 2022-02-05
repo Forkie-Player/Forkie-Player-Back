@@ -76,7 +76,7 @@ class VisitorAuthProviderTest {
     //when
     final var isPC = true;
     final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
-    assertThat(result, is(left("등록되어 있지 않은 방문자 입니다.")));
+    assertThat(result, is(left("Unregistered visitor")));
   }
 
   @Test

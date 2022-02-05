@@ -23,9 +23,9 @@ public class VisitorAuthProvider {
     return right(getVisitorToken(request.uuid(), request.isPC()).get());
   }
 
-  Either<String, Token> getVisitorToken(String uuid, boolean isPC) {
+  public Either<String, Token> getVisitorToken(String uuid, boolean isPC) {
     if (allVisitor.isNotExistByUUID(uuid)) {
-      return left("등록되어 있지 않은 방문자 입니다.");
+      return left("Unregistered visitor");
     } else {
       Long id = allVisitor.findIdByUUID(uuid);
       Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
