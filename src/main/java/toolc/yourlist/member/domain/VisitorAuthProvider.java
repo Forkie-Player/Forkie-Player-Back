@@ -15,12 +15,12 @@ public class VisitorAuthProvider {
   private final TokenReader tokenReader;
   private final AllVisitor allVisitor;
 
-  public Either<String, String> registerVisitor(String uuid) {
-    if (allVisitor.isExistByUUID(uuid)) {
+  public Either<String, Token> registerVisitor(VisitorRegisterRequest request) {
+    if (allVisitor.isExistByUUID(request.uuid())) {
       return left("Already registered uuid");
     }
-    allVisitor.registerVisitor(uuid);
-    return right("Success register");
+    allVisitor.registerVisitor(request.uuid());
+    return right(getVisitorToken(request.uuid(), request.isPC()).get());
   }
 
   Either<String, Token> getVisitorToken(String uuid, boolean isPC) {

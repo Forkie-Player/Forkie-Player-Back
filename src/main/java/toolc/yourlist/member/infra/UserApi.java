@@ -15,18 +15,13 @@ public class UserApi {
   private final RequestMapperFromJson requestMapperFromJson;
 
   @PostMapping("/auth/signup/visitor")
-  public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpRequest uuid) {
-    var request = requestMapperFromJson.mapper(uuid);
+  public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpRequest jsonRequest) {
+    var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = visitorAuthProvider.registerVisitor(request);
-    if(result.isLeft()){
+    if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
-    return JsonResponse.ok(result.get());
-  }
-
-  @GetMapping("/auth")
-  public ResponseEntity<?> getUserAuth() {
-    return ResponseEntity.ok("hello");
+    return JsonResponse.okWithData(result.get(), "");
   }
 }
