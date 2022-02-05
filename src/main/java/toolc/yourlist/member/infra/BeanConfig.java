@@ -45,6 +45,11 @@ public class BeanConfig {
   }
 
   @Bean
+  RequestMapperFromJson requestMapperFromJson() {
+    return new RequestMapperFromJson();
+  }
+
+  @Bean
   VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader,
                                   AllVisitor allVisitor) {
     return new VisitorAuthProvider(tokenProvider, tokenReader, allVisitor);

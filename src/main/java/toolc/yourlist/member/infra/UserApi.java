@@ -11,17 +11,18 @@ import toolc.yourlist.member.domain.VisitorAuthProvider;
 public class UserApi {
 
   private final VisitorAuthProvider visitorAuthProvider;
+  private final RequestMapperFromJson requestMapperFromJson;
 
   @PostMapping("/auth/signup/visitor")
-  public ResponseEntity<?> signup(@RequestBody String uuid){
-    System.out.println(uuid);
-    visitorAuthProvider.registerVisitor(uuid);
+  public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpRequest uuid) {
+    var signUpRequest = requestMapperFromJson.mapper(uuid);
+    visitorAuthProvider.registerVisitor(signUpRequest);
 
     return ResponseEntity.ok("good");
   }
 
   @GetMapping("/auth")
-  public ResponseEntity<?> getUserAuth(){
+  public ResponseEntity<?> getUserAuth() {
     return ResponseEntity.ok("hello");
   }
 }
