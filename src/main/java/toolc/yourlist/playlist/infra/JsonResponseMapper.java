@@ -8,16 +8,10 @@ import java.util.stream.Collectors;
 
 public class JsonResponseMapper {
   List<PlaylistJson> toPlaylistJsonList(Playlists playlists) {
-    return playlists.list()
-      .stream()
-      .map(PlaylistJson::new)
-      .collect(Collectors.toList());
+    return playlists.map(PlaylistJson::new).collect(Collectors.toList());
   }
 
   List<PlayJson> toPlayJsonList(Plays plays) {
-    return plays.list()
-      .stream()
-      .map(PlayJson::new)
-      .collect(Collectors.toList());
+    return plays.map(PlayJson::new).collect(Collectors.toList());
   }
 }

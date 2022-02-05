@@ -7,9 +7,6 @@ import java.util.stream.Collectors;
 
 public class ListOfPlaysMapper {
   List<PlayJson> toPlayJsonList(Plays plays) {
-    return plays.list()
-      .stream()
-      .map(PlayJson::new)
-      .collect(Collectors.toList());
+    return plays.map(PlayJson::new).collect(Collectors.toList());
   }
 }

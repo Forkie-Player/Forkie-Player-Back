@@ -1,10 +1,15 @@
 package toolc.yourlist.playlist.domain;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record Playlists(List<Playlist> list) {
-  public Playlists {
+@EqualsAndHashCode(callSuper = true)
+public class Playlists extends StreamMixIn<Playlist> {
+  public Playlists(List<Playlist> list) {
+    super(list);
+
     final int size = list.stream()
       .map(Playlist::memberId)
       .collect(Collectors.toUnmodifiableSet())
