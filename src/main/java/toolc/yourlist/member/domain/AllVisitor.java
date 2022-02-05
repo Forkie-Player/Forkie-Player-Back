@@ -7,7 +7,7 @@ public interface AllVisitor {
 
   boolean isNotExistById(Long id);
 
-  Visitor registerVisitor(String uuid);
+  void registerVisitor(String uuid);
 
   Long findIdByUUID(String uuid);
 }

@@ -4,8 +4,6 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
 import java.time.Period;
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
@@ -17,11 +15,12 @@ public class VisitorAuthProvider {
   private final TokenReader tokenReader;
   private final AllVisitor allVisitor;
 
-  public void registerVisitor(String uuid) {
+  public Either<String, String> registerVisitor(String uuid) {
     if (allVisitor.isExistByUUID(uuid)) {
-      throw new IllegalArgumentException();
+      return left("Already registered uuid");
     }
     allVisitor.registerVisitor(uuid);
+    return right("Success register");
   }
 
   Either<String, Token> getVisitorToken(String uuid, boolean isPC) {

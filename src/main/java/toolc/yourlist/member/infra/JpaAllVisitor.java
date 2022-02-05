@@ -2,7 +2,6 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.AllVisitor;
-import toolc.yourlist.member.domain.Visitor;
 
 @RequiredArgsConstructor
 public class JpaAllVisitor implements AllVisitor {
@@ -26,8 +25,8 @@ public class JpaAllVisitor implements AllVisitor {
   }
 
   @Override
-  public Visitor registerVisitor(String uuid) {
-    return adapter.toDomainVisitor(jpaAllVisitorEntity.save(new VisitorEntity(uuid)));
+  public void registerVisitor(String uuid) {
+    adapter.toDomainVisitor(jpaAllVisitorEntity.save(new VisitorEntity(uuid)));
   }
 
   @Override

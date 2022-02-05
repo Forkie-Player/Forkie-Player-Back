@@ -1,8 +1,5 @@
 package toolc.yourlist.member.domain;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,15 +7,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -42,11 +36,15 @@ class VisitorAuthProviderTest {
 
   @Test
   void registered_visitor_can_not_register_again() {
+    //given
     var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
-    when(allVisitor.isNotExistByUUID(uuid))
-      .thenThrow(new IllegalArgumentException());
 
-    assertThrows(IllegalArgumentException.class, () -> visitorAuthProvider.registerVisitor(uuid));
+    //when
+    when(allVisitor.isExistByUUID(uuid)).thenReturn(true);
+    final var result = visitorAuthProvider.registerVisitor(uuid);
+
+    //then
+    assertThat(result, is(left("Already registered uuid")));
   }
 
   @Test
@@ -99,7 +97,6 @@ class VisitorAuthProviderTest {
     //then
     assertThat(anotherVisitorToken, is(not(visitorToken)));
   }
-
 
 
   @Test

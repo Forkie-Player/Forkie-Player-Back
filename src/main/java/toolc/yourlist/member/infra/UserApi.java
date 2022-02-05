@@ -3,6 +3,7 @@ package toolc.yourlist.member.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.member.domain.VisitorAuthProvider;
 
 @RestController
@@ -15,10 +16,13 @@ public class UserApi {
 
   @PostMapping("/auth/signup/visitor")
   public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpRequest uuid) {
-    var signUpRequest = requestMapperFromJson.mapper(uuid);
-    visitorAuthProvider.registerVisitor(signUpRequest);
+    var request = requestMapperFromJson.mapper(uuid);
 
-    return ResponseEntity.ok("good");
+    var result = visitorAuthProvider.registerVisitor(request);
+    if(result.isLeft()){
+      return JsonResponse.failForBadRequest(result.getLeft());
+    }
+    return JsonResponse.ok(result.get());
   }
 
   @GetMapping("/auth")
