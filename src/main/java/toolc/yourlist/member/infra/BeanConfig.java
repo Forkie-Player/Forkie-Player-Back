@@ -32,8 +32,21 @@ public class BeanConfig {
   JwtResolver jwtResolver(TokenSecretKey tokenSecretKey) {
     return new JwtResolver(tokenSecretKey);
   }
-//  @Bean
-//  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader) {
-//    return new VisitorAuthProvider(tokenProvider, tokenReader);
-//  }
+
+  @Bean
+  VisitorDomainAdapter visitorDomainAdapter() {
+    return new VisitorDomainAdapter();
+  }
+
+  @Bean
+  AllVisitor allVisitor(JpaAllVisitorEntity jpaAllVisitorEntity,
+                        VisitorDomainAdapter visitorDomainAdapter) {
+    return new JpaAllVisitor(jpaAllVisitorEntity, visitorDomainAdapter);
+  }
+
+  @Bean
+  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader,
+                                  AllVisitor allVisitor) {
+    return new VisitorAuthProvider(tokenProvider, tokenReader, allVisitor);
+  }
 }

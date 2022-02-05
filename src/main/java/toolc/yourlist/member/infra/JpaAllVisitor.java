@@ -11,6 +11,11 @@ public class JpaAllVisitor implements AllVisitor {
   private final VisitorDomainAdapter adapter;
 
   @Override
+  public boolean isExistByUUID(String uuid) {
+    return jpaAllVisitorEntity.findByUuid(uuid).isPresent();
+  }
+
+  @Override
   public boolean isNotExistByUUID(String uuid) {
     return jpaAllVisitorEntity.findByUuid(uuid).isEmpty();
   }

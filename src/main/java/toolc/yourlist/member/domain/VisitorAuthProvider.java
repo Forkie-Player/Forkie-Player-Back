@@ -18,7 +18,9 @@ public class VisitorAuthProvider {
   private final AllVisitor allVisitor;
 
   public void registerVisitor(String uuid) {
-    if (allVisitor.isNotExistByUUID(uuid)) throw new IllegalArgumentException();
+    if (allVisitor.isExistByUUID(uuid)) {
+      throw new IllegalArgumentException();
+    }
     allVisitor.registerVisitor(uuid);
   }
 
