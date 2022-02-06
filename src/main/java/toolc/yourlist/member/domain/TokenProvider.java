@@ -14,9 +14,8 @@ public class TokenProvider {
 
   private final TokenSecretKey tokenSecretKey;
   private final TimeServer timeServer;
-  private final UserType userType;
 
-  Token makeToken(Long id, Period refreshTokenExpiration) {
+  Token makeToken(Long id, Period refreshTokenExpiration, UserType userType) {
 
     Map<String, Object> payloads = new HashMap<>();
     payloads.put("Id", id);

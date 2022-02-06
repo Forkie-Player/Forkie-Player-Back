@@ -30,7 +30,7 @@ public class MemberAuthProvider {
   Either<String, Token> getMemberToken(LoginId loginId, Password password, boolean isPC) {
     Long id = allMember.findIdByLoginId(loginId);
     Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
-    return right(tokenProvider.makeToken(id, refreshTokenExpiration));
+    return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.MEMBER));
   }
 
   Either<String, Token> reissueToken(String accessToken, String refreshToken, boolean isPC) {
@@ -41,6 +41,6 @@ public class MemberAuthProvider {
 
     Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
 
-    return right(tokenProvider.makeToken(id, refreshTokenExpiration));
+    return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.MEMBER));
   }
 }

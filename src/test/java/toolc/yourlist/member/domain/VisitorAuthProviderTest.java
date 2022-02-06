@@ -57,7 +57,7 @@ class VisitorAuthProviderTest {
 
     //when
     when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
-    when(tokenProvider.makeToken(3912839421L, Period.ofDays(7)))
+    when(tokenProvider.makeToken(3912839421L, Period.ofDays(7), UserType.VISITOR))
       .thenReturn(new Token("access.token.3912839421L", "refresh.token.3912839421L"));
 
     //then
@@ -89,7 +89,7 @@ class VisitorAuthProviderTest {
     when(allVisitor.isNotExistByUUID(anyString())).thenReturn(false);
     when(allVisitor.findIdByUUID(uuid1)).thenReturn(8833L);
     when(allVisitor.findIdByUUID(uuid2)).thenReturn(99233L);
-    when(tokenProvider.makeToken(8833L, refreshTokenExpiration))
+    when(tokenProvider.makeToken(8833L, refreshTokenExpiration, UserType.VISITOR))
       .thenReturn(new Token("access.token.8833", "refresh.token.8833"));
 
     //when
@@ -112,7 +112,7 @@ class VisitorAuthProviderTest {
     when(tokenReader.getId(existingAccessToken)).thenReturn(83623L);
     when(allVisitor.isNotExistById(83623L)).thenReturn(false);
 
-    when(tokenProvider.makeToken(83623L, Period.ofDays(7)))
+    when(tokenProvider.makeToken(83623L, Period.ofDays(7), UserType.VISITOR))
       .thenReturn(new Token("reissued.access.token.8q2e123", "reissued.refresh.token.aj2xcv3"));
 
 

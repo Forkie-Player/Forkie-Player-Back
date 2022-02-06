@@ -54,7 +54,7 @@ class MemberAuthProviderTest {
     authProvider.getMemberToken(loginId, password, isPC);
 
     //then
-    verify(tokenProvider, times(1)).makeToken(any(), any());
+    verify(tokenProvider, times(1)).makeToken(any(), any(), any());
   }
 
   @Test
@@ -71,7 +71,7 @@ class MemberAuthProviderTest {
     authProvider.reissueToken(accessToken, refreshToken, isPC);
 
     //then
-    verify(tokenProvider, times(1)).makeToken(any(), any());
+    verify(tokenProvider, times(1)).makeToken(any(), any(), any());
 
   }
 }

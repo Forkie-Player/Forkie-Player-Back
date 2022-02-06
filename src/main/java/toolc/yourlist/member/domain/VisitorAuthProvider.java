@@ -30,7 +30,7 @@ public class VisitorAuthProvider {
       Long id = allVisitor.findIdByUUID(uuid);
       Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
 
-      return right(tokenProvider.makeToken(id, refreshTokenExpiration));
+      return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
     }
   }
 
@@ -43,7 +43,7 @@ public class VisitorAuthProvider {
 
     Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
 
-    return right(tokenProvider.makeToken(id, refreshTokenExpiration));
+    return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
   }
 }
 
