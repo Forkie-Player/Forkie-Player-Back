@@ -35,10 +35,10 @@ public class TokenProvider {
     return new Token(accessToken, refreshToken);
   }
 
-  Token reissue(String accessToken, String refreshToken, boolean isPC) {
+  public Token reissue(String accessToken, String refreshToken, boolean isPC) {
     TokenUserInfo payload = tokenReader.getPayload(accessToken);
-    System.out.println(payload.userType());
-    return null;
+    Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
+    return makeToken(payload.id(), refreshTokenExpiration, payload.userType());
   }
 }
 

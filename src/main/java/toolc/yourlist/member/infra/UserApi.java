@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.member.domain.MemberAuthProvider;
+import toolc.yourlist.member.domain.TokenProvider;
 import toolc.yourlist.member.domain.VisitorAuthProvider;
 
 @RestController
@@ -14,6 +15,7 @@ public class UserApi {
 
   private final VisitorAuthProvider visitorAuthProvider;
   private final MemberAuthProvider memberAuthProvider;
+  private final TokenProvider tokenProvider;
   private final RequestMapperFromJson requestMapperFromJson;
 
   @PostMapping("/auth/signup/visitor")
@@ -24,7 +26,7 @@ public class UserApi {
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
-    return JsonResponse.okWithData(result.get(), "Successful registration of visitor");
+    return JsonResponse.okWithData(result.get(), "Successful visitor registration");
   }
 
   @PostMapping("/auth/login/visitor")
@@ -46,7 +48,7 @@ public class UserApi {
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
-    return JsonResponse.okWithData(result.get(), "Successful registration of member");
+    return JsonResponse.okWithData(result.get(), "Successful member registration");
   }
 
   @PostMapping("auth/login/member")
@@ -57,6 +59,14 @@ public class UserApi {
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
-    return JsonResponse.okWithData(result.get(), "Successful registration of member");
+    return JsonResponse.okWithData(result.get(), "Successful member login");
+  }
+
+  @PostMapping("auth/reissue")
+  public ResponseEntity<?> reissue(@RequestBody JsonTokenReissueRequest jsonRequest) {
+    var request = requestMapperFromJson.mapper(jsonRequest);
+
+    var result = tokenProvider .reissue(request.accessToken(), request.refreshToken(), request.isPC());
+    return JsonResponse.okWithData(result, "Successful reissue token");
   }
 }

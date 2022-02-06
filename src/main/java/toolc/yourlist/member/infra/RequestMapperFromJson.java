@@ -2,6 +2,7 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.domain.MemberRegisterAndLoginRequest;
+import toolc.yourlist.member.domain.TokenReissueRequest;
 import toolc.yourlist.member.domain.VisitorRegisterAndLoginRequest;
 import toolc.yourlist.member.domain.loginId.LoginIdFactory;
 import toolc.yourlist.member.domain.password.PasswordFactory;
@@ -21,5 +22,11 @@ public class RequestMapperFromJson {
       loginIdFactory.create(jsonRequest.loginId()), passwordFactory.create(jsonRequest.password()),
       jsonRequest.isPC());
   }
+
+  TokenReissueRequest mapper(JsonTokenReissueRequest jsonRequest) {
+    return new TokenReissueRequest(
+      jsonRequest.accessToken(), jsonRequest.refreshToken(), jsonRequest.isPC());
+  }
+
 }
 
