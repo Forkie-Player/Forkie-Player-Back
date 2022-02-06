@@ -50,9 +50,10 @@ class MemberAuthProviderTest {
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
     boolean isPC = true;
+    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC);
 
     //when
-    authProvider.getMemberToken(loginId, password, isPC);
+    authProvider.getMemberToken(request);
 
     //then
     verify(tokenProvider, times(1)).makeToken(any(), any(), any());

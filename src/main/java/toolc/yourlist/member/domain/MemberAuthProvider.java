@@ -22,14 +22,14 @@ public class MemberAuthProvider {
       return left("Already register Member");
     } else {
       allMember.registerMember(request.loginId(), request.password());
-      return right(getMemberToken(request.loginId(), request.password(), request.isPC()).get());
+      return right(getMemberToken(request).get());
     }
   }
 
 
-  Either<String, Token> getMemberToken(LoginId loginId, Password password, boolean isPC) {
-    Long id = allMember.findIdByLoginId(loginId);
-    Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
+  public Either<String, Token> getMemberToken(MemberRegisterAndLoginRequest request) {
+    Long id = allMember.findIdByLoginId(request.loginId());
+    Period refreshTokenExpiration = request.isPC() ? Period.ofDays(7) : Period.ofDays(90);
     return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.MEMBER));
   }
 

@@ -31,7 +31,7 @@ public class UserApi {
   public ResponseEntity<?> login(@RequestBody JsonVisitorSignUpAndLoginRequest jsonRequest) {
     var request = requestMapperFromJson.mapper(jsonRequest);
 
-    var result = visitorAuthProvider.getVisitorToken(request.uuid(), request.isPC());
+    var result = visitorAuthProvider.getVisitorToken(request);
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
@@ -43,6 +43,17 @@ public class UserApi {
     var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = memberAuthProvider.registerMember(request);
+    if (result.isLeft()) {
+      return JsonResponse.failForBadRequest(result.getLeft());
+    }
+    return JsonResponse.okWithData(result.get(), "Successful registration of member");
+  }
+
+  @PostMapping("auth/login/member")
+  public ResponseEntity<?> login(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
+    var request = requestMapperFromJson.mapper(jsonRequest);
+
+    var result = memberAuthProvider.getMemberToken(request);
     if (result.isLeft()) {
       return JsonResponse.failForBadRequest(result.getLeft());
     }

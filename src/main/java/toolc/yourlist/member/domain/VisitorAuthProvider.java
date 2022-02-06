@@ -20,15 +20,15 @@ public class VisitorAuthProvider {
       return left("Already registered uuid");
     }
     allVisitor.registerVisitor(request.uuid());
-    return right(getVisitorToken(request.uuid(), request.isPC()).get());
+    return right(getVisitorToken(request).get());
   }
 
-  public Either<String, Token> getVisitorToken(String uuid, boolean isPC) {
-    if (allVisitor.isNotExistByUUID(uuid)) {
+  public Either<String, Token> getVisitorToken(VisitorRegisterAndLoginRequest request) {
+    if (allVisitor.isNotExistByUUID(request.uuid())) {
       return left("Unregistered visitor");
     } else {
-      Long id = allVisitor.findIdByUUID(uuid);
-      Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
+      Long id = allVisitor.findIdByUUID(request.uuid());
+      Period refreshTokenExpiration = request.isPC() ? Period.ofDays(7) : Period.ofDays(90);
 
       return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
     }

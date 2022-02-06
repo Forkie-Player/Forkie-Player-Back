@@ -54,14 +54,15 @@ class VisitorAuthProviderTest {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
     final var isPC = true;
+    var request = new VisitorRegisterAndLoginRequest(uuid, isPC);
 
-    //when
-    when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
+      //when
+      when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
     when(tokenProvider.makeToken(3912839421L, Period.ofDays(7), UserType.VISITOR))
       .thenReturn(new Token("access.token.3912839421L", "refresh.token.3912839421L"));
 
     //then
-    final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
+    final var result = visitorAuthProvider.getVisitorToken(request);
 
     assertThat(result, is(right(new Token(
       "access.token.3912839421L", "refresh.token.3912839421L"))));
@@ -71,11 +72,11 @@ class VisitorAuthProviderTest {
   void token_are_not_given_to_unregistered_visitor() {
     //given
     final var uuid = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
+    var request = new VisitorRegisterAndLoginRequest(uuid, true);
     when(allVisitor.isNotExistByUUID(anyString())).thenReturn(true);
 
     //when
-    final var isPC = true;
-    final var result = visitorAuthProvider.getVisitorToken(uuid, isPC);
+    final var result = visitorAuthProvider.getVisitorToken(request);
     assertThat(result, is(left("Unregistered visitor")));
   }
 
@@ -93,8 +94,10 @@ class VisitorAuthProviderTest {
       .thenReturn(new Token("access.token.8833", "refresh.token.8833"));
 
     //when
-    final var visitorToken = visitorAuthProvider.getVisitorToken(uuid1, true);
-    final var anotherVisitorToken = visitorAuthProvider.getVisitorToken(uuid2, true);
+    final var visitorToken =
+      visitorAuthProvider.getVisitorToken(new VisitorRegisterAndLoginRequest(uuid1, true));
+    final var anotherVisitorToken =
+      visitorAuthProvider.getVisitorToken(new VisitorRegisterAndLoginRequest(uuid1, true));
 
     //then
     assertThat(anotherVisitorToken, is(not(visitorToken)));
