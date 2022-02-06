@@ -61,14 +61,26 @@ public class BeanConfig {
   }
 
   @Bean
-  VisitorDomainAdapter visitorDomainAdapter() {
-    return new VisitorDomainAdapter();
+  VisitorEntityToDomainAdapter visitorDomainAdapter() {
+    return new VisitorEntityToDomainAdapter();
   }
 
   @Bean
   AllVisitor allVisitor(JpaAllVisitorEntity jpaAllVisitorEntity,
-                        VisitorDomainAdapter visitorDomainAdapter) {
-    return new JpaAllVisitor(jpaAllVisitorEntity, visitorDomainAdapter);
+                        VisitorEntityToDomainAdapter visitorEntityToDomainAdapter) {
+    return new JpaAllVisitor(jpaAllVisitorEntity, visitorEntityToDomainAdapter);
+  }
+
+  @Bean
+  MemberEntityToDomainAdapter memberEntityToDomainAdapter(LoginIdFactory loginIdFactory,
+                                                          PasswordFactory passwordFactory) {
+    return new MemberEntityToDomainAdapter(loginIdFactory, passwordFactory);
+  }
+
+  @Bean
+  AllMember allMember(JpaAllMemberEntity jpaAllMemberEntity,
+                      MemberEntityToDomainAdapter memberEntityToDomainAdapter) {
+    return new JpaAllMember(jpaAllMemberEntity, memberEntityToDomainAdapter);
   }
 
   @Bean
@@ -78,8 +90,14 @@ public class BeanConfig {
   }
 
   @Bean
-  VisitorAuthProvider authManager(TokenProvider tokenProvider, TokenReader tokenReader,
-                                  AllVisitor allVisitor) {
+  VisitorAuthProvider visitorAuthProvider(TokenProvider tokenProvider, TokenReader tokenReader,
+                                          AllVisitor allVisitor) {
     return new VisitorAuthProvider(tokenProvider, tokenReader, allVisitor);
+  }
+
+  @Bean
+  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, TokenReader tokenReader,
+                                        AllMember allMember) {
+    return new MemberAuthProvider(tokenProvider, tokenReader, allMember);
   }
 }

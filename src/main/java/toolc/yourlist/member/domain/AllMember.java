@@ -4,7 +4,7 @@ import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 
 public interface AllMember {
-  boolean isNotExistByLoginId(LoginId loginId);
+  boolean isExistByLoginId(LoginId loginId);
 
   boolean isNotExistById(Long id);
 

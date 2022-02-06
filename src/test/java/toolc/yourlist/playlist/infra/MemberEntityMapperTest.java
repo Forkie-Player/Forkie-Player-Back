@@ -17,8 +17,7 @@ class MemberEntityMapperTest {
     var mapper = new MemberEntityMapper();
 
     var actual = mapper.toMember(
-      new MemberEntity("oh980225", "qwer1234!", true)
-    );
+      new MemberEntity("oh980225", "qwer1234!"));
 
     var expected = Member.builder()
       .loginId("oh980225")

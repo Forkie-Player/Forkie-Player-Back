@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
+import toolc.yourlist.member.domain.MemberAuthProvider;
 import toolc.yourlist.member.domain.VisitorAuthProvider;
 
 @RestController
@@ -12,6 +13,7 @@ import toolc.yourlist.member.domain.VisitorAuthProvider;
 public class UserApi {
 
   private final VisitorAuthProvider visitorAuthProvider;
+  private final MemberAuthProvider memberAuthProvider;
   private final RequestMapperFromJson requestMapperFromJson;
 
   @PostMapping("/auth/signup/visitor")
@@ -34,5 +36,16 @@ public class UserApi {
       return JsonResponse.failForBadRequest(result.getLeft());
     }
     return JsonResponse.okWithData(result.get(), "Successful visitor login");
+  }
+
+  @PostMapping("/auth/signup/member")
+  public ResponseEntity<?> signup(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
+    var request = requestMapperFromJson.mapper(jsonRequest);
+
+    var result = memberAuthProvider.registerMember(request);
+    if (result.isLeft()) {
+      return JsonResponse.failForBadRequest(result.getLeft());
+    }
+    return JsonResponse.okWithData(result.get(), "Successful registration of member");
   }
 }

@@ -7,7 +7,7 @@ import toolc.yourlist.member.domain.AllVisitor;
 public class JpaAllVisitor implements AllVisitor {
 
   private final JpaAllVisitorEntity jpaAllVisitorEntity;
-  private final VisitorDomainAdapter adapter;
+  private final VisitorEntityToDomainAdapter adapter;
 
   @Override
   public boolean isExistByUUID(String uuid) {

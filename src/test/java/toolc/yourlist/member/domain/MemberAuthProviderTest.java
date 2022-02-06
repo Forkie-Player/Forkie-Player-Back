@@ -35,11 +35,13 @@ class MemberAuthProviderTest {
     //given
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
+    boolean isPC = true;
+    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC);
 
-    when(allMember.isNotExistByLoginId(loginId)).thenReturn(true);
+    when(allMember.isExistByLoginId(loginId)).thenReturn(true);
 
     //then
-    assertThat(authProvider.registerMember(loginId, password), is(left("Already register Member")));
+    assertThat(authProvider.registerMember(request), is(left("Already register Member")));
   }
 
   @Test
@@ -48,7 +50,6 @@ class MemberAuthProviderTest {
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
     boolean isPC = true;
-    authProvider.registerMember(loginId, password);
 
     //when
     authProvider.getMemberToken(loginId, password, isPC);

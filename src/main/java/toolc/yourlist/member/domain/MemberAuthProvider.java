@@ -17,12 +17,12 @@ public class MemberAuthProvider {
   private final TokenReader tokenReader;
   private final AllMember allMember;
 
-  Either<String, String> registerMember(LoginId loginId, Password password) {
-    if (allMember.isNotExistByLoginId(loginId)) {
+  public Either<String, Token> registerMember(MemberRegisterAndLoginRequest request) {
+    if (allMember.isExistByLoginId(request.loginId())) {
       return left("Already register Member");
     } else {
-      allMember.registerMember(loginId, password);
-      return right("Success register new Member");
+      allMember.registerMember(request.loginId(), request.password());
+      return right(getMemberToken(request.loginId(), request.password(), request.isPC()).get());
     }
   }
 
