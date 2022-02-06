@@ -46,8 +46,9 @@ public class BeanConfig {
   }
 
   @Bean
-  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TimeServer timeServer) {
-    return new TokenProvider(tokenSecretKey, timeServer);
+  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TokenReader tokenReader,
+                              TimeServer timeServer) {
+    return new TokenProvider(tokenSecretKey, tokenReader, timeServer);
   }
 
   @Bean
@@ -90,14 +91,13 @@ public class BeanConfig {
   }
 
   @Bean
-  VisitorAuthProvider visitorAuthProvider(TokenProvider tokenProvider, TokenReader tokenReader,
+  VisitorAuthProvider visitorAuthProvider(TokenProvider tokenProvider,
                                           AllVisitor allVisitor) {
-    return new VisitorAuthProvider(tokenProvider, tokenReader, allVisitor);
+    return new VisitorAuthProvider(tokenProvider, allVisitor);
   }
 
   @Bean
-  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, TokenReader tokenReader,
-                                        AllMember allMember) {
-    return new MemberAuthProvider(tokenProvider, tokenReader, allMember);
+  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember) {
+    return new MemberAuthProvider(tokenProvider, allMember);
   }
 }

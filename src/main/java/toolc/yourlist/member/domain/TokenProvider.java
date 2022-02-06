@@ -13,6 +13,7 @@ import java.util.Map;
 public class TokenProvider {
 
   private final TokenSecretKey tokenSecretKey;
+  private final TokenReader tokenReader;
   private final TimeServer timeServer;
 
   Token makeToken(Long id, Period refreshTokenExpiration, UserType userType) {
@@ -32,6 +33,12 @@ public class TokenProvider {
       .compact();
 
     return new Token(accessToken, refreshToken);
+  }
+
+  Token reissue(String accessToken, String refreshToken, boolean isPC) {
+    TokenUserInfo payload = tokenReader.getPayload(accessToken);
+    System.out.println(payload.userType());
+    return null;
   }
 }
 

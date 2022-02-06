@@ -103,39 +103,4 @@ class VisitorAuthProviderTest {
     assertThat(anotherVisitorToken, is(not(visitorToken)));
   }
 
-
-  @Test
-  void can_be_reissued_using_existing_token() {
-    //given
-    final var existingAccessToken = "WJ1vsFSD912Kv.b3Qta12ASDzv.8q2e11SS3C23";
-    final var existingRefreshToken = "dd34B123zcLWJv.b12231asdfzsJpdHk1tan.d0LXR1d123Gdsa";
-    final var isPC = true;
-
-    //when
-    when(tokenReader.getId(existingAccessToken)).thenReturn(83623L);
-    when(allVisitor.isNotExistById(83623L)).thenReturn(false);
-
-    when(tokenProvider.makeToken(83623L, Period.ofDays(7), UserType.VISITOR))
-      .thenReturn(new Token("reissued.access.token.8q2e123", "reissued.refresh.token.aj2xcv3"));
-
-
-    //then
-    final var result = visitorAuthProvider.reissueToken(
-      existingAccessToken, existingRefreshToken, true);
-    assertThat(result, is(right(new Token(
-      "reissued.access.token.8q2e123", "reissued.refresh.token.aj2xcv3"))));
-  }
-
-  @Test
-  void should_be_registered_when_reissued() {
-    //given
-    String existingAccessToken = "c3ByaW5nLWJv.b3Qtc2VjdXJpdHk1tan.d0LXR1dG9yaW";
-    String existingRefreshToken = "dd34B123zcLWJv.b12231asdfzsJpdHk1tan.d0LXR1d123Gdsa";
-    when(tokenReader.getId(existingAccessToken)).thenReturn(81239123L);
-    when(allVisitor.isNotExistById(81239123L)).thenReturn(true);
-
-
-    assertThrows(IllegalArgumentException.class, () -> visitorAuthProvider.reissueToken(
-      existingAccessToken, existingRefreshToken, true));
-  }
 }

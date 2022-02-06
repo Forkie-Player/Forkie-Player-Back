@@ -59,21 +59,4 @@ class MemberAuthProviderTest {
     verify(tokenProvider, times(1)).makeToken(any(), any(), any());
   }
 
-  @Test
-  void call_tokenProvider_once_when_request_reissue_token() {
-    //given
-    String accessToken = "xMiJ9.eyJJZCI6MSwiVXNlclR5cGUiOiJ2aXNpdG9yIiwQ.bVqP9ynDa";
-    String refreshToken = "R5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0aWF0IjoxNTE2MjM5MDIyfQ.Sf";
-    boolean isPC = true;
-
-    when(allMember.isNotExistById(anyLong())).thenReturn(false);
-    when(tokenReader.getId(anyString())).thenReturn(36223L);
-
-    //when
-    authProvider.reissueToken(accessToken, refreshToken, isPC);
-
-    //then
-    verify(tokenProvider, times(1)).makeToken(any(), any(), any());
-
-  }
 }

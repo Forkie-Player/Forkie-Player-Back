@@ -12,7 +12,6 @@ import static io.vavr.control.Either.right;
 public class VisitorAuthProvider {
 
   private final TokenProvider tokenProvider;
-  private final TokenReader tokenReader;
   private final AllVisitor allVisitor;
 
   public Either<String, Token> registerVisitor(VisitorRegisterAndLoginRequest request) {
@@ -32,18 +31,6 @@ public class VisitorAuthProvider {
 
       return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
     }
-  }
-
-  Either<String, Token> reissueToken(String accessToken, String refreshToken, boolean isPC) {
-    Long id = tokenReader.getId(accessToken);
-    if (allVisitor.isNotExistById(id)) {
-      // todo :: usecase에는 없다. 하지만 서버 작동 중 문제가 생겨서 발생했을 가능성은? -> 예외로?
-      throw new IllegalArgumentException();
-    }
-
-    Period refreshTokenExpiration = isPC ? Period.ofDays(7) : Period.ofDays(90);
-
-    return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
   }
 }
 
