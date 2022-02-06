@@ -15,7 +15,7 @@ public class VisitorAuthProvider {
   private final TokenReader tokenReader;
   private final AllVisitor allVisitor;
 
-  public Either<String, Token> registerVisitor(VisitorRegisterRequest request) {
+  public Either<String, Token> registerVisitor(VisitorRegisterAndLoginRequest request) {
     if (allVisitor.isExistByUUID(request.uuid())) {
       return left("Already registered uuid");
     }

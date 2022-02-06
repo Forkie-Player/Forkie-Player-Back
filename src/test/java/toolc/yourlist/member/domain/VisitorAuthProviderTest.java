@@ -37,7 +37,7 @@ class VisitorAuthProviderTest {
   @Test
   void registered_visitor_can_not_register_again() {
     //given
-    VisitorRegisterRequest request = new VisitorRegisterRequest(
+    VisitorRegisterAndLoginRequest request = new VisitorRegisterAndLoginRequest(
       "55D154BE-07E6-42FA-832B-D9CF11CE0D6A", true);
 
 

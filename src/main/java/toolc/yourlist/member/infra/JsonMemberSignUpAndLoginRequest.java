@@ -6,13 +6,17 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class JsonVisitorSignUpAndLoginRequest {
+public class JsonMemberSignUpAndLoginRequest {
 
   @NotBlank
   @JsonProperty
-  private String uuid;
+  private String loginId;
 
   @NotBlank
   @JsonProperty
-  private Boolean isPC;
+  private String password;
+
+  @NotBlank
+  @JsonProperty
+  Boolean isPC;
 }
