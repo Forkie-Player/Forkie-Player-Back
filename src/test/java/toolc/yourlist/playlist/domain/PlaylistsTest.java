@@ -1,15 +1,18 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.parameters.P;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ListOfPlaylistsTest {
+class PlaylistsTest {
   @Test
   void 동일하지_않은_멤버의_영상목록들() {
-    assertThrows(NotEqualOwnerForPlaylistsException.class, () -> new ListOfPlaylists(
+    assertThrows(NotEqualOwnerForPlaylistsException.class, () -> new Playlists(
       List.of(
         Playlist.builder()
           .id(1L)

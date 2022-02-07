@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 public class EmptyPlaylist implements AllPlaylists{
   @Override
-  public ListOfPlaylists readAllBelongsTo(Long memberId) {
+  public Playlists readAllBelongsTo(Long memberId) {
     return null;
   }
 

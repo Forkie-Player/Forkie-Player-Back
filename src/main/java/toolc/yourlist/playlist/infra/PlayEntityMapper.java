@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 class PlayEntityMapper {
-  ListOfPlays toListOfPlays(List<PlayEntity> entityList) {
-    return new ListOfPlays(entityList.stream()
+  Plays toListOfPlays(List<PlayEntity> entityList) {
+    return new Plays(entityList.stream()
       .map(entity -> Play.builder()
         .id(entity.id())
         .playlistId(entity.playlistId())

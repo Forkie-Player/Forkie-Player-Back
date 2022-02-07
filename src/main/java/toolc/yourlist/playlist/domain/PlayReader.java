@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 public class PlayReader {
   private final AllPlay allPlay;
 
-  public ListOfPlays readAllPlays(ReadAllPlaysRequest request) {
+  public Plays readAllPlays(ReadAllPlaysRequest request) {
     return allPlay.readAllBelongsTo(request.equalMemberForPlaylist().playlist().id());
   }
 }

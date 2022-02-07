@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.playlist.domain.ListOfPlaylists;
+import toolc.yourlist.playlist.domain.Playlists;
 import toolc.yourlist.playlist.domain.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
 
@@ -22,8 +22,8 @@ class PlaylistEntityMapper {
       .build();
   }
 
-  ListOfPlaylists toListOfPlaylists(List<PlaylistEntity> entityList) {
-    return new ListOfPlaylists(entityList.stream()
+  Playlists toListOfPlaylists(List<PlaylistEntity> entityList) {
+    return new Playlists(entityList.stream()
       .map(entity -> Playlist.builder()
         .id(entity.id())
         .memberId(entity.memberId())

@@ -20,7 +20,7 @@ record PlayJson(
     this(play.id(),
       play.info().title(),
       play.info().videoId(),
-      play.sequence(),
+      play.sequence() + 1,
       play.info().thumbnail(),
       play.time().startTime(),
       play.time().endTime(),

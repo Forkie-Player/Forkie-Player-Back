@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
-import toolc.yourlist.playlist.domain.ListOfPlaylists;
+import toolc.yourlist.playlist.domain.Playlists;
 import toolc.yourlist.playlist.domain.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
 
@@ -46,7 +46,7 @@ class PlaylistEntityMapperTest {
         new PlaylistEntity(1L, "My Music", "puppy.png")
       ));
 
-    var expected = new ListOfPlaylists(List.of(
+    var expected = new Playlists(List.of(
       Playlist.builder()
         .memberId(1L)
         .title("My List")

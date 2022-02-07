@@ -6,16 +6,16 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ListOfPlaysTest {
+class PlaysTest {
   @Test
   void 다른_영상목록의_영상_포함() {
-    assertThrows(NotInEqualPlaylistException.class, () -> new ListOfPlays(
+    assertThrows(NotInEqualPlaylistException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -23,7 +23,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(2L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(2L)
+          .sequence(1L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));
@@ -31,13 +31,13 @@ class ListOfPlaysTest {
 
   @Test
   void 영상들_순서_이상_중복된_경우() {
-    assertThrows(InvalidSeqException.class, () -> new ListOfPlays(
+    assertThrows(InvalidSeqException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -45,7 +45,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(1L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));
@@ -53,13 +53,13 @@ class ListOfPlaysTest {
 
   @Test
   void 영상들_순서_이상_정렬X_경우() {
-    assertThrows(InvalidSeqException.class, () -> new ListOfPlays(
+    assertThrows(InvalidSeqException.class, () -> new Plays(
       Arrays.asList(
         Play.builder()
           .id(1L)
           .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
-          .sequence(2L)
+          .sequence(1L)
           .time(new PlayTime(1000L, 10000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
@@ -67,7 +67,7 @@ class ListOfPlaysTest {
           .id(2L)
           .playlistId(1L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
-          .sequence(1L)
+          .sequence(0L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
           .build())));

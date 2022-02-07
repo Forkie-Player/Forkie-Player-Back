@@ -1,15 +1,12 @@
 package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.playlist.domain.ListOfPlaylists;
+import toolc.yourlist.playlist.domain.Playlists;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 class ListOfPlaylistsMapper {
-  List<PlaylistJson> toPlaylistJsonList(ListOfPlaylists listOfPlaylists) {
-    return listOfPlaylists.list()
-      .stream()
-      .map(PlaylistJson::new)
-      .collect(Collectors.toList());
+  List<PlaylistJson> toPlaylistJsonList(Playlists playlists) {
+    return playlists.map(PlaylistJson::new).collect(Collectors.toList());
   }
 }

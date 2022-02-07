@@ -25,7 +25,7 @@ class PlaylistReaderTest {
         .isMember(true)
         .build());
     given(allPlaylists.readAllBelongsTo(request.member().id())).willReturn(
-      new ListOfPlaylists(List.of(
+      new Playlists(List.of(
         Playlist.builder()
           .id(1L)
           .memberId(request.member().id())
@@ -41,7 +41,7 @@ class PlaylistReaderTest {
 
     var actual = reader.belongsTo(request);
 
-    var expected = new ListOfPlaylists(List.of(
+    var expected = new Playlists(List.of(
       Playlist.builder()
         .id(1L)
         .memberId(request.member().id())

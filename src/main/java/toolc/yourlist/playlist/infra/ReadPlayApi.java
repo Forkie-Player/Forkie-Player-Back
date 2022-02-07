@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toolc.yourlist.playlist.domain.ListOfPlays;
+import toolc.yourlist.playlist.domain.Plays;
 import toolc.yourlist.playlist.domain.PlayReader;
 
 import static toolc.yourlist.common.infra.JsonResponse.okWithData;
@@ -25,7 +25,7 @@ public class ReadPlayApi {
     return toOutput(reader.readAllPlays(requestMapper.toReadAllPlaysRequest(jsonRequest)));
   }
 
-  private ResponseEntity<?> toOutput(ListOfPlays result) {
+  private ResponseEntity<?> toOutput(Plays result) {
     return okWithData(responseMapper.toPlayJsonList(result), "영상들 읽어오기 성공");
   }
 }
