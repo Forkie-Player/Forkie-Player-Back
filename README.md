@@ -1,4 +1,4 @@
-# YourList
+# Forkie Player [Forkie]
 
 ## 🙋‍♂️ Profile
 |이름|<h3>오승재</h3>|<h3>박지수</h3>|
@@ -34,7 +34,7 @@
 3. 나만의 운동 루틴 만들기
 4. 기타 등등...👍🏼
 
-## 💻 실제 서비스 VIEW
+## 💻 실제 서비스 VIEW [Back 리빌딩과 함께 전체적인 View를 변경 중입니다.]
 <img width="650px" height="500px" alt="ServiceView1" src="https://user-images.githubusercontent.com/33858991/144638774-7bc35002-8774-4792-bc12-9d2d53b3e2de.jpeg">
 <br>
 <img width="650px" height="500px" alt="ServiceView2" src="https://user-images.githubusercontent.com/33858991/144638795-e7e18bb8-4839-4fb4-b0da-d1e15202590b.jpeg">
