@@ -1,10 +1,23 @@
 package toolc.yourlist.playlist.domain;
 
+import lombok.RequiredArgsConstructor;
+
+import javax.transaction.Transactional;
+
+@RequiredArgsConstructor
 public class SequenceUpdater {
+  private final AllPlay allPlay;
+  private final ChangeThumbnail changeThumbnail;
+
+  @Transactional
   public void update(PlaySequencesForUpdate request) {
-    // 1. 입력받은 대로 순서를 변경
+    request.forEach(playSequence -> {
+      var play = playSequence.validRequestForPlay().play();
+      var sequenceToChange = playSequence.sequenceToChange();
 
-    // 2. 1번 순서의 영상의 썹네일을 영상 목록의 썸네일로 변경
+      allPlay.updateSequence(play.id(), sequenceToChange);
 
+      changeThumbnail.changeForUpdateSequence(play, sequenceToChange);
+    });
   }
 }

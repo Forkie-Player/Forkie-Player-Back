@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class PlayAdder {
   private final AllPlay allPlay;
-  private final PlaylistThumbnail playlistThumbnail;
+  private final ChangeThumbnail changeThumbnail;
 
   @Transactional
   public void add(AddPlayRequest request) {
@@ -21,7 +21,7 @@ public class PlayAdder {
       .build();
 
     allPlay.save(play);
-    playlistThumbnail.change(
+    changeThumbnail.changeForMakingFirstPlay(
       request.validRequestForPlaylist().playlist().id(),
       request.info().thumbnail(),
       playlistSize);

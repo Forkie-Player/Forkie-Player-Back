@@ -1,17 +1,20 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+@ExtendWith(MockitoExtension.class)
 class SequenceUpdaterTest {
-
   @Test
-  void update() {
-    var updater = new SequenceUpdater();
+  void update(@Mock AllPlay allPlay, @Mock ChangeThumbnail changeThumbnail) {
+    var updater = new SequenceUpdater(allPlay, changeThumbnail);
     var request = new PlaySequencesForUpdate(
       List.of(
         new PlaySequence(
@@ -54,11 +57,38 @@ class SequenceUpdaterTest {
               .id(2L)
               .playlistId(1L)
               .sequence(2L)
-              .info(new PlayInfo("So Sad Music", "abcd1234", "puppyu.png"))
+              .info(new PlayInfo("So Sad Music", "abcd1234", "puppy.png"))
               .time(new PlayTime(2000L, 3000L))
               .channel(new Channel("Music man", "man.png"))
               .build()), 1L)));
 
     updater.update(request);
+
+    verify(allPlay).updateSequence(1L, 2L);
+    verify(changeThumbnail).changeForUpdateSequence(
+      Play.builder()
+        .id(1L)
+        .playlistId(1L)
+        .sequence(1L)
+        .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
+        .time(new PlayTime(1000L, 3000L))
+        .channel(new Channel("Music man", "man.png"))
+        .build(),
+      2L
+    );
+    verify(allPlay).updateSequence(2L, 1L);
+    verify(changeThumbnail).changeForUpdateSequence(
+      Play.builder()
+        .id(2L)
+        .playlistId(1L)
+        .sequence(2L)
+        .info(new PlayInfo("So Sad Music", "abcd1234", "puppy.png"))
+        .time(new PlayTime(2000L, 3000L))
+        .channel(new Channel("Music man", "man.png"))
+        .build(),
+      1L
+    );
+    verifyNoMoreInteractions(allPlay);
+    verifyNoMoreInteractions(changeThumbnail);
   }
 }

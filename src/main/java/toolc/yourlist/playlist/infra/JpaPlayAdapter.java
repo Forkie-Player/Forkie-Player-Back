@@ -37,6 +37,12 @@ public class JpaPlayAdapter implements AllPlay {
     entity.time(time);
   }
 
+  @Override
+  public void updateSequence(Long id, Long sequenceToChange) {
+    var entity = getEntity(id);
+    entity.sequence(sequenceToChange);
+  }
+
   private PlayEntity getEntity(Long id) {
     return jpaPlayRepository.findById(id).orElseThrow(NoExistPlayException::new);
   }

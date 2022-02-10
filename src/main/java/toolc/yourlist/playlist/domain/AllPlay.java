@@ -6,4 +6,5 @@ public interface AllPlay {
   Plays readAllBelongsTo(Long playlistId);
   Play belongsTo(Long id);
   void updateTime(Long id, PlayTime time);
+  void updateSequence(Long id, Long sequenceToChange);
 }

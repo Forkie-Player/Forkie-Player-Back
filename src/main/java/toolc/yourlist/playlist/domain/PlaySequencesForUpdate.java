@@ -1,10 +1,13 @@
 package toolc.yourlist.playlist.domain;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-record PlaySequencesForUpdate(List<PlaySequence> list) {
-  public PlaySequencesForUpdate {
+class PlaySequencesForUpdate {
+  private final List<PlaySequence> list;
+
+  public PlaySequencesForUpdate(List<PlaySequence> list) {
     final int size = list.stream()
       .map(PlaySequence::sequenceToChange)
       .collect(Collectors.toUnmodifiableSet())
@@ -19,5 +22,11 @@ record PlaySequencesForUpdate(List<PlaySequence> list) {
         throw new InvalidSeqException();
       }
     });
+
+    this.list = list;
+  }
+
+  void forEach(Consumer<? super PlaySequence> action) {
+    list.forEach(action);
   }
 }

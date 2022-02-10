@@ -30,4 +30,8 @@ public class MockAllPlay implements AllPlay {
   @Override
   public void updateTime(Long id, PlayTime time) {
   }
+
+  @Override
+  public void updateSequence(Long id, Long sequenceToChange) {
+  }
 }
