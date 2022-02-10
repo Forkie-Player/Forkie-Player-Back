@@ -1,20 +1,18 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
-class TimeUpdaterTest {
+class SequenceUpdaterTest {
+
   @Test
-  void update(@Mock AllPlay allPlay) {
-    var updater = new TimeUpdater(allPlay);
-    var request = new TimeUpdateRequest(new ValidRequestForPlay(
+  void update() {
+    var updater = new SequenceUpdater();
+    var request = new SequenceUpdateRequest(List.of(new ValidRequestForPlay(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -34,13 +32,8 @@ class TimeUpdaterTest {
         .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
         .time(new PlayTime(1000L, 3000L))
         .channel(new Channel("Music man", "man.png"))
-        .build()
-    ), new PlayTime(2000L, 4000L));
+        .build())), new PlaySequences());
 
     updater.update(request);
-    verify(allPlay).updateTime(
-      request.validRequestForPlay().play().id(),
-      request.time());
-    verifyNoMoreInteractions(allPlay);
   }
 }
