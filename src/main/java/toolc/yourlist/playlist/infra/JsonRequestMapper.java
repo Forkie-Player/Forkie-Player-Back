@@ -3,6 +3,8 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.*;
 
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 public class JsonRequestMapper {
   private final EqualMemberFactory factory;
@@ -12,36 +14,54 @@ public class JsonRequestMapper {
   }
 
   UpdateRequest toUpdateRequest(JsonUpdateRequest jsonRequest) {
-    var equalOwner = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
 
-    return new UpdateRequest(equalOwner, jsonRequest.title());
+    return new UpdateRequest(validRequest, jsonRequest.title());
   }
 
   DeleteRequest toDeleteRequest(JsonDeleteRequest jsonRequest) {
-    var equalOwner = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
 
-    return new DeleteRequest(equalOwner);
+    return new DeleteRequest(validRequest);
   }
 
   AddPlayRequest toAddPlayRequest(JsonAddPlayRequest jsonRequest) {
-    var equalOwner = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
     var time = new PlayTime(jsonRequest.startTime(), jsonRequest.endTime());
     var channel = new Channel(jsonRequest.channelTitle(), jsonRequest.channelImg());
     var info = new PlayInfo(jsonRequest.title(), jsonRequest.videoId(), jsonRequest.thumbnail());
 
-    return new AddPlayRequest(equalOwner, info, time, channel);
+    return new AddPlayRequest(validRequest, info, time, channel);
   }
 
   ReadAllPlaysRequest toReadAllPlaysRequest(JsonReadAllPlaysRequest jsonRequest) {
-    var equalOwner = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
 
-    return new ReadAllPlaysRequest(equalOwner);
+    return new ReadAllPlaysRequest(validRequest);
   }
 
   TimeUpdateRequest toTimeUpdateRequest(JsonUpdateTimeRequest jsonRequest) {
-    var equalOwner = factory.createForPlay(jsonRequest.memberId(), jsonRequest.playId());
+    var validRequest = factory.createForPlay(
+      jsonRequest.memberId(),
+      jsonRequest.playlistId(),
+      jsonRequest.playId());
     var time = new PlayTime(jsonRequest.startTime(), jsonRequest.endTime());
 
-    return new TimeUpdateRequest(equalOwner, time);
+    return new TimeUpdateRequest(validRequest, time);
+  }
+
+  public PlaySequencesForUpdate toPlaySequencesForUpdate(JsonUpdateSequenceRequest jsonRequest) {
+    var sequenceList = jsonRequest.list().stream()
+      .map(jsonPlaySequence -> {
+        var validRequest = factory.createForPlay(
+          jsonRequest.memberId(),
+          jsonRequest.playlistId(),
+          jsonPlaySequence.playId());
+
+        return new PlaySequence(validRequest, jsonPlaySequence.sequence() - 1);
+      })
+      .collect(Collectors.toList());
+
+    return new PlaySequencesForUpdate(sequenceList);
   }
 }

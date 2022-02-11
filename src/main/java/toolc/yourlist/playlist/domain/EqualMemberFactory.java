@@ -15,10 +15,10 @@ public class EqualMemberFactory {
     return new ValidRequestForPlaylist(member, playlist);
   }
 
-  public ValidRequestForPlay createForPlay(Long memberId, Long playId) {
+  public ValidRequestForPlay createForPlay(Long memberId, Long playlistId, Long playId) {
     var member = allMember.findById(memberId);
     var play = allPlay.belongsTo(playId);
-    var playlist = allPlaylists.readBelongsTo(play.playlistId());
+    var playlist = allPlaylists.readBelongsTo(playlistId);
 
     return new ValidRequestForPlay(member, playlist, play);
   }

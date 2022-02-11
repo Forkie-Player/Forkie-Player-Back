@@ -7,7 +7,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EqualMemberFactoryTest {
-
   @Test
   void createForPlaylist() {
     var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
@@ -35,7 +34,7 @@ class EqualMemberFactoryTest {
   void createForPlay() {
     var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
-    var actual = factory.createForPlay(1L, 1L);
+    var actual = factory.createForPlay(1L, 1L, 1L);
 
     var expected = new ValidRequestForPlay(
       Play.builder()

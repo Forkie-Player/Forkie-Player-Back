@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-class PlaySequencesForUpdate {
+public class PlaySequencesForUpdate {
   private final List<PlaySequence> list;
 
   public PlaySequencesForUpdate(List<PlaySequence> list) {
@@ -18,7 +18,7 @@ class PlaySequencesForUpdate {
     }
 
     list.forEach(playSequence -> {
-      if (1 > playSequence.sequenceToChange() || playSequence.sequenceToChange() > list.size()) {
+      if (0 > playSequence.sequenceToChange() || playSequence.sequenceToChange() >= list.size()) {
         throw new InvalidSeqException();
       }
     });

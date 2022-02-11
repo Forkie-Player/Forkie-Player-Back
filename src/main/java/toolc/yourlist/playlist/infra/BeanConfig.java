@@ -85,4 +85,9 @@ class BeanConfig {
   TimeUpdater timeUpdater(AllPlay allPlay) {
     return new TimeUpdater(allPlay);
   }
+
+  @Bean
+  SequenceUpdater sequenceUpdater(AllPlay allPlay, ChangeThumbnail changeThumbnail) {
+    return new SequenceUpdater(allPlay, changeThumbnail);
+  }
 }

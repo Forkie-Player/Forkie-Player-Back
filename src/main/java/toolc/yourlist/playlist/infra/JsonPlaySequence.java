@@ -1,4 +1,4 @@
 package toolc.yourlist.playlist.infra;
 
-record JsonPlaySequence(Long id, Long sequence) {
+record JsonPlaySequence(Long playId, Long sequence) {
 }
