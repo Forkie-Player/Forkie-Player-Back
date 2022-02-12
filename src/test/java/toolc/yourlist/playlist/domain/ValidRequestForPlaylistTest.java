@@ -1,13 +1,14 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.exception.NotOwnerException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class EqualMemberForPlaylistTest {
+class ValidRequestForPlaylistTest {
   @Test
   void not_equal_owner() {
-    assertThrows(NotOwnerException.class, () -> new EqualMemberForPlaylist(
+    assertThrows(NotOwnerException.class, () -> new ValidRequestForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")

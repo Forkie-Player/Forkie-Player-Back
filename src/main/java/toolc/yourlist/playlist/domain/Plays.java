@@ -1,11 +1,12 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
-import toolc.yourlist.playlist.infra.ListOfPlaysMapper;
+import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
+import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
+import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,12 +15,21 @@ public class Plays{
   private final List<Play> list;
 
   public Plays(List<Play> list) {
-    final int size = list.stream()
+    final int idCount = list.stream()
+      .map(Play::id)
+      .collect(Collectors.toUnmodifiableSet())
+      .size();
+
+    if (idCount != list.size()) {
+      throw new DuplicateIdInListException();
+    }
+
+    final int playlistIdCount = list.stream()
       .map(Play::playlistId)
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (size != 1) {
+    if (playlistIdCount != 1) {
       throw new NotInEqualPlaylistException();
     }
 

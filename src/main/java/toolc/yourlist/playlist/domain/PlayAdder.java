@@ -7,13 +7,13 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class PlayAdder {
   private final AllPlay allPlay;
-  private final PlaylistThumbnail playlistThumbnail;
+  private final ChangeThumbnail changeThumbnail;
 
   @Transactional
   public void add(AddPlayRequest request) {
-    var playlistSize = allPlay.havingCountOf(request.equalMemberForPlaylist().playlist().id());
+    var playlistSize = allPlay.havingCountOf(request.validRequestForPlaylist().playlist().id());
     var play = Play.builder()
-      .playlistId(request.equalMemberForPlaylist().playlist().id())
+      .playlistId(request.validRequestForPlaylist().playlist().id())
       .sequence(playlistSize)
       .info(request.info())
       .time(request.time())
@@ -21,8 +21,8 @@ public class PlayAdder {
       .build();
 
     allPlay.save(play);
-    playlistThumbnail.change(
-      request.equalMemberForPlaylist().playlist().id(),
+    changeThumbnail.changeForMakingFirstPlay(
+      request.validRequestForPlaylist().playlist().id(),
       request.info().thumbnail(),
       playlistSize);
   }

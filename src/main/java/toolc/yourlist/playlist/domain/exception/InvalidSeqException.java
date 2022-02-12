@@ -1,4 +1,4 @@
-package toolc.yourlist.playlist.domain;
+package toolc.yourlist.playlist.domain.exception;
 
 public class InvalidSeqException extends RuntimeException {
   private static final String MESSAGE = "영상의 순서에 오류가 있습니다.";

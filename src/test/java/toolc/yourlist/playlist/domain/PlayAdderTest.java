@@ -12,9 +12,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 @ExtendWith(MockitoExtension.class)
 class PlayAdderTest {
   @Test
-  void add(@Mock AllPlay allPlay, @Mock PlaylistThumbnail playlistThumbnail) {
-    var adder = new PlayAdder(allPlay, playlistThumbnail);
-    var equalOwner = new EqualMemberForPlaylist(
+  void add(@Mock AllPlay allPlay, @Mock ChangeThumbnail changeThumbnail) {
+    var adder = new PlayAdder(allPlay, changeThumbnail);
+    var equalOwner = new ValidRequestForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -44,8 +44,8 @@ class PlayAdderTest {
         .time(time)
         .channel(channel)
         .build());
-    verify(playlistThumbnail).change(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
+    verify(changeThumbnail).changeForMakingFirstPlay(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
     verifyNoMoreInteractions(allPlay);
-    verifyNoMoreInteractions(playlistThumbnail);
+    verifyNoMoreInteractions(changeThumbnail);
   }
 }

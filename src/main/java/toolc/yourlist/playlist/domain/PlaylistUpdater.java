@@ -7,6 +7,6 @@ public class PlaylistUpdater {
   private final AllPlaylists allPlaylists;
 
   public void updateTitle(UpdateRequest request) {
-    allPlaylists.updateTitleBelongsTo(request.equalMemberForPlaylist().playlist().id(), request.title());
+    allPlaylists.updateTitleBelongsTo(request.validRequestForPlaylist().playlist().id(), request.title());
   }
 }

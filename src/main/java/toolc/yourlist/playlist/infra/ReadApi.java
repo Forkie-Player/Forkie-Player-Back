@@ -19,7 +19,7 @@ import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 class ReadApi {
   private final PlaylistReader reader;
   private final MemberIdMapper memberIdMapper;
-  private final ListOfPlaylistsMapper listOfPlaylistsMapper = new ListOfPlaylistsMapper();
+  private final JsonResponseMapper jsonResponseMapper = new JsonResponseMapper();
 
   @GetMapping("/api/playlist/{memberId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("memberId") String memberId) {
@@ -29,7 +29,7 @@ class ReadApi {
       return failRead(request.getLeft());
     }
 
-    return toOutput(listOfPlaylistsMapper.toPlaylistJsonList(reader.belongsTo(request.get())));
+    return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(request.get())));
   }
 
   private ResponseEntity<?> failRead(String message) {

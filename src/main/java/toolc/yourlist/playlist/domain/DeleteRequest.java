@@ -1,4 +1,4 @@
 package toolc.yourlist.playlist.domain;
 
-public record DeleteRequest(EqualMemberForPlaylist equalMemberForPlaylist) {
+public record DeleteRequest(ValidRequestForPlaylist validRequestForPlaylist) {
 }

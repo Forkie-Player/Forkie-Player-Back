@@ -8,18 +8,18 @@ public class EqualMemberFactory {
   private final AllPlaylists allPlaylists;
   private final AllPlay allPlay;
 
-  public EqualMemberForPlaylist createForPlaylist(Long memberId, Long playlistId) {
+  public ValidRequestForPlaylist createForPlaylist(Long memberId, Long playlistId) {
     var member = allMember.findById(memberId);
     var playlist = allPlaylists.readBelongsTo(playlistId);
 
-    return new EqualMemberForPlaylist(member, playlist);
+    return new ValidRequestForPlaylist(member, playlist);
   }
 
-  public EqualMemberForPlay createForPlay(Long memberId, Long playId) {
+  public ValidRequestForPlay createForPlay(Long memberId, Long playlistId, Long playId) {
     var member = allMember.findById(memberId);
     var play = allPlay.belongsTo(playId);
-    var playlist = allPlaylists.readBelongsTo(play.playlistId());
+    var playlist = allPlaylists.readBelongsTo(playlistId);
 
-    return new EqualMemberForPlay(member, playlist, play);
+    return new ValidRequestForPlay(member, playlist, play);
   }
 }

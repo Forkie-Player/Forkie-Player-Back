@@ -14,7 +14,7 @@ class TimeUpdaterTest {
   @Test
   void update(@Mock AllPlay allPlay) {
     var updater = new TimeUpdater(allPlay);
-    var request = new TimeUpdateRequest(new EqualMemberForPlay(
+    var request = new TimeUpdateRequest(new ValidRequestForPlay(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -39,7 +39,7 @@ class TimeUpdaterTest {
 
     updater.update(request);
     verify(allPlay).updateTime(
-      request.equalMemberForPlay().play().id(),
+      request.validRequestForPlay().play().id(),
       request.time());
     verifyNoMoreInteractions(allPlay);
   }

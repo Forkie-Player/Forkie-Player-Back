@@ -67,13 +67,13 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistThumbnail playlistThumbnail(AllPlaylists allPlaylists) {
-    return new ThumbnailChanger(allPlaylists);
+  ChangeThumbnail playlistThumbnail(AllPlaylists allPlaylists) {
+    return new PlaylistThumbnail(allPlaylists);
   }
 
   @Bean
-  PlayAdder playAdder(AllPlay allPlay, PlaylistThumbnail playlistThumbnail) {
-    return new PlayAdder(allPlay, playlistThumbnail);
+  PlayAdder playAdder(AllPlay allPlay, ChangeThumbnail changeThumbnail) {
+    return new PlayAdder(allPlay, changeThumbnail);
   }
 
   @Bean
@@ -84,5 +84,10 @@ class BeanConfig {
   @Bean
   TimeUpdater timeUpdater(AllPlay allPlay) {
     return new TimeUpdater(allPlay);
+  }
+
+  @Bean
+  SequenceUpdater sequenceUpdater(AllPlay allPlay, ChangeThumbnail changeThumbnail) {
+    return new SequenceUpdater(allPlay, changeThumbnail);
   }
 }

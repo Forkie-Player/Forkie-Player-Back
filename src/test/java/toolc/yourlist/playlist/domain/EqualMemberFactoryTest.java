@@ -7,14 +7,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EqualMemberFactoryTest {
-
   @Test
   void createForPlaylist() {
     var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
     var actual = factory.createForPlaylist(1L, 1L);
 
-    var expected = new EqualMemberForPlaylist(
+    var expected = new ValidRequestForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -32,25 +31,12 @@ class EqualMemberFactoryTest {
   }
 
   @Test
-  void createForPlaylist_not_equal_owner() {
-    var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
-
-    assertThrows(NotOwnerException.class, () -> factory.createForPlaylist(2L, 1L));
-  }
-
-  @Test
   void createForPlay() {
     var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
-    var actual = factory.createForPlay(1L, 1L);
+    var actual = factory.createForPlay(1L, 1L, 1L);
 
-    var expected = new EqualMemberForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+    var expected = new ValidRequestForPlay(
       Play.builder()
         .id(1L)
         .playlistId(1L)
@@ -61,12 +47,5 @@ class EqualMemberFactoryTest {
         .build()
     );
     assertThat(actual, is(expected));
-  }
-
-  @Test
-  void createForPlay_not_equal_owner() {
-    var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
-
-    assertThrows(NotOwnerException.class, () -> factory.createForPlay(2L, 1L));
   }
 }

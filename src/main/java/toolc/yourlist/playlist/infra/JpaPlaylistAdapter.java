@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlists;
-import toolc.yourlist.playlist.domain.NoExistPlaylistException;
+import toolc.yourlist.playlist.domain.exception.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import javax.transaction.Transactional;
@@ -15,14 +15,14 @@ class JpaPlaylistAdapter implements AllPlaylists {
 
   @Override
   public Playlists readAllBelongsTo(Long memberId) {
-    return mapper.toListOfPlaylists(
+    return mapper.toPlaylists(
       playlistRepository.findByMemberId(memberId)
     );
   }
 
   @Override
   public Playlist readBelongsTo(Long id) {
-    return mapper.toPlaylist(playlistRepository.findById(id));
+    return mapper.toPlaylist(getEntity(id));
   }
 
   @Override

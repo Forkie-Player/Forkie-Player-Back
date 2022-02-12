@@ -73,4 +73,8 @@ public class PlayEntity extends BaseEntity {
     this.start = time.startTime();
     this.end = time.endTime();
   }
+
+  void sequence(Long sequence) {
+    this.sequence = sequence;
+  }
 }
