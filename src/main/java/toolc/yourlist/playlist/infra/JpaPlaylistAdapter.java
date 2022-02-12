@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.AllPlaylists;
 import toolc.yourlist.playlist.domain.Playlists;
-import toolc.yourlist.playlist.domain.NoExistPlaylistException;
+import toolc.yourlist.playlist.domain.exception.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import javax.transaction.Transactional;

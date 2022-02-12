@@ -2,6 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.*;
+import toolc.yourlist.playlist.domain.exception.NoExistPlayException;
 
 import javax.transaction.Transactional;
 

@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
+import toolc.yourlist.playlist.domain.exception.NotEqualOwnerForPlaylistsException;
 
 import java.util.List;
 import java.util.function.Function;

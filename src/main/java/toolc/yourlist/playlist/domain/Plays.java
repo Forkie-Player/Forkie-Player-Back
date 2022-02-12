@@ -1,11 +1,11 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
-import toolc.yourlist.playlist.infra.ListOfPlaysMapper;
+import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
+import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

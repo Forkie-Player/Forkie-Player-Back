@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import toolc.yourlist.member.infra.JpaAllMemberEntity;
 import toolc.yourlist.playlist.domain.AllMember;
 import toolc.yourlist.playlist.domain.Member;
-import toolc.yourlist.playlist.domain.NoExistMemberException;
+import toolc.yourlist.playlist.domain.exception.NoExistMemberException;
 
 @RequiredArgsConstructor
 public class JpaMemberAdapter implements AllMember {

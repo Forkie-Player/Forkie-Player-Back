@@ -1,6 +1,8 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
+import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 
 import java.util.Arrays;
 

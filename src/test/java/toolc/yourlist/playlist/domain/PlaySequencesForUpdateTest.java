@@ -1,6 +1,8 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
+import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
 
 import java.util.List;
 

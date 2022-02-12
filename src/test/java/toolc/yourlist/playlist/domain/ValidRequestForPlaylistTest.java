@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.playlist.domain.exception.NotOwnerException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

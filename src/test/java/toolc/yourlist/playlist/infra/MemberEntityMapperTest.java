@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.infra;
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.member.infra.MemberEntity;
 import toolc.yourlist.playlist.domain.Member;
-import toolc.yourlist.playlist.domain.NoExistMemberException;
+import toolc.yourlist.playlist.domain.exception.NoExistMemberException;
 
 import java.util.Optional;
 

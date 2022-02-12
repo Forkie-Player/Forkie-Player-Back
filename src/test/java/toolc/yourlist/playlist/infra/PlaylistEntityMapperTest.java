@@ -2,7 +2,7 @@ package toolc.yourlist.playlist.infra;
 
 import org.junit.jupiter.api.Test;
 import toolc.yourlist.playlist.domain.Playlists;
-import toolc.yourlist.playlist.domain.NoExistPlaylistException;
+import toolc.yourlist.playlist.domain.exception.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
 
 import java.util.List;

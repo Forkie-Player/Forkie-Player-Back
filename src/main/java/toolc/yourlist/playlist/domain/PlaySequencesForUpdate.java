@@ -1,5 +1,8 @@
 package toolc.yourlist.playlist.domain;
 
+import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
+import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
+
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;

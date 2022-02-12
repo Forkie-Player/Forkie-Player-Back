@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import toolc.yourlist.playlist.domain.*;
+import toolc.yourlist.playlist.domain.exception.NoExistPlayException;
 
 import java.util.List;
 import java.util.Optional;

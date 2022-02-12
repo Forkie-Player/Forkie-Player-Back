@@ -1,5 +1,8 @@
 package toolc.yourlist.playlist.domain;
 
+import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
+import toolc.yourlist.playlist.domain.exception.NotOwnerException;
+
 final class EqualCondition {
   void checkMember(Member member, Playlist playlist) {
     if (!member.id().equals(playlist.memberId())) {
