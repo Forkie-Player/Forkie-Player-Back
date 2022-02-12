@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
+import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
 import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
 import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 
@@ -14,6 +15,15 @@ public class Plays{
   private final List<Play> list;
 
   public Plays(List<Play> list) {
+    final int idCount = list.stream()
+      .map(Play::id)
+      .collect(Collectors.toUnmodifiableSet())
+      .size();
+
+    if (idCount != list.size()) {
+      throw new DuplicateIdInListException();
+    }
+
     final int size = list.stream()
       .map(Play::playlistId)
       .collect(Collectors.toUnmodifiableSet())

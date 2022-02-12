@@ -108,7 +108,7 @@ class PlaySequencesForUpdateTest {
   }
 
   @Test
-  void duplicateId() {
+  void duplicate_id() {
     assertThrows(DuplicateIdInListException.class, () -> new PlaySequencesForUpdate(List.of(
       new PlaySequence(
         new ValidRequestForPlay(

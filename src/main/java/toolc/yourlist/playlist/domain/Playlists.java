@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import lombok.EqualsAndHashCode;
+import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
 import toolc.yourlist.playlist.domain.exception.NotEqualOwnerForPlaylistsException;
 
 import java.util.List;
@@ -13,12 +14,21 @@ public class Playlists {
   private final List<Playlist> list;
 
   public Playlists(List<Playlist> list) {
-    final int size = list.stream()
+    final int idCount = list.stream()
+      .map(Playlist::id)
+      .collect(Collectors.toUnmodifiableSet())
+      .size();
+
+    if (idCount != list.size()) {
+      throw new DuplicateIdInListException();
+    }
+
+    final int memberIdCount = list.stream()
       .map(Playlist::memberId)
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (size != 1) {
+    if (memberIdCount != 1) {
       throw new NotEqualOwnerForPlaylistsException();
     }
 
