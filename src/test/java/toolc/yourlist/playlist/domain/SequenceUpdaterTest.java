@@ -34,11 +34,11 @@ class SequenceUpdaterTest {
             Play.builder()
               .id(1L)
               .playlistId(1L)
-              .sequence(1L)
+              .sequence(0L)
               .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
               .time(new PlayTime(1000L, 3000L))
               .channel(new Channel("Music man", "man.png"))
-              .build()), 2L),
+              .build()), 1L),
         new PlaySequence(
           new ValidRequestForPlay(
             Member.builder()
@@ -56,37 +56,37 @@ class SequenceUpdaterTest {
             Play.builder()
               .id(2L)
               .playlistId(1L)
-              .sequence(2L)
-              .info(new PlayInfo("So Sad Music", "abcd1234", "puppy.png"))
+              .sequence(1L)
+              .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
               .time(new PlayTime(2000L, 3000L))
               .channel(new Channel("Music man", "man.png"))
-              .build()), 1L)));
+              .build()), 0L)));
 
     updater.update(request);
 
-    verify(allPlay).updateSequence(1L, 2L);
+    verify(allPlay).updateSequence(1L, 1L);
     verify(changeThumbnail).changeForUpdateSequence(
       Play.builder()
         .id(1L)
         .playlistId(1L)
-        .sequence(1L)
+        .sequence(0L)
         .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
         .time(new PlayTime(1000L, 3000L))
         .channel(new Channel("Music man", "man.png"))
         .build(),
-      2L
+      1L
     );
-    verify(allPlay).updateSequence(2L, 1L);
+    verify(allPlay).updateSequence(2L, 0L);
     verify(changeThumbnail).changeForUpdateSequence(
       Play.builder()
         .id(2L)
         .playlistId(1L)
-        .sequence(2L)
-        .info(new PlayInfo("So Sad Music", "abcd1234", "puppy.png"))
+        .sequence(1L)
+        .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
         .time(new PlayTime(2000L, 3000L))
         .channel(new Channel("Music man", "man.png"))
         .build(),
-      1L
+      0L
     );
     verifyNoMoreInteractions(allPlay);
     verifyNoMoreInteractions(changeThumbnail);

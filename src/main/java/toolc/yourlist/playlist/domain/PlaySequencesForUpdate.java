@@ -8,12 +8,21 @@ public class PlaySequencesForUpdate {
   private final List<PlaySequence> list;
 
   public PlaySequencesForUpdate(List<PlaySequence> list) {
-    final int size = list.stream()
+    final int idCount = list.stream()
+      .map(playSequence -> playSequence.validRequestForPlay().play().id())
+      .collect(Collectors.toUnmodifiableSet())
+      .size();
+
+    if (idCount != list.size()) {
+      throw new DuplicateIdInListException();
+    }
+
+    final int sequenceCount = list.stream()
       .map(PlaySequence::sequenceToChange)
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (size != list.size()) {
+    if (sequenceCount != list.size()) {
       throw new InvalidSeqException();
     }
 

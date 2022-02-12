@@ -20,7 +20,7 @@ class ThumbnailChangeCheckerTest {
   void check_for_change_sequence() {
     var checker = new ThumbnailChangeChecker();
 
-    var actual = checker.check(3L, 1L);
+    var actual = checker.check(3L, 0L);
 
     assertThat(actual, is(true));
   }

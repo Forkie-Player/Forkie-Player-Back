@@ -33,7 +33,7 @@ class PlaylistThumbnailTest {
         .info(new PlayInfo("So Good Music", "abcd1234", "puppy.png"))
         .channel(new Channel("smileMan", "smile.png"))
         .time(new PlayTime(2000L, 3000L))
-        .build(), 1L);
+        .build(), 0L);
 
     verify(allPlaylists).updateThumbnail(1L, "puppy.png");
     verifyNoMoreInteractions(allPlaylists);
