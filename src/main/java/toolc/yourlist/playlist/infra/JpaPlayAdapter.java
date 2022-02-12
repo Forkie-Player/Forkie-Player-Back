@@ -23,12 +23,12 @@ public class JpaPlayAdapter implements AllPlay {
 
   @Override
   public Plays readAllBelongsTo(Long playlistId) {
-    return mapper.toListOfPlays(jpaPlayRepository.findByPlaylistIdOrderBySequence(playlistId));
+    return mapper.toPlays(jpaPlayRepository.findByPlaylistIdOrderBySequence(playlistId));
   }
 
   @Override
   public Play belongsTo(Long id) {
-    return mapper.toPlay(jpaPlayRepository.findById(id));
+    return mapper.toPlay(getEntity(id));
   }
 
   @Override

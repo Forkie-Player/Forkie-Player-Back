@@ -15,14 +15,14 @@ class JpaPlaylistAdapter implements AllPlaylists {
 
   @Override
   public Playlists readAllBelongsTo(Long memberId) {
-    return mapper.toListOfPlaylists(
+    return mapper.toPlaylists(
       playlistRepository.findByMemberId(memberId)
     );
   }
 
   @Override
   public Playlist readBelongsTo(Long id) {
-    return mapper.toPlaylist(playlistRepository.findById(id));
+    return mapper.toPlaylist(getEntity(id));
   }
 
   @Override
