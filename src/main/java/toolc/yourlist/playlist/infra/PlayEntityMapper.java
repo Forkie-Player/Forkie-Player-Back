@@ -1,9 +1,6 @@
 package toolc.yourlist.playlist.infra;
 
-import toolc.yourlist.playlist.domain.Channel;
-import toolc.yourlist.playlist.domain.Play;
-import toolc.yourlist.playlist.domain.PlayInfo;
-import toolc.yourlist.playlist.domain.Plays;
+import toolc.yourlist.playlist.domain.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +12,7 @@ class PlayEntityMapper {
       .playlistId(entity.playlistId())
       .sequence(entity.sequence())
       .info(new PlayInfo(entity.title(), entity.videoId(), entity.thumbnail()))
+      .time(new PlayTime(entity.start(), entity.end()))
       .channel(new Channel(entity.channelTitle(), entity.channelImage()))
       .build();
   }
