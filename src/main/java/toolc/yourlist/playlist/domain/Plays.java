@@ -24,12 +24,12 @@ public class Plays{
       throw new DuplicateIdInListException();
     }
 
-    final int size = list.stream()
+    final int playlistIdCount = list.stream()
       .map(Play::playlistId)
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (size != 1) {
+    if (playlistIdCount != 1) {
       throw new NotInEqualPlaylistException();
     }
 

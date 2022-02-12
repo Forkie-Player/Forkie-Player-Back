@@ -35,7 +35,7 @@ public class PlaySequencesForUpdate {
       }
     });
 
-    this.list = list;
+    this.list =list.stream().toList();
   }
 
   void forEach(Consumer<? super PlaySequence> action) {
