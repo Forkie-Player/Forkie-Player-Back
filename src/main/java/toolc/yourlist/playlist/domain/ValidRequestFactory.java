@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.domain;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class EqualMemberFactory {
+public class ValidRequestFactory {
   private final AllMember allMember;
   private final AllPlaylists allPlaylists;
   private final AllPlay allPlay;
