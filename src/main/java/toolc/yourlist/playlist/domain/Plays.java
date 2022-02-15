@@ -1,28 +1,19 @@
 package toolc.yourlist.playlist.domain;
 
-import lombok.EqualsAndHashCode;
-import toolc.yourlist.playlist.domain.exception.DuplicateIdInListException;
 import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
 import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@EqualsAndHashCode
-public class Plays{
-  private final List<Play> list;
+public class Plays extends FirstClassCollection<Play> {
+  @Override
+  Long id(Play element) {
+    return element.id();
+  }
 
   public Plays(List<Play> list) {
-    final int idCount = list.stream()
-      .map(Play::id)
-      .collect(Collectors.toUnmodifiableSet())
-      .size();
-
-    if (idCount != list.size()) {
-      throw new DuplicateIdInListException();
-    }
+    super(list);
 
     final int playlistIdCount = list.stream()
       .map(Play::playlistId)
@@ -38,11 +29,5 @@ public class Plays{
         throw new InvalidSeqException();
       }
     });
-
-    this.list =list.stream().toList();
-  }
-
-  public <R> Stream<R> map(Function<? super Play, ? extends R> mapper) {
-    return list.stream().map(mapper);
   }
 }
