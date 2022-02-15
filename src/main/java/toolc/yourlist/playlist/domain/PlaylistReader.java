@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PlaylistReader {
+  private final AllMember allMember;
   private final AllPlaylists allPlaylists;
 
-  public Playlists belongsTo(ReadRequest request) {
-    return allPlaylists.readAllBelongsTo(request.member().id());
+  public Playlists belongsTo(Long memberId) {
+    return allPlaylists.readAllBelongsTo(allMember.findById(memberId).id());
   }
 }

@@ -27,23 +27,18 @@ class BeanConfig {
   }
 
   @Bean
-  EqualMemberFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
-    return new EqualMemberFactory(allMember, allPlaylists, allPlay);
+  ValidRequestFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new ValidRequestFactory(allMember, allPlaylists, allPlay);
   }
 
   @Bean
-  MemberIdMapper memberIdMapper(AllMember allMember) {
-    return new MemberIdMapper(allMember);
-  }
-
-  @Bean
-  JsonRequestMapper jsonRequestMapper(EqualMemberFactory factory) {
+  JsonRequestMapper jsonRequestMapper(ValidRequestFactory factory) {
     return new JsonRequestMapper(factory);
   }
 
   @Bean
-  PlaylistReader playlistReader(AllPlaylists allPlaylists) {
-    return new PlaylistReader(allPlaylists);
+  PlaylistReader playlistReader(AllMember allMember, AllPlaylists allPlaylists) {
+    return new PlaylistReader(allMember, allPlaylists);
   }
 
   @Bean

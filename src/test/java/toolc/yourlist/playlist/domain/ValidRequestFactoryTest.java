@@ -6,10 +6,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class EqualMemberFactoryTest {
+class ValidRequestFactoryTest {
   @Test
   void createForPlaylist() {
-    var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+    var factory = new ValidRequestFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
     var actual = factory.createForPlaylist(1L, 1L);
 
@@ -32,7 +32,7 @@ class EqualMemberFactoryTest {
 
   @Test
   void createForPlay() {
-    var factory = new EqualMemberFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+    var factory = new ValidRequestFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
 
     var actual = factory.createForPlay(1L, 1L, 1L);
 

@@ -18,18 +18,18 @@ import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 @RestController
 class ReadApi {
   private final PlaylistReader reader;
-  private final MemberIdMapper memberIdMapper;
+  private final StringConverter converter = new StringConverter();
   private final JsonResponseMapper jsonResponseMapper = new JsonResponseMapper();
 
   @GetMapping("/api/playlist/{memberId}")
   public ResponseEntity<?> readPlaylists(@PathVariable("memberId") String memberId) {
-    var request = memberIdMapper.toReadRequest(memberId);
+    var input = converter.toLong(memberId);
 
-    if (request.isEmpty()) {
-      return failRead(request.getLeft());
+    if (input.isEmpty()) {
+      return failRead(input.getLeft());
     }
 
-    return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(request.get())));
+    return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(input.get())));
   }
 
   private ResponseEntity<?> failRead(String message) {

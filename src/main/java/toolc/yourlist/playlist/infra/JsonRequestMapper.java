@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class JsonRequestMapper {
-  private final EqualMemberFactory factory;
+  private final ValidRequestFactory factory;
 
   SaveRequest toCreateRequest(JsonSaveRequest jsonRequest) {
     return new SaveRequest(jsonRequest.memberId(), jsonRequest.title());
