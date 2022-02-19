@@ -12,7 +12,7 @@ public class SequenceUpdater {
   @Transactional
   public void update(PlaySequencesForUpdate request) {
     request.forEach(playSequence -> {
-      var play = playSequence.validRequestForPlay().play();
+      var play = playSequence.validRequestForPlay().get();
       var sequenceToChange = playSequence.sequenceToChange();
 
       allPlay.updateSequence(play.id(), sequenceToChange);

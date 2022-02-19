@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class PlaySequencesForUpdate extends FirstClassCollection<PlaySequence> {
   @Override
   Long id(PlaySequence element) {
-    return element.validRequestForPlay().play().id();
+    return element.validRequestForPlay().get().id();
   }
 
   public PlaySequencesForUpdate(List<PlaySequence> list) {

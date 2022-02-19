@@ -27,7 +27,7 @@ class BeanConfig {
   }
 
   @Bean
-  ValidRequestFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
+  ValidRequestFactory validRequestFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
     return new ValidRequestFactory(allMember, allPlaylists, allPlay);
   }
 

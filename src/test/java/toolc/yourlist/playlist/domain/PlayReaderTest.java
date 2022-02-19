@@ -30,12 +30,12 @@ class PlayReaderTest {
         .thumbnail("panda.png")
         .build()));
 
-    when(allPlay.readAllBelongsTo(request.validRequestForPlaylist().playlist().id()))
+    when(allPlay.readAllBelongsTo(request.validRequestForPlaylist().get().id()))
       .thenReturn(new Plays(
         List.of(
           Play.builder()
             .id(1L)
-            .playlistId(request.validRequestForPlaylist().playlist().id())
+            .playlistId(request.validRequestForPlaylist().get().id())
             .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
             .sequence(0L)
             .time(new PlayTime(1000L, 10000L))
@@ -43,7 +43,7 @@ class PlayReaderTest {
             .build(),
           Play.builder()
             .id(2L)
-            .playlistId(request.validRequestForPlaylist().playlist().id())
+            .playlistId(request.validRequestForPlaylist().get().id())
             .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
             .sequence(1L)
             .time(new PlayTime(1500L, 20000L))
@@ -54,7 +54,7 @@ class PlayReaderTest {
       List.of(
         Play.builder()
           .id(1L)
-          .playlistId(request.validRequestForPlaylist().playlist().id())
+          .playlistId(request.validRequestForPlaylist().get().id())
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
           .sequence(0L)
           .time(new PlayTime(1000L, 10000L))
@@ -62,7 +62,7 @@ class PlayReaderTest {
           .build(),
         Play.builder()
           .id(2L)
-          .playlistId(request.validRequestForPlaylist().playlist().id())
+          .playlistId(request.validRequestForPlaylist().get().id())
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
           .sequence(1L)
           .time(new PlayTime(1500L, 20000L))
@@ -72,7 +72,7 @@ class PlayReaderTest {
     var actual = reader.readAllPlays(request);
 
     assertThat(actual, is(expected));
-    verify(allPlay).readAllBelongsTo(request.validRequestForPlaylist().playlist().id());
+    verify(allPlay).readAllBelongsTo(request.validRequestForPlaylist().get().id());
     verifyNoMoreInteractions(allPlay);
   }
 }
