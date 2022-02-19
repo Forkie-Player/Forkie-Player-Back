@@ -7,4 +7,5 @@ public interface AllPlay {
   Play belongsTo(Long id);
   void updateTime(Long id, PlayTime time);
   void updateSequence(Long id, Long sequenceToChange);
+  void deleteById(Long id);
 }

@@ -11,4 +11,6 @@ public interface JpaPlayRepository {
   List<PlayEntity> findByPlaylistIdOrderBySequence(Long playlistId);
 
   Optional<PlayEntity> findById(Long id);
+
+  void deleteById(Long id);
 }

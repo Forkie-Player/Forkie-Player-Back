@@ -1,11 +1,17 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 class PlayEliminatorTest {
   @Test
-  void delete() {
-    var eliminator = new PlayEliminator();
+  void delete(@Mock AllPlay allPlay) {
+    var eliminator = new PlayEliminator(allPlay);
     var request = new ValidRequestForPlay(
       Member.builder()
         .id(1L)
@@ -30,5 +36,7 @@ class PlayEliminatorTest {
     );
 
     eliminator.delete(request);
+    verify(allPlay, times(1)).deleteById(1L);
+    verifyNoMoreInteractions(allPlay);
   }
 }

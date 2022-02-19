@@ -1,7 +1,12 @@
 package toolc.yourlist.playlist.domain;
 
-public class PlayEliminator {
-  public void delete(ValidRequestForPlay request) {
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+public class PlayEliminator {
+  private final AllPlay allPlay;
+
+  public void delete(ValidRequestForPlay request) {
+    allPlay.deleteById(request.get().id());
   }
 }
