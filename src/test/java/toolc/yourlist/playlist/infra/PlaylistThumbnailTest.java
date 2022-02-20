@@ -44,7 +44,7 @@ class PlaylistThumbnailTest {
   @Test
   void changeForDelete(@Mock AllPlaylists allPlaylists, @Mock AllPlay allPlay) {
     var changer = new PlaylistThumbnail(allPlaylists, allPlay);
-    when(allPlay.havingCountOf(any())).thenReturn(1L);
+    when(allPlay.havingCountOf(any())).thenReturn(0L);
 
     changer.changeForEmptyPlaylist(1L);
 

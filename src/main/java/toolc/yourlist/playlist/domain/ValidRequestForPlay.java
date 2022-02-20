@@ -3,7 +3,7 @@ package toolc.yourlist.playlist.domain;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-class ValidRequestForPlay {
+public class ValidRequestForPlay {
   private final Play play;
   private final static EqualCondition condition = new EqualCondition();
 

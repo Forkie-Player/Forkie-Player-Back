@@ -20,7 +20,7 @@ public class Plays extends FirstClassCollection<Play> {
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (playlistIdCount != 1) {
+    if (playlistIdCount > 1) {
       throw new NotInEqualPlaylistException();
     }
 

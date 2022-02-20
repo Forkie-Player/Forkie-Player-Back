@@ -1,4 +1,8 @@
 package toolc.yourlist.playlist.infra;
 
-record JsonPlaySequence(Long playId, Long sequence) {
+import javax.validation.constraints.NotNull;
+
+record JsonPlaySequence(
+  @NotNull Long playId,
+  @NotNull Long sequence) {
 }

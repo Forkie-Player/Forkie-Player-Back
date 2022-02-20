@@ -27,7 +27,7 @@ class PlaylistThumbnail implements ChangeThumbnail {
   @Override
   public void changeForEmptyPlaylist(Long playlistId) {
     var size = allPlay.havingCountOf(playlistId);
-    if (changeChecker.checkSizeOne(size)) {
+    if (changeChecker.checkSizeZero(size)) {
       allPlaylists.updateThumbnail(playlistId, null);
     }
   }
