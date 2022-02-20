@@ -113,7 +113,6 @@ class SequenceUpdaterTest {
           .channel(new Channel("Music man", "mike.png"))
           .build())), 0L);
 
-    verify(allPlay, times(1)).deleteById(1L);
     verify(allPlay, times(1)).updateSequence(2L, 0L);
     verify(changeThumbnail, times(1)).changeForUpdateSequence(Play.builder()
       .id(2L)

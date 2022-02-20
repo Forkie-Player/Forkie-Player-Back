@@ -14,6 +14,8 @@ public class PlayEliminator {
   public void delete(ValidRequestForPlay request) {
     var plays = allPlay.readAllBelongsTo(request.get().playlistId());
 
+    allPlay.deleteById(request.get().id());
+
     sequenceUpdater.updateWithDelete(plays, request.get().sequence());
 
     changeThumbnail.changeForEmptyPlaylist(request.get().playlistId());

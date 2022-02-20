@@ -2,6 +2,7 @@ package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -57,6 +58,10 @@ class PlayEliminatorTest {
             .build())));
 
     eliminator.delete(request);
+
+    InOrder inOrder = inOrder(allPlay);
+    inOrder.verify(allPlay, times(1)).readAllBelongsTo(1L);
+    inOrder.verify(allPlay, times(1)).deleteById(1L);
     verify(sequenceUpdater, times(1)).updateWithDelete(new Plays(
       List.of(
         Play.builder()

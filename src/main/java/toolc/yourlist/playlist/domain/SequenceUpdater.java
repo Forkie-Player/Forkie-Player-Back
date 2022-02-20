@@ -24,10 +24,6 @@ public class SequenceUpdater {
   @Transactional
   public void updateWithDelete(Plays plays, Long deleteSequence) {
     plays.forEach(play -> {
-      if(play.sequence().equals(deleteSequence)) {
-        allPlay.deleteById(play.id());
-      }
-
       if(play.sequence() > deleteSequence) {
         var sequenceToChange = play.sequence() - 1;
 
