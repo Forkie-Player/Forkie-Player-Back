@@ -27,7 +27,7 @@ class BeanConfig {
   }
 
   @Bean
-  ValidRequestFactory equalOwnerFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
+  ValidRequestFactory validRequestFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
     return new ValidRequestFactory(allMember, allPlaylists, allPlay);
   }
 
@@ -62,8 +62,8 @@ class BeanConfig {
   }
 
   @Bean
-  ChangeThumbnail playlistThumbnail(AllPlaylists allPlaylists) {
-    return new PlaylistThumbnail(allPlaylists);
+  ChangeThumbnail playlistThumbnail(AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new PlaylistThumbnail(allPlaylists, allPlay);
   }
 
   @Bean
@@ -84,5 +84,10 @@ class BeanConfig {
   @Bean
   SequenceUpdater sequenceUpdater(AllPlay allPlay, ChangeThumbnail changeThumbnail) {
     return new SequenceUpdater(allPlay, changeThumbnail);
+  }
+
+  @Bean
+  PlayEliminator playEliminator(AllPlay allPlay, SequenceUpdater sequenceUpdater, ChangeThumbnail changeThumbnail) {
+    return new PlayEliminator(allPlay, sequenceUpdater, changeThumbnail);
   }
 }

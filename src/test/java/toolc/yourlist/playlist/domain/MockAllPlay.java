@@ -34,4 +34,8 @@ public class MockAllPlay implements AllPlay {
   @Override
   public void updateSequence(Long id, Long sequenceToChange) {
   }
+
+  @Override
+  public void deleteById(Long id) {
+  }
 }

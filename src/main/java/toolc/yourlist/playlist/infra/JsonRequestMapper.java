@@ -64,4 +64,11 @@ public class JsonRequestMapper {
 
     return new PlaySequencesForUpdate(sequenceList);
   }
+
+  public ValidRequestForPlay toValidRequestForPlay(JsonExceptPlayRequest jsonRequest) {
+    return factory.createForPlay(
+      jsonRequest.memberId(),
+      jsonRequest.playlistId(),
+      jsonRequest.playId());
+  }
 }

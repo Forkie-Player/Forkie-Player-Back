@@ -7,6 +7,6 @@ public class TimeUpdater {
   private final AllPlay allPlay;
 
   public void update(TimeUpdateRequest request) {
-    allPlay.updateTime(request.validRequestForPlay().play().id(), request.time());
+    allPlay.updateTime(request.validRequestForPlay().get().id(), request.time());
   }
 }

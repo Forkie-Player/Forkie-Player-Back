@@ -11,9 +11,9 @@ public class PlayAdder {
 
   @Transactional
   public void add(AddPlayRequest request) {
-    var playlistSize = allPlay.havingCountOf(request.validRequestForPlaylist().playlist().id());
+    var playlistSize = allPlay.havingCountOf(request.validRequestForPlaylist().get().id());
     var play = Play.builder()
-      .playlistId(request.validRequestForPlaylist().playlist().id())
+      .playlistId(request.validRequestForPlaylist().get().id())
       .sequence(playlistSize)
       .info(request.info())
       .time(request.time())
@@ -22,8 +22,7 @@ public class PlayAdder {
 
     allPlay.save(play);
     changeThumbnail.changeForMakingFirstPlay(
-      request.validRequestForPlaylist().playlist().id(),
-      request.info().thumbnail(),
-      playlistSize);
+      request.validRequestForPlaylist().get().id(),
+      request.info().thumbnail());
   }
 }

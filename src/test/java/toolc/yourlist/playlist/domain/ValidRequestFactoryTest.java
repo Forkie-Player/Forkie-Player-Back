@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ValidRequestFactoryTest {
   @Test
@@ -37,6 +36,18 @@ class ValidRequestFactoryTest {
     var actual = factory.createForPlay(1L, 1L, 1L);
 
     var expected = new ValidRequestForPlay(
+      Member.builder()
+        .id(1L)
+        .loginId("oh980225")
+        .password("qwer1234!")
+        .isMember(true)
+        .build(),
+      Playlist.builder()
+        .id(1L)
+        .memberId(1L)
+        .title("My List")
+        .thumbnail("panda.png")
+        .build(),
       Play.builder()
         .id(1L)
         .playlistId(1L)

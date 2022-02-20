@@ -2,25 +2,24 @@ package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class PlayReaderTest {
+class PlayEliminatorTest {
   @Test
-  void readAllPlays(@Mock AllPlay allPlay) {
-    var reader = new PlayReader(allPlay);
-    var request = new ReadAllPlaysRequest(new ValidRequestForPlaylist(
+  void delete(@Mock AllPlay allPlay, @Mock SequenceUpdater sequenceUpdater, @Mock ChangeThumbnail changeThumbnail) {
+    var eliminator = new PlayEliminator(allPlay, sequenceUpdater, changeThumbnail);
+    var request = new ValidRequestForPlay(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
-        .password("qewr1234!")
+        .password("qwer1234!")
         .isMember(true)
         .build(),
       Playlist.builder()
@@ -28,51 +27,62 @@ class PlayReaderTest {
         .memberId(1L)
         .title("My List")
         .thumbnail("panda.png")
-        .build()));
+        .build(),
+      Play.builder()
+        .id(1L)
+        .playlistId(1L)
+        .sequence(0L)
+        .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
+        .time(new PlayTime(1000L, 3000L))
+        .channel(new Channel("Music man", "man.png"))
+        .build()
+    );
 
-    when(allPlay.readAllBelongsTo(request.validRequestForPlaylist().get().id()))
-      .thenReturn(new Plays(
+    when(allPlay.readAllBelongsTo(1L)).thenReturn(new Plays(
         List.of(
           Play.builder()
             .id(1L)
-            .playlistId(request.validRequestForPlaylist().get().id())
+            .playlistId(1L)
             .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
             .sequence(0L)
-            .time(new PlayTime(1000L, 10000L))
+            .time(new PlayTime(1000L, 3000L))
             .channel(new Channel("Music man", "mike.png"))
             .build(),
           Play.builder()
             .id(2L)
-            .playlistId(request.validRequestForPlaylist().get().id())
+            .playlistId(1L)
             .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
             .sequence(1L)
             .time(new PlayTime(1500L, 20000L))
             .channel(new Channel("Music man", "mike.png"))
             .build())));
 
-    var expected = new Plays(
+    eliminator.delete(request);
+
+    InOrder inOrder = inOrder(allPlay);
+    inOrder.verify(allPlay, times(1)).readAllBelongsTo(1L);
+    inOrder.verify(allPlay, times(1)).deleteById(1L);
+    verify(sequenceUpdater, times(1)).updateWithDelete(new Plays(
       List.of(
         Play.builder()
           .id(1L)
-          .playlistId(request.validRequestForPlaylist().get().id())
+          .playlistId(1L)
           .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
           .sequence(0L)
-          .time(new PlayTime(1000L, 10000L))
+          .time(new PlayTime(1000L, 3000L))
           .channel(new Channel("Music man", "mike.png"))
           .build(),
         Play.builder()
           .id(2L)
-          .playlistId(request.validRequestForPlaylist().get().id())
+          .playlistId(1L)
           .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
           .sequence(1L)
           .time(new PlayTime(1500L, 20000L))
           .channel(new Channel("Music man", "mike.png"))
-          .build()));
-
-    var actual = reader.readAllPlays(request);
-
-    assertThat(actual, is(expected));
-    verify(allPlay).readAllBelongsTo(request.validRequestForPlaylist().get().id());
+          .build())), 0L);
+    verify(changeThumbnail, times(1)).changeForEmptyPlaylist(1L);
     verifyNoMoreInteractions(allPlay);
+    verifyNoMoreInteractions(sequenceUpdater);
+    verifyNoMoreInteractions(changeThumbnail);
   }
 }

@@ -6,24 +6,26 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import toolc.yourlist.playlist.domain.*;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PlaylistThumbnailTest {
   @Test
-  void changeForMakingFirstPlay(@Mock AllPlaylists allPlaylists) {
-    var changer = new PlaylistThumbnail(allPlaylists);
+  void changeForMakingFirstPlay(@Mock AllPlaylists allPlaylists, @Mock AllPlay allPlay) {
+    var changer = new PlaylistThumbnail(allPlaylists, allPlay);
+    when(allPlay.havingCountOf(any())).thenReturn(1L);
 
-    changer.changeForMakingFirstPlay(1L, "puppy.png", 0L);
+    changer.changeForMakingFirstPlay(1L, "puppy.png");
 
-    verify(allPlaylists).updateThumbnail(1L, "puppy.png");
+    verify(allPlaylists, times(1)).updateThumbnail(1L, "puppy.png");
     verifyNoMoreInteractions(allPlaylists);
   }
 
   @Test
-  void changeForUpdateSequence(@Mock AllPlaylists allPlaylists) {
-    var changer = new PlaylistThumbnail(allPlaylists);
+  void changeForUpdateSequence(@Mock AllPlaylists allPlaylists, @Mock AllPlay allPlay) {
+    var changer = new PlaylistThumbnail(allPlaylists, allPlay);
 
     changer.changeForUpdateSequence(
       Play.builder()
@@ -35,7 +37,18 @@ class PlaylistThumbnailTest {
         .time(new PlayTime(2000L, 3000L))
         .build(), 0L);
 
-    verify(allPlaylists).updateThumbnail(1L, "puppy.png");
+    verify(allPlaylists, times(1)).updateThumbnail(1L, "puppy.png");
+    verifyNoMoreInteractions(allPlaylists);
+  }
+
+  @Test
+  void changeForDelete(@Mock AllPlaylists allPlaylists, @Mock AllPlay allPlay) {
+    var changer = new PlaylistThumbnail(allPlaylists, allPlay);
+    when(allPlay.havingCountOf(any())).thenReturn(0L);
+
+    changer.changeForEmptyPlaylist(1L);
+
+    verify(allPlaylists, times(1)).updateThumbnail(1L, null);
     verifyNoMoreInteractions(allPlaylists);
   }
 }

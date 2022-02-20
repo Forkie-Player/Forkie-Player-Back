@@ -39,7 +39,7 @@ class TimeUpdaterTest {
 
     updater.update(request);
     verify(allPlay).updateTime(
-      request.validRequestForPlay().play().id(),
+      request.validRequestForPlay().get().id(),
       request.time());
     verifyNoMoreInteractions(allPlay);
   }

@@ -20,11 +20,11 @@ public class Plays extends FirstClassCollection<Play> {
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (playlistIdCount != 1) {
+    if (playlistIdCount > 1) {
       throw new NotInEqualPlaylistException();
     }
 
-    list.forEach(play -> {
+    this.forEach(play -> {
       if (play.sequence() != list.indexOf(play)) {
         throw new InvalidSeqException();
       }

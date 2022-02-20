@@ -14,7 +14,7 @@ class PlayAdderTest {
   @Test
   void add(@Mock AllPlay allPlay, @Mock ChangeThumbnail changeThumbnail) {
     var adder = new PlayAdder(allPlay, changeThumbnail);
-    var equalOwner = new ValidRequestForPlaylist(
+    var validRequestForPlaylist = new ValidRequestForPlaylist(
       Member.builder()
         .id(1L)
         .loginId("oh980225")
@@ -29,22 +29,22 @@ class PlayAdderTest {
     var info = new PlayInfo("Good Music", "abcd1234", "panda.png");
     var time = new PlayTime(10000L, 130000L);
     var channel = new Channel("Music man", "man.png");
-    var request = new AddPlayRequest(equalOwner, info, time, channel);
+    var request = new AddPlayRequest(validRequestForPlaylist, info, time, channel);
     var playlistSize = 0L;
     given(allPlay.havingCountOf(1L)).willReturn(playlistSize);
 
     adder.add(request);
 
-    verify(allPlay).havingCountOf(equalOwner.playlist().id());
+    verify(allPlay).havingCountOf(validRequestForPlaylist.get().id());
     verify(allPlay).save(
       Play.builder()
         .info(info)
-        .playlistId(equalOwner.playlist().id())
+        .playlistId(validRequestForPlaylist.get().id())
         .sequence(playlistSize  )
         .time(time)
         .channel(channel)
         .build());
-    verify(changeThumbnail).changeForMakingFirstPlay(equalOwner.playlist().id(), info.thumbnail(), playlistSize);
+    verify(changeThumbnail).changeForMakingFirstPlay(validRequestForPlaylist.get().id(), info.thumbnail());
     verifyNoMoreInteractions(allPlay);
     verifyNoMoreInteractions(changeThumbnail);
   }

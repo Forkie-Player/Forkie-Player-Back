@@ -33,7 +33,7 @@ class PlaylistUpdaterTest {
     updater.updateTitle(request);
 
     verify(allPlaylists).updateTitleBelongsTo(
-      request.validRequestForPlaylist().playlist().id(),
+      request.validRequestForPlaylist().get().id(),
       request.title());
     verifyNoMoreInteractions(allPlaylists);
   }

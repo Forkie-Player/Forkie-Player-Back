@@ -30,7 +30,7 @@ class PlaylistEliminatorTest {
 
     eliminator.delete(request);
 
-    verify(allPlaylists).delete(request.validRequestForPlaylist().playlist());
+    verify(allPlaylists).delete(request.validRequestForPlaylist().get());
     verifyNoMoreInteractions(allPlaylists);
   }
 }

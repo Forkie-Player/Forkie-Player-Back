@@ -44,6 +44,12 @@ public class JpaPlayAdapter implements AllPlay {
     entity.sequence(sequenceToChange);
   }
 
+  @Override
+  public void deleteById(Long id) {
+    var entity = getEntity(id);
+    jpaPlayRepository.deleteById(entity.id());
+  }
+
   private PlayEntity getEntity(Long id) {
     return jpaPlayRepository.findById(id).orElseThrow(NoExistPlayException::new);
   }
