@@ -24,7 +24,7 @@ public class Plays extends FirstClassCollection<Play> {
       throw new NotInEqualPlaylistException();
     }
 
-    list.forEach(play -> {
+    this.forEach(play -> {
       if (play.sequence() != list.indexOf(play)) {
         throw new InvalidSeqException();
       }

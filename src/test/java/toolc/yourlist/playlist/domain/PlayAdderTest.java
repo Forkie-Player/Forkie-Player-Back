@@ -44,7 +44,7 @@ class PlayAdderTest {
         .time(time)
         .channel(channel)
         .build());
-    verify(changeThumbnail).changeForMakingFirstPlay(validRequestForPlaylist.get().id(), info.thumbnail(), playlistSize);
+    verify(changeThumbnail).changeForMakingFirstPlay(validRequestForPlaylist.get().id(), info.thumbnail());
     verifyNoMoreInteractions(allPlay);
     verifyNoMoreInteractions(changeThumbnail);
   }

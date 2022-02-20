@@ -7,8 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SequenceUpdaterTest {
@@ -64,7 +63,7 @@ class SequenceUpdaterTest {
 
     updater.update(request);
 
-    verify(allPlay).updateSequence(1L, 1L);
+    verify(allPlay, times(1)).updateSequence(1L, 1L);
     verify(changeThumbnail).changeForUpdateSequence(
       Play.builder()
         .id(1L)
@@ -76,8 +75,8 @@ class SequenceUpdaterTest {
         .build(),
       1L
     );
-    verify(allPlay).updateSequence(2L, 0L);
-    verify(changeThumbnail).changeForUpdateSequence(
+    verify(allPlay, times(1)).updateSequence(2L, 0L);
+    verify(changeThumbnail, times(1)).changeForUpdateSequence(
       Play.builder()
         .id(2L)
         .playlistId(1L)
@@ -88,6 +87,42 @@ class SequenceUpdaterTest {
         .build(),
       0L
     );
+    verifyNoMoreInteractions(allPlay);
+    verifyNoMoreInteractions(changeThumbnail);
+  }
+
+  @Test
+  void updateWithDelete(@Mock AllPlay allPlay, @Mock ChangeThumbnail changeThumbnail) {
+    var updater = new SequenceUpdater(allPlay, changeThumbnail);
+    updater.updateWithDelete(new Plays(
+      List.of(
+        Play.builder()
+          .id(1L)
+          .playlistId(1L)
+          .info(new PlayInfo("So Good Music", "abcd1234", "panda.png"))
+          .sequence(0L)
+          .time(new PlayTime(1000L, 10000L))
+          .channel(new Channel("Music man", "mike.png"))
+          .build(),
+        Play.builder()
+          .id(2L)
+          .playlistId(1L)
+          .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
+          .sequence(1L)
+          .time(new PlayTime(1500L, 20000L))
+          .channel(new Channel("Music man", "mike.png"))
+          .build())), 0L);
+
+    verify(allPlay, times(1)).deleteById(1L);
+    verify(allPlay, times(1)).updateSequence(2L, 0L);
+    verify(changeThumbnail, times(1)).changeForUpdateSequence(Play.builder()
+      .id(2L)
+      .playlistId(1L)
+      .info(new PlayInfo("So Sad Music", "qwer1234", "puppy.png"))
+      .sequence(1L)
+      .time(new PlayTime(1500L, 20000L))
+      .channel(new Channel("Music man", "mike.png"))
+      .build(), 0L);
     verifyNoMoreInteractions(allPlay);
     verifyNoMoreInteractions(changeThumbnail);
   }

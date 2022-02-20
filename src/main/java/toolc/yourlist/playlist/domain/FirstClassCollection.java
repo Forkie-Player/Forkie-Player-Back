@@ -28,7 +28,7 @@ abstract class FirstClassCollection<T> {
     this.list = list;
   }
 
-  void forEach(Consumer<? super T> action) {
+  public void forEach(Consumer<? super T> action) {
     list.forEach(action);
   }
 

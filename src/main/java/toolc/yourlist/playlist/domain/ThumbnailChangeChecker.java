@@ -1,7 +1,11 @@
 package toolc.yourlist.playlist.domain;
 
 public class ThumbnailChangeChecker {
-  public boolean checkSize(Long playlistSize) {
+  public boolean checkSizeOne(Long playlistSize) {
+    return playlistSize == 1;
+  }
+
+  public boolean checkSizeZero(Long playlistSize) {
     return playlistSize == 0;
   }
 

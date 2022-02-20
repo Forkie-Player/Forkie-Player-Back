@@ -11,7 +11,7 @@ class ThumbnailChangeCheckerTest {
   void check_for_first_play() {
     var checker = new ThumbnailChangeChecker();
 
-    var actual = checker.checkSize(0L);
+    var actual = checker.checkSizeOne(1L);
 
     assertThat(actual, is(true));
   }
@@ -21,6 +21,15 @@ class ThumbnailChangeCheckerTest {
     var checker = new ThumbnailChangeChecker();
 
     var actual = checker.check(3L, 0L);
+
+    assertThat(actual, is(true));
+  }
+
+  @Test
+  void check_for_empty_playlist() {
+    var checker = new ThumbnailChangeChecker();
+
+    var actual = checker.checkSizeZero(0L);
 
     assertThat(actual, is(true));
   }

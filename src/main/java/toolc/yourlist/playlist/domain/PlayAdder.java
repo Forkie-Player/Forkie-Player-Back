@@ -23,7 +23,6 @@ public class PlayAdder {
     allPlay.save(play);
     changeThumbnail.changeForMakingFirstPlay(
       request.validRequestForPlaylist().get().id(),
-      request.info().thumbnail(),
-      playlistSize);
+      request.info().thumbnail());
   }
 }
