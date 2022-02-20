@@ -56,7 +56,7 @@ class MemberAuthProviderTest {
     authProvider.getMemberToken(request);
 
     //then
-    verify(tokenProvider, times(1)).makeToken(any(), any(), any());
+    verify(tokenProvider, times(1)).makeToken(any(), eq(true), any());
   }
 
 }

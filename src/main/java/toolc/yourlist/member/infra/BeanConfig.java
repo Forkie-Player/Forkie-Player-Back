@@ -9,6 +9,7 @@ import toolc.yourlist.member.domain.loginId.LoginIdPolicy;
 import toolc.yourlist.member.domain.password.AllPasswordPolicy;
 import toolc.yourlist.member.domain.password.PasswordFactory;
 import toolc.yourlist.member.domain.password.PasswordPolicy;
+import toolc.yourlist.member.infra.jwt.JwtToken;
 import toolc.yourlist.member.infra.jwt.filter.JwtResolver;
 
 @Configuration
@@ -46,9 +47,14 @@ public class BeanConfig {
   }
 
   @Bean
-  TokenProvider tokenProvider(TokenSecretKey tokenSecretKey, TokenReader tokenReader,
-                              TimeServer timeServer) {
-    return new TokenProvider(tokenSecretKey, tokenReader, timeServer);
+  TokenSerializer tokenSerializer(TokenSecretKey tokenSecretKey){
+    return new JwtToken(tokenSecretKey);
+  }
+
+  @Bean
+  TokenProvider tokenProvider(TokenReader tokenReader, TimeServer timeServer,
+                              TokenSerializer tokenSerializer) {
+    return new TokenProvider(tokenReader, timeServer, tokenSerializer);
   }
 
   @Bean

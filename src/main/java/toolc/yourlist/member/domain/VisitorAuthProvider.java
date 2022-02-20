@@ -29,7 +29,7 @@ public class VisitorAuthProvider {
       Long id = allVisitor.findIdByUUID(request.uuid());
       Period refreshTokenExpiration = request.isPC() ? Period.ofDays(7) : Period.ofDays(90);
 
-      return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.VISITOR));
+      return right(tokenProvider.makeToken(id, request.isPC(), UserType.VISITOR));
     }
   }
 }

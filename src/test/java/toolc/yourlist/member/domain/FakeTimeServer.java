@@ -1,15 +1,17 @@
 package toolc.yourlist.member.domain;
 
-import toolc.yourlist.member.domain.TimeServer;
-
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 public class FakeTimeServer implements TimeServer {
 
-  ZonedDateTime fakeNowTime = ZonedDateTime.now();
+  private final Instant now;
+
+  public FakeTimeServer(Instant now) {
+    this.now = now;
+  }
 
   @Override
-  public ZonedDateTime nowTime() {
-    return fakeNowTime;
+  public Instant nowTime() {
+    return now;
   }
 }

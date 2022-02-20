@@ -1,11 +1,11 @@
 package toolc.yourlist.member.domain;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 public class RealTimeServer implements TimeServer {
 
   @Override
-  public ZonedDateTime nowTime() {
-    return ZonedDateTime.now();
+  public Instant nowTime() {
+    return Instant.now();
   }
 }

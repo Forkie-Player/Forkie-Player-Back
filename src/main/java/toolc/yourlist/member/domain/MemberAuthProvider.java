@@ -3,8 +3,6 @@ package toolc.yourlist.member.domain;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
-import java.time.Period;
-
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 
@@ -25,7 +23,6 @@ public class MemberAuthProvider {
 
   public Either<String, Token> getMemberToken(MemberRegisterAndLoginRequest request) {
     Long id = allMember.findIdByLoginId(request.loginId());
-    Period refreshTokenExpiration = request.isPC() ? Period.ofDays(7) : Period.ofDays(90);
-    return right(tokenProvider.makeToken(id, refreshTokenExpiration, UserType.MEMBER));
+    return right(tokenProvider.makeToken(id, request.isPC(), UserType.MEMBER));
   }
 }

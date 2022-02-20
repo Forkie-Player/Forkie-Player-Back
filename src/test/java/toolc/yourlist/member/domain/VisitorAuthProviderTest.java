@@ -6,14 +6,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Period;
+import java.time.Instant;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +31,7 @@ class VisitorAuthProviderTest {
   @InjectMocks
   VisitorAuthProvider visitorAuthProvider;
 
-  TimeServer timeServer = new FakeTimeServer();
+  TimeServer timeServer = new FakeTimeServer(Instant.now());
 
   @Test
   void registered_visitor_can_not_register_again() {
@@ -56,9 +55,9 @@ class VisitorAuthProviderTest {
     final var isPC = true;
     var request = new VisitorRegisterAndLoginRequest(uuid, isPC);
 
-      //when
-      when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
-    when(tokenProvider.makeToken(3912839421L, Period.ofDays(7), UserType.VISITOR))
+    //when
+    when(allVisitor.findIdByUUID(uuid)).thenReturn(3912839421L);
+    when(tokenProvider.makeToken(3912839421L, isPC, UserType.VISITOR))
       .thenReturn(new Token("access.token.3912839421L", "refresh.token.3912839421L"));
 
     //then
@@ -85,19 +84,19 @@ class VisitorAuthProviderTest {
     //given
     final var uuid1 = "55D154BE-07E6-42FA-832B-D9CF11CE0D6A";
     final var uuid2 = "11ASB6JS-12QE-78DF-ZXC3-23GD22XC1V1T";
-    final var refreshTokenExpiration = Period.ofDays(7);
+    final var isPC = true;
 
     when(allVisitor.isNotExistByUUID(anyString())).thenReturn(false);
     when(allVisitor.findIdByUUID(uuid1)).thenReturn(8833L);
     when(allVisitor.findIdByUUID(uuid2)).thenReturn(99233L);
-    when(tokenProvider.makeToken(8833L, refreshTokenExpiration, UserType.VISITOR))
+    when(tokenProvider.makeToken(8833L, isPC, UserType.VISITOR))
       .thenReturn(new Token("access.token.8833", "refresh.token.8833"));
 
     //when
     final var visitorToken =
       visitorAuthProvider.getVisitorToken(new VisitorRegisterAndLoginRequest(uuid1, true));
     final var anotherVisitorToken =
-      visitorAuthProvider.getVisitorToken(new VisitorRegisterAndLoginRequest(uuid1, true));
+      visitorAuthProvider.getVisitorToken(new VisitorRegisterAndLoginRequest(uuid2, true));
 
     //then
     assertThat(anotherVisitorToken, is(not(visitorToken)));

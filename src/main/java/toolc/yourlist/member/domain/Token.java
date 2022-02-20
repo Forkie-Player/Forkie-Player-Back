@@ -1,4 +1,5 @@
 package toolc.yourlist.member.domain;
 
-record Token(String accessToken, String refreshToken) {
+
+public record Token(String accessToken, String refreshToken) {
 }

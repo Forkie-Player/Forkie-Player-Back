@@ -22,7 +22,6 @@ class MemberEntityMapperTest {
     var expected = Member.builder()
       .loginId("oh980225")
       .password("qwer1234!")
-      .isMember(true)
       .build();
 
     assertThat(actual, is(expected));
