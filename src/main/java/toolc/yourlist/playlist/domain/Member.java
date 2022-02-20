@@ -9,8 +9,8 @@ import lombok.Getter;
 public class Member {
   private Long id;
   private String loginId;
-  private boolean isMember;
   private String password;
+  private boolean isMember;
 
   @Builder
   public Member(Long id, String loginId, boolean isMember, String password) {

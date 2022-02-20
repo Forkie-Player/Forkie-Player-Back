@@ -11,7 +11,6 @@ class MemberEntityMapper {
     return Member.builder()
       .id(entity.id())
       .loginId(entity.loginId())
-      .isMember(entity.isMember())
       .password(entity.password())
       .build();
   }
