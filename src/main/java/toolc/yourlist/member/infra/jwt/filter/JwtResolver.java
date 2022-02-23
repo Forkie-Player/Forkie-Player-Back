@@ -1,16 +1,15 @@
 package toolc.yourlist.member.infra.jwt.filter;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import toolc.yourlist.member.domain.TokenSecretKey;
+import toolc.yourlist.member.infra.CustomUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -30,8 +29,9 @@ public class JwtResolver {
     Claims claims = jwtParser.parseClaimsJws(accessToken).getBody();
     Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
 
-    UserDetails principal = new User(claims.getSubject(), "", authorities);
-    return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+    UserDetails user = new CustomUser(
+      Long.parseLong(claims.get("Id").toString()), claims.get("UserType").toString());
+    return new UsernamePasswordAuthenticationToken(user, "", authorities);
   }
 
   public boolean validateToken(String token) throws Exception {
