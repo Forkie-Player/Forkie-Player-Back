@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.member.domain.MemberAuthProvider;
-import toolc.yourlist.member.domain.TokenProvider;
-import toolc.yourlist.member.domain.VisitorAuthProvider;
+import toolc.yourlist.member.domain.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -71,8 +69,4 @@ public class UserApi {
     return JsonResponse.okWithData(result, "Successful reissue token");
   }
 
-  @GetMapping("/test")
-  public String authTest(@AuthenticationPrincipal CustomUser customUser) {
-    return "12345";
-  }
 }
