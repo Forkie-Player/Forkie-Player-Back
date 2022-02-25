@@ -2,11 +2,10 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.member.domain.MemberAuthProvider;
-import toolc.yourlist.member.domain.TokenProvider;
-import toolc.yourlist.member.domain.VisitorAuthProvider;
+import toolc.yourlist.member.domain.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +50,7 @@ public class UserApi {
     return JsonResponse.okWithData(result.get(), "Successful member registration");
   }
 
-  @PostMapping("auth/login/member")
+  @PostMapping("/auth/login/member")
   public ResponseEntity<?> login(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
     var request = requestMapperFromJson.mapper(jsonRequest);
 
@@ -62,11 +61,12 @@ public class UserApi {
     return JsonResponse.okWithData(result.get(), "Successful member login");
   }
 
-  @PostMapping("auth/reissue")
+  @PostMapping("/auth/reissue")
   public ResponseEntity<?> reissue(@RequestBody JsonTokenReissueRequest jsonRequest) {
     var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = tokenProvider .reissue(request.accessToken(), request.refreshToken(), request.isPC());
     return JsonResponse.okWithData(result, "Successful reissue token");
   }
+
 }
