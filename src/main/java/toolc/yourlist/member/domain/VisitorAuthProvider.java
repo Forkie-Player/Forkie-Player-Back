@@ -27,7 +27,6 @@ public class VisitorAuthProvider {
       return left("Unregistered visitor");
     } else {
       Long id = allVisitor.findIdByUUID(request.uuid());
-      Period refreshTokenExpiration = request.isPC() ? Period.ofDays(7) : Period.ofDays(90);
 
       return right(tokenProvider.makeToken(id, request.isPC(), UserType.VISITOR));
     }
