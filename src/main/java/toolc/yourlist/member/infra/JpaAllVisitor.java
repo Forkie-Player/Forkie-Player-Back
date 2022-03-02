@@ -34,4 +34,9 @@ public class JpaAllVisitor implements AllVisitor {
     return jpaAllVisitorEntity.findByUuid(uuid).get().id();
   }
 
+  @Override
+  public void deleteByUUID(String uuid) {
+    jpaAllVisitorEntity.deleteByUuid(uuid);
+  }
+
 }

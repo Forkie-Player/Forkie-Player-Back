@@ -10,4 +10,6 @@ public interface AllVisitor {
   void registerVisitor(String uuid);
 
   Long findIdByUUID(String uuid);
+
+  void deleteByUUID(String uuid);
 }
