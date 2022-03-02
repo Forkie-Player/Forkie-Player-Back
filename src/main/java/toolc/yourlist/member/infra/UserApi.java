@@ -2,15 +2,11 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.member.domain.MemberAuthProvider;
-import toolc.yourlist.member.domain.TokenProvider;
-import toolc.yourlist.member.domain.VisitorAuthProvider;
-import toolc.yourlist.member.domain.VisitorToMemberChanger;
+import toolc.yourlist.member.domain.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -87,3 +83,4 @@ public class UserApi {
     return JsonResponse.okWithData(result.get(), "Successful visitor change to member");
   }
 }
+
