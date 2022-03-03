@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 interface JpaPlaylistRepository {
-  List<PlaylistEntity> findByMemberId(Long memberId);
+  List<PlaylistEntity> findByUserCode(String userCode);
 
   PlaylistEntity save(PlaylistEntity playlistEntity);
 

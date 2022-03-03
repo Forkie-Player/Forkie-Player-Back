@@ -1,7 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 public interface AllPlaylists {
-  Playlists readAllBelongsTo(Long memberId);
+  Playlists readAllBelongsTo(User user);
 
   Playlist readBelongsTo(Long id);
 

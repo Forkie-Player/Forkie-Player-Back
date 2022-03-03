@@ -37,8 +37,8 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistReader playlistReader(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistReader(allMember, allPlaylists);
+  PlaylistReader playlistReader(AllPlaylists allPlaylists) {
+    return new PlaylistReader(allPlaylists);
   }
 
   @Bean

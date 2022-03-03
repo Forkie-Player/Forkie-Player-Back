@@ -3,18 +3,17 @@ package toolc.yourlist.playlist.domain;
 import java.util.List;
 
 public class MockAllPlaylists implements AllPlaylists {
-
   @Override
-  public Playlists readAllBelongsTo(Long memberId) {
+  public Playlists readAllBelongsTo(User user) {
     return new Playlists(List.of(Playlist.builder()
         .id(1L)
-        .memberId(memberId)
+        .memberId(1L)
         .title("My List")
         .thumbnail("panda.png")
         .build(),
       Playlist.builder()
         .id(2L)
-        .memberId(memberId)
+        .memberId(1L)
         .title("Good Music")
         .thumbnail("puppy.png")
         .build()));

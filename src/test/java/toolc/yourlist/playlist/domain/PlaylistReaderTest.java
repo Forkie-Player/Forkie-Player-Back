@@ -4,27 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import toolc.yourlist.member.domain.UserType;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PlaylistReaderTest {
   @Test
-  void belongsTo(@Mock AllMember allMember, @Mock AllPlaylists allPlaylists) {
-    var reader = new PlaylistReader(allMember, allPlaylists);
-    when(allMember.findById(1L)).thenReturn(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234")
-        .isMember(true)
-        .build());
+  void belongsTo(@Mock AllPlaylists allPlaylists) {
+    var reader = new PlaylistReader(allPlaylists);
+    var user = new User(UserType.MEMBER, 1L);
 
-    reader.belongsTo(1L);
+    reader.belongsTo(user);
 
-    verify(allMember, times(1)).findById(1L);
-    verify(allPlaylists, times(1)).readAllBelongsTo(1L);
-    verifyNoMoreInteractions(allMember);
+    verify(allPlaylists, times(1)).readAllBelongsTo(user);
     verifyNoMoreInteractions(allPlaylists);
   }
 }
