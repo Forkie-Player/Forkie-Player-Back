@@ -106,4 +106,10 @@ public class BeanConfig {
   MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember) {
     return new MemberAuthProvider(tokenProvider, allMember);
   }
+
+  @Bean
+  VisitorToMemberChanger visitorToMemberChanger(MemberAuthProvider memberAuthProvider,
+                                                AllMember allMember, AllVisitor allVisitor) {
+    return new VisitorToMemberChanger(memberAuthProvider, allMember, allVisitor);
+  }
 }
