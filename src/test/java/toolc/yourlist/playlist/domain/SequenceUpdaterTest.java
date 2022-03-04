@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
 
 @ExtendWith(MockitoExtension.class)
 class SequenceUpdaterTest {
@@ -18,15 +19,10 @@ class SequenceUpdaterTest {
       List.of(
         new PlaySequence(
           new ValidRequestForPlay(
-            Member.builder()
-              .id(1L)
-              .loginId("oh980225")
-              .password("qwer1234!")
-              .isMember(true)
-              .build(),
+            new User(MEMBER, 1L),
             Playlist.builder()
               .id(1L)
-              .memberId(1L)
+              .userCode("MEMBER_1")
               .title("My List")
               .thumbnail("panda.png")
               .build(),
@@ -40,15 +36,10 @@ class SequenceUpdaterTest {
               .build()), 1L),
         new PlaySequence(
           new ValidRequestForPlay(
-            Member.builder()
-              .id(1L)
-              .loginId("oh980225")
-              .password("qwer1234!")
-              .isMember(true)
-              .build(),
+            new User(MEMBER, 1L),
             Playlist.builder()
               .id(1L)
-              .memberId(1L)
+              .userCode("MEMBER_1")
               .title("My List")
               .thumbnail("panda.png")
               .build(),

@@ -7,7 +7,7 @@ public interface AllPlaylists {
 
   boolean exist(Long id);
 
-  long havingCountOf(Long memberId);
+  long havingCountOf(User user);
 
   void save(Playlist playlist);
 

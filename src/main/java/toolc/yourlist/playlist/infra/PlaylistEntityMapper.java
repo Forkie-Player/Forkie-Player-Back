@@ -12,7 +12,7 @@ class PlaylistEntityMapper {
   Playlist toPlaylist(PlaylistEntity entity) {
     return Playlist.builder()
       .id(entity.id())
-      .memberId(entity.memberId())
+      .userCode(entity.userCode())
       .title(entity.title())
       .thumbnail(entity.thumbnail())
       .build();

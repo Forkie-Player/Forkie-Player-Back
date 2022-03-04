@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.member.domain.UserType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,7 +13,7 @@ class RealMemberConditionTest {
     var condition = new RealMemberCondition();
 
     var actual =
-      condition.check(new Member(1L, "oh980225", true, "qwer1234!"));
+      condition.check(new User(UserType.MEMBER, 1L));
 
     assertThat(actual, is(true));
   }
@@ -22,7 +23,7 @@ class RealMemberConditionTest {
     var condition = new RealMemberCondition();
 
     var actual =
-      condition.check(new Member(1L, "oh980225", false, "qwer1234!"));
+      condition.check(new User(UserType.VISITOR, 1L));
 
     assertThat(actual, is(false));
   }

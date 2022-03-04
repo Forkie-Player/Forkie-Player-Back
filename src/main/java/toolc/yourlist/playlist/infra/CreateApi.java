@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
+import toolc.yourlist.member.domain.Auth;
+import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.PlaylistCreator;
 
 import javax.validation.Valid;
@@ -21,9 +23,11 @@ class CreateApi {
   private final JsonRequestMapper mapper;
 
   @PostMapping("/api/playlist")
-  public ResponseEntity<?> create(@Valid @RequestBody JsonSaveRequest jsonRequest) {
+  public ResponseEntity<?> create(
+    @Auth AuthenticationUser authenticationUser,
+    @Valid @RequestBody JsonSaveRequest jsonRequest) {
     var result = creator
-      .create(mapper.toCreateRequest(jsonRequest));
+      .create(mapper.toCreateRequest(authenticationUser, jsonRequest));
 
     if (result.isEmpty()) {
       return failCreate(result.getLeft());

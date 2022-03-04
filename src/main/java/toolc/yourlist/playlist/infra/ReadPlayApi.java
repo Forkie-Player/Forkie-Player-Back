@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import toolc.yourlist.playlist.domain.Plays;
+import toolc.yourlist.member.domain.Auth;
+import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.PlayReader;
+import toolc.yourlist.playlist.domain.Plays;
 
 import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 
@@ -21,8 +23,10 @@ public class ReadPlayApi {
   //  토큰을 받고
   //  PathVariable로 playlistId를 받을 예정
   @GetMapping("/api/play")
-  public ResponseEntity<?> readPlays(@RequestBody JsonReadAllPlaysRequest jsonRequest) {
-    return toOutput(reader.readAllPlays(requestMapper.toReadAllPlaysRequest(jsonRequest)));
+  public ResponseEntity<?> readPlays(
+    @Auth AuthenticationUser authenticationUser,
+    @RequestBody JsonReadAllPlaysRequest jsonRequest) {
+    return toOutput(reader.readAllPlays(requestMapper.toReadAllPlaysRequest(authenticationUser, jsonRequest)));
   }
 
   private ResponseEntity<?> toOutput(Plays result) {

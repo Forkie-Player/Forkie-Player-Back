@@ -36,8 +36,8 @@ class JpaPlaylistAdapter implements AllPlaylists {
   }
 
   @Override
-  public long havingCountOf(Long memberId) {
-    return playlistRepository.countByMemberId(memberId);
+  public long havingCountOf(User user) {
+    return playlistRepository.countByUserCode(user.code());
   }
 
   @Override

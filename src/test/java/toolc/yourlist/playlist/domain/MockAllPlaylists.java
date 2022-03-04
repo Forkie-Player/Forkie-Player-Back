@@ -7,13 +7,13 @@ public class MockAllPlaylists implements AllPlaylists {
   public Playlists readAllBelongsTo(User user) {
     return new Playlists(List.of(Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode(user.code())
         .title("My List")
         .thumbnail("panda.png")
         .build(),
       Playlist.builder()
         .id(2L)
-        .memberId(1L)
+        .userCode(user.code())
         .title("Good Music")
         .thumbnail("puppy.png")
         .build()));
@@ -23,7 +23,7 @@ public class MockAllPlaylists implements AllPlaylists {
   public Playlist readBelongsTo(Long id) {
     return Playlist.builder()
       .id(id)
-      .memberId(1L)
+      .userCode("MEMBER_1")
       .title("My List")
       .thumbnail("panda.png")
       .build();
@@ -35,7 +35,7 @@ public class MockAllPlaylists implements AllPlaylists {
   }
 
   @Override
-  public long havingCountOf(Long memberId) {
+  public long havingCountOf(User user) {
     return 5;
   }
 

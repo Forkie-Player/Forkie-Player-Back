@@ -4,8 +4,8 @@ final class SavePolicy {
   private final PlaylistCountCondition countCondition = new PlaylistCountCondition();
   private final RealMemberCondition realMemberCondition = new RealMemberCondition();
 
-  boolean match(Member member, Long count) {
+  boolean match(User user, Long count) {
     return countCondition.check(count) ||
-      realMemberCondition.check(member);
+      realMemberCondition.check(user);
   }
 }

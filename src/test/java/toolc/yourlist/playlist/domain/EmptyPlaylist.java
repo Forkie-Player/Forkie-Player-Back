@@ -1,6 +1,6 @@
 package toolc.yourlist.playlist.domain;
 
-public class EmptyPlaylist implements AllPlaylists{
+public class EmptyPlaylist implements AllPlaylists {
   @Override
   public Playlists readAllBelongsTo(User user) {
     return null;
@@ -17,7 +17,7 @@ public class EmptyPlaylist implements AllPlaylists{
   }
 
   @Override
-  public long havingCountOf(Long memberId) {
+  public long havingCountOf(User user) {
     return 0;
   }
 

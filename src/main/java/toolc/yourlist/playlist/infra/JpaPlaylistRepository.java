@@ -10,7 +10,7 @@ interface JpaPlaylistRepository {
 
   Optional<PlaylistEntity> findById(Long id);
 
-  long countByMemberId(Long memberId);
+  long countByUserCode(String userCode);
 
   void deleteById(Long id);
 }

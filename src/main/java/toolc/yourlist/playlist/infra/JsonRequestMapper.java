@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
+import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.*;
 
 import java.util.stream.Collectors;
@@ -9,24 +10,30 @@ import java.util.stream.Collectors;
 public class JsonRequestMapper {
   private final ValidRequestFactory factory;
 
-  SaveRequest toCreateRequest(JsonSaveRequest jsonRequest) {
-    return new SaveRequest(jsonRequest.memberId(), jsonRequest.title());
+  SaveRequest toCreateRequest(AuthenticationUser authenticationUser, JsonSaveRequest jsonRequest) {
+    return new SaveRequest(new User(authenticationUser), jsonRequest.title());
   }
 
-  UpdateRequest toUpdateRequest(JsonUpdateRequest jsonRequest) {
-    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+  UpdateRequest toUpdateRequest(AuthenticationUser authenticationUser, JsonUpdateRequest jsonRequest) {
+    var validRequest = factory.createForPlaylist(
+      new User(authenticationUser),
+      jsonRequest.playlistId());
 
     return new UpdateRequest(validRequest, jsonRequest.title());
   }
 
-  DeleteRequest toDeleteRequest(JsonDeleteRequest jsonRequest) {
-    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+  DeleteRequest toDeleteRequest(AuthenticationUser authenticationUser, JsonDeleteRequest jsonRequest) {
+    var validRequest = factory.createForPlaylist(
+      new User(authenticationUser),
+      jsonRequest.playlistId());
 
     return new DeleteRequest(validRequest);
   }
 
-  AddPlayRequest toAddPlayRequest(JsonAddPlayRequest jsonRequest) {
-    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+  AddPlayRequest toAddPlayRequest(AuthenticationUser authenticationUser, JsonAddPlayRequest jsonRequest) {
+    var validRequest = factory.createForPlaylist(
+      new User(authenticationUser),
+      jsonRequest.playlistId());
     var time = new PlayTime(jsonRequest.startTime(), jsonRequest.endTime());
     var channel = new Channel(jsonRequest.channelTitle(), jsonRequest.channelImg());
     var info = new PlayInfo(jsonRequest.title(), jsonRequest.videoId(), jsonRequest.thumbnail());
@@ -34,15 +41,21 @@ public class JsonRequestMapper {
     return new AddPlayRequest(validRequest, info, time, channel);
   }
 
-  ReadAllPlaysRequest toReadAllPlaysRequest(JsonReadAllPlaysRequest jsonRequest) {
-    var validRequest = factory.createForPlaylist(jsonRequest.memberId(), jsonRequest.playlistId());
+  ReadAllPlaysRequest toReadAllPlaysRequest(
+    AuthenticationUser authenticationUser,
+    JsonReadAllPlaysRequest jsonRequest) {
+    var validRequest = factory.createForPlaylist(
+      new User(authenticationUser),
+      jsonRequest.playlistId());
 
     return new ReadAllPlaysRequest(validRequest);
   }
 
-  TimeUpdateRequest toTimeUpdateRequest(JsonUpdateTimeRequest jsonRequest) {
+  TimeUpdateRequest toTimeUpdateRequest(
+    AuthenticationUser authenticationUser,
+    JsonUpdateTimeRequest jsonRequest) {
     var validRequest = factory.createForPlay(
-      jsonRequest.memberId(),
+      new User(authenticationUser),
       jsonRequest.playlistId(),
       jsonRequest.playId());
     var time = new PlayTime(jsonRequest.startTime(), jsonRequest.endTime());
@@ -50,11 +63,13 @@ public class JsonRequestMapper {
     return new TimeUpdateRequest(validRequest, time);
   }
 
-  public PlaySequencesForUpdate toPlaySequencesForUpdate(JsonUpdateSequenceRequest jsonRequest) {
+  public PlaySequencesForUpdate toPlaySequencesForUpdate(
+    AuthenticationUser authenticationUser,
+    JsonUpdateSequenceRequest jsonRequest) {
     var sequenceList = jsonRequest.list().stream()
       .map(jsonPlaySequence -> {
         var validRequest = factory.createForPlay(
-          jsonRequest.memberId(),
+          new User(authenticationUser),
           jsonRequest.playlistId(),
           jsonPlaySequence.playId());
 
@@ -65,9 +80,11 @@ public class JsonRequestMapper {
     return new PlaySequencesForUpdate(sequenceList);
   }
 
-  public ValidRequestForPlay toValidRequestForPlay(JsonExceptPlayRequest jsonRequest) {
+  public ValidRequestForPlay toValidRequestForPlay(
+    AuthenticationUser authenticationUser,
+    JsonExceptPlayRequest jsonRequest) {
     return factory.createForPlay(
-      jsonRequest.memberId(),
+      new User(authenticationUser),
       jsonRequest.playlistId(),
       jsonRequest.playId());
   }

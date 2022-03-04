@@ -1,11 +1,13 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.member.domain.UserType;
 import toolc.yourlist.playlist.domain.exception.InvalidSeqException;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
 
 class PlaySequencesForUpdateTest {
   @Test
@@ -13,15 +15,10 @@ class PlaySequencesForUpdateTest {
     assertThrows(InvalidSeqException.class, () -> new PlaySequencesForUpdate(List.of(
       new PlaySequence(
         new ValidRequestForPlay(
-          Member.builder()
-            .id(1L)
-            .loginId("oh980225")
-            .password("qwer1234!")
-            .isMember(true)
-            .build(),
+          new User(MEMBER, 1L),
           Playlist.builder()
             .id(1L)
-            .memberId(1L)
+            .userCode("MEMBER_1")
             .title("My List")
             .thumbnail("panda.png")
             .build(),
@@ -35,15 +32,10 @@ class PlaySequencesForUpdateTest {
             .build()), 0L),
       new PlaySequence(
         new ValidRequestForPlay(
-          Member.builder()
-            .id(1L)
-            .loginId("oh980225")
-            .password("qwer1234!")
-            .isMember(true)
-            .build(),
+          new User(MEMBER, 1L),
           Playlist.builder()
             .id(1L)
-            .memberId(1L)
+            .userCode("MEMBER_1")
             .title("My List")
             .thumbnail("panda.png")
             .build(),
@@ -62,15 +54,10 @@ class PlaySequencesForUpdateTest {
     assertThrows(InvalidSeqException.class, () -> new PlaySequencesForUpdate(List.of(
       new PlaySequence(
         new ValidRequestForPlay(
-          Member.builder()
-            .id(1L)
-            .loginId("oh980225")
-            .password("qwer1234!")
-            .isMember(true)
-            .build(),
+          new User(MEMBER, 1L),
           Playlist.builder()
             .id(1L)
-            .memberId(1L)
+            .userCode("MEMBER_1")
             .title("My List")
             .thumbnail("panda.png")
             .build(),
@@ -84,15 +71,10 @@ class PlaySequencesForUpdateTest {
             .build()), 0L),
       new PlaySequence(
         new ValidRequestForPlay(
-          Member.builder()
-            .id(1L)
-            .loginId("oh980225")
-            .password("qwer1234!")
-            .isMember(true)
-            .build(),
+          new User(MEMBER, 1L),
           Playlist.builder()
             .id(1L)
-            .memberId(1L)
+            .userCode("MEMBER_1")
             .title("My List")
             .thumbnail("panda.png")
             .build(),

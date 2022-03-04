@@ -5,10 +5,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import toolc.yourlist.member.domain.UserType;
 
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
 
 @ExtendWith(MockitoExtension.class)
 class PlayEliminatorTest {
@@ -16,15 +18,10 @@ class PlayEliminatorTest {
   void delete(@Mock AllPlay allPlay, @Mock SequenceUpdater sequenceUpdater, @Mock ChangeThumbnail changeThumbnail) {
     var eliminator = new PlayEliminator(allPlay, sequenceUpdater, changeThumbnail);
     var request = new ValidRequestForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(MEMBER, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),

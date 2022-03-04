@@ -15,20 +15,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "playlist")
 class PlaylistEntity extends BaseEntity {
-  private Long memberId;
+  private String userCode;
   @Setter
   private String title;
   @Setter
   private String thumbnail;
 
-  public PlaylistEntity(Long memberId, String title, String thumbnail) {
-    this.memberId = memberId;
+  public PlaylistEntity(String userCode, String title, String thumbnail) {
+    this.userCode = userCode;
     this.title = title;
     this.thumbnail = thumbnail;
   }
 
   public PlaylistEntity(Playlist playlist) {
-    this.memberId = playlist.memberId();
+    this.userCode = playlist.userCode();
     this.title = playlist.title();
     this.thumbnail = playlist.thumbnail();
   }

@@ -4,18 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.MakeDefaultPlayList;
-import toolc.yourlist.member.infra.JpaAllMemberEntity;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
 class BeanConfig {
-  @Bean
-  AllMember allMemberInPlaylist(JpaAllMemberEntity jpaAllMemberEntity) {
-    return new JpaMemberAdapter(jpaAllMemberEntity);
-  }
-
   @Bean
   AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
     return new JpaPlaylistAdapter(jpaPlaylistRepository);
@@ -27,8 +21,8 @@ class BeanConfig {
   }
 
   @Bean
-  ValidRequestFactory validRequestFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
-    return new ValidRequestFactory(allMember, allPlaylists, allPlay);
+  ValidRequestFactory validRequestFactory(AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new ValidRequestFactory(allPlaylists, allPlay);
   }
 
   @Bean
@@ -42,8 +36,8 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistCreator playlistCreator(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allMember, allPlaylists);
+  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allPlaylists);
   }
 
   @Bean
