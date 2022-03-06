@@ -4,28 +4,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import toolc.yourlist.member.domain.MakeDefaultPlayList;
+import toolc.yourlist.member.domain.PlaylistOwnerChange;
 import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.Playlist;
 import toolc.yourlist.playlist.domain.User;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static toolc.yourlist.member.domain.UserType.MEMBER;
+import static toolc.yourlist.member.domain.UserType.VISITOR;
 
 @ExtendWith(MockitoExtension.class)
-class DefaultPlaylistTest {
+class OwnerChangerTest {
   @Test
-  void make(@Mock AllPlaylists allPlaylists) {
-    MakeDefaultPlayList makeDefaultPlaylist = new DefaultPlaylist(allPlaylists);
+  void changeOwner(@Mock AllPlaylists allPlaylists) {
+    PlaylistOwnerChange changer = new OwnerChanger(allPlaylists);
 
-    makeDefaultPlaylist.make(1L, MEMBER);
+    changer.changeOwner(1L, 1L);
 
-    var expectedDefaultPlaylist = Playlist.builder()
-      .userCode(new User(MEMBER, 1L).code())
-      .title("default")
-      .build();
-    verify(allPlaylists).save(expectedDefaultPlaylist);
+    verify(allPlaylists).changeOwnerToMember(new User(VISITOR, 1L), new User(MEMBER, 1L));
     verifyNoMoreInteractions(allPlaylists);
   }
 }

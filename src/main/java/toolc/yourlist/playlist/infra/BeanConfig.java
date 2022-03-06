@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.MakeDefaultPlayList;
+import toolc.yourlist.member.domain.PlaylistOwnerChange;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
+import toolc.yourlist.playlist.usecase.OwnerChanger;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
@@ -83,5 +85,10 @@ class BeanConfig {
   @Bean
   PlayEliminator playEliminator(AllPlay allPlay, SequenceUpdater sequenceUpdater, ChangeThumbnail changeThumbnail) {
     return new PlayEliminator(allPlay, sequenceUpdater, changeThumbnail);
+  }
+
+  @Bean
+  PlaylistOwnerChange playlistOwnerChange(AllPlaylists allPlaylists) {
+    return new OwnerChanger(allPlaylists);
   }
 }

@@ -5,8 +5,6 @@ public interface AllPlaylists {
 
   Playlist readBelongsTo(Long id);
 
-  boolean exist(Long id);
-
   long havingCountOf(User user);
 
   void save(Playlist playlist);
@@ -16,4 +14,6 @@ public interface AllPlaylists {
   void delete(Playlist playlist);
 
   void updateThumbnail(Long playlistId, String thumbnail);
+
+  void changeOwnerToMember(User visitor, User member);
 }

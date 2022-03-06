@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "playlist")
 class PlaylistEntity extends BaseEntity {
+  @Setter
   private String userCode;
   @Setter
   private String title;

@@ -30,11 +30,6 @@ public class MockAllPlaylists implements AllPlaylists {
   }
 
   @Override
-  public boolean exist(Long id) {
-    return true;
-  }
-
-  @Override
   public long havingCountOf(User user) {
     return 5;
   }
@@ -53,5 +48,10 @@ public class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public void updateThumbnail(Long playlistId, String thumbnail) {
+  }
+
+  @Override
+  public void changeOwnerToMember(User visitor, User member) {
+
   }
 }

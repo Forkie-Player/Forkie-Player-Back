@@ -26,16 +26,6 @@ class JpaPlaylistAdapter implements AllPlaylists {
   }
 
   @Override
-  public boolean exist(Long id) {
-    try {
-      readBelongsTo(id);
-      return true;
-    } catch (NoExistPlaylistException e) {
-      return false;
-    }
-  }
-
-  @Override
   public long havingCountOf(User user) {
     return playlistRepository.countByUserCode(user.code());
   }
@@ -61,6 +51,13 @@ class JpaPlaylistAdapter implements AllPlaylists {
   public void updateThumbnail(Long playlistId, String thumbnail) {
     var entity = getEntity(playlistId);
     entity.thumbnail(thumbnail);
+  }
+
+  @Override
+  @Transactional
+  public void changeOwnerToMember(User visitor, User member) {
+    var entities = playlistRepository.findByUserCode(visitor.code());
+    entities.forEach(entity -> entity.userCode(member.code()));
   }
 
   private PlaylistEntity getEntity(Long playlistId) {
