@@ -2,5 +2,5 @@ package toolc.yourlist.playlist.infra;
 
 import java.util.List;
 
-record JsonUpdateSequenceRequest(Long memberId, Long playlistId, List<JsonPlaySequence> list) {
+record JsonUpdateSequenceRequest(Long playlistId, List<JsonPlaySequence> list) {
 }

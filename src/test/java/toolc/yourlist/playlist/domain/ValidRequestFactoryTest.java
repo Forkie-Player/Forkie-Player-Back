@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.member.domain.UserType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -8,20 +9,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class ValidRequestFactoryTest {
   @Test
   void createForPlaylist() {
-    var factory = new ValidRequestFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+    var factory = new ValidRequestFactory(new MockAllPlaylists(), new MockAllPlay());
 
-    var actual = factory.createForPlaylist(1L, 1L);
+    var actual = factory.createForPlaylist(new User(UserType.MEMBER, 1L), 1L);
 
     var expected = new ValidRequestForPlaylist(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(UserType.MEMBER, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build()
@@ -31,20 +27,15 @@ class ValidRequestFactoryTest {
 
   @Test
   void createForPlay() {
-    var factory = new ValidRequestFactory(new MockAllMember(), new MockAllPlaylists(), new MockAllPlay());
+    var factory = new ValidRequestFactory(new MockAllPlaylists(), new MockAllPlay());
 
-    var actual = factory.createForPlay(1L, 1L, 1L);
+    var actual = factory.createForPlay(new User(UserType.MEMBER, 1L), 1L, 1L);
 
     var expected = new ValidRequestForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(UserType.MEMBER, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),

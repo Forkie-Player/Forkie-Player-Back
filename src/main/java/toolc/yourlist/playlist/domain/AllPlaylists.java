@@ -1,13 +1,11 @@
 package toolc.yourlist.playlist.domain;
 
 public interface AllPlaylists {
-  Playlists readAllBelongsTo(Long memberId);
+  Playlists readAllBelongsTo(User user);
 
   Playlist readBelongsTo(Long id);
 
-  boolean exist(Long id);
-
-  long havingCountOf(Long memberId);
+  long havingCountOf(User user);
 
   void save(Playlist playlist);
 
@@ -16,4 +14,6 @@ public interface AllPlaylists {
   void delete(Playlist playlist);
 
   void updateThumbnail(Long playlistId, String thumbnail);
+
+  void changeOwnerToMember(User visitor, User member);
 }

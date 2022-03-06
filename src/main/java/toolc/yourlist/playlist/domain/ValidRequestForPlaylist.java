@@ -11,9 +11,9 @@ class ValidRequestForPlaylist {
     this.playlist = playlist;
   }
 
-  public ValidRequestForPlaylist(Member member, Playlist playlist) {
+  public ValidRequestForPlaylist(User user, Playlist playlist) {
     this(playlist);
-    condition.checkMember(member, playlist);
+    condition.checkUser(user, playlist);
   }
 
   public Playlist get() {

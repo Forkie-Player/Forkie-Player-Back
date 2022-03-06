@@ -3,18 +3,17 @@ package toolc.yourlist.playlist.domain;
 import java.util.List;
 
 public class MockAllPlaylists implements AllPlaylists {
-
   @Override
-  public Playlists readAllBelongsTo(Long memberId) {
+  public Playlists readAllBelongsTo(User user) {
     return new Playlists(List.of(Playlist.builder()
         .id(1L)
-        .memberId(memberId)
+        .userCode(user.code())
         .title("My List")
         .thumbnail("panda.png")
         .build(),
       Playlist.builder()
         .id(2L)
-        .memberId(memberId)
+        .userCode(user.code())
         .title("Good Music")
         .thumbnail("puppy.png")
         .build()));
@@ -24,19 +23,14 @@ public class MockAllPlaylists implements AllPlaylists {
   public Playlist readBelongsTo(Long id) {
     return Playlist.builder()
       .id(id)
-      .memberId(1L)
+      .userCode("MEMBER_1")
       .title("My List")
       .thumbnail("panda.png")
       .build();
   }
 
   @Override
-  public boolean exist(Long id) {
-    return true;
-  }
-
-  @Override
-  public long havingCountOf(Long memberId) {
+  public long havingCountOf(User user) {
     return 5;
   }
 
@@ -54,5 +48,10 @@ public class MockAllPlaylists implements AllPlaylists {
 
   @Override
   public void updateThumbnail(Long playlistId, String thumbnail) {
+  }
+
+  @Override
+  public void changeOwnerToMember(User visitor, User member) {
+
   }
 }

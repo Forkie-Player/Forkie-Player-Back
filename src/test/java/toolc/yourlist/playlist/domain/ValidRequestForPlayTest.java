@@ -1,24 +1,22 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.member.domain.UserType;
 import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 import toolc.yourlist.playlist.domain.exception.NotOwnerException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
+import static toolc.yourlist.member.domain.UserType.VISITOR;
 
 class ValidRequestForPlayTest {
   @Test
   void not_equal_owner() {
     assertThrows(NotOwnerException.class, () -> new ValidRequestForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(VISITOR, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(2L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),
@@ -35,15 +33,10 @@ class ValidRequestForPlayTest {
   @Test
   void not_equal_playlist() {
     assertThrows(NotInEqualPlaylistException.class, () -> new ValidRequestForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(MEMBER, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),

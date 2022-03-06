@@ -4,8 +4,8 @@ import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 import toolc.yourlist.playlist.domain.exception.NotOwnerException;
 
 final class EqualCondition {
-  void checkMember(Member member, Playlist playlist) {
-    if (!member.id().equals(playlist.memberId())) {
+  void checkUser(User user, Playlist playlist) {
+    if (!user.code().equals(playlist.userCode())) {
       throw new NotOwnerException();
     }
   }

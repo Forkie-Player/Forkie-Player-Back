@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 interface JpaPlaylistRepository {
-  List<PlaylistEntity> findByMemberId(Long memberId);
+  List<PlaylistEntity> findByUserCode(String userCode);
 
   PlaylistEntity save(PlaylistEntity playlistEntity);
 
   Optional<PlaylistEntity> findById(Long id);
 
-  long countByMemberId(Long memberId);
+  long countByUserCode(String userCode);
 
   void deleteById(Long id);
 }

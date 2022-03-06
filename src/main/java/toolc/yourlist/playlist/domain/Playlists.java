@@ -14,12 +14,12 @@ public class Playlists extends FirstClassCollection<Playlist> {
   public Playlists(List<Playlist> list) {
     super(list);
 
-    final int memberIdCount = list.stream()
-      .map(Playlist::memberId)
+    final int userCodeCount = list.stream()
+      .map(Playlist::userCode)
       .collect(Collectors.toUnmodifiableSet())
       .size();
 
-    if (memberIdCount != 1) {
+    if (userCodeCount > 1) {
       throw new NotEqualOwnerForPlaylistsException();
     }
   }

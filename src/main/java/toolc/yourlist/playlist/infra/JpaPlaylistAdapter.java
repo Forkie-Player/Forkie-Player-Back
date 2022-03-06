@@ -2,9 +2,10 @@ package toolc.yourlist.playlist.infra;
 
 import lombok.RequiredArgsConstructor;
 import toolc.yourlist.playlist.domain.AllPlaylists;
-import toolc.yourlist.playlist.domain.Playlists;
-import toolc.yourlist.playlist.domain.exception.NoExistPlaylistException;
 import toolc.yourlist.playlist.domain.Playlist;
+import toolc.yourlist.playlist.domain.Playlists;
+import toolc.yourlist.playlist.domain.User;
+import toolc.yourlist.playlist.domain.exception.NoExistPlaylistException;
 
 import javax.transaction.Transactional;
 
@@ -14,10 +15,9 @@ class JpaPlaylistAdapter implements AllPlaylists {
   private final PlaylistEntityMapper mapper = new PlaylistEntityMapper();
 
   @Override
-  public Playlists readAllBelongsTo(Long memberId) {
+  public Playlists readAllBelongsTo(User user) {
     return mapper.toPlaylists(
-      playlistRepository.findByMemberId(memberId)
-    );
+      playlistRepository.findByUserCode(user.code()));
   }
 
   @Override
@@ -26,18 +26,8 @@ class JpaPlaylistAdapter implements AllPlaylists {
   }
 
   @Override
-  public boolean exist(Long id) {
-    try {
-      readBelongsTo(id);
-      return true;
-    } catch (NoExistPlaylistException e) {
-      return false;
-    }
-  }
-
-  @Override
-  public long havingCountOf(Long memberId) {
-    return playlistRepository.countByMemberId(memberId);
+  public long havingCountOf(User user) {
+    return playlistRepository.countByUserCode(user.code());
   }
 
   @Override
@@ -61,6 +51,13 @@ class JpaPlaylistAdapter implements AllPlaylists {
   public void updateThumbnail(Long playlistId, String thumbnail) {
     var entity = getEntity(playlistId);
     entity.thumbnail(thumbnail);
+  }
+
+  @Override
+  @Transactional
+  public void changeOwnerToMember(User visitor, User member) {
+    var entities = playlistRepository.findByUserCode(visitor.code());
+    entities.forEach(entity -> entity.userCode(member.code()));
   }
 
   private PlaylistEntity getEntity(Long playlistId) {

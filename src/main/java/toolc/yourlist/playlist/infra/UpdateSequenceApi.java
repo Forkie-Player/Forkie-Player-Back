@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import toolc.yourlist.member.domain.Auth;
+import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.SequenceUpdater;
 
 import static toolc.yourlist.common.infra.JsonResponse.ok;
@@ -16,8 +18,10 @@ public class UpdateSequenceApi {
   private final SequenceUpdater updater;
 
   @PatchMapping("api/play/sequence")
-  public ResponseEntity<?> update(@RequestBody JsonUpdateSequenceRequest jsonRequest) {
-    updater.update(mapper.toPlaySequencesForUpdate(jsonRequest));
+  public ResponseEntity<?> update(
+    @Auth AuthenticationUser authenticationUser,
+    @RequestBody JsonUpdateSequenceRequest jsonRequest) {
+    updater.update(mapper.toPlaySequencesForUpdate(authenticationUser, jsonRequest));
 
     return ok("영상 순서 수정 성공");
   }

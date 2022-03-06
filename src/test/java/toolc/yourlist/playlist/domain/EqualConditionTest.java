@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.domain;
 
 import org.junit.jupiter.api.Test;
+import toolc.yourlist.member.domain.UserType;
 import toolc.yourlist.playlist.domain.exception.NotInEqualPlaylistException;
 import toolc.yourlist.playlist.domain.exception.NotOwnerException;
 
@@ -11,16 +12,11 @@ class EqualConditionTest {
   void 영상목록의_주인X() {
     var condition = new EqualCondition();
 
-    assertThrows(NotOwnerException.class, () -> condition.checkMember(
-      Member.builder()
-        .id(1L)
-        .isMember(true)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .build(),
+    assertThrows(NotOwnerException.class, () -> condition.checkUser(
+      new User(UserType.VISITOR, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(2L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build()
@@ -34,7 +30,7 @@ class EqualConditionTest {
     assertThrows(NotInEqualPlaylistException.class, () -> condition.checkPlaylist(
       Playlist.builder()
         .id(1L)
-        .memberId(2L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),

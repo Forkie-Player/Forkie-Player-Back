@@ -14,13 +14,13 @@ class PlaylistsTest {
       List.of(
         Playlist.builder()
           .id(1L)
-          .memberId(1L)
+          .userCode("MEMBER_1")
           .title("My List")
           .thumbnail("panda.png")
           .build(),
         Playlist.builder()
           .id(2L)
-          .memberId(2L)
+          .userCode("VISITOR_1")
           .title("Other List")
           .thumbnail("puppy.png")
           .build())));

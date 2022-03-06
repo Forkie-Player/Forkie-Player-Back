@@ -7,6 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
 
 @ExtendWith(MockitoExtension.class)
 class PlaylistUpdaterTest {
@@ -15,19 +16,13 @@ class PlaylistUpdaterTest {
     var updater = new PlaylistUpdater(allPlaylists);
     var request = new UpdateRequest(
       new ValidRequestForPlaylist(
-        Member.builder()
-          .id(1L)
-          .loginId("oh980225")
-          .password("qwer1234!")
-          .isMember(true)
-          .build(),
+        new User(MEMBER, 1L),
         Playlist.builder()
           .id(1L)
-          .memberId(1L)
+          .userCode("MEMBER_1")
           .title("My List")
           .thumbnail("panda.png")
-          .build()
-      ),
+          .build()),
       "My Music");
 
     updater.updateTitle(request);

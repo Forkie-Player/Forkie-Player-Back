@@ -4,18 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toolc.yourlist.member.domain.MakeDefaultPlayList;
-import toolc.yourlist.member.infra.JpaAllMemberEntity;
+import toolc.yourlist.member.domain.PlaylistOwnerChange;
 import toolc.yourlist.playlist.domain.*;
 import toolc.yourlist.playlist.usecase.DefaultPlaylist;
+import toolc.yourlist.playlist.usecase.OwnerChanger;
 
 @Configuration("PlaylistBeanConfig")
 @RequiredArgsConstructor
 class BeanConfig {
-  @Bean
-  AllMember allMemberInPlaylist(JpaAllMemberEntity jpaAllMemberEntity) {
-    return new JpaMemberAdapter(jpaAllMemberEntity);
-  }
-
   @Bean
   AllPlaylists allPlaylists(JpaPlaylistRepository jpaPlaylistRepository) {
     return new JpaPlaylistAdapter(jpaPlaylistRepository);
@@ -27,8 +23,8 @@ class BeanConfig {
   }
 
   @Bean
-  ValidRequestFactory validRequestFactory(AllMember allMember, AllPlaylists allPlaylists, AllPlay allPlay) {
-    return new ValidRequestFactory(allMember, allPlaylists, allPlay);
+  ValidRequestFactory validRequestFactory(AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new ValidRequestFactory(allPlaylists, allPlay);
   }
 
   @Bean
@@ -37,13 +33,13 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistReader playlistReader(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistReader(allMember, allPlaylists);
+  PlaylistReader playlistReader(AllPlaylists allPlaylists) {
+    return new PlaylistReader(allPlaylists);
   }
 
   @Bean
-  PlaylistCreator playlistCreator(AllMember allMember, AllPlaylists allPlaylists) {
-    return new PlaylistCreator(allMember, allPlaylists);
+  PlaylistCreator playlistCreator(AllPlaylists allPlaylists) {
+    return new PlaylistCreator(allPlaylists);
   }
 
   @Bean
@@ -89,5 +85,10 @@ class BeanConfig {
   @Bean
   PlayEliminator playEliminator(AllPlay allPlay, SequenceUpdater sequenceUpdater, ChangeThumbnail changeThumbnail) {
     return new PlayEliminator(allPlay, sequenceUpdater, changeThumbnail);
+  }
+
+  @Bean
+  PlaylistOwnerChange playlistOwnerChange(AllPlaylists allPlaylists) {
+    return new OwnerChanger(allPlaylists);
   }
 }

@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import toolc.yourlist.member.domain.UserType;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static toolc.yourlist.member.domain.UserType.MEMBER;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -15,15 +17,10 @@ class TimeUpdaterTest {
   void update(@Mock AllPlay allPlay) {
     var updater = new TimeUpdater(allPlay);
     var request = new TimeUpdateRequest(new ValidRequestForPlay(
-      Member.builder()
-        .id(1L)
-        .loginId("oh980225")
-        .password("qwer1234!")
-        .isMember(true)
-        .build(),
+      new User(MEMBER, 1L),
       Playlist.builder()
         .id(1L)
-        .memberId(1L)
+        .userCode("MEMBER_1")
         .title("My List")
         .thumbnail("panda.png")
         .build(),

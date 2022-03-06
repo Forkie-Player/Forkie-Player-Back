@@ -5,19 +5,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PlaylistCreator {
-  private final AllMember allMember;
   private final AllPlaylists allPlaylists;
   private final SavePolicy savePolicy = new SavePolicy();
 
   public Either<String, Boolean> create(SaveRequest request) {
-    var member = allMember.findById(request.memberId());
-    var playlistCount = allPlaylists.havingCountOf(member.id());
+    var playlistCount = allPlaylists.havingCountOf(request.user());
 
-    if (!savePolicy.match(member, playlistCount)) {
+    if (!savePolicy.match(request.user(), playlistCount)) {
       return Either.left("비회원의 영상 생성 제한을 넘었습니다.");
     }
 
-    save(playlist(member.id(), request.title()));
+    save(playlist(request.user(), request.title()));
     return Either.right(Boolean.TRUE);
   }
 
@@ -25,9 +23,9 @@ public class PlaylistCreator {
     allPlaylists.save(playlist);
   }
 
-  private Playlist playlist(Long memberId, String title) {
+  private Playlist playlist(User user, String title) {
     return Playlist.builder()
-      .memberId(memberId)
+      .userCode(user.code())
       .title(title)
       .build();
   }

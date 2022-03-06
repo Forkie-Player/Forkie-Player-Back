@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import toolc.yourlist.member.domain.Auth;
+import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.PlaylistReader;
+import toolc.yourlist.playlist.domain.User;
 
 import java.util.List;
 
@@ -21,15 +23,9 @@ class ReadApi {
   private final StringConverter converter = new StringConverter();
   private final JsonResponseMapper jsonResponseMapper = new JsonResponseMapper();
 
-  @GetMapping("/api/playlist/{memberId}")
-  public ResponseEntity<?> readPlaylists(@PathVariable("memberId") String memberId) {
-    var input = converter.toLong(memberId);
-
-    if (input.isEmpty()) {
-      return failRead(input.getLeft());
-    }
-
-    return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(input.get())));
+  @GetMapping("/api/playlist")
+  public ResponseEntity<?> readPlaylists(@Auth AuthenticationUser authenticationUser) {
+    return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(new User(authenticationUser))));
   }
 
   private ResponseEntity<?> failRead(String message) {
