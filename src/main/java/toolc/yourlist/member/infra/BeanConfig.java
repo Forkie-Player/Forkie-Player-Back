@@ -109,7 +109,8 @@ public class BeanConfig {
 
   @Bean
   VisitorToMemberChanger visitorToMemberChanger(MemberAuthProvider memberAuthProvider,
-                                                AllMember allMember, AllVisitor allVisitor) {
-    return new VisitorToMemberChanger(memberAuthProvider, allMember, allVisitor);
+                                                AllMember allMember, AllVisitor allVisitor,
+                                                PlaylistOwnerChange playlistOwnerChange) {
+    return new VisitorToMemberChanger(memberAuthProvider, allMember, allVisitor, playlistOwnerChange);
   }
 }

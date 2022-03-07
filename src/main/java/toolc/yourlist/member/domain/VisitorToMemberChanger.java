@@ -11,7 +11,7 @@ public class VisitorToMemberChanger {
   private final MemberAuthProvider memberAuthProvider;
   private final AllMember allMember;
   private final AllVisitor allVisitor;
-//  private final PlaylistOwnerChange playlistOwnerChange;
+  private final PlaylistOwnerChange playlistOwnerChange;
 
   public Either<String, Token> changeToMember(VisitorToMemberChangeRequest request){
     if (allVisitor.isNotExistByUUID(request.uuid())) {
@@ -23,7 +23,7 @@ public class VisitorToMemberChanger {
     var oldVisitorId = allVisitor.findIdByUUID(request.uuid());
     var newMemberId = allMember.findIdByLoginId(request.loginId());
 
-//    playlistOwnerChange.changeOwner(oldVisitorId, newMemberId);
+    playlistOwnerChange.changeOwner(oldVisitorId, newMemberId);
 
     allVisitor.deleteByUUID(request.uuid());
     return token;
