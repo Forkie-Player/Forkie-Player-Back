@@ -1,0 +1,63 @@
+language: java
+
+branches:
+  only:
+    - main
+
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+before_install:
+  - wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
+  - tar xvzf jdk-17_linux-x64_bin.tar.gz
+  - rm -r jdk-17_linux-x64_bin.tar.gz
+  - mv ./jdk-17.0.2 $HOME/jdk-17.0.2
+  - export JAVA_HOME=$HOME/jdk-17.0.2
+  - export PATH=$PATH:$JAVA_HOME/bin
+
+script:
+  - ./gradlew clean build
+
+before_deploy:
+  - zip -r forkie ./build/libs/*
+  - mkdir -p deploy
+  - mv forkie.zip deploy/forkie.zip
+
+deploy:
+  - provider: s3
+    on:
+      repo: Forkie-Player/Forkie-Player-Back
+      branch: main
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: forkie-deploy-bucket
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait_until_deployed: true
+
+  - provider: codedeploy
+    on:
+      repo: Forkie-Player/Forkie-Player-Back
+      branch: main
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    # s3 설정후 버킷이름 설정 (설정 후 수정 필요)
+    bucket: forkie-deploy-bucket
+    key: forkie.zip
+    bundle_type: zip
+    # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션 (설정 후 수정 필요)
+    application: forkie-player-server
+    # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션 (설정 후 수정 필요)
+    deployment_group: forkie-player-server-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
+notifications:
+  email:
+    recipients:
+      - oh980225@gmail.com
