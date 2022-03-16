@@ -17,9 +17,9 @@ before_install:
   - mv ./jdk-17.0.2 $HOME/jdk-17.0.2
   - export JAVA_HOME=$HOME/jdk-17.0.2
   - export PATH=$PATH:$JAVA_HOME/bin
+  - chmod +x gradlew
 
 script:
-  - sudo chmod +x ./gradlew
   - ./gradlew clean build
 
 before_deploy:
