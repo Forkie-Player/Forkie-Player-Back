@@ -4,7 +4,6 @@ branches:
   only:
     - main
 
-# Travis CI 서버의 Home
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -46,13 +45,10 @@ deploy:
       branch: main
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-    # s3 설정후 버킷이름 설정 (설정 후 수정 필요)
     bucket: forkie-deploy-bucket
     key: forkie.zip
     bundle_type: zip
-    # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션 (설정 후 수정 필요)
     application: forkie-player-server
-    # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션 (설정 후 수정 필요)
     deployment_group: forkie-player-server-group
     region: ap-northeast-2
     wait-until-deployed: true
