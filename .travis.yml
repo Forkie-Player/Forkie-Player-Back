@@ -21,7 +21,7 @@ script:
   - ./gradlew clean build
 
 before_deploy:
-  - zip -r forkie ./build/libs/* ./appspec.yml
+  - zip -r forkie ./build/libs/* ./appspec.yml ./scripts/*
   - mkdir -p deploy
   - mv forkie.zip deploy/forkie.zip
 
