@@ -2,11 +2,11 @@
 
 REPOSITORY=/home/ec2-user/app
 PROJECT_NAME=yourlist
-JAR_FILE=$(ls /home/ec2-user/app/build | grep -v plain)
+JAR_FILE=$(ls /home/ec2-user/app/build/build/libs | grep -v plain)
 
 echo "> Build 파일 복사"
 #절대 경로 사용
-/usr/bin/cp -f $REPOSITORY/build/$JAR_FILE $REPOSITORY/jar
+/usr/bin/cp -f $REPOSITORY/build/build/libs/$JAR_FILE $REPOSITORY/jar
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
