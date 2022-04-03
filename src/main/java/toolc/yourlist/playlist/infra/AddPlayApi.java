@@ -9,6 +9,8 @@ import toolc.yourlist.member.domain.Auth;
 import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.PlayAdder;
 
+import javax.validation.Valid;
+
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @RestController
@@ -20,7 +22,7 @@ class AddPlayApi {
   @PostMapping("/api/play")
   public ResponseEntity<?> addPlay(
     @Auth AuthenticationUser authenticationUser,
-    @RequestBody JsonAddPlayRequest jsonRequest) {
+    @Valid @RequestBody JsonAddPlayRequest jsonRequest) {
     adder.add(mapper.toAddPlayRequest(authenticationUser, jsonRequest));
 
     return ok("영상 추가 성공");

@@ -9,6 +9,8 @@ import toolc.yourlist.member.domain.Auth;
 import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.SequenceUpdater;
 
+import javax.validation.Valid;
+
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @RestController
@@ -20,7 +22,7 @@ public class UpdateSequenceApi {
   @PatchMapping("api/play/sequence")
   public ResponseEntity<?> update(
     @Auth AuthenticationUser authenticationUser,
-    @RequestBody JsonUpdateSequenceRequest jsonRequest) {
+    @Valid @RequestBody JsonUpdateSequenceRequest jsonRequest) {
     updater.update(mapper.toPlaySequencesForUpdate(authenticationUser, jsonRequest));
 
     return ok("영상 순서 수정 성공");

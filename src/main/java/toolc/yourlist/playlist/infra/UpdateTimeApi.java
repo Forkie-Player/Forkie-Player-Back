@@ -9,6 +9,8 @@ import toolc.yourlist.member.domain.Auth;
 import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.TimeUpdater;
 
+import javax.validation.Valid;
+
 import static toolc.yourlist.common.infra.JsonResponse.ok;
 
 @RestController
@@ -20,7 +22,7 @@ public class UpdateTimeApi {
   @PatchMapping("api/play/time")
   public ResponseEntity<?> update(
     @Auth AuthenticationUser authenticationUser,
-    @RequestBody JsonUpdateTimeRequest jsonRequest) {
+    @Valid @RequestBody JsonUpdateTimeRequest jsonRequest) {
     updater.update(mapper.toTimeUpdateRequest(authenticationUser, jsonRequest));
 
     return ok("영상 시간 수정 성공");
