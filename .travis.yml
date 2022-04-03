@@ -51,6 +51,7 @@ deploy:
     application: forkie-player-server
     deployment_group: forkie-player-server-group
     region: ap-northeast-2
+    travis_wait: 50
     wait-until-deployed: true
 
 notifications:
