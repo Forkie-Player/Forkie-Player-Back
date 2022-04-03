@@ -27,6 +27,6 @@ public class DeleteApi {
     @Valid @RequestBody JsonDeleteRequest jsonRequest) {
     eliminator.delete(mapper.toDeleteRequest(authenticationUser, jsonRequest));
 
-    return ok("삭제 성공");
+    return ok("영상목록 삭제 성공");
   }
 }

@@ -12,7 +12,6 @@ import toolc.yourlist.playlist.domain.User;
 
 import java.util.List;
 
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
 import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 
 @Slf4j
@@ -20,7 +19,6 @@ import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 @RestController
 class ReadApi {
   private final PlaylistReader reader;
-  private final StringConverter converter = new StringConverter();
   private final JsonResponseMapper jsonResponseMapper = new JsonResponseMapper();
 
   @GetMapping("/api/playlist")
@@ -28,11 +26,7 @@ class ReadApi {
     return toOutput(jsonResponseMapper.toPlaylistJsonList(reader.belongsTo(new User(authenticationUser))));
   }
 
-  private ResponseEntity<?> failRead(String message) {
-    return failForBadRequest("조회 실패: " + message);
-  }
-
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
-    return okWithData(playlistJsons, "조회 성공");
+    return okWithData(playlistJsons, "영상목록 조회 성공");
   }
 }

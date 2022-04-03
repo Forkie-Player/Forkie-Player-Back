@@ -1,6 +1,9 @@
 package toolc.yourlist.playlist.infra;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-record JsonUpdateSequenceRequest(Long playlistId, List<JsonPlaySequence> list) {
+record JsonUpdateSequenceRequest(
+  @NotNull Long playlistId,
+  @NotNull List<JsonPlaySequence> list) {
 }
