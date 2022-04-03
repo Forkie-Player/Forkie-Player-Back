@@ -27,6 +27,6 @@ class ReadApi {
   }
 
   private ResponseEntity<?> toOutput(List<PlaylistJson> playlistJsons) {
-    return okWithData(playlistJsons, "조회 성공");
+    return okWithData(playlistJsons, "영상목록 조회 성공");
   }
 }
