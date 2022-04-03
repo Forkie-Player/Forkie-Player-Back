@@ -10,7 +10,7 @@ class PlaylistCountConditionTest {
   void check() {
     var condition = new PlaylistCountCondition();
 
-    var actual = condition.check(4L);
+    var actual = condition.check(2L);
 
     assertThat(actual, is(true));
   }
@@ -19,7 +19,7 @@ class PlaylistCountConditionTest {
   void check_exceed() {
     var condition = new PlaylistCountCondition();
 
-    var actual = condition.check(5L);
+    var actual = condition.check(3L);
 
     assertThat(actual, is(false));
   }
