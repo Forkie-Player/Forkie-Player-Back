@@ -10,6 +10,8 @@ import toolc.yourlist.member.domain.AuthenticationUser;
 import toolc.yourlist.playlist.domain.PlayReader;
 import toolc.yourlist.playlist.domain.Plays;
 
+import javax.validation.Valid;
+
 import static toolc.yourlist.common.infra.JsonResponse.okWithData;
 
 @RequiredArgsConstructor
@@ -19,13 +21,10 @@ public class ReadPlayApi {
   private final PlayReader reader;
   private final JsonResponseMapper responseMapper = new JsonResponseMapper();
 
-  // TODO: 현재는 그냥 requestBody로 받지만 지수꺼 토큰이 완성되면
-  //  토큰을 받고
-  //  PathVariable로 playlistId를 받을 예정
   @GetMapping("/api/play")
   public ResponseEntity<?> readPlays(
     @Auth AuthenticationUser authenticationUser,
-    @RequestBody JsonReadAllPlaysRequest jsonRequest) {
+    @Valid @RequestBody JsonReadAllPlaysRequest jsonRequest) {
     return toOutput(reader.readAllPlays(requestMapper.toReadAllPlaysRequest(authenticationUser, jsonRequest)));
   }
 

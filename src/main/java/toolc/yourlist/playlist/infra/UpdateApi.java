@@ -27,6 +27,6 @@ class UpdateApi {
     @Valid @RequestBody JsonUpdateRequest jsonRequest) {
     updater.updateTitle(mapper.toUpdateRequest(authenticationUser, jsonRequest));
 
-    return ok("영상 목록 제목 수정 성공");
+    return ok("영상목록 제목 수정 성공");
   }
 }

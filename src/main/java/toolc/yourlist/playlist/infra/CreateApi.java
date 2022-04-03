@@ -33,10 +33,10 @@ class CreateApi {
       return failCreate(result.getLeft());
     }
 
-    return JsonResponse.ok("생성 성공");
+    return JsonResponse.ok("영상목록 생성 성공");
   }
 
   private ResponseEntity<?> failCreate(String message) {
-    return failForBadRequest("생성 실패: " + message);
+    return failForBadRequest("영상목록 생성 실패: " + message);
   }
 }
