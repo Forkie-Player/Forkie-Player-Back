@@ -16,6 +16,7 @@ before_install:
   - mv ./jdk-17.0.2 $HOME/jdk-17.0.2
   - export JAVA_HOME=$HOME/jdk-17.0.2
   - export PATH=$PATH:$JAVA_HOME/bin
+  - chmod +x gradlew
 
 script:
   - ./gradlew clean build
@@ -51,6 +52,7 @@ deploy:
     application: forkie-player-server
     deployment_group: forkie-player-server-group
     region: ap-northeast-2
+    travis_wait: 50
     wait-until-deployed: true
     update-app-on-success: true
 
