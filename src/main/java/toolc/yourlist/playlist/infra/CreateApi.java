@@ -13,8 +13,6 @@ import toolc.yourlist.playlist.domain.PlaylistCreator;
 
 import javax.validation.Valid;
 
-import static toolc.yourlist.common.infra.JsonResponse.failForBadRequest;
-
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -26,17 +24,7 @@ class CreateApi {
   public ResponseEntity<?> create(
     @Auth AuthenticationUser authenticationUser,
     @Valid @RequestBody JsonSaveRequest jsonRequest) {
-    var result = creator
-      .create(mapper.toCreateRequest(authenticationUser, jsonRequest));
-
-    if (result.isEmpty()) {
-      return failCreate(result.getLeft());
-    }
-
+    creator.create(mapper.toCreateRequest(authenticationUser, jsonRequest));
     return JsonResponse.ok("영상목록 생성 성공");
-  }
-
-  private ResponseEntity<?> failCreate(String message) {
-    return failForBadRequest("영상목록 생성 실패: " + message);
   }
 }

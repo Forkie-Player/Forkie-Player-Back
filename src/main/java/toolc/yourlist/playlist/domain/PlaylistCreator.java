@@ -1,22 +1,13 @@
 package toolc.yourlist.playlist.domain;
 
-import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PlaylistCreator {
   private final AllPlaylists allPlaylists;
-  private final SavePolicy savePolicy = new SavePolicy();
 
-  public Either<String, Boolean> create(SaveRequest request) {
-    var playlistCount = allPlaylists.havingCountOf(request.user());
-
-    if (!savePolicy.match(request.user(), playlistCount)) {
-      return Either.left("비회원의 영상 생성 제한을 넘었습니다.");
-    }
-
+  public void create(SaveRequest request) {
     save(playlist(request.user(), request.title()));
-    return Either.right(Boolean.TRUE);
   }
 
   private void save(Playlist playlist) {
