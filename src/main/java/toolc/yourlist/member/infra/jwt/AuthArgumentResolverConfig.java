@@ -13,7 +13,8 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class AuthArgumentResolverConfig implements WebMvcConfigurer {
+public class
+AuthArgumentResolverConfig implements WebMvcConfigurer {
   private final AuthenticationArgumentResolver authenticationArgumentResolver;
 
   @Override
