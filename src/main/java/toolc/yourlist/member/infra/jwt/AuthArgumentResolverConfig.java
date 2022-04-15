@@ -13,7 +13,8 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class AuthArgumentResolverConfig implements WebMvcConfigurer {
+public class
+AuthArgumentResolverConfig implements WebMvcConfigurer {
   private final AuthenticationArgumentResolver authenticationArgumentResolver;
 
   @Override
@@ -30,6 +31,7 @@ public class AuthArgumentResolverConfig implements WebMvcConfigurer {
         HttpMethod.HEAD.name(),
         HttpMethod.POST.name(),
         HttpMethod.PUT.name(),
+        HttpMethod.PATCH.name(),
         HttpMethod.DELETE.name()
       );
   }

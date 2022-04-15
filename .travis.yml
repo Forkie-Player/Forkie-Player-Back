@@ -54,7 +54,6 @@ deploy:
     region: ap-northeast-2
     travis_wait: 50
     wait-until-deployed: true
-    update-app-on-success: true
 
 notifications:
   email:

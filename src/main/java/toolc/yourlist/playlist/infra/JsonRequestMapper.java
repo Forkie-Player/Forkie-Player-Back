@@ -43,10 +43,10 @@ public class JsonRequestMapper {
 
   ReadAllPlaysRequest toReadAllPlaysRequest(
     AuthenticationUser authenticationUser,
-    JsonReadAllPlaysRequest jsonRequest) {
+    Long playlistId) {
     var validRequest = factory.createForPlaylist(
       new User(authenticationUser),
-      jsonRequest.playlistId());
+      playlistId);
 
     return new ReadAllPlaysRequest(validRequest);
   }
