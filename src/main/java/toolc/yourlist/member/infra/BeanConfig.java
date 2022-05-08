@@ -125,8 +125,8 @@ public class BeanConfig {
     return new OAuthAuthenticationFailureHandler();
   }
 
-//  @Bean
-//  OAuthUserService oAuthUserService(JpaAllMemberEntity jpaAllMemberEntity) {
-//    return new OAuthUserService(jpaAllMemberEntity);
-//  }
+  @Bean
+  CustomOidcService oidcService(JpaAllMemberEntity jpaAllMemberEntity) {
+    return new CustomOidcService(jpaAllMemberEntity);
+  }
 }
