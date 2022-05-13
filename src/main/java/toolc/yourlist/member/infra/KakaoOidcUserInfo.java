@@ -2,8 +2,9 @@ package toolc.yourlist.member.infra;
 
 import java.util.Map;
 
-public class GoogleOAuthUserInfo extends OAuthUserInfo {
-  public GoogleOAuthUserInfo(Map<String, Object> attributes) {
+public class KakaoOidcUserInfo extends OidcUserInfo {
+
+  public KakaoOidcUserInfo(Map<String, Object> attributes) {
     super(attributes);
   }
 

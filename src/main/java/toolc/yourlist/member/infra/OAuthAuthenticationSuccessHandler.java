@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class OAuthAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -27,48 +26,33 @@ public class OAuthAuthenticationSuccessHandler extends SimpleUrlAuthenticationSu
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
     OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) authentication;
     Provider provider = Provider.valueOf(authToken.getAuthorizedClientRegistrationId().toUpperCase());
+    System.out.println(provider);
+    System.out.println(authentication);
 
-    OidcUser user = ((OidcUser) authentication.getPrincipal());
+    var entityOptional = jpaAllMemberEntity
+      .findByLoginIdAndProvider(authToken.getName(), provider);
 
-    System.out.println(user.getName());
+    if (entityOptional.isEmpty()) {
+      var entity = jpaAllMemberEntity
+        .save(new MemberEntity(authToken.getName(), authToken.getName(), provider));
 
-    var memberEntity = jpaAllMemberEntity
-      .findByLoginIdAndProvider(user.getName(), provider);
-
-    if (memberEntity.isEmpty()) {
-      oAuthSignUpError(response);
+      successOAuth(response, entity);
       return;
     }
 
-    successOAuth(response, memberEntity);
+    successOAuth(response, entityOptional.get());
   }
 
-  private void successOAuth(HttpServletResponse response, Optional<MemberEntity> memberEntity) throws IOException {
+  private void successOAuth(HttpServletResponse response, MemberEntity memberEntity) throws IOException {
     response.setStatus(HttpStatus.OK.value());
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
 
-    var token = tokenProvider.makeToken(memberEntity.get().id(), true, UserType.MEMBER);
+    var token = tokenProvider.makeToken(memberEntity.id(), true, UserType.MEMBER);
     var responseBody = ResponseBody.builder()
       .status(HttpStatus.OK.value())
       .data(token)
       .message("OAuth 인증 성공")
-      .build();
-
-    PrintWriter out = response.getWriter();
-    out.print(new ObjectMapper().writeValueAsString(responseBody));
-    out.flush();
-  }
-
-  private void oAuthSignUpError(HttpServletResponse response) throws IOException {
-    response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-
-    var responseBody = ResponseBody.builder()
-      .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-      .data(null)
-      .message("OAuth 가입 과정 문제 발생")
       .build();
 
     PrintWriter out = response.getWriter();

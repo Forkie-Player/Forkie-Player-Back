@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.cors.CorsUtils;
-import toolc.yourlist.member.infra.CustomOAuthService;
+import toolc.yourlist.member.infra.CustomOidcService;
 import toolc.yourlist.member.infra.OAuthAuthenticationFailureHandler;
 import toolc.yourlist.member.infra.OAuthAuthenticationSuccessHandler;
 import toolc.yourlist.member.infra.jwt.filter.JwtResolver;
@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private final JwtResolver jwtResolver;
   private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
   private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-  private final CustomOAuthService customOAuthService;
+  private final CustomOidcService customOidcService;
   private final OAuthAuthenticationSuccessHandler oAuthAuthenticationSuccessHandler;
   private final OAuthAuthenticationFailureHandler oAuthAuthenticationFailureHandler;
 
@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .baseUri("/*/oauth2/code/*")
       .and()
       .userInfoEndpoint()
-      .userService(customOAuthService)
+      .oidcUserService(customOidcService)
       .and()
       .successHandler(oAuthAuthenticationSuccessHandler)
       .failureHandler(oAuthAuthenticationFailureHandler);

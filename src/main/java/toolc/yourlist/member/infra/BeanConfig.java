@@ -126,7 +126,7 @@ public class BeanConfig {
   }
 
   @Bean
-  CustomOAuthService oAuthService(JpaAllMemberEntity jpaAllMemberEntity) {
-    return new CustomOAuthService(jpaAllMemberEntity);
+  CustomOidcService oAuthService() {
+    return new CustomOidcService();
   }
 }
