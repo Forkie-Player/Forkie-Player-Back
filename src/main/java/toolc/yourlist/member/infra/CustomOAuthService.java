@@ -3,21 +3,20 @@ package toolc.yourlist.member.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-public class CustomOidcService extends OidcUserService {
+public class CustomOAuthService extends DefaultOAuth2UserService {
   private final JpaAllMemberEntity jpaAllMemberEntity;
 
   @Override
-  public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
+  public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     OAuth2User user = super.loadUser(userRequest);
+    System.out.println("This?");
     try {
       return this.process(userRequest, user);
     } catch (AuthenticationException ex) {
@@ -31,7 +30,8 @@ public class CustomOidcService extends OidcUserService {
   private OidcUser process(OAuth2UserRequest userRequest, OAuth2User user) {
     Provider providerType = Provider.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
-    OidcUserInfo userInfo = OidcUserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
+    System.out.println(user.getAttributes());
+    OAuthUserInfo userInfo = OAuthUserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
     var memberEntity = jpaAllMemberEntity
       .findByLoginIdAndProvider(userInfo.getId(), providerType);
 
