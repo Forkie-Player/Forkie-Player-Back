@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-class LengthLimitTest {
+class IncludeSingleAtSignTest {
 
   @Test
   void length_limited_from_6_to_30() {
-    LoginIdPolicy lengthLimit = new LengthLimit();
+    LoginIdPolicy includeSingleAtSign = new IncludeSingleAtSign();
 
-    assertThat(lengthLimit.matches("jisoo01"), is(true));
+    assertThat(includeSingleAtSign.matches("ritty1234@gmail.com"), is(true));
   }
 }
