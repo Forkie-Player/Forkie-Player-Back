@@ -10,6 +10,6 @@ class AllLoginPolicyTest {
   void should_be_satisfied_all_loginId_policy() {
     LoginIdPolicy allLoginIdPolicy = new AllLoginPolicy();
 
-    assertThat(allLoginIdPolicy.matches("jisoo01"), is(true));
+    assertThat(allLoginIdPolicy.matches("ritty1234@gmail.com"), is(true));
   }
 }
