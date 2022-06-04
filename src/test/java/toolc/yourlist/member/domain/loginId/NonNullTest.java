@@ -10,6 +10,6 @@ class NonNullTest {
   void non_null() {
     LoginIdPolicy nonNull = new NonNull();
 
-    assertThat(nonNull.matches(""), is(true));
+    assertThat(nonNull.matches("jspark111"), is(true));
   }
 }
