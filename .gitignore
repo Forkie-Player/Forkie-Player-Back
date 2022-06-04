@@ -9,9 +9,7 @@ build/
 .DS_Store
 
 ## Application.yaml
-application.yaml
-application*
-
+application-*.yaml
 
 ### STS ###
 .apt_generated

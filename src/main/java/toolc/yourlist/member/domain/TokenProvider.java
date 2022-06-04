@@ -27,7 +27,6 @@ public class TokenProvider {
     Instant refreshTokenExpiration = nowTime.plus(refreshTokenValidDuration);
 
     return tokenSerializer.makeToken(id, accessTokenExpiration, refreshTokenExpiration, userType);
-
   }
 
 }

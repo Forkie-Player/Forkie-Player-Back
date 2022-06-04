@@ -47,7 +47,7 @@ public class BeanConfig {
   }
 
   @Bean
-  TokenSerializer tokenSerializer(TokenSecretKey tokenSecretKey){
+  TokenSerializer tokenSerializer(TokenSecretKey tokenSecretKey) {
     return new JwtToken(tokenSecretKey);
   }
 
@@ -112,5 +112,21 @@ public class BeanConfig {
                                                 AllMember allMember, AllVisitor allVisitor,
                                                 PlaylistOwnerChange playlistOwnerChange) {
     return new VisitorToMemberChanger(memberAuthProvider, allMember, allVisitor, playlistOwnerChange);
+  }
+
+  @Bean
+  OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler(TokenProvider tokenProvider,
+                                                                     JpaAllMemberEntity jpaAllMemberEntity) {
+    return new OAuthAuthenticationSuccessHandler(tokenProvider, jpaAllMemberEntity);
+  }
+
+  @Bean
+  OAuthAuthenticationFailureHandler authAuthenticationFailureHandler() {
+    return new OAuthAuthenticationFailureHandler();
+  }
+
+  @Bean
+  CustomOidcService oAuthService() {
+    return new CustomOidcService();
   }
 }
