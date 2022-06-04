@@ -3,4 +3,4 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: local, oauth
