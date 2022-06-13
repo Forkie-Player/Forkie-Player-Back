@@ -35,7 +35,13 @@ public class MockAllPlaylists implements AllPlaylists {
   }
 
   @Override
-  public void save(Playlist playlist) {
+  public Playlist save(Playlist playlist) {
+    return Playlist.builder()
+      .id(1L)
+      .userCode("MEMBER_1")
+      .title("My List")
+      .thumbnail("panda.png")
+      .build();
   }
 
   @Override

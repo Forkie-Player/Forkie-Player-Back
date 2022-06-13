@@ -18,13 +18,13 @@ import javax.validation.Valid;
 @RestController
 class CreateApi {
   private final PlaylistCreator creator;
-  private final JsonRequestMapper mapper;
+  private final JsonRequestMapper requestMapper;
 
   @PostMapping("/api/playlist")
   public ResponseEntity<?> create(
     @Auth AuthenticationUser authenticationUser,
     @Valid @RequestBody JsonSaveRequest jsonRequest) {
-    creator.create(mapper.toCreateRequest(authenticationUser, jsonRequest));
-    return JsonResponse.ok("영상목록 생성 성공");
+    var result = creator.create(requestMapper.toCreateRequest(authenticationUser, jsonRequest));
+    return JsonResponse.okWithData(new PlaylistJson(result), "영상목록 생성 성공");
   }
 }

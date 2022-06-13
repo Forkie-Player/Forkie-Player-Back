@@ -1,5 +1,6 @@
 package toolc.yourlist.playlist.infra;
 
+import toolc.yourlist.playlist.domain.Platform;
 import toolc.yourlist.playlist.domain.Play;
 
 import javax.validation.constraints.NotBlank;
@@ -14,7 +15,8 @@ record PlayJson(
   @NotNull Long start,
   @NotNull Long end,
   @NotBlank String channelImage,
-  @NotBlank String channelTitle
+  @NotBlank String channelTitle,
+  Platform platform
 ) {
   public PlayJson(Play play) {
     this(play.id(),
@@ -25,6 +27,7 @@ record PlayJson(
       play.time().startTime(),
       play.time().endTime(),
       play.channel().image(),
-      play.channel().title());
+      play.channel().title(),
+      play.platform());
   }
 }

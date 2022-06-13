@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import toolc.yourlist.member.domain.UserType;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static toolc.yourlist.member.domain.UserType.MEMBER;
+import static toolc.yourlist.playlist.domain.Platform.YOUTUBE;
 
 @ExtendWith(MockitoExtension.class)
 class PlayAdderTest {
@@ -26,7 +26,7 @@ class PlayAdderTest {
     var info = new PlayInfo("Good Music", "abcd1234", "panda.png");
     var time = new PlayTime(10000L, 130000L);
     var channel = new Channel("Music man", "man.png");
-    var request = new AddPlayRequest(validRequestForPlaylist, info, time, channel);
+    var request = new AddPlayRequest(validRequestForPlaylist, info, time, channel, YOUTUBE);
     var playlistSize = 0L;
     given(allPlay.havingCountOf(1L)).willReturn(playlistSize);
 
@@ -37,9 +37,10 @@ class PlayAdderTest {
       Play.builder()
         .info(info)
         .playlistId(validRequestForPlaylist.get().id())
-        .sequence(playlistSize  )
+        .sequence(playlistSize)
         .time(time)
         .channel(channel)
+        .platform(YOUTUBE)
         .build());
     verify(changeThumbnail).changeForMakingFirstPlay(validRequestForPlaylist.get().id(), info.thumbnail());
     verifyNoMoreInteractions(allPlay);

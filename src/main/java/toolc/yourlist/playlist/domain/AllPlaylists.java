@@ -7,7 +7,7 @@ public interface AllPlaylists {
 
   long havingCountOf(User user);
 
-  void save(Playlist playlist);
+  Playlist save(Playlist playlist);
 
   void updateTitleBelongsTo(Long playlistId, String title);
 

@@ -1,6 +1,7 @@
 package toolc.yourlist.playlist.infra;
 
 import lombok.Builder;
+import toolc.yourlist.playlist.domain.Platform;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,8 +14,10 @@ record JsonAddPlayRequest(
   @NotBlank String videoId,
   @NotBlank String title,
   @NotBlank String channelTitle,
-  @NotBlank String channelImg
+  @NotBlank String channelImg,
+  Platform platform
 ) {
   @Builder
-  public JsonAddPlayRequest {}
+  public JsonAddPlayRequest {
+  }
 }

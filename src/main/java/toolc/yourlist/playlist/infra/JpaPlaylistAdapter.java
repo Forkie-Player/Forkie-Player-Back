@@ -31,8 +31,8 @@ class JpaPlaylistAdapter implements AllPlaylists {
   }
 
   @Override
-  public void save(Playlist playlist) {
-    playlistRepository.save(new PlaylistEntity(playlist));
+  public Playlist save(Playlist playlist) {
+    return mapper.toPlaylist(playlistRepository.save(new PlaylistEntity(playlist)));
   }
 
   @Override

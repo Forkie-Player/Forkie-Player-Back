@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/api/user/auth/**").permitAll()
       .antMatchers("/api/**").authenticated()
       .and()
+      .cors()
+      .and()
       .apply(new JwtSecurityConfig(jwtResolver))
 
       .and()
