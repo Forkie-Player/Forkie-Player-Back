@@ -6,12 +6,8 @@ import lombok.RequiredArgsConstructor;
 public class PlaylistCreator {
   private final AllPlaylists allPlaylists;
 
-  public void create(SaveRequest request) {
-    save(playlist(request.user(), request.title()));
-  }
-
-  private void save(Playlist playlist) {
-    allPlaylists.save(playlist);
+  public Playlist create(SaveRequest request) {
+    return allPlaylists.save(playlist(request.user(), request.title()));
   }
 
   private Playlist playlist(User user, String title) {
