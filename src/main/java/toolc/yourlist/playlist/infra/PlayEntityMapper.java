@@ -14,6 +14,7 @@ class PlayEntityMapper {
       .info(new PlayInfo(entity.title(), entity.videoId(), entity.thumbnail()))
       .time(new PlayTime(entity.start(), entity.end()))
       .channel(new Channel(entity.channelTitle(), entity.channelImage()))
+      .platform(entity.platform())
       .build();
   }
 
