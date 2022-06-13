@@ -38,7 +38,10 @@ public class JsonRequestMapper {
     var channel = new Channel(jsonRequest.channelTitle(), jsonRequest.channelImg());
     var info = new PlayInfo(jsonRequest.title(), jsonRequest.videoId(), jsonRequest.thumbnail());
 
-    return new AddPlayRequest(validRequest, info, time, channel);
+    if (jsonRequest.platform() == null) {
+      return new AddPlayRequest(validRequest, info, time, channel, Platform.YOUTUBE);
+    }
+    return new AddPlayRequest(validRequest, info, time, channel, jsonRequest.platform());
   }
 
   ReadAllPlaysRequest toReadAllPlaysRequest(

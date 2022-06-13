@@ -4,5 +4,6 @@ public record AddPlayRequest(
   ValidRequestForPlaylist validRequestForPlaylist,
   PlayInfo info,
   PlayTime time,
-  Channel channel) {
+  Channel channel,
+  Platform platform) {
 }
