@@ -18,9 +18,11 @@ public class PlayAdder {
       .info(request.info())
       .time(request.time())
       .channel(request.channel())
+      .platform(request.platform())
       .build();
 
     allPlay.save(play);
+
     changeThumbnail.changeForMakingFirstPlay(
       request.validRequestForPlaylist().get().id(),
       request.info().thumbnail());
