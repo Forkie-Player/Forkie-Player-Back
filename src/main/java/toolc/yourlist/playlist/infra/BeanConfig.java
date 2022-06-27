@@ -33,8 +33,8 @@ class BeanConfig {
   }
 
   @Bean
-  PlaylistReader playlistReader(AllPlaylists allPlaylists) {
-    return new PlaylistReader(allPlaylists);
+  PlaylistReader playlistReader(AllPlaylists allPlaylists, AllPlay allPlay) {
+    return new PlaylistReader(allPlaylists, allPlay);
   }
 
   @Bean
