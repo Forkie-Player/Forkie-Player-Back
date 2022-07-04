@@ -6,5 +6,6 @@ import lombok.RequiredArgsConstructor;
 public enum Platform {
   YOUTUBE,
   TWITCH,
-  DAILYMOTION
+  DAILYMOTION,
+  VIMEO
 }
