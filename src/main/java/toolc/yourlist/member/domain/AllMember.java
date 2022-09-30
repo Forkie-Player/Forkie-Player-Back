@@ -7,9 +7,9 @@ import toolc.yourlist.member.infra.Provider;
 public interface AllMember {
   boolean isExistByLoginId(LoginId loginId);
 
-  boolean isNotExistById(Long id);
-
   void registerMember(LoginId loginId, Password password);
+
+  MemberInfo findInfoById(Long id);
 
   Long findIdByLoginId(LoginId loginId);
 }

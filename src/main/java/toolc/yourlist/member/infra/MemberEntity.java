@@ -15,6 +15,8 @@ import javax.persistence.*;
 public class MemberEntity extends BaseEntity {
   private String loginId;
   private String password;
+  private String nickname;
+
   @Enumerated(value = EnumType.STRING)
   @Column(columnDefinition = "varchar(255) default LOCAL")
   private Provider provider;
