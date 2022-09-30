@@ -91,6 +91,11 @@ public class BeanConfig {
   }
 
   @Bean
+  MemberFinder memberFinder(AllMember allMember) {
+    return new MemberFinder(allMember);
+  }
+
+  @Bean
   RequestMapperFromJson requestMapperFromJson(LoginIdFactory loginIdFactory,
                                               PasswordFactory passwordFactory) {
     return new RequestMapperFromJson(loginIdFactory, passwordFactory);
