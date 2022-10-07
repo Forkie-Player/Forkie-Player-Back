@@ -19,7 +19,7 @@ public class MemberEntity extends BaseEntity {
 
   @Enumerated(value = EnumType.STRING)
   @Column(columnDefinition = "varchar(255) default LOCAL")
-  private Provider provider;
+  private Provider provider = Provider.LOCAL;
 
   @Builder
   public MemberEntity(String loginId, String password) {
