@@ -1,9 +1,6 @@
 package toolc.yourlist.member.infra;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import toolc.yourlist.common.domain.BaseEntity;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import javax.persistence.*;
 public class MemberEntity extends BaseEntity {
   private String loginId;
   private String password;
+  @Setter
   private String nickname;
 
   @Enumerated(value = EnumType.STRING)

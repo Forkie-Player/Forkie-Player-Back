@@ -7,6 +7,8 @@ import toolc.yourlist.member.domain.NotExistMemberException;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 class JpaAllMember implements AllMember {
 
@@ -16,6 +18,11 @@ class JpaAllMember implements AllMember {
   @Override
   public boolean isExistByLoginId(LoginId loginId) {
     return jpaAllMemberEntity.findByLoginId(loginId.raw()).isPresent();
+  }
+
+  @Override
+  public boolean isExistByNickname(String nickname) {
+    return jpaAllMemberEntity.findByNickname(nickname).isPresent();
   }
 
   @Override
@@ -43,6 +50,13 @@ class JpaAllMember implements AllMember {
   @Override
   public Long countContainNickname(String nickname) {
     return jpaAllMemberEntity.countContainNickname(nickname);
+  }
+
+  @Override
+  @Transactional
+  public void editNickname(Long id, String nickname) {
+    var memberEntity = jpaAllMemberEntity.findById(id).orElseThrow(NotExistMemberException::new);
+    memberEntity.nickname(nickname);
   }
 
   private MemberInfo convertMemberInfo(MemberEntity memberEntity) {

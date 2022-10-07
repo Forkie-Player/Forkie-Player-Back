@@ -33,8 +33,6 @@ public class OAuthAuthenticationSuccessHandler extends SimpleUrlAuthenticationSu
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
     OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) authentication;
     Provider provider = Provider.valueOf(authToken.getAuthorizedClientRegistrationId().toUpperCase());
-    System.out.println(provider);
-    System.out.println(authentication);
 
     var entityOptional = jpaAllMemberEntity
       .findByLoginIdAndProvider(authToken.getName(), provider);

@@ -138,4 +138,9 @@ public class BeanConfig {
   CustomOidcService oAuthService() {
     return new CustomOidcService();
   }
+
+  @Bean
+  NicknameEditor nicknameEditor(AllMember allMember) {
+    return new NicknameEditor(allMember);
+  }
 }

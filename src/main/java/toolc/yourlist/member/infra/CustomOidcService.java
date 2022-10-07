@@ -16,7 +16,6 @@ public class CustomOidcService extends OidcUserService {
   @Override
   public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
     OAuth2User user = super.loadUser(userRequest);
-    System.out.println("This?");
     try {
       return this.process(userRequest, user);
     } catch (AuthenticationException ex) {
@@ -30,7 +29,6 @@ public class CustomOidcService extends OidcUserService {
   private OidcUser process(OAuth2UserRequest userRequest, OAuth2User user) {
     Provider providerType = Provider.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
-    System.out.println(user.getAttributes());
     OidcUserInfo userInfo = OidcUserInfoFactory.getOidcUserInfo(providerType, user.getAttributes());
 
     return new UserPrincipal(userInfo.getId());

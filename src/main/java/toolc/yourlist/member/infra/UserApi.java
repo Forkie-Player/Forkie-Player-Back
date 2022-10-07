@@ -17,10 +17,22 @@ public class UserApi {
   private final VisitorToMemberChanger visitorToMemberChanger;
   private final RequestMapperFromJson requestMapperFromJson;
   private final MemberFinder memberFinder;
+  private final NicknameEditor nicknameEditor;
 
-  @GetMapping()
-  public ResponseEntity<?> getINfo(@Auth AuthenticationUser authenticationUser) {
+  @GetMapping
+  public ResponseEntity<?> getInfo(@Auth AuthenticationUser authenticationUser) {
     return JsonResponse.okWithData(new JsonMemberInfo(memberFinder.getInfoById(authenticationUser.id())), "사용자 정보 조회 성공");
+  }
+
+  @PatchMapping
+  public ResponseEntity<?> editNickname(@Auth AuthenticationUser authenticationUser, @RequestParam("nickname") String nickname) {
+    var result = nicknameEditor.edit(authenticationUser.id(), nickname);
+
+    if (result.hasError()) {
+      return JsonResponse.failForBadRequest(result.message());
+    }
+
+    return JsonResponse.ok("사용자 닉네임 수정 성공");
   }
 
   @PostMapping("/auth/signup/visitor")

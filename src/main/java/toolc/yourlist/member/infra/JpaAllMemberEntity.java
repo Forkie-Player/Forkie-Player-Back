@@ -11,6 +11,8 @@ public interface JpaAllMemberEntity extends JpaRepository<MemberEntity, Long> {
 
   Optional<MemberEntity> findByLoginIdAndProvider(String loginId, Provider provider);
 
+  Optional<MemberEntity> findByNickname(String nickname);
+
   Optional<MemberEntity> findById(Long id);
 
   MemberEntity save(MemberEntity memberEntity);
