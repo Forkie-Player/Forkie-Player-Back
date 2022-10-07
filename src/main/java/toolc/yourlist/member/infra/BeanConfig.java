@@ -108,8 +108,13 @@ public class BeanConfig {
   }
 
   @Bean
-  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember) {
-    return new MemberAuthProvider(tokenProvider, allMember);
+  NicknameGenerator nicknameGenerator(AllMember allMember) {
+    return new NicknameGenerator(allMember);
+  }
+
+  @Bean
+  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember, NicknameGenerator nicknameGenerator) {
+    return new MemberAuthProvider(tokenProvider, allMember, nicknameGenerator);
   }
 
   @Bean
@@ -120,9 +125,8 @@ public class BeanConfig {
   }
 
   @Bean
-  OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler(TokenProvider tokenProvider,
-                                                                     JpaAllMemberEntity jpaAllMemberEntity) {
-    return new OAuthAuthenticationSuccessHandler(tokenProvider, jpaAllMemberEntity);
+  OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler(JpaAllMemberEntity jpaAllMemberEntity, MemberAuthProvider memberAuthProvider) {
+    return new OAuthAuthenticationSuccessHandler(jpaAllMemberEntity, memberAuthProvider);
   }
 
   @Bean

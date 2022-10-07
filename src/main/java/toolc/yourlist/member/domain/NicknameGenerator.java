@@ -1,17 +1,26 @@
 package toolc.yourlist.member.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Random;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-class NicknameGenerator {
-  static String generate(List<String> adjectiveList, List<String> nounList) {
+@RequiredArgsConstructor
+public class NicknameGenerator {
+  private final AllMember allMember;
+
+  String generate(List<String> adjectiveList, List<String> nounList) {
     final Random random = new Random();
 
-    return adjectiveList.get(random.nextInt(adjectiveList.size()))
+    var nickname = adjectiveList.get(random.nextInt(adjectiveList.size())) + ' '
       + nounList.get(random.nextInt(nounList.size()));
+
+    long duplicateCount = allMember.countContainNickname(nickname);
+
+    if (duplicateCount != 0L) {
+      return nickname + allMember.countContainNickname(nickname);
+    }
+
+    return nickname;
   }
 }

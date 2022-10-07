@@ -47,7 +47,7 @@ public class UserApi {
 
   @PostMapping("/auth/signup/member")
   public ResponseEntity<?> signup(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
-    var request = requestMapperFromJson.mapper(jsonRequest);
+    var request = requestMapperFromJson.mapperForLocalRegister(jsonRequest);
 
     var result = memberAuthProvider.registerMember(request);
     if (result.isLeft()) {
@@ -58,7 +58,7 @@ public class UserApi {
 
   @PostMapping("/auth/login/member")
   public ResponseEntity<?> login(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
-    var request = requestMapperFromJson.mapper(jsonRequest);
+    var request = requestMapperFromJson.mapperForLocalRegister(jsonRequest);
 
     var result = memberAuthProvider.getMemberToken(request);
     if (result.isLeft()) {

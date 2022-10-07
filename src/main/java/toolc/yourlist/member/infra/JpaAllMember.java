@@ -19,8 +19,13 @@ class JpaAllMember implements AllMember {
   }
 
   @Override
-  public void registerMember(LoginId loginId, Password password) {
-    jpaAllMemberEntity.save(new MemberEntity(loginId.raw(), password.raw()));
+  public void registerMember(LoginId loginId, Password password, String nickname, Provider provider) {
+    jpaAllMemberEntity.save(MemberEntity.builder()
+      .loginId(loginId.raw())
+      .password(password.raw())
+      .nickname(nickname)
+      .provider(provider)
+      .build());
   }
 
   @Override
@@ -33,6 +38,11 @@ class JpaAllMember implements AllMember {
   @Override
   public Long findIdByLoginId(LoginId loginId) {
     return jpaAllMemberEntity.findByLoginId(loginId.raw()).get().id();
+  }
+
+  @Override
+  public Long countContainNickname(String nickname) {
+    return jpaAllMemberEntity.countContainNickname(nickname);
   }
 
   private MemberInfo convertMemberInfo(MemberEntity memberEntity) {

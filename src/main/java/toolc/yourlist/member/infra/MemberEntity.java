@@ -22,14 +22,10 @@ public class MemberEntity extends BaseEntity {
   private Provider provider = Provider.LOCAL;
 
   @Builder
-  public MemberEntity(String loginId, String password) {
+  public MemberEntity(String loginId, String password, String nickname, Provider provider) {
     this.loginId = loginId;
     this.password = password;
-  }
-
-  @Builder
-  public MemberEntity(String loginId, String password, Provider provider) {
-    this(loginId, password);
+    this.nickname = nickname;
     this.provider = provider;
   }
 }
