@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
+import toolc.yourlist.member.infra.Provider;
 
 import static io.vavr.control.Either.left;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +37,7 @@ class MemberAuthProviderTest {
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
     boolean isPC = true;
-    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC);
+    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC, Provider.LOCAL);
 
     when(allMember.isExistByLoginId(loginId)).thenReturn(true);
 
@@ -50,7 +51,7 @@ class MemberAuthProviderTest {
     LoginId loginId = new LoginId("jisoo27");
     Password password = new Password("qwer1234!");
     boolean isPC = true;
-    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC);
+    var request = new MemberRegisterAndLoginRequest(loginId, password, isPC, Provider.LOCAL);
 
     //when
     authProvider.getMemberToken(request);

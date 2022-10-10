@@ -1,9 +1,6 @@
 package toolc.yourlist.member.infra;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import toolc.yourlist.common.domain.BaseEntity;
 
 import javax.persistence.*;
@@ -15,19 +12,18 @@ import javax.persistence.*;
 public class MemberEntity extends BaseEntity {
   private String loginId;
   private String password;
+  @Setter
+  private String nickname;
+
   @Enumerated(value = EnumType.STRING)
   @Column(columnDefinition = "varchar(255) default LOCAL")
-  private Provider provider;
+  private Provider provider = Provider.LOCAL;
 
   @Builder
-  public MemberEntity(String loginId, String password) {
+  public MemberEntity(String loginId, String password, String nickname, Provider provider) {
     this.loginId = loginId;
     this.password = password;
-  }
-
-  @Builder
-  public MemberEntity(String loginId, String password, Provider provider) {
-    this(loginId, password);
+    this.nickname = nickname;
     this.provider = provider;
   }
 }
