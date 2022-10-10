@@ -1,7 +1,10 @@
 package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
-import toolc.yourlist.member.domain.*;
+import toolc.yourlist.member.domain.MemberRegisterAndLoginRequest;
+import toolc.yourlist.member.domain.TokenReissueRequest;
+import toolc.yourlist.member.domain.VisitorRegisterAndLoginRequest;
+import toolc.yourlist.member.domain.VisitorToMemberChangeRequest;
 import toolc.yourlist.member.domain.loginId.LoginIdFactory;
 import toolc.yourlist.member.domain.password.PasswordFactory;
 
@@ -15,10 +18,10 @@ public class RequestMapperFromJson {
     return new VisitorRegisterAndLoginRequest(jsonRequest.uuid(), jsonRequest.isPC());
   }
 
-  MemberRegisterAndLoginRequest mapper(JsonMemberSignUpAndLoginRequest jsonRequest) {
+  MemberRegisterAndLoginRequest mapperForLocalRegister(JsonMemberSignUpAndLoginRequest jsonRequest) {
     return new MemberRegisterAndLoginRequest(
       loginIdFactory.create(jsonRequest.loginId()), passwordFactory.create(jsonRequest.password()),
-      jsonRequest.isPC());
+      jsonRequest.isPC(), Provider.LOCAL);
   }
 
   TokenReissueRequest mapper(JsonTokenReissueRequest jsonRequest) {

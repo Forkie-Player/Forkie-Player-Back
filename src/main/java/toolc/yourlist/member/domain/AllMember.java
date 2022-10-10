@@ -7,10 +7,16 @@ import toolc.yourlist.member.infra.Provider;
 public interface AllMember {
   boolean isExistByLoginId(LoginId loginId);
 
-  boolean isNotExistById(Long id);
+  boolean isExistByNickname(String nickname);
 
-  void registerMember(LoginId loginId, Password password);
+  void registerMember(LoginId loginId, Password password, String nickname, Provider provider);
+
+  MemberInfo findInfoById(Long id);
 
   Long findIdByLoginId(LoginId loginId);
+
+  Long countContainNickname(String nickname);
+
+  void editNickname(Long id, String nickname);
 }
 
