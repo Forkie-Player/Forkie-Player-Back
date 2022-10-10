@@ -91,11 +91,6 @@ public class BeanConfig {
   }
 
   @Bean
-  MemberFinder memberFinder(AllMember allMember) {
-    return new MemberFinder(allMember);
-  }
-
-  @Bean
   RequestMapperFromJson requestMapperFromJson(LoginIdFactory loginIdFactory,
                                               PasswordFactory passwordFactory) {
     return new RequestMapperFromJson(loginIdFactory, passwordFactory);
@@ -108,13 +103,8 @@ public class BeanConfig {
   }
 
   @Bean
-  NicknameGenerator nicknameGenerator(AllMember allMember) {
-    return new NicknameGenerator(allMember);
-  }
-
-  @Bean
-  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember, NicknameGenerator nicknameGenerator) {
-    return new MemberAuthProvider(tokenProvider, allMember, nicknameGenerator);
+  MemberAuthProvider memberAuthProvider(TokenProvider tokenProvider, AllMember allMember) {
+    return new MemberAuthProvider(tokenProvider, allMember);
   }
 
   @Bean
@@ -125,8 +115,9 @@ public class BeanConfig {
   }
 
   @Bean
-  OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler(JpaAllMemberEntity jpaAllMemberEntity, MemberAuthProvider memberAuthProvider) {
-    return new OAuthAuthenticationSuccessHandler(jpaAllMemberEntity, memberAuthProvider);
+  OAuthAuthenticationSuccessHandler authAuthenticationSuccessHandler(TokenProvider tokenProvider,
+                                                                     JpaAllMemberEntity jpaAllMemberEntity) {
+    return new OAuthAuthenticationSuccessHandler(tokenProvider, jpaAllMemberEntity);
   }
 
   @Bean
@@ -137,10 +128,5 @@ public class BeanConfig {
   @Bean
   CustomOidcService oAuthService() {
     return new CustomOidcService();
-  }
-
-  @Bean
-  NicknameEditor nicknameEditor(AllMember allMember) {
-    return new NicknameEditor(allMember);
   }
 }
