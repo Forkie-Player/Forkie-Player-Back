@@ -2,7 +2,10 @@ package toolc.yourlist.member.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import toolc.yourlist.common.infra.JsonResponse;
 import toolc.yourlist.member.domain.MemberAuthProvider;
 import toolc.yourlist.member.domain.TokenProvider;
@@ -19,24 +22,6 @@ public class UserApi {
   private final TokenProvider tokenProvider;
   private final VisitorToMemberChanger visitorToMemberChanger;
   private final RequestMapperFromJson requestMapperFromJson;
-  private final MemberFinder memberFinder;
-  private final NicknameEditor nicknameEditor;
-
-  @GetMapping
-  public ResponseEntity<?> getInfo(@Auth AuthenticationUser authenticationUser) {
-    return JsonResponse.okWithData(new JsonMemberInfo(memberFinder.getInfoById(authenticationUser.id())), "사용자 정보 조회 성공");
-  }
-
-  @PatchMapping
-  public ResponseEntity<?> editNickname(@Auth AuthenticationUser authenticationUser, @RequestParam("nickname") String nickname) {
-    var result = nicknameEditor.edit(authenticationUser.id(), nickname);
-
-    if (result.hasError()) {
-      return JsonResponse.failForBadRequest(result.message());
-    }
-
-    return JsonResponse.ok("사용자 닉네임 수정 성공");
-  }
 
   @PostMapping("/auth/signup/visitor")
   public ResponseEntity<?> signup(@RequestBody JsonVisitorSignUpAndLoginRequest jsonRequest) {
@@ -62,7 +47,7 @@ public class UserApi {
 
   @PostMapping("/auth/signup/member")
   public ResponseEntity<?> signup(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
-    var request = requestMapperFromJson.mapperForLocalRegister(jsonRequest);
+    var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = memberAuthProvider.registerMember(request);
     if (result.isLeft()) {
@@ -73,7 +58,7 @@ public class UserApi {
 
   @PostMapping("/auth/login/member")
   public ResponseEntity<?> login(@RequestBody JsonMemberSignUpAndLoginRequest jsonRequest) {
-    var request = requestMapperFromJson.mapperForLocalRegister(jsonRequest);
+    var request = requestMapperFromJson.mapper(jsonRequest);
 
     var result = memberAuthProvider.getMemberToken(request);
     if (result.isLeft()) {
