@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import toolc.yourlist.member.domain.MemberAuthProvider;
 import toolc.yourlist.member.domain.MemberRegisterAndLoginRequest;
 import toolc.yourlist.member.domain.Token;
+
 import toolc.yourlist.member.domain.TokenProvider;
 import toolc.yourlist.member.domain.loginId.LoginId;
 import toolc.yourlist.member.domain.password.Password;
@@ -25,7 +26,6 @@ public class OAuthAuthenticationSuccessHandler extends SimpleUrlAuthenticationSu
 
   @Value("${oauth.redirectUrl}")
   private String redirectUrl;
-
 
   // OAuth시 PC인지 아닌지 알 수가 없다...
   // TODO: 추후에 해결해야할 듯

@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toolc.yourlist.common.infra.JsonResponse;
-import toolc.yourlist.member.domain.*;
+import toolc.yourlist.member.domain.MemberAuthProvider;
+import toolc.yourlist.member.domain.TokenProvider;
+import toolc.yourlist.member.domain.VisitorAuthProvider;
+import toolc.yourlist.member.domain.VisitorToMemberChanger;
 
 @RestController
 @RequiredArgsConstructor
