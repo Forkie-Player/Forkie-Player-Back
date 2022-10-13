@@ -20,13 +20,11 @@ public class AuthArgumentResolverConfig implements WebMvcConfigurer {
     resolvers.add(authenticationArgumentResolver);
   }
 
-//  @Override
-//  public void addCorsMappings(CorsRegistry registry) {
-//    registry.addMapping("/**")
-//      .allowedOrigins("*")
-//      .allowedMethods("*")
-//      .allowedHeaders("*")
-//      .exposedHeaders()
-//      .allowCredentials(false);
-//  }
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")
+      .allowedOrigins("*")
+      .allowedMethods("*")
+      .allowedHeaders("*");
+  }
 }
