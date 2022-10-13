@@ -25,6 +25,7 @@ public class AuthArgumentResolverConfig implements WebMvcConfigurer {
     registry.addMapping("/**")
       .allowedOrigins("*")
       .allowedMethods("*")
-      .allowedHeaders("*");
+      .allowedHeaders("*")
+      .allowCredentials(false);
   }
 }
