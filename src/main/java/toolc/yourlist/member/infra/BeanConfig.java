@@ -108,8 +108,13 @@ public class BeanConfig {
   }
 
   @Bean
-  NicknameGenerator nicknameGenerator(AllMember allMember) {
-    return new NicknameGenerator(allMember);
+  WordProvidable wordProvidable() {
+    return new WordProvider();
+  }
+
+  @Bean
+  NicknameGenerator nicknameGenerator(AllMember allMember, WordProvidable wordProvidable) {
+    return new NicknameGenerator(allMember, wordProvidable);
   }
 
   @Bean
