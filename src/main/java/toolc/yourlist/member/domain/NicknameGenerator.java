@@ -1,15 +1,20 @@
 package toolc.yourlist.member.domain;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Random;
 
-@RequiredArgsConstructor
 public class NicknameGenerator {
   private final AllMember allMember;
+  private final List<String> nounList;
+  private final List<String> adjectiveList;
 
-  String generate(List<String> adjectiveList, List<String> nounList) {
+  public NicknameGenerator(AllMember allMember, WordProvidable wordProvidable) {
+    this.allMember = allMember;
+    this.nounList = wordProvidable.getNounList();
+    this.adjectiveList = wordProvidable.getAdjectiveList();
+  }
+
+  String generate() {
     final Random random = new Random();
 
     var nickname = adjectiveList.get(random.nextInt(adjectiveList.size())) + ' '
