@@ -108,8 +108,8 @@ public class BeanConfig {
   }
 
   @Bean
-  WordProvidable wordProvidable() {
-    return new WordProvider();
+  WordProvidable wordProvidable(JpaAllAdjectiveEntity jpaAllAdjectiveEntity, JpaAllNounEntity jpaAllNounEntity) {
+    return new WordProvider(jpaAllAdjectiveEntity, jpaAllNounEntity);
   }
 
   @Bean
